@@ -10,7 +10,7 @@ public abstract class Client {
     String NIF;
     String direction;
     String mail;
-    String fechaDeAlta;     //Nombre en ingles date?
+    String fechaDeAlta;     //Nombre en ingles?  date?
     Price price;
 
     Set<Invoice> invoices; //Utilizamos un conjunto?
