@@ -1,4 +1,4 @@
 package data.clients;
 
-public class Individual {
+public class Individual extends Client {
 }
