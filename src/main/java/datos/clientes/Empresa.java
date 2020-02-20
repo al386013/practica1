@@ -4,7 +4,7 @@ public class Empresa extends Cliente {
     //TODOS SUS ATRIBUTOS LOS HEREDA DE CLIENTE
 
     //CONSTRUCTOR
-    Empresa(String nombre, String NIF, String direccion, String email) {
+    public Empresa(final String nombre, final String NIF, final String direccion, final String email) {
         super(nombre, NIF, direccion, email);
     }
 

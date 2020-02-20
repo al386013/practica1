@@ -5,7 +5,7 @@ public class Particular extends Cliente {
     String apellidos;
 
     //CONSTRUCTOR
-    Particular(String nombre,String apellidos, String NIF, String direccion, String email){
+    public Particular(final String nombre, final String apellidos, final String NIF, final String direccion, final String email){
         super(nombre, NIF, direccion, email);
         this.apellidos = apellidos;
     }
