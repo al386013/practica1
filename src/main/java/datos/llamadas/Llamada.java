@@ -1,7 +1,7 @@
 package datos.llamadas;
 
 import interfaces.tieneFecha;
-
+import java.util.Scanner;
 import java.util.Calendar;
 
 public class Llamada implements tieneFecha {
@@ -32,5 +32,9 @@ public class Llamada implements tieneFecha {
         return fecha;
     }
 
-
+    public void darDeAlta() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Introduzca un número entero: ");
+        n = sc.nextInt();
+    }
 }
