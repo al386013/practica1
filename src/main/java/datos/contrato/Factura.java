@@ -15,7 +15,7 @@ public class Factura implements tieneFecha {
         this.tarifa = tarifa;
         this.fecha_emision = fecha_emision;
         this.periodo_fact = periodo_fact;
-        //this.importe = calcularImporte();
+        this.importe = calcularImporte();
     }
 
     @Override
@@ -23,7 +23,7 @@ public class Factura implements tieneFecha {
         return fecha_emision;
     }
 
-    //private float calcularImporte(){
+    private float calcularImporte(){
 
-    //}
+    }
 }
