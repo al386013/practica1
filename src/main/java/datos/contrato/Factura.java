@@ -26,4 +26,6 @@ public class Factura implements tieneFecha {
     private double calcularImporte(int periodo_fact, Tarifa tarifa) {
         return periodo_fact * tarifa.getTarifa();
     }
+
+
 }
