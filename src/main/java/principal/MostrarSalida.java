@@ -1,10 +1,13 @@
 package principal;
 
+import datos.clientes.Cliente;
 import datos.clientes.Direccion;
 
 import java.util.Scanner;
 
 public class MostrarSalida {
+    Scanner sc = new Scanner(System.in);
+
     //He pensado tener esta clase para que devuelva a App la salida con la cadena que aparece en la APP
     public static void main(String[] args) {
         MostrarSalida obj = new MostrarSalida();
@@ -48,96 +51,167 @@ public class MostrarSalida {
     }
 
     public void lanzarMetodo(int op, CarteraClientes cartera) {
-        Scanner sc = new Scanner(System.in);
         switch (op) {
             case 1:
-                System.out.println("Dar de alta un nuevo cliente.\n");
-                System.out.println("Introduce e para empresa o p para particular: \n");
-                String letra = sc.next();
-                while(letra != "e" && letra != "p") {
-                    System.out.println("Parámetro incorrecto. Vuelve a intentarlo: ");
-                    System.out.println("Introduce e para empresa o p para particular: \n");
-                    letra = sc.next();
-                }
-                System.out.println("Introduce nombre: ");
-                String nombre = sc.next();
-                System.out.println("Introduce NIF: ");
-                String nif = sc.next();
-                System.out.println("Introduce CP: ");
-                int cp = sc.nextInt();
-                System.out.println("Introduce provincia: ");
-                String provincia = sc.next();
-                System.out.println("Introduce poblacion: ");
-                String poblacion = sc.next();
-                Direccion direccion = new Direccion(cp, provincia, poblacion);
-                System.out.println("Introduce email: ");
-                String email = sc.next();
-                boolean res;
-                if(letra == "p") { //anadir particular
-                    System.out.println("Introduce apellidos: ");
-                    String apellidos = sc.next();
-                    res = cartera.anadirParticular(nombre, apellidos, nif, direccion, email);
-                }
-                else res = cartera.anadirEmpresa(nombre, nif, direccion, email);
-                if(!res)
-                    System.out.println("Cliente ya existente en la base de datos. ");
+                lanzarMetodo1(cartera);
                 break;
-
             case 2:
-                System.out.println("Borrar un cliente.\n");
-                System.out.println("Introduce su NIF: \n");
-                nif = sc.next();
-                res = cartera.borrarCliente(nif);
-                if(!res)
-                    System.out.println("Cliente no existente en la base de datos. ");
+               lanzarMetodo2(cartera);
                 break;
-
             case 3:
-                System.out.println("Cambiar la tarifa de un cliente. \n");
+                lanzarMetodo3(cartera);
                 break;
-
             case 4:
-                System.out.println("Recuperar los datos de un cliente. \n");
-                System.out.println("Introduce su NIF: \n");
-                nif = sc.next();
+                lanzarMetodo4(cartera);
                 break;
-
             case 5:
-                System.out.println("Recuperar el listado de todos los clientes:\n");
-                System.out.println(cartera.listarClientes());
+                lanzarMetodo5(cartera);
                 break;
-
             case 6:
-                System.out.println("Dar de alta una llamada:\n");
+                lanzarMetodo6(cartera);
                 break;
-
             case 7:
-                System.out.println("Listar todas las llamadas de un cliente:\n");
-                System.out.println("Introduce su NIF: \n");
-                nif = sc.next();
+                lanzarMetodo7(cartera);
                 break;
-
             case 8:
-                System.out.println("Emitir factura para un cliente:\n");
-                System.out.println("Introduce su NIF: \n");
-                nif = sc.next();
+                lanzarMetodo8(cartera);
                 break;
-
             case 9:
-                System.out.println("Recuperar datos de una factura:\n");
-                System.out.println("Introduce su codigo: \n");
-                int cod = sc.nextInt();
+                lanzarMetodo9(cartera);
                 break;
-
             case 10:
-                System.out.println("Listar todas las facturas de un cliente:\n");
-                System.out.println("Introduce su NIF: \n");
-                nif = sc.next();
+                lanzarMetodo10(cartera);
                 break;
-
             case 11:
-                System.out.println("Cierre del programa");
+               lanzarMetodo11(cartera);
                 break;
         }
+    }
+
+    public void lanzarMetodo1(CarteraClientes cartera) {
+        Cliente cliente;
+        System.out.println("Dar de alta un nuevo cliente.\n");
+        System.out.println("Introduce e para empresa o p para particular: \n");
+        String letra = sc.next();
+        while(letra != "e" && letra != "p") {
+            System.out.println("Parámetro incorrecto. Vuelve a intentarlo: ");
+            System.out.println("Introduce e para empresa o p para particular: \n");
+            letra = sc.next();
+        }
+        System.out.println("Introduce nombre: ");
+        String nombre = sc.next();
+        System.out.println("Introduce NIF: ");
+        String nif = sc.next();
+        System.out.println("Introduce CP: ");
+        String cp = sc.next();
+        System.out.println("Introduce provincia: ");
+        String provincia = sc.next();
+        System.out.println("Introduce poblacion: ");
+        String poblacion = sc.next();
+        Direccion direccion = new Direccion(cp, provincia, poblacion);
+        System.out.println("Introduce email: ");
+        String email = sc.next();
+        if(letra == "p") { //anadir particular
+            System.out.println("Introduce apellidos: ");
+            String apellidos = sc.next();
+            cliente = cartera.anadirParticular(nombre, apellidos, nif, direccion, email);
+        }
+        else cliente = cartera.anadirEmpresa(nombre, nif, direccion, email);
+        if(cliente == null)
+            System.out.println("Cliente ya existente en la base de datos. ");
+        else System.out.println("Operación realizada con éxito");
+    }
+
+    public void lanzarMetodo2(CarteraClientes cartera) {
+        System.out.println("Borrar un cliente.\n");
+        System.out.println("Introduce su NIF: \n");
+        String nif = sc.next();
+        Cliente cliente = cartera.borrarCliente(nif);
+        if(cliente == null) System.out.println("Cliente no existente en la base de datos. ");
+        else System.out.println("Operación realizada con éxito");
+    }
+
+    public void lanzarMetodo3(CarteraClientes cartera) {
+        System.out.println("Cambiar la tarifa de un cliente. \n");
+        System.out.println("Introduce su NIF: \n");
+        String nif = sc.next();
+        Cliente cliente = cartera.devolverCliente(nif);
+        if(cliente == null)
+            System.out.println("Cliente no existente en la base de datos. ");
+        else {
+            System.out.println("Introduce la tarifa deseada (en €/min): \n");
+            double tarifa = sc.nextDouble();
+            while (tarifa < 0 || tarifa > 100) {
+                System.out.println("Tarifa no permitida, vuelve a introducir la tarifa deseada: ");
+                tarifa = sc.nextDouble();
+            }
+            cliente.cambiarTarifa(tarifa);
+            System.out.println("Operación realizada con éxito");
+        }
+    }
+
+    public void lanzarMetodo4(CarteraClientes cartera) {
+        System.out.println("Recuperar los datos de un cliente. \n");
+        System.out.println("Introduce su NIF: \n");
+        String nif = sc.next();
+        String res = cartera.recDatosCliente(nif);
+        if(res == null) System.out.println("Cliente no existente en la base de datos. ");
+        else System.out.println(res);
+    }
+
+    public void lanzarMetodo5(CarteraClientes cartera) {
+        System.out.println("Recuperar el listado de todos los clientes:\n");
+        System.out.println(cartera.listarClientes());
+    }
+
+    public void lanzarMetodo6(CarteraClientes cartera) {
+        System.out.println("Dar de alta una llamada:\n");
+        System.out.println("Introduce el NIF del cliente que hace la llamada: \n");
+        String nif = sc.next();
+        Cliente cliente = cartera.devolverCliente(nif);
+        if(cliente == null) System.out.println("Cliente no existente en la base de datos. ");
+        else {
+            System.out.println("Introduce el telefono de destino: ");
+            String telf = sc.next();
+            System.out.println("Introduce la fecha de la llamada (formato dd/mm/aaaa)"); //comprobar que está correcta??
+            String fecha = sc.next();
+            System.out.println("Introduce la hora de la llamada (formato hh:hh)");
+            String hora = sc.next();
+            System.out.println("Introduce la duración de la llamada (en segundos)");
+            int duracion = sc.nextInt();
+            while(duracion < 0) {
+                System.out.println("Duracion incorrecta. Vuelve a introducir la duracion (en segundos): ");
+                duracion = sc.nextInt();
+            }
+        }
+
+    }
+
+    public void lanzarMetodo7(CarteraClientes cartera) {
+        System.out.println("Listar todas las llamadas de un cliente:\n");
+        System.out.println("Introduce su NIF: \n");
+        String nif = sc.next();
+    }
+
+    public void lanzarMetodo8(CarteraClientes cartera) {
+        System.out.println("Emitir factura para un cliente:\n");
+        System.out.println("Introduce su NIF: \n");
+        String nif = sc.next();
+    }
+
+    public void lanzarMetodo9(CarteraClientes cartera) {
+        System.out.println("Recuperar datos de una factura:\n");
+        System.out.println("Introduce su codigo: \n");
+        int cod = sc.nextInt();
+    }
+
+    public void lanzarMetodo10(CarteraClientes cartera) {
+        System.out.println("Listar todas las facturas de un cliente:\n");
+        System.out.println("Introduce su NIF: \n");
+        String nif = sc.next();
+    }
+
+    public void lanzarMetodo11(CarteraClientes cartera) {
+        System.out.println("Cierre del programa");
     }
 }
