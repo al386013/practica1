@@ -13,6 +13,7 @@ public class GestorFacturas {
 
     //Metodo emitirFactura, devuelve null si no existe el cliente
     public Factura emitirFactura(String nifCliente){
+        //AQUI TENGO EL MISMO PROBLEMA QUE GESTOR LLAMADAS!! NO PUEDO HACER REFERENCIA AL ATRIBUTO CLIENTES PORQUE ES DE LA CLASE GESTORCLIENTES
         if(!clientes.containsKey(nifCliente)) return null;
         else {
             Calendar fechaActual = Calendar.getInstance();

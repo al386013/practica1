@@ -14,7 +14,7 @@ public class MostrarSalida {
         System.out.println(obj.crearSalida());
         int op = obj.leerOpcion();
         System.out.println("Has elegido la opción " + op);
-        CarteraClientes cartera = new CarteraClientes();
+        GestorClientes cartera = new GestorClientes();
         obj.lanzarMetodo(op, cartera);
     }
 
@@ -50,7 +50,7 @@ public class MostrarSalida {
         return op;
     }
 
-    public void lanzarMetodo(int op, CarteraClientes cartera) {
+    public void lanzarMetodo(int op, GestorClientes cartera) {
         switch (op) {
             case 1:
                 lanzarMetodo1(cartera);
@@ -88,7 +88,7 @@ public class MostrarSalida {
         }
     }
 
-    public void lanzarMetodo1(CarteraClientes cartera) {
+    public void lanzarMetodo1(GestorClientes cartera) {
         Cliente cliente;
         System.out.println("Dar de alta un nuevo cliente.\n");
         System.out.println("Introduce e para empresa o p para particular: \n");
@@ -124,7 +124,7 @@ public class MostrarSalida {
         else System.out.println("Operación realizada con éxito");
     }
 
-    public void lanzarMetodo2(CarteraClientes cartera) {
+    public void lanzarMetodo2(GestorClientes cartera) {
         System.out.println("Borrar un cliente.\n");
         System.out.println("Introduce su NIF: \n");
         String nif = sc.next();
@@ -133,7 +133,7 @@ public class MostrarSalida {
         else System.out.println("Operación realizada con éxito");
     }
 
-    public void lanzarMetodo3(CarteraClientes cartera) {
+    public void lanzarMetodo3(GestorClientes cartera) {
         System.out.println("Cambiar la tarifa de un cliente. \n");
         System.out.println("Introduce su NIF: \n");
         String nif = sc.next();
@@ -152,7 +152,7 @@ public class MostrarSalida {
         }
     }
 
-    public void lanzarMetodo4(CarteraClientes cartera) {
+    public void lanzarMetodo4(GestorClientes cartera) {
         System.out.println("Recuperar los datos de un cliente. \n");
         System.out.println("Introduce su NIF: \n");
         String nif = sc.next();
@@ -161,12 +161,12 @@ public class MostrarSalida {
         else System.out.println(res);
     }
 
-    public void lanzarMetodo5(CarteraClientes cartera) {
+    public void lanzarMetodo5(GestorClientes cartera) {
         System.out.println("Recuperar el listado de todos los clientes:\n");
         System.out.println(cartera.listarClientes());
     }
 
-    public void lanzarMetodo6(CarteraClientes cartera) {
+    public void lanzarMetodo6(GestorClientes cartera) {
         System.out.println("Dar de alta una llamada:\n");
         System.out.println("Introduce el telefono del cliente que hace la llamada: \n");
         String tel = sc.next();
@@ -184,31 +184,31 @@ public class MostrarSalida {
         }
     }
 
-    public void lanzarMetodo7(CarteraClientes cartera) {
+    public void lanzarMetodo7(GestorClientes cartera) {
         System.out.println("Listar todas las llamadas de un cliente:\n");
         System.out.println("Introduce su NIF: \n");
         String nif = sc.next();
     }
 
-    public void lanzarMetodo8(CarteraClientes cartera) {
+    public void lanzarMetodo8(GestorClientes cartera) {
         System.out.println("Emitir factura para un cliente:\n");
         System.out.println("Introduce su NIF: \n");
         String nif = sc.next();
     }
 
-    public void lanzarMetodo9(CarteraClientes cartera) {
+    public void lanzarMetodo9(GestorClientes cartera) {
         System.out.println("Recuperar datos de una factura:\n");
         System.out.println("Introduce su codigo: \n");
         int cod = sc.nextInt();
     }
 
-    public void lanzarMetodo10(CarteraClientes cartera) {
+    public void lanzarMetodo10(GestorClientes cartera) {
         System.out.println("Listar todas las facturas de un cliente:\n");
         System.out.println("Introduce su NIF: \n");
         String nif = sc.next();
     }
 
-    public void lanzarMetodo11(CarteraClientes cartera) {
+    public void lanzarMetodo11(GestorClientes cartera) {
         System.out.println("Cierre del programa");
     }
 }

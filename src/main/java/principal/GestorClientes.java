@@ -11,14 +11,18 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
-public class CarteraClientes {
+public class GestorClientes {
     //ATRIBUTOS
 
     private HashMap<String, Cliente> clientes;
 
 
-    public CarteraClientes(){
+    public GestorClientes(){
         this.clientes = new HashMap<String, Cliente>();
+    }
+
+    public HashMap<String, Cliente> getClientes() {
+        return clientes;
     }
 
     //Metodo devulveCliente, si no existe devuelve null

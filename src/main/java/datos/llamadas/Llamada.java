@@ -10,7 +10,6 @@ public class Llamada implements tieneFecha {
     private String hora;
     private int duracion; //en minutos??
 
-    //Perdona que te escriba el constructor, pero lo necesito para implementar el metodo efectuar llamada
     public Llamada (String telfDestino, int duracion){
         this.telf = telfDestino;
         Calendar fechaActual = Calendar.getInstance();
@@ -25,4 +24,23 @@ public class Llamada implements tieneFecha {
         return fecha;
     }
 
+    public String getTelf() {
+        return telf;
+    }
+
+    public int getDuracion() {
+        return duracion;
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    @Override
+    public String toString() {
+        return "Llamada realizada el " + fecha +
+                " a las " + hora +
+                " con una duracion de " + duracion +
+                " al telefono " + telf + "\n";
+    }
 }
