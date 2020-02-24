@@ -4,10 +4,8 @@ import datos.contrato.Factura;
 import datos.contrato.Tarifa;
 import datos.llamadas.Llamada;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Calendar;
-import java.util.Set;
+import java.util.*;
+
 
 //preguntar si los constructores son public
 
@@ -19,6 +17,8 @@ public abstract class Cliente {
     private String fechaDeAlta;
     private Tarifa tarifa;
     private HashMap<int, Factura> facturas; //La clave corresponde al codigo de factura
+
+    private HashMap<String, Cliente> clientes;
 
     public Cliente(final String nombre, final String NIF, final Direccion direccion, final String email){
         this.nombre = nombre;
@@ -38,5 +38,20 @@ public abstract class Cliente {
         //Se que esto habrá que cambiarlo pero es por tener algo:
         Llamada efectuada = new Llamada("692245585", 2);
         return efectuada;
+    }
+
+    public String listarClientes() {
+        Iterator<Cliente> iter = clientes.values().iterator();
+        StringBuilder sb = new StringBuilder();
+        while(iter.hasNext()) {
+            Cliente cliente = iter.next();
+            sb.append("Nombre: " + cliente.nombre + ", ");
+            sb.append("NIF: " + cliente.NIF + ", ");
+            sb.append("Direccion: " + cliente.direccion + ", ");
+            sb.append("Email: " + cliente.email + ", ");
+            sb.append("Fecha de alta: " + cliente.fechaDeAlta + ", ");
+            sb.append("Tarida: " + cliente.tarifa + ", ");
+        }
+        return sb.toString();
     }
 }
