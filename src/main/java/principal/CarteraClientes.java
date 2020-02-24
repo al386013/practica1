@@ -14,18 +14,16 @@ import java.util.Set;
 public class CarteraClientes {
     //ATRIBUTOS
     private static int codFac = 0;
-    private HashMap<String, Cliente> clientes;
-
+    private HashMap<String, Cliente> clientes; //por nif
 
     public CarteraClientes(){
         this.clientes = new HashMap<String, Cliente>();
     }
 
     //Metodo devulveCliente, si no existe devuelve null
-    public Cliente devulveCliente(String NIF){
+    public Cliente devuelveCliente(String NIF){
         return clientes.get(NIF);
     }
-
 
     //Metodo anadirParticular, llama al constructor de Cliente, lo crea, lo añadimos a la cartera y lo devolvemos.
     //Devuelve null si ya existe el cliente y no lo modifica
@@ -64,9 +62,9 @@ public class CarteraClientes {
 
     //recuperar todos los datos de un cliente a partir del NIF
     public String recDatosCliente(String NIF) {
-        if(!clientes.containsKey(NIF)) return null;
+        Cliente cliente = clientes.get(NIF);
+        if(clientes == null) return null;
         else {
-            Cliente cliente = clientes.get(NIF);
             StringBuilder sb = new StringBuilder();
                 sb.append("Nombre: " + cliente.getNombre() + ", ");
                 sb.append("NIF: " + cliente.getNIF() + ", ");
@@ -78,7 +76,7 @@ public class CarteraClientes {
         }
     }
 
-    //listar clientes
+    //listar todos los clientes
     public String listarClientes() {
         Iterator<Cliente> iter = clientes.values().iterator();
         StringBuilder sb = new StringBuilder();
@@ -87,35 +85,5 @@ public class CarteraClientes {
             sb.append(recDatosCliente(cliente.getNIF()));
         }
         return sb.toString();
-    }
-
-    //recuperarFacturasCliente devuelve un String de todas las facturas del cliente, si no existe el cliente devuelve null
-    public String recuperarFacturasCliente(String NIF){
-        if(!clientes.containsKey(NIF)) return null;
-        else{
-            StringBuilder sb = new StringBuilder();
-            Cliente cliente = clientes.get(NIF);
-            for(Factura factura : cliente.getFacturas().values()){
-
-                sb.append("Codigo factura: " + factura.getCodigo() + ", ");
-                sb.append("Fecha: " + factura.getFecha() + ", ");
-                sb.append("Fecha de emision: " + factura.getFecha_emision() + ", ");
-                sb.append("Periodo de Facturacion: " + factura.getPeriodo_fact() + ", ");
-                sb.append("Importe: " + factura.getImporte()  + ", ");
-                sb.append("Tarifa: " + factura.getTarifa() + ", ");
-
-            }
-            return sb.toString();
-        }
-    }
-
-    //Metodo emitirFactura, devuelve null si no existe el cliente
-    public Factura emitirFactura(String nifCliente){
-        if(!clientes.containsKey(nifCliente)) return null;
-        else {
-            Calendar fechaActual = Calendar.getInstance();
-            Factura nuevaFactura = new Factura(codFac++, clientes.get(nifCliente).getTarifa(),fechaActual.getTime().toString(),30);
-            return nuevaFactura;
-        }
     }
 }

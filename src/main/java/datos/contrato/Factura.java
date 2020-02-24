@@ -8,14 +8,16 @@ public class Factura implements tieneFecha {
     private final String fecha_emision;
     private final int periodo_fact; //en dias?????
     private final double importe; //float o double??
+    private final String nifCliente;
 
     //todos final?? la fecha de emisión es un parametro?
-    public Factura(int codFac, Tarifa tarifa, String fecha_emision, int periodo_fact) {
+    public Factura(int codFac, Tarifa tarifa, String fecha_emision, int periodo_fact, String nifCliente) {
         this.codigo = codFac;
         this.tarifa = tarifa;
         this.fecha_emision = fecha_emision;
         this.periodo_fact = periodo_fact;
         this.importe = calcularImporte(periodo_fact, tarifa);
+        this.nifCliente = nifCliente;
     }
 
     public int getCodigo() {
@@ -36,6 +38,10 @@ public class Factura implements tieneFecha {
 
     public double getImporte() {
         return importe;
+    }
+
+    public String getNifCliente() {
+        return nifCliente;
     }
 
     @Override
