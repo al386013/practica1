@@ -37,9 +37,9 @@ public class GestorFacturas {
         }
     }
 
-    //recuperar todas las facturas de un cliente a partir de u nif
+    //recuperar todas las facturas de un cliente a partir de su nif
     public String listarFacturasCliente(String nif) {
-
+        CarteraClientes.dev
         Iterator<Cliente> iter = clientes.values().iterator();
         StringBuilder sb = new StringBuilder();
         while(iter.hasNext()) {

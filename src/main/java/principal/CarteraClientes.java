@@ -88,7 +88,6 @@ public class CarteraClientes {
         return sb.toString();
     }
 
-
     public boolean contieneClienteConTelefono(String telefono){
         Set<String> nifsClientes = this.clientes.keySet();
         for(String nif : nifsClientes){
