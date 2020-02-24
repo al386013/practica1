@@ -55,9 +55,8 @@ public class CarteraClientes {
     public Factura emitirFactura(String nifCliente){
         if(!clientes.containsKey(nifCliente)) return null;
         else {
-
-            Factura factura = new Factura()
-            return
+            Cliente cliente = clientes.get(nifCliente);
+            return null;
         }
     }
 }
