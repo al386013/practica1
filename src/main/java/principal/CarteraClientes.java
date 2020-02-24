@@ -7,6 +7,7 @@ import datos.clientes.Particular;
 import datos.contrato.Factura;
 
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class CarteraClientes {
     private HashMap<String, Cliente> clientes;
@@ -17,9 +18,9 @@ public class CarteraClientes {
     }
 
 
-    //Metodo añadirParticular, llama al constructor de Cliente, lo crea y lo añadimos a la cartera.
+    //Metodo anadirParticular, llama al constructor de Cliente, lo crea y lo añadimos a la cartera.
     //Devuelve false si ya existe el cliente y no lo modifica
-    public boolean añadirParticular(String nombre,String apellidos, String NIF, Direccion direccion, String email){
+    public boolean anadirParticular(String nombre,String apellidos, String NIF, Direccion direccion, String email){
         //Comprobar que no existe el cliente:
         if(clientes.containsKey(NIF)) return false;
         else {
@@ -28,9 +29,9 @@ public class CarteraClientes {
             return true;
         }
     }
-    //Metodo añadirEmpresa, llama al constructor de Cliente, lo crea y lo añadimos a la cartera.
+    //Metodo anadirEmpresa, llama al constructor de Cliente, lo crea y lo añadimos a la cartera.
     //Devuelve false si ya existe el cliente y no lo modifica
-    public boolean añadirEmpresa(String nombre, String NIF, Direccion direccion, String email){
+    public boolean anadirEmpresa(String nombre, String NIF, Direccion direccion, String email){
         //Comprobar que no existe el cliente:
         if(clientes.containsKey(NIF)) return false;
         else {
@@ -50,6 +51,23 @@ public class CarteraClientes {
             return true;
         }
     }
+
+    //listar clientes
+    public String listarClientes() {
+        Iterator<Cliente> iter = clientes.values().iterator();
+        StringBuilder sb = new StringBuilder();
+        while(iter.hasNext()) {
+            Cliente cliente = iter.next();
+            sb.append("Nombre: " + cliente.nombre + ", ");
+            sb.append("NIF: " + cliente.NIF + ", ");
+            sb.append("Direccion: " + cliente.direccion + ", ");
+            sb.append("Email: " + cliente.email + ", ");
+            sb.append("Fecha de alta: " + cliente.fechaDeAlta + ", ");
+            sb.append("Tarida: " + cliente.tarifa + ", ");
+        }
+        return sb.toString();
+    }
+
 
 
     //Metodo emitirFactura, devuelve null si no existe el cliente

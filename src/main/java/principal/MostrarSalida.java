@@ -51,10 +51,13 @@ public class MostrarSalida {
                 System.out.println("Dar de alta un nuevo cliente.\n");
                 System.out.println("Introduce e para empresa o p para particular: \n");
                 String letra = sc.next();
-                while(!letra.equals("e") && !letra.equals("p")) {
+                while(letra != "e" && letra != "p") {
                     System.out.println("Parámetro incorrecto. Vuelve a intentarlo: ");
                     System.out.println("Introduce e para empresa o p para particular: \n");
                     letra = sc.next();
+                }
+                if(letra == "p") { //anadir particular
+
                 }
                 break;
 
