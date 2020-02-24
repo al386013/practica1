@@ -28,6 +28,7 @@ public class MostrarSalida {
         salida += "8) Emitir una factura para un cliente \n";
         salida += "9) Recuperar los datos de una factura a partir de su código \n";
         salida += "10) Recuperar todas las facturas de un cliente \n";
+        salida += "\n";
         salida += "11) Salir \n";
         return salida;
     }
