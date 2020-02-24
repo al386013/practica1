@@ -13,8 +13,9 @@ import java.util.Set;
 
 public class CarteraClientes {
     //ATRIBUTOS
-    private static int codFac = 0;
-    private HashMap<String, Cliente> clientes; //por nif
+
+    private HashMap<String, Cliente> clientes;
+
 
     public CarteraClientes(){
         this.clientes = new HashMap<String, Cliente>();
@@ -86,4 +87,14 @@ public class CarteraClientes {
         }
         return sb.toString();
     }
+
+
+    public boolean contieneClienteConTelefono(String telefono){
+        Set<String> nifsClientes = this.clientes.keySet();
+        for(String nif : nifsClientes){
+            if(clientes.get(nif).getTelf().equals(telefono)) return true;
+        }
+        return false;
+    }
+
 }
