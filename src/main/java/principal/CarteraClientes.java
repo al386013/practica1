@@ -11,6 +11,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 public class CarteraClientes {
+    private static int codFac = 0000;
     private HashMap<String, Cliente> clientes;
 
 
@@ -53,22 +54,32 @@ public class CarteraClientes {
         }
     }
 
+    //recuperar todos los datos de un cliente a partir del NIF
+    public String recDatosCliente(String NIF) {
+        if(!clientes.containsKey(NIF)) return null;
+        else {
+            Cliente cliente = clientes.get(NIF);
+            StringBuilder sb = new StringBuilder();
+                sb.append("Nombre: " + cliente.getNombre() + ", ");
+                sb.append("NIF: " + cliente.getNIF() + ", ");
+                sb.append("Direccion: " + cliente.getDireccion() + ", ");
+                sb.append("Email: " + cliente.getEmail() + ", ");
+                sb.append("Fecha de alta: " + cliente.getFechaDeAlta() + ", ");
+                sb.append("Tarifa: " + cliente.getTarifa() + ", ");
+            return sb.toString();
+        }
+    }
+
     //listar clientes
     public String listarClientes() {
         Iterator<Cliente> iter = clientes.values().iterator();
         StringBuilder sb = new StringBuilder();
         while(iter.hasNext()) {
             Cliente cliente = iter.next();
-            sb.append("Nombre: " + cliente.getNombre() + ", ");
-            sb.append("NIF: " + cliente.getNIF() + ", ");
-            sb.append("Direccion: " + cliente.getDireccion() + ", ");
-            sb.append("Email: " + cliente.getEmail() + ", ");
-            sb.append("Fecha de alta: " + cliente.getFechaDeAlta() + ", ");
-            sb.append("Tarifa: " + cliente.getTarifa() + ", ");
+            sb.append(recDatosCliente(cliente.getNIF()));
         }
         return sb.toString();
     }
-
 
     //recuperarFacturasCliente devuelve un String de todas las facturas del cliente, si no existe el cliente devuelve null
     public String recuperarFacturasCliente(String NIF){
@@ -76,20 +87,19 @@ public class CarteraClientes {
         else{
             StringBuilder sb = new StringBuilder();
             Cliente cliente = clientes.get(NIF);
-            for(Integer codFactura : cliente.getFacturas().keySet()){
+            for(Factura factura : cliente.getFacturas().values()){
 
-                sb.append("Codigo factura: " + codFactura + ", ");
-                sb.append("Fecha: " + clientes.get(NIF).getFacturas().get(codFactura).getFecha() + ", ");
-                sb.append("Fecha de emision: " + clientes.get(NIF).getFacturas().get(codFactura).getFecha_emision() + ", ");
-                sb.append("Periodo de Facturacion: " + clientes.get(NIF).getFacturas().get(codFactura).getPeriodo_fact() + ", ");
-                sb.append("Importe: " + clientes.get(NIF).getFacturas().get(codFactura).getImporte()  + ", ");
-                sb.append("Tarifa: " + clientes.get(NIF).getFacturas().get(codFactura).getTarifa() + ", ");
+                sb.append("Codigo factura: " + factura.getCodigo() + ", ");
+                sb.append("Fecha: " + factura.getFecha() + ", ");
+                sb.append("Fecha de emision: " + factura.getFecha_emision() + ", ");
+                sb.append("Periodo de Facturacion: " + factura.getPeriodo_fact() + ", ");
+                sb.append("Importe: " + factura.getImporte()  + ", ");
+                sb.append("Tarifa: " + factura.getTarifa() + ", ");
 
             }
             return sb.toString();
         }
     }
-
 
     //Metodo emitirFactura, devuelve null si no existe el cliente
     public Factura emitirFactura(String nifCliente){
