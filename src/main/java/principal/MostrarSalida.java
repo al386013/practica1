@@ -45,9 +45,15 @@ public class MostrarSalida {
     }
 
     public void lanzarMetodo(int op) {
+        Scanner sc = new Scanner(System.in);
         switch (op) {
-            default:
-                System.out.println("JEJe");
+            case 1:
+                System.out.println("Dar de alta un nuevo cliente.\n");
+                System.out.println("Dar de alta un nuevo cliente.\n");
+                double longitud = 2 * Math.PI * radio;
+                System.out.println("La longitud de la circunferencia es: " + longitud);
+                break;
+
         }
     }
 }
