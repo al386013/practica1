@@ -53,4 +53,8 @@ public abstract class Cliente {
     public Direccion getDireccion() {
         return direccion;
     }
+
+    public HashMap<Integer, Factura> getFacturas() {
+        return facturas;
+    }
 }

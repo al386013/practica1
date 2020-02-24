@@ -18,6 +18,26 @@ public class Factura implements tieneFecha {
         this.importe = calcularImporte(periodo_fact, tarifa);
     }
 
+    public static int getCodigo() {
+        return codigo;
+    }
+
+    public Tarifa getTarifa() {
+        return tarifa;
+    }
+
+    public String getFecha_emision() {
+        return fecha_emision;
+    }
+
+    public int getPeriodo_fact() {
+        return periodo_fact;
+    }
+
+    public double getImporte() {
+        return importe;
+    }
+
     @Override
     public String getFecha() {
         return fecha_emision;
