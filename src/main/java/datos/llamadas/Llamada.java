@@ -32,7 +32,4 @@ public class Llamada implements tieneFecha {
         return fecha;
     }
 
-    public void darDeAlta() {
-
-    }
 }
