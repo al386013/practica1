@@ -6,6 +6,7 @@ import datos.llamadas.Llamada;
 
 import java.util.*;
 
+
 //preguntar si los constructores son public
 
 public abstract class Cliente {
@@ -15,7 +16,7 @@ public abstract class Cliente {
     private String email;
     private String fechaDeAlta;
     private Tarifa tarifa;
-    private Set<Factura> facturas;
+    private HashMap<int, Factura> facturas; //La clave corresponde al codigo de factura
 
     public Cliente(final String nombre, final String NIF, final Direccion direccion, final String email){
         this.nombre = nombre;
@@ -26,9 +27,10 @@ public abstract class Cliente {
         Calendar fechaActual = Calendar.getInstance();
         this.fechaDeAlta = fechaActual.toString();
         this.tarifa = new Tarifa(); //Preguntar si es necesario instanciar
-        this.facturas = new HashSet<Factura>();
+        this.facturas = new HashMap<int, Factura>();
     }
 
+    //Metodo que realiza una llamada, debemos guardar todos los minutos que lleva
     public Llamada efectuarLlamada(){
         //El cliente introduce el telefono destino y la duracion????
         //Se que esto habrá que cambiarlo pero es por tener algo:
