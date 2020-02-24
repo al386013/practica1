@@ -56,7 +56,6 @@ public class MostrarSalida {
                     System.out.println("Introduce e para empresa o p para particular: \n");
                     letra = sc.next();
                 }
-
                 break;
 
         }
