@@ -3,7 +3,7 @@ package datos.contrato;
 import interfaces.tieneFecha;
 
 public class Factura implements tieneFecha {
-    private static int codigo;
+    private static int codigo = 0000;
     private Tarifa tarifa; // €/min, tipo float o double o tarifa
     private String fecha_emision;
     private int periodo_fact; //en dias?????

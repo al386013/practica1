@@ -11,6 +11,7 @@ import java.util.HashMap;
 public class CarteraClientes {
     private HashMap<String, Cliente> clientes;
 
+
     public CarteraClientes(){
         this.clientes = new HashMap<String, Cliente>();
     }
@@ -55,9 +56,9 @@ public class CarteraClientes {
     public Factura emitirFactura(String nifCliente){
         if(!clientes.containsKey(nifCliente)) return null;
         else {
+            Cliente cliente = clientes.get(nifCliente);
 
-            Factura factura = new Factura()
-            return
+            return null;
         }
     }
 }
