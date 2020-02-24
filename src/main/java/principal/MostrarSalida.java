@@ -49,9 +49,14 @@ public class MostrarSalida {
         switch (op) {
             case 1:
                 System.out.println("Dar de alta un nuevo cliente.\n");
-                System.out.println("Dar de alta un nuevo cliente.\n");
-                double longitud = 2 * Math.PI * radio;
-                System.out.println("La longitud de la circunferencia es: " + longitud);
+                System.out.println("Introduce e para empresa o p para particular: \n");
+                String letra = sc.next();
+                while(!letra.equals("e") && !letra.equals("p")) {
+                    System.out.println("Parámetro incorrecto. Vuelve a intentarlo: ");
+                    System.out.println("Introduce e para empresa o p para particular: \n");
+                    letra = sc.next();
+                }
+
                 break;
 
         }
