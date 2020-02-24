@@ -10,13 +10,13 @@ import java.util.Set;
 //preguntar si los constructores son public
 
 public abstract class Cliente {
-    String nombre;
-    String NIF;
-    Direccion direccion;
-    String email;
-    String fechaDeAlta;
-    Tarifa tarifa;
-    Set<Factura> facturas;
+    private String nombre;
+    private String NIF;
+    private Direccion direccion;
+    private String email;
+    private String fechaDeAlta;
+    private Tarifa tarifa;
+    private Set<Factura> facturas;
 
     public Cliente(final String nombre, final String NIF, final Direccion direccion, final String email){
         this.nombre = nombre;

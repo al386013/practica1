@@ -5,10 +5,10 @@ import java.util.Scanner;
 import java.util.Calendar;
 
 public class Llamada implements tieneFecha {
-    String telf;
-    String fecha;
-    String hora;
-    int duracion; //en minutos??
+    private String telf;
+    private String fecha;
+    private String hora;
+    private int duracion; //en minutos??
 
     //Perdona que te escriba el constructor, pero lo necesito para implementar el metodo efectuar llamada
     public Llamada (String telfDestino, int duracion){
@@ -33,8 +33,6 @@ public class Llamada implements tieneFecha {
     }
 
     public void darDeAlta() {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Introduzca un número entero: ");
-        n = sc.nextInt();
+
     }
 }

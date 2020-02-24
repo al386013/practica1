@@ -1,9 +1,9 @@
 package datos.clientes;
 
 public class Direccion {
-    String CP;
-    String provincia;
-    String poblacion;
+    private String CP;
+    private String provincia;
+    private String poblacion;
 
     public Direccion(final String CP, final String provincia, final String poblacion) {
         this.CP = CP;

@@ -1,7 +1,7 @@
 package datos.contrato;
 
 public class Tarifa {
-    double tarifa = 0.05;
+    private double tarifa = 0.05;
 
     public Tarifa() { }
 
