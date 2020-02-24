@@ -11,7 +11,7 @@ public class Direccion {
         this.poblacion = poblacion;
     }
 
-    public String toString(){
-        return this.poblacion + " " + this.provincia + " "  + this.CP;
+    public String toString() {
+        return this.poblacion + " " + this.provincia + " " + this.CP;
     }
 }

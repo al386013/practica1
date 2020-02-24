@@ -1,7 +1,6 @@
 package datos.llamadas;
 
 import interfaces.tieneFecha;
-import java.util.Scanner;
 import java.util.Calendar;
 
 public class Llamada implements tieneFecha {
@@ -10,14 +9,15 @@ public class Llamada implements tieneFecha {
     private String hora;
     private int duracion; //en minutos??
 
-    public Llamada (String telfDestino, int duracion){
+    public Llamada(String telfDestino, String fecha, String hora, int duracion) {
         this.telf = telfDestino;
-        Calendar fechaActual = Calendar.getInstance();
-        this.fecha = fechaActual.getTime().toString();
-        this.hora = fechaActual.getTime().toString();
+        //Calendar fechaActual = Calendar.getInstance();
+        //this.fecha = fechaActual.getTime().toString();
+        //this.hora = fechaActual.getTime().toString();
+        this.fecha = fecha;
+        this.hora = hora;
         this.duracion = duracion;
     }
-
 
     @Override
     public String getFecha() {

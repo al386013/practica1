@@ -2,51 +2,40 @@ package principal;
 
 import datos.clientes.Cliente;
 import datos.contrato.Factura;
-
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Iterator;
 
 public class GestorFacturas {
     private static int codFac = 0;
-    private HashMap<String, Factura> totalFacturas; //por codigo de factura
+    private HashMap<Integer, Factura> totalFacturas; //por codigo de factura
 
-    //Metodo emitirFactura, devuelve null si no existe el cliente
-    public Factura emitirFactura(String nifCliente){
-        //AQUI TENGO EL MISMO PROBLEMA QUE GESTOR LLAMADAS!! NO PUEDO HACER REFERENCIA AL ATRIBUTO CLIENTES PORQUE ES DE LA CLASE GESTORCLIENTES
-        if(!clientes.containsKey(nifCliente)) return null;
-        else {
-            Calendar fechaActual = Calendar.getInstance();
-            Factura nuevaFactura = new Factura(codFac++, clientes.get(nifCliente).getTarifa(),fechaActual.getTime().toString(),30);
-            return nuevaFactura;
-        }
+    public GestorFacturas() {
+        totalFacturas = new HashMap<Integer, Factura>();
     }
 
-    //recuperar los datos de la factura de un cliente a partir de su codigo
-    public String recDatosFactura(String cod) {
+    //Metodo emitirFactura, anade una fatura a totalFacturas
+    public void emitirFactura(GestorClientes gestorClientes, String nif) {
+        Cliente cliente = gestorClientes.devuelveCliente(nif);
+        Calendar fechaActual = Calendar.getInstance();
+        Factura nuevaFactura = new Factura(codFac, cliente.getTarifa(), fechaActual.toString(), 30, cliente);
+        cliente.anadirFactura(codFac, nuevaFactura);
+        cliente.clearLlamadasPeriodoFact();
+        totalFacturas.put(codFac++, nuevaFactura);
+    }
+
+    //Metodo recDatosFactura, recupera los datos de la factura de un cliente a partir de su codigo
+    public String recDatosFactura(int cod) {
         Factura factura = totalFacturas.get(cod);
-        if(factura == null) return null;
-        else {
-            StringBuilder sb = new StringBuilder();
-            sb.append("NIF del cliente: " + factura.getNifCliente() + ", ");
-            sb.append("Código: " + factura.getCodigo() + ", ");
-            sb.append("Tarifa: " + factura.getTarifa().getTarifa() + "€/min, ");
-            sb.append("Fecha de emisión: " + factura.getFecha_emision() + ", ");
-            sb.append("Período de facturación: " + factura.getPeriodo_fact() + "días, ");
-            sb.append("Importe: " + factura.getImporte() + "€, ");
-            return sb.toString();
-        }
+        if (factura == null) return null;
+        else return factura.toString();
     }
 
-    //recuperar todas las facturas de un cliente a partir de su nif
-    public String listarFacturasCliente(String nif) {
-        CarteraClientes.dev
-        Iterator<Cliente> iter = clientes.values().iterator();
+    //Metodo listarFacturasCliente, recupera todas las facturas de un cliente a partir de su nif
+    public String listarFacturasCliente(GestorClientes gestorClientes, String nif) {
+        Cliente cliente = gestorClientes.devuelveCliente(nif);
         StringBuilder sb = new StringBuilder();
-        while(iter.hasNext()) {
-            Cliente cliente = iter.next();
-            sb.append(recDatosCliente(cliente.getNIF()));
-        }
+        for (Factura factura : cliente.getFacturas().values())
+            sb.append(recDatosFactura(factura.getCodigo()));
         return sb.toString();
     }
 }

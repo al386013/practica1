@@ -10,4 +10,8 @@ public class Tarifa {
     public void setTarifa(double tarifa) {
         this.tarifa = tarifa;
     }
+
+    public String toString() {
+        return tarifa + " €/min";
+    }
 }
