@@ -100,6 +100,8 @@ public class MostrarSalida {
         }
         System.out.println("Introduce nombre: ");
         String nombre = sc.next();
+        System.out.println("Introduce telefono: ");
+        String telf = sc.next();
         System.out.println("Introduce NIF: ");
         String nif = sc.next();
         System.out.println("Introduce CP: ");
@@ -114,9 +116,9 @@ public class MostrarSalida {
         if(letra == "p") { //anadir particular
             System.out.println("Introduce apellidos: ");
             String apellidos = sc.next();
-            cliente = cartera.anadirParticular(nombre, apellidos, nif, direccion, email);
+            cliente = cartera.anadirParticular(nombre, apellidos, telf, nif, direccion, email);
         }
-        else cliente = cartera.anadirEmpresa(nombre, nif, direccion, email);
+        else cliente = cartera.anadirEmpresa(nombre, telf, nif, direccion, email);
         if(cliente == null)
             System.out.println("Cliente ya existente en la base de datos. ");
         else System.out.println("Operación realizada con éxito");
@@ -135,7 +137,7 @@ public class MostrarSalida {
         System.out.println("Cambiar la tarifa de un cliente. \n");
         System.out.println("Introduce su NIF: \n");
         String nif = sc.next();
-        Cliente cliente = cartera.devolverCliente(nif);
+        Cliente cliente = cartera.devuelveCliente(nif);
         if(cliente == null)
             System.out.println("Cliente no existente en la base de datos. ");
         else {
@@ -166,25 +168,20 @@ public class MostrarSalida {
 
     public void lanzarMetodo6(CarteraClientes cartera) {
         System.out.println("Dar de alta una llamada:\n");
-        System.out.println("Introduce el NIF del cliente que hace la llamada: \n");
-        String nif = sc.next();
-        Cliente cliente = cartera.devolverCliente(nif);
-        if(cliente == null) System.out.println("Cliente no existente en la base de datos. ");
-        else {
-            System.out.println("Introduce el telefono de destino: ");
-            String telf = sc.next();
-            System.out.println("Introduce la fecha de la llamada (formato dd/mm/aaaa)"); //comprobar que está correcta??
-            String fecha = sc.next();
-            System.out.println("Introduce la hora de la llamada (formato hh:hh)");
-            String hora = sc.next();
-            System.out.println("Introduce la duración de la llamada (en segundos)");
-            int duracion = sc.nextInt();
-            while(duracion < 0) {
-                System.out.println("Duracion incorrecta. Vuelve a introducir la duracion (en segundos): ");
-                duracion = sc.nextInt();
-            }
+        System.out.println("Introduce el telefono del cliente que hace la llamada: \n");
+        String tel = sc.next();
+        System.out.println("Introduce el telefono de destino: ");
+        String telf = sc.next();
+        System.out.println("Introduce la fecha de la llamada (formato dd/mm/aaaa)"); //comprobar que está correcta??
+        String fecha = sc.next();
+        System.out.println("Introduce la hora de la llamada (formato hh:hh)");
+        String hora = sc.next();
+        System.out.println("Introduce la duración de la llamada (en segundos)");
+        int duracion = sc.nextInt();
+        while(duracion < 0) {
+            System.out.println("Duracion incorrecta. Vuelve a introducir la duracion (en segundos): ");
+            duracion = sc.nextInt();
         }
-
     }
 
     public void lanzarMetodo7(CarteraClientes cartera) {
