@@ -30,10 +30,14 @@ public abstract class Cliente {
         this.facturas = new HashSet<Factura>();
     }
 
+    //Metodo que realiza una llamada, debemos guardar todos los minutos que lleva
     public Llamada efectuarLlamada(){
         //El cliente introduce el telefono destino y la duracion????
         //Se que esto habrá que cambiarlo pero es por tener algo:
         Llamada efectuada = new Llamada("692245585", 2);
         return efectuada;
     }
+
+    //Metodo que añade nueva factura al conjunto facturas despues de haber efectuado llamada:
+
 }
