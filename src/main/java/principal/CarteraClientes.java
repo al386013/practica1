@@ -13,7 +13,7 @@ import java.util.Set;
 
 public class CarteraClientes {
     //ATRIBUTOS
-    private static int codFac = 0;
+
     private HashMap<String, Cliente> clientes;
 
 
@@ -109,12 +109,20 @@ public class CarteraClientes {
         }
     }
 
+    public boolean contieneClienteConTelefono(String telefono){
+        Set<String> nifsClientes = this.clientes.keySet();
+        for(String nif : nifsClientes){
+            if(clientes.get(nif).getTelf().equals(telefono)) return true;
+        }
+        return false;
+    }
+
     //Metodo emitirFactura, devuelve null si no existe el cliente
     public Factura emitirFactura(String nifCliente){
         if(!clientes.containsKey(nifCliente)) return null;
         else {
             Calendar fechaActual = Calendar.getInstance();
-            Factura nuevaFactura = new Factura(codFac++, clientes.get(nifCliente).getTarifa(),fechaActual.getTime().toString(),30);
+            Factura nuevaFactura = new Factura(cod,clientes.get(nifCliente).getTarifa(),fechaActual.getTime().toString(),30);
             return nuevaFactura;
         }
     }
