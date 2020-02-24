@@ -2,11 +2,11 @@ package datos.clientes;
 
 public class Particular extends Cliente {
     //ATRIBUTOS (EL RESTO LO HEREDA DE CLIENTE)
-    private String apellidos;
+    private final String apellidos;
 
     //CONSTRUCTOR
-    public Particular(final String nombre, final String apellidos, final String NIF, final Direccion direccion, final String email){
-        super(nombre, NIF, direccion, email);
+    public Particular(String nombre, String apellidos, String telefono, String NIF, Direccion direccion, String email){
+        super(nombre,telefono, NIF, direccion, email);
         this.apellidos = apellidos;
     }
 }

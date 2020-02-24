@@ -3,15 +3,15 @@ package datos.contrato;
 import interfaces.tieneFecha;
 
 public class Factura implements tieneFecha {
-    private int codigo;
+    private final int codigo;
     private Tarifa tarifa; // €/min, tipo float o double o tarifa
-    private String fecha_emision;
-    private int periodo_fact; //en dias?????
-    private double importe; //float o double??
+    private final String fecha_emision;
+    private final int periodo_fact; //en dias?????
+    private final double importe; //float o double??
 
     //todos final?? la fecha de emisión es un parametro?
-    public Factura(final int codigo, final Tarifa tarifa, final String fecha_emision, final int periodo_fact) {
-        this.codigo = codigo;
+    public Factura(int codFac, Tarifa tarifa, String fecha_emision, int periodo_fact) {
+        this.codigo = codFac;
         this.tarifa = tarifa;
         this.fecha_emision = fecha_emision;
         this.periodo_fact = periodo_fact;

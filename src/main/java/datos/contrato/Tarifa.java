@@ -6,4 +6,8 @@ public class Tarifa {
     public Tarifa() { }
 
     public double getTarifa() { return tarifa; }
+
+    public void setTarifa(double tarifa) {
+        this.tarifa = tarifa;
+    }
 }

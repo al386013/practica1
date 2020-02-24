@@ -10,16 +10,19 @@ import java.util.*;
 //preguntar si los constructores son public
 
 public abstract class Cliente {
+
     private String nombre;
     private String NIF;
+    private String telf;
     private Direccion direccion;
     private String email;
     private String fechaDeAlta;
     private Tarifa tarifa;
     private HashMap<Integer, Factura> facturas; //La clave corresponde al codigo de factura
 
-    public Cliente(final String nombre, final String NIF, final Direccion direccion, final String email){
+    public Cliente(final String nombre,final String telefono, final String NIF, final Direccion direccion, final String email){
         this.nombre = nombre;
+        this.telf = telefono;
         this.NIF = NIF;
         this.direccion = direccion;
         this.email = email;
@@ -36,6 +39,10 @@ public abstract class Cliente {
 
     public String getNIF() {
         return NIF;
+    }
+
+    public String getTelf() {
+        return telf;
     }
 
     public String getEmail() {
@@ -56,5 +63,9 @@ public abstract class Cliente {
 
     public HashMap<Integer, Factura> getFacturas() {
         return facturas;
+    }
+
+    public void cambiarTarifa(Double nuevaTarifa) {
+        this.tarifa.setTarifa(nuevaTarifa);
     }
 }

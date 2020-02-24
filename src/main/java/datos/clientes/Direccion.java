@@ -10,4 +10,8 @@ public class Direccion {
         this.provincia = provincia;
         this.poblacion = poblacion;
     }
+
+    public String toString(){
+        return this.poblacion + this.provincia + this.CP;
+    }
 }

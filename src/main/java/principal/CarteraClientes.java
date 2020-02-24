@@ -6,12 +6,14 @@ import datos.clientes.Empresa;
 import datos.clientes.Particular;
 import datos.contrato.Factura;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
 public class CarteraClientes {
-    private static int codFac = 0000;
+    //ATRIBUTOS
+    private static int codFac = 0;
     private HashMap<String, Cliente> clientes;
 
 
@@ -19,38 +21,44 @@ public class CarteraClientes {
         this.clientes = new HashMap<String, Cliente>();
     }
 
-
-    //Metodo anadirParticular, llama al constructor de Cliente, lo crea y lo añadimos a la cartera.
-    //Devuelve false si ya existe el cliente y no lo modifica
-    public boolean anadirParticular(String nombre,String apellidos, String NIF, Direccion direccion, String email){
-        //Comprobar que no existe el cliente:
-        if(clientes.containsKey(NIF)) return false;
-        else {
-            Cliente nuevo = new Particular(nombre, apellidos, NIF, direccion, email);
-            clientes.put(NIF, nuevo);
-            return true;
-        }
-    }
-    //Metodo anadirEmpresa, llama al constructor de Cliente, lo crea y lo añadimos a la cartera.
-    //Devuelve false si ya existe el cliente y no lo modifica
-    public boolean anadirEmpresa(String nombre, String NIF, Direccion direccion, String email){
-        //Comprobar que no existe el cliente:
-        if(clientes.containsKey(NIF)) return false;
-        else {
-            Cliente nuevo = new Empresa(nombre, NIF, direccion, email);
-            clientes.put(NIF, nuevo);
-            return true;
-        }
+    //Metodo devulveCliente, si no existe devuelve null
+    public Cliente devulveCliente(String NIF){
+        return clientes.get(NIF);
     }
 
-    //Metodo borrarCliente, lo elimina de clientes
-    //Devuelve false si no existe el cliente
-    public boolean borrarCliente(String NIF){
+
+    //Metodo anadirParticular, llama al constructor de Cliente, lo crea, lo añadimos a la cartera y lo devolvemos.
+    //Devuelve null si ya existe el cliente y no lo modifica
+    public Cliente anadirParticular(String nombre,String apellidos, String telefono, String NIF, Direccion direccion, String email){
+        //Comprobar que no existe el cliente:
+        if(clientes.containsKey(NIF)) return null;
+        else {
+            Cliente nuevo = new Particular(nombre, apellidos, telefono, NIF, direccion, email);
+            clientes.put(NIF, nuevo);
+            return nuevo;
+        }
+    }
+    //Metodo anadirEmpresa, llama al constructor de Cliente, lo crea, lo añadimos a la cartera y lo devolvemos.
+    //Devuelve null si ya existe el cliente y no lo modifica
+    public Cliente anadirEmpresa(String nombre, String telefono, String NIF, Direccion direccion, String email){
+        //Comprobar que no existe el cliente:
+        if(clientes.containsKey(NIF)) return null;
+        else {
+            Cliente nuevo = new Empresa(nombre, telefono, NIF, direccion, email);
+            clientes.put(NIF, nuevo);
+            return nuevo;
+        }
+    }
+
+    //Metodo borrarCliente, lo elimina de clientes y lo devuelve
+    //Devuelve null si no existe el cliente,
+    public Cliente borrarCliente(String NIF){
         //Comprobamos que existe el cliente:
-        if(!clientes.containsKey(NIF)) return false;
+        if(!clientes.containsKey(NIF)) return null;
         else{
+            Cliente cliente = clientes.get(NIF);
             clientes.remove(NIF);
-            return true;
+            return cliente;
         }
     }
 
@@ -105,9 +113,9 @@ public class CarteraClientes {
     public Factura emitirFactura(String nifCliente){
         if(!clientes.containsKey(nifCliente)) return null;
         else {
-            Cliente cliente = clientes.get(nifCliente);
-
-            return null;
+            Calendar fechaActual = Calendar.getInstance();
+            Factura nuevaFactura = new Factura(codFac++, clientes.get(nifCliente).getTarifa(),fechaActual.getTime().toString(),30);
+            return nuevaFactura;
         }
     }
 }
