@@ -3,6 +3,8 @@ package datos.clientes;
 import datos.contrato.Factura;
 import datos.contrato.Tarifa;
 import datos.llamadas.Llamada;
+
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Calendar;
 import java.util.Set;
@@ -16,7 +18,7 @@ public abstract class Cliente {
     private String email;
     private String fechaDeAlta;
     private Tarifa tarifa;
-    private Set<Factura> facturas;
+    private HashMap<int, Factura> facturas; //La clave corresponde al codigo de factura
 
     public Cliente(final String nombre, final String NIF, final Direccion direccion, final String email){
         this.nombre = nombre;
@@ -27,7 +29,7 @@ public abstract class Cliente {
         Calendar fechaActual = Calendar.getInstance();
         this.fechaDeAlta = fechaActual.toString();
         this.tarifa = new Tarifa(); //Preguntar si es necesario instanciar
-        this.facturas = new HashSet<Factura>();
+        this.facturas = new HashMap<int, Factura>();
     }
 
     //Metodo que realiza una llamada, debemos guardar todos los minutos que lleva
@@ -37,7 +39,4 @@ public abstract class Cliente {
         Llamada efectuada = new Llamada("692245585", 2);
         return efectuada;
     }
-
-    //Metodo que añade nueva factura al conjunto facturas despues de haber efectuado llamada:
-
 }
