@@ -30,5 +30,27 @@ public abstract class Cliente {
         this.facturas = new HashMap<Integer, Factura>();
     }
 
+    public String getNombre() {
+        return nombre;
+    }
 
+    public String getNIF() {
+        return NIF;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getFechaDeAlta() {
+        return fechaDeAlta;
+    }
+
+    public Tarifa getTarifa() {
+        return tarifa;
+    }
+
+    public Direccion getDireccion() {
+        return direccion;
+    }
 }
