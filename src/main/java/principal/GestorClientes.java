@@ -13,12 +13,17 @@ import java.util.LinkedList;
 import java.util.Set;
 
 public class GestorClientes {
+    //ATRIBUTOS
     private HashMap<String, Cliente> clientes;
     private HashMap<String, String> telfNif;
 
+    //CONSTRUCTORES
     public GestorClientes() {
         clientes = new HashMap<String, Cliente>();
     }
+
+
+    //METODOS
 
     //Metodo devuelveCliente: si no existe devuelve null
     public Cliente devuelveCliente(String NIF) {
@@ -61,7 +66,7 @@ public class GestorClientes {
     }
 
     //Metodo cambioTarifa: cambia la tarifa de un cliente dado su nif
-    public void cambioTarifa(Double nuevaTarifa, String NIF) {
+    public void cambioTarifa(float nuevaTarifa, String NIF) {
         Cliente cliente = devuelveCliente(NIF);
         cliente.cambiarTarifa(nuevaTarifa);
     }
@@ -85,29 +90,17 @@ public class GestorClientes {
         return clientes.get(nif).getFacturas();
     }
 
-    //Metodo efectuarLlamada, da de alta una llamada
-    public void efectuarLlamada(GestorClientes gc, String nif, String telfDestino, String fecha, String hora, int duracion) {
-        Cliente cliente = gc.devuelveCliente(nif);
-        Llamada llamada = new Llamada(telfDestino, fecha, hora, duracion);
-        //cliente.anadirLlamadaPeriodoFact(llamada);
-        LinkedList<Llamada> listaLlamadas = llamadas.get(nif);
-        if(listaLlamadas == null) {
-            listaLlamadas = new LinkedList<Llamada>();
-            listaLlamadas.add(llamada);
-            llamadas.put(nif, listaLlamadas);
-        }
-        else listaLlamadas.add(llamada);
-    }
 
     //Metodo listarLlamadas: lista todas las llamadas de un cliente; devuelve null si todavia no ha hecho llamadas
+    //MODIFICADO Y CREO QUE ESTA BIEN
     public String listarLlamadas(String nif) {
-        LinkedList<Llamada> listaLlamadas = llamadas.get(nif);
-        if (listaLlamadas == null) return null;
-        else {
-            StringBuilder sb = new StringBuilder();
-            for (Llamada llamada : listaLlamadas)
-                sb.append(llamada.toString());
-            return sb.toString();
+        StringBuilder sb = new StringBuilder();
+        Cliente cliente = clientes.get(nif);
+        Set<Llamada> llamadas = cliente.getLlamadas();
+        for(Llamada llamada : llamadas){
+            sb.append(llamada.toString());
         }
+            return null;
+
     }
 }

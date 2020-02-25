@@ -17,7 +17,8 @@ public abstract class Cliente {
     private String email;
     private DateFormat fechaDeAlta;
     private Tarifa tarifa;
-    private HashSet<Factura> facturas; //La clave corresponde al codigo de factura
+    private HashSet<Factura> facturas;
+    private HashSet<Llamada> llamadas;
     private Date date;
 
     public Cliente(final String nombre,final String telefono, final String NIF, final Direccion direccion, final String email){
@@ -71,6 +72,14 @@ public abstract class Cliente {
         return direccion;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public HashSet<Llamada> getLlamadas() {
+        return llamadas;
+    }
+
     public HashSet<Factura> getFacturas() {
         return facturas;
     }
@@ -79,7 +88,7 @@ public abstract class Cliente {
         facturas.add(factura);
     }
 
-    public void cambiarTarifa(Double nuevaTarifa) {
+    public void cambiarTarifa(float nuevaTarifa) {
         tarifa.setTarifa(nuevaTarifa);
     }
 
