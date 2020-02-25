@@ -4,10 +4,17 @@ import datos.clientes.Cliente;
 import datos.clientes.Direccion;
 import datos.clientes.Empresa;
 import datos.clientes.Particular;
+import datos.contrato.Factura;
+import datos.llamadas.Llamada;
+
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Set;
 
 public class GestorClientes {
     private HashMap<String, Cliente> clientes;
+    private HashMap<String, String> telfNif;
 
     public GestorClientes() {
         clientes = new HashMap<String, Cliente>();
@@ -72,5 +79,35 @@ public class GestorClientes {
             sb.append("\n");
         }
         return sb.toString();
+    }
+
+    public HashSet<Factura> devolverFacturas(String nif) {
+        return clientes.get(nif).getFacturas();
+    }
+
+    //Metodo efectuarLlamada, da de alta una llamada
+    public void efectuarLlamada(GestorClientes gc, String nif, String telfDestino, String fecha, String hora, int duracion) {
+        Cliente cliente = gc.devuelveCliente(nif);
+        Llamada llamada = new Llamada(telfDestino, fecha, hora, duracion);
+        //cliente.anadirLlamadaPeriodoFact(llamada);
+        LinkedList<Llamada> listaLlamadas = llamadas.get(nif);
+        if(listaLlamadas == null) {
+            listaLlamadas = new LinkedList<Llamada>();
+            listaLlamadas.add(llamada);
+            llamadas.put(nif, listaLlamadas);
+        }
+        else listaLlamadas.add(llamada);
+    }
+
+    //Metodo listarLlamadas: lista todas las llamadas de un cliente; devuelve null si todavia no ha hecho llamadas
+    public String listarLlamadas(String nif) {
+        LinkedList<Llamada> listaLlamadas = llamadas.get(nif);
+        if (listaLlamadas == null) return null;
+        else {
+            StringBuilder sb = new StringBuilder();
+            for (Llamada llamada : listaLlamadas)
+                sb.append(llamada.toString());
+            return sb.toString();
+        }
     }
 }

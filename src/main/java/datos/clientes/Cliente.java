@@ -17,8 +17,7 @@ public abstract class Cliente {
     private String email;
     private DateFormat fechaDeAlta;
     private Tarifa tarifa;
-    private HashMap<Integer, Factura> facturas; //La clave corresponde al codigo de factura
-    private HashSet<Llamada> llamadasPeriodoFact; //almacena las llamadas del ultimo periodo de facturacion
+    private HashSet<Factura> facturas; //La clave corresponde al codigo de factura
     private Date date;
 
     public Cliente(final String nombre,final String telefono, final String NIF, final Direccion direccion, final String email){
@@ -32,21 +31,17 @@ public abstract class Cliente {
         this.date = new Date();
         this.fechaDeAlta = new SimpleDateFormat("dd/MM/yyyy");
         this.tarifa = new Tarifa(); //Preguntar si es necesario instanciar
-        this.facturas = new HashMap<Integer, Factura>();
-        this.llamadasPeriodoFact = new HashSet<Llamada>();
+        this.facturas = new HashSet<Factura>();
+        //this.llamadasPeriodoFact = new HashSet<Llamada>();
     }
 
-    public void anadirFactura (int codFactura, Factura factura) {
-        facturas.put(codFactura, factura);
-    }
+    //public void anadirLlamadaPeriodoFact(Llamada llamada) {
+        //llamadasPeriodoFact.add(llamada);
+    //}
 
-    public void anadirLlamadaPeriodoFact(Llamada llamada) {
-        llamadasPeriodoFact.add(llamada);
-    }
-
-    public void clearLlamadasPeriodoFact() {
-        llamadasPeriodoFact = new HashSet<Llamada>();
-    }
+    //public void clearLlamadasPeriodoFact() {
+        //llamadasPeriodoFact = new HashSet<Llamada>();
+    //}
 
     public String getNombre() {
         return nombre;
@@ -76,12 +71,12 @@ public abstract class Cliente {
         return direccion;
     }
 
-    public HashMap<Integer, Factura> getFacturas() {
+    public HashSet<Factura> getFacturas() {
         return facturas;
     }
 
-    public HashSet<Llamada> getLlamadasPeriodoFact() {
-        return llamadasPeriodoFact;
+    public void anadirFactura(Factura factura) {
+        facturas.add(factura);
     }
 
     public void cambiarTarifa(Double nuevaTarifa) {

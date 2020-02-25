@@ -7,7 +7,7 @@ public class Llamada implements tieneFecha {
     private String telf;
     private String fecha;
     private String hora;
-    private int duracion; //en minutos??
+    private int duracion;
 
     public Llamada(String telfDestino, String fecha, String hora, int duracion) {
         this.telf = telfDestino;

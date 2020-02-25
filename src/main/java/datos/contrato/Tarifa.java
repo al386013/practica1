@@ -1,13 +1,13 @@
 package datos.contrato;
 
 public class Tarifa {
-    private double tarifa = 0.05;
+    private float tarifa = (float)0.05;
 
     public Tarifa() { }
 
-    public double getTarifa() { return tarifa; }
+    public float getTarifa() { return tarifa; }
 
-    public void setTarifa(double tarifa) {
+    public void setTarifa(float tarifa) {
         this.tarifa = tarifa;
     }
 

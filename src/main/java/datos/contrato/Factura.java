@@ -13,13 +13,13 @@ public class Factura implements tieneFecha {
     private final String nifCliente;
 
     //todos final?? la fecha de emisión es un parametro?
-    public Factura(int codFac, Tarifa tarifa, String fecha_emision, int periodo_fact, Cliente cliente) {
+    public Factura(int codFac, Tarifa tarifa, String fecha_emision, int periodo_fact, String nif) {
         this.codigo = codFac;
         this.tarifa = tarifa;
         this.fecha_emision = fecha_emision;
         this.periodo_fact = periodo_fact;
         this.importe = calcularImporte(cliente, tarifa);
-        this.nifCliente = cliente.getNIF();
+        this.nifCliente = nif;
     }
 
     public int getCodigo() {

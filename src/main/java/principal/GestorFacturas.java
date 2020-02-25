@@ -6,20 +6,19 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 public class GestorFacturas {
-    private static int codFac = 0;
     private HashMap<Integer, Factura> totalFacturas; //por codigo de factura
 
     public GestorFacturas() {
         totalFacturas = new HashMap<Integer, Factura>();
     }
 
-    //Metodo emitirFactura, anade una fatura a totalFacturas
+    //Metodo emitirFactura, anade una factura a totalFacturas
     public void emitirFactura(GestorClientes gestorClientes, String nif) {
         Cliente cliente = gestorClientes.devuelveCliente(nif);
         Calendar fechaActual = Calendar.getInstance();
         Factura nuevaFactura = new Factura(codFac, cliente.getTarifa(), fechaActual.toString(), 30, cliente);
         cliente.anadirFactura(codFac, nuevaFactura);
-        cliente.clearLlamadasPeriodoFact();
+        //cliente.clearLlamadasPeriodoFact();
         totalFacturas.put(codFac++, nuevaFactura);
     }
 
@@ -34,7 +33,7 @@ public class GestorFacturas {
     public String listarFacturasCliente(GestorClientes gestorClientes, String nif) {
         Cliente cliente = gestorClientes.devuelveCliente(nif);
         StringBuilder sb = new StringBuilder();
-        for (Factura factura : cliente.getFacturas().values())
+        for (Factura factura : cliente.getFacturas())
             sb.append(recDatosFactura(factura.getCodigo()));
         return sb.toString();
     }
