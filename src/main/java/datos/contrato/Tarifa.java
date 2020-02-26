@@ -2,10 +2,16 @@ package datos.contrato;
 
 public class Tarifa {
     //ATRIBUTO
-    private float tarifa = (float)0.05;
+    private float tarifa;
 
-    //CONSTRUCTOR
-    public Tarifa() { }
+    //CONSTRUCTOR POR DEFECTO
+    public Tarifa() {
+        tarifa = (float)0.05;
+    }
+
+    public Tarifa(float tarifa) {
+        this.tarifa = tarifa;
+    }
 
     //METODOS
     public float getTarifa() { return tarifa; }

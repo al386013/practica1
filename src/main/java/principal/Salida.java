@@ -2,6 +2,8 @@ package principal;
 
 import datos.clientes.Direccion;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Scanner;
 
 public class Salida {
@@ -90,7 +92,12 @@ public class Salida {
         String nombre = sc.next();
         System.out.print("- Introduce telefono: ");
         String telf = sc.next();
-        String nif = pedirNIF();
+        System.out.print("- Introduce el NIF del cliente: ");                  //excepción por si YA existe el NIF!!!
+        String nif = sc.next();
+        while(baseDeDatos.existeCliente(nif)) {
+            System.out.println("El NIF del cliente ya existe en la base de datos. Prueba otro NIF: ");
+            nif = sc.next();
+        }
         System.out.print("- Introduce CP: ");
         String cp = sc.next();
         System.out.print("- Introduce provincia: ");
@@ -142,14 +149,15 @@ public class Salida {
 
     public void lanzarMetodo6() {
         System.out.println("\n6) Dar de alta una llamada.\n");
-        System.out.print("- Introduce el telefono de origen: ");
-        String telfOrigen = sc.next();
+        String telfOrigen = pedirTelf(); //pedir telfOrigen
         System.out.print("- Introduce el telefono de destino: ");
         String telfDest = sc.next();
-        System.out.print("- Introduce la fecha de la llamada (formato dd/mm/aaaa)"); //comprobar que está correcta??
-        String fecha = sc.next();
-        System.out.print("- Introduce la hora de la llamada (formato hh:hh)");
-        String hora = sc.next();
+        System.out.print("- Introduce la fecha de la llamada (formato aaaa-mm-dd)"); //comprobar que está correcta
+        String fechaCadena = sc.next();
+        LocalDate fecha = LocalDate.parse(fechaCadena);
+        System.out.print("- Introduce la hora de la llamada (formato hh:mm:ss)");
+        String horaCadena = sc.next();
+        LocalTime hora = LocalTime.parse(horaCadena);
         System.out.print("- Introduce la duración de la llamada (en segundos)");
         int duracion = sc.nextInt();
         while(duracion < 0) {
@@ -162,17 +170,24 @@ public class Salida {
 
     public void lanzarMetodo7() {
         System.out.println("\n7) Listar todas las llamadas de un cliente: \n");
-        String NIF = pedirNIF();
-        baseDeDatos.listarLlamadasCliente(NIF);
+        String telf = pedirTelf();
+        baseDeDatos.listarLlamadasCliente(telf);
     }
 
     public void lanzarMetodo8() {
         System.out.println("\n8) Emitir factura para un cliente. ");
         String NIF = pedirNIF();
-        System.out.print("- Introduce la fecha de inicio de la factura: ");
-        String fechaIni = sc.next();
-        String fechaActual = "FECHA ACTUAL";
-        baseDeDatos.emitirFactura(fechaIni, fechaActual, NIF);
+        System.out.print("- Introduce la fecha de inicio de la factura (formato aaaa-mm-dd): ");
+        String fechaIniCadena = sc.next();
+        LocalDate fechaIni = LocalDate.parse(fechaIniCadena);
+        LocalDate fechaFin = LocalDate.now();
+        //comprobar que la fecha de inicio de factura sea anterior a la fecha actual
+        while(!fechaIni.isBefore(fechaFin)) {
+            System.out.println("Fecha de inicio posterior a la fecha actual. Vuelve a introducirla (aaaa-mm-dd)");
+            fechaIniCadena = sc.next();
+            fechaIni = LocalDate.parse(fechaIniCadena);
+        }
+        baseDeDatos.emitirFactura(fechaIni, fechaFin, NIF);
         mensajeExito();
     }
 
@@ -206,9 +221,18 @@ public class Salida {
         return NIF;
     }
 
+    public String pedirTelf() {
+        System.out.print("- Introduce el telefono del cliente: ");
+        String telf = sc.next();
+        boolean existeTelf = baseDeDatos.existeTelf(telf);
+        while(!existeTelf) {
+            System.out.print("Telefono del cliente no existente en la base de datos. Vuelve a introducirlo: ");
+            telf = sc.next();
+        }
+        return telf;
+    }
+
     public void mensajeExito() {
         System.out.println("Operación realizada con éxito.\n");
     }
 }
-
-//al borrar un cliente, se borra tmb de llamadas y facturas??

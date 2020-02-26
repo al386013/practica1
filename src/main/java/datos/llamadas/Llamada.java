@@ -4,7 +4,6 @@ import interfaces.tieneFecha;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Calendar;
 
 public class Llamada implements tieneFecha {
     private String telf;
@@ -38,9 +37,11 @@ public class Llamada implements tieneFecha {
 
     @Override
     public String toString() {
-        return "Llamada realizada el " + fecha.toString() +
-                " a las " + hora.toString() +
-                " con una duracion de " + duracion +
-                " al telefono " + telf + "\n";
+        StringBuilder sb = new StringBuilder();
+        sb.append("Llamada realizada el " + fecha);
+        sb.append(" a las " + hora);
+        sb.append(" con una duracion de " + duracion);
+        sb.append(" al telefono " + telf);
+        return sb.toString();
     }
 }

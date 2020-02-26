@@ -18,6 +18,4 @@ public class PeriodoFacturacion{
     public LocalDate getFechaIni() {
         return fechaIni;
     }
-
-
 }

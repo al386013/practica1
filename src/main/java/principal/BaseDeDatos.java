@@ -4,6 +4,9 @@ import datos.clientes.Cliente;
 import datos.clientes.Direccion;
 import datos.contrato.PeriodoFacturacion;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 public class BaseDeDatos {
     //ATRIBUTOS
     private GestorClientes gestorClientes;
@@ -17,11 +20,11 @@ public class BaseDeDatos {
 
     //METODOS
 
-    public void anadirParticular(String nombre, String apellidos, String tlf, String NIF, Direccion dir, String email)  {
+    public void anadirParticular(String nombre, String apellidos, String tlf, String NIF, Direccion dir, String email) {
         gestorClientes.anadirParticular(nombre, apellidos, tlf, NIF, dir, email);
     }
 
-    public void anadirEmpresa(String nombre, String tlf, String NIF, Direccion dir, String email)  {
+    public void anadirEmpresa(String nombre, String tlf, String NIF, Direccion dir, String email) {
         gestorClientes.anadirEmpresa(nombre, tlf, NIF, dir, email);
     }
 
@@ -33,8 +36,8 @@ public class BaseDeDatos {
         gestorClientes.cambioTarifa(tarifa, NIF);
     }
 
-    public void darDeAltaLlamada(String nif, String telfDestino, String fecha, String hora, int duracion) {
-        gestorClientes.darDeAltaLlamada(nif, telfDestino, fecha, hora, duracion);
+    public void darDeAltaLlamada(String telfOrigen, String telfDestino, LocalDate fecha, LocalTime hora, int duracion) {
+        gestorClientes.darDeAltaLlamada(telfOrigen, telfDestino, fecha, hora, duracion);
     }
 
     public String listarDatosCliente(String NIF) {
@@ -49,7 +52,7 @@ public class BaseDeDatos {
         return gestorClientes.listarLlamadasCliente(nif);
     }
 
-    public void emitirFactura(String fechaIni, String fechaFin, String nif) {
+    public void emitirFactura(LocalDate fechaIni, LocalDate fechaFin, String nif) {
         PeriodoFacturacion periodoFact = new PeriodoFacturacion(fechaIni, fechaFin);
         Cliente cliente = gestorClientes.devuelveCliente(nif);
         gestorFacturas.emitirFactura(periodoFact, cliente);
@@ -65,5 +68,9 @@ public class BaseDeDatos {
 
     public boolean existeCliente(String nif) {
         return gestorClientes.existeCliente(nif);
+    }
+
+    public boolean existeTelf(String telf) {
+        return gestorClientes.existeCliente(telf);
     }
 }

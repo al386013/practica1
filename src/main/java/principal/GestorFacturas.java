@@ -3,15 +3,11 @@ package principal;
 import datos.clientes.Cliente;
 import datos.contrato.Factura;
 import datos.contrato.PeriodoFacturacion;
-import datos.llamadas.Llamada;
-
-import java.util.Calendar;
 import java.util.HashMap;
-import java.util.LinkedList;
 
 public class GestorFacturas {
     //ATRIBUTOS
-    private HashMap<Integer, Factura> totalFacturas; //Clave corresponde al codigo de factura
+    private HashMap<Integer, Factura> totalFacturas; //Clave: codigo de factura
 
     //CONSTRUCTORES
     public GestorFacturas() {
@@ -35,5 +31,4 @@ public class GestorFacturas {
         //y al conjunto de facturas del cliente
         cliente.anadirFactura(nuevaFactura);
     }
-
 }

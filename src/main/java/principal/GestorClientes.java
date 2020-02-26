@@ -6,13 +6,14 @@ import datos.clientes.Empresa;
 import datos.clientes.Particular;
 import datos.contrato.Factura;
 import datos.llamadas.Llamada;
-
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.HashMap;
 
 public class GestorClientes {
     //ATRIBUTOS
     private HashMap<String, Cliente> clientes; //clave: nif
-    private HashMap<String, String> telfNif;   //clave: telf; relaciona el telf con el nif del cliente
+    private HashMap<String, String> telfNif;   //clave: telf - relaciona el telf con el nif del cliente
 
     //CONSTRUCTORES
     public GestorClientes() {
@@ -29,6 +30,11 @@ public class GestorClientes {
     //Metodo existeCliente: devuelve true si existe el cliente en la base de datos
     public boolean existeCliente(String NIF) {
         return clientes.get(NIF) != null;
+    }
+
+    //Metodo existeTelf: devuelve true si existe el telefono del cliente en la base de datos
+    public boolean existeTelf(String telf) {
+        return telfNif.get(telf) != null;
     }
 
     //Metodo anadirParticular, llama al constructor de Cliente, lo crea, se anade a la cartera y lo devuelve.
@@ -83,15 +89,15 @@ public class GestorClientes {
     }
 
     //Método darDeAltaLlamada: crea y anade una llamada al conjunto de llamadas de un cliente
-    public void darDeAltaLlamada(String nif, String telfDestino, String fecha, String hora, int duracion) {
+    public void darDeAltaLlamada(String telfOrigen, String telfDestino, LocalDate fecha, LocalTime hora, int duracion) {
         Llamada llamada = new Llamada(telfDestino, fecha, hora, duracion);
-        clientes.get(nif).anadirLlamada(llamada);
+        clientes.get(telfNif.get(telfOrigen)).anadirLlamada(llamada);
     }
 
     //Metodo listarLlamadasCliente: lista todas las llamadas de un cliente
     public String listarLlamadasCliente(String nif) {
         StringBuilder sb = new StringBuilder();
-        for(Llamada llamada : clientes.get(nif).getLlamadas())
+        for (Llamada llamada : clientes.get(nif).getLlamadas())
             sb.append(llamada.toString());
         return sb.toString();
     }
@@ -103,6 +109,4 @@ public class GestorClientes {
             sb.append(factura.toString());
         return sb.toString();
     }
-
-
 }
