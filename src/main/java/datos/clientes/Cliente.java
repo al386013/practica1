@@ -83,6 +83,7 @@ public abstract class Cliente {
         StringBuilder sb = new StringBuilder();
         sb.append(nombre + ", ");
         sb.append("NIF: " + NIF + ", ");
+        sb.append("Telf: " + telf + ", ");
         sb.append("Direccion: " + direccion + ", ");
         sb.append("Email: " + email + ", ");
         sb.append("Fecha de alta: " + fechaDeAlta.toString() + ", ");

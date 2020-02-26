@@ -18,6 +18,7 @@ public class GestorClientes {
     //CONSTRUCTORES
     public GestorClientes() {
         clientes = new HashMap<String, Cliente>();
+        telfNif = new HashMap<String, String>();
     }
 
     //METODOS
@@ -34,31 +35,21 @@ public class GestorClientes {
 
     //Metodo existeTelf: devuelve true si existe el telefono del cliente en la base de datos
     public boolean existeTelf(String telf) {
-        return telfNif.get(telf) != null;
+        return (telfNif.get(telf) != null);
     }
 
-    //Metodo anadirParticular, llama al constructor de Cliente, lo crea, se anade a la cartera y lo devuelve.
-    //Devuelve null si ya existe el cliente y no lo modifica
-    public Cliente anadirParticular(String nombre, String apellidos, String telefono, String NIF, Direccion direccion, String email) {
-        //Comprobar que no existe el cliente:
-        if (existeCliente(NIF)) return null;
-        else {
-            Cliente nuevo = new Particular(nombre, apellidos, telefono, NIF, direccion, email);
-            clientes.put(NIF, nuevo);
-            return nuevo;
-        }
+    //Metodo anadirParticular, llama al constructor de Cliente, lo crea, se anade a la base de datos
+    public void anadirParticular(String nombre, String apellidos, String telf, String NIF, Direccion dir, String email) {
+        Cliente nuevo = new Particular(nombre, apellidos, telf, NIF, dir, email);
+        clientes.put(NIF, nuevo);
+        telfNif.put(telf, NIF);
     }
 
-    //Metodo anadirEmpresa, llama al constructor de Cliente, lo crea, se anade a la cartera y lo devuelve.
-    //Devuelve null si ya existe el cliente y no lo modifica
-    public Cliente anadirEmpresa(String nombre, String telefono, String NIF, Direccion direccion, String email) {
-        //Comprobar que no existe el cliente:
-        if (existeCliente(NIF)) return null;
-        else {
-            Cliente nuevo = new Empresa(nombre, telefono, NIF, direccion, email);
-            clientes.put(NIF, nuevo);
-            return nuevo;
-        }
+    //Metodo anadirEmpresa, llama al constructor de Cliente, lo crea, se anade a la base de datos
+    public void anadirEmpresa(String nombre, String telf, String NIF, Direccion dir, String email) {
+        Cliente nuevo = new Empresa(nombre, telf, NIF, dir, email);
+        clientes.put(NIF, nuevo);
+        telfNif.put(telf, NIF);
     }
 
     //Metodo borrarCliente: lo elimina de clientes a partir de su telefono

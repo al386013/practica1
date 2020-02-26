@@ -89,11 +89,12 @@ public class Salida {
             letra = sc.next();
         }
         System.out.print("- Introduce nombre: ");
-        String nombre = sc.next();
+        sc.nextLine();
+        String nombre = sc.nextLine();
         String apellidos = null;
         if(letra.equals("p")) {
             System.out.print("- Introduce apellidos: ");
-            apellidos = sc.next();
+            apellidos = sc.nextLine();
         }
         System.out.print("- Introduce telefono: ");
         String telf = sc.next();
@@ -106,9 +107,10 @@ public class Salida {
         System.out.print("- Introduce CP: ");
         String cp = sc.next();
         System.out.print("- Introduce provincia: ");
-        String provincia = sc.next();
+        sc.nextLine();
+        String provincia = sc.nextLine();
         System.out.print("- Introduce poblacion: ");
-        String poblacion = sc.next();
+        String poblacion = sc.nextLine();
         Direccion direccion = new Direccion(cp, provincia, poblacion);
         System.out.print("- Introduce email: ");
         String email = sc.next();
@@ -120,8 +122,8 @@ public class Salida {
 
     public void lanzarMetodo2() {
         System.out.println("\n2) Borrar un cliente.");
-        String nif = pedirNIF();
-        baseDeDatos.borrarCliente(nif);
+        String telf = pedirTelf();
+        baseDeDatos.borrarCliente(telf);
         mensajeExito();
     }
 
