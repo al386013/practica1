@@ -139,13 +139,13 @@ public class Salida {
     }
 
     public void lanzarMetodo4() {
-        System.out.println("\n4) Recuperar los datos de un cliente. ");
+        System.out.println("\n4) Recuperar los datos de un cliente.");
         String nif = pedirNifExistente();
         System.out.println(baseDeDatos.listarDatosCliente(nif) + "\n");
     }
 
     public void lanzarMetodo5() {
-        System.out.println("\n5) Recuperar el listado de todos los clientes:\n");
+        System.out.println("\n5) Recuperar el listado de todos los clientes:");
         System.out.println(baseDeDatos.listarClientes());
     }
 
@@ -173,7 +173,7 @@ public class Salida {
     public void lanzarMetodo7() {
         System.out.println("\n7) Listar todas las llamadas de un cliente: ");
         String telf = pedirTelfExistente();
-        baseDeDatos.listarLlamadasCliente(telf);
+        System.out.println(baseDeDatos.listarLlamadasCliente(telf));
     }
 
     public void lanzarMetodo8() {
@@ -185,7 +185,7 @@ public class Salida {
         LocalDate fechaFin = LocalDate.now();
         //comprobar que la fecha de inicio de factura sea anterior a la fecha actual
         while(!fechaIni.isBefore(fechaFin)) {
-            System.out.println("Fecha de inicio posterior a la fecha actual. Vuelve a introducirla (aaaa-mm-dd)");
+            System.out.println("Fecha de inicio posterior a la fecha actual. Vuelve a introducirla (aaaa-mm-dd): ");
             fechaIniCadena = sc.next();
             fechaIni = LocalDate.parse(fechaIniCadena);
         }
@@ -195,15 +195,15 @@ public class Salida {
 
     public void lanzarMetodo9() {
         System.out.println("\n9) Recuperar datos de una factura. ");
-        System.out.print("- Introduce su codigo: \n");
+        System.out.print("- Introduce su codigo: ");
         int cod = sc.nextInt();
         String res = baseDeDatos.listarDatosFactura(cod);
         if(res == null) System.out.println("Codigo de factura no existente en la base de datos.\n");
-        else System.out.println(res);
+        else System.out.println(res + "\n");
     }
 
     public void lanzarMetodo10() {
-        System.out.println("\n10) Listar todas las facturas de un cliente:\n");
+        System.out.println("\n10) Listar todas las facturas de un cliente:");
         String NIF = pedirNifExistente();
         System.out.println(baseDeDatos.listarFacturasCliente(NIF));
     }
@@ -245,7 +245,7 @@ public class Salida {
     public String pedirTelUnico() {
         System.out.print("- Introduce el telefono del cliente: ");
         String telf = sc.next();
-        while (baseDeDatos.existeCliente(telf)) {
+        while (baseDeDatos.existeTelf(telf)) {
             System.out.print("Telefono ya existente en la base de datos. Vuelve a introducir el telefono: ");
             telf = sc.next();
         }

@@ -88,16 +88,20 @@ public class GestorClientes {
     //Metodo listarLlamadasCliente: lista todas las llamadas de un cliente a partir de su telefono
     public String listarLlamadasCliente(String telf) {
         StringBuilder sb = new StringBuilder();
-        for (Llamada llamada : clientes.get(telfNif.get(telf)).getLlamadas())
+        for (Llamada llamada : clientes.get(telfNif.get(telf)).getLlamadas()) {
             sb.append(llamada.toString());
+            sb.append("\n");
+        }
         return sb.toString();
     }
 
     //Metodo listarFacturasCliente: recupera todas las facturas de un cliente a partir de su nif
     public String listarFacturasCliente(String nif) {
         StringBuilder sb = new StringBuilder();
-        for (Factura factura : clientes.get(nif).getFacturas())
+        for (Factura factura : clientes.get(nif).getFacturas()) {
             sb.append(factura.toString());
+            sb.append("\n");
+        }
         return sb.toString();
     }
 }

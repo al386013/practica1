@@ -18,4 +18,9 @@ public class PeriodoFacturacion{
     public LocalDate getFechaIni() {
         return fechaIni;
     }
+
+    @Override
+    public String toString() {
+        return fechaIni + "-" + fechaFin;
+    }
 }

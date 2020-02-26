@@ -42,11 +42,11 @@ public class Factura implements tieneFecha {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("NIF del cliente: " + nifCliente + ", ");
+        sb.append("NIF: " + nifCliente + ", ");
         sb.append("Código: " + codigo + ", ");
         sb.append("Tarifa: " + tarifa + ", ");
         sb.append("Fecha de emisión: " + fechaEmision.toString() + ", ");
-        sb.append("Período de facturación: " + periodoFact + " días, ");
+        sb.append("Período de facturación: " + periodoFact + ", ");
         sb.append("Importe: " + importe + "€.");
         return sb.toString();
     }

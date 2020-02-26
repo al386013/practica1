@@ -1,7 +1,5 @@
 package main;
 
-import datos.clientes.Direccion;
-import es.uji.www.GeneradorDatosINE;
 import principal.BaseDeDatos;
 import principal.Salida;
 
