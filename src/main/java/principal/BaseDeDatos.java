@@ -48,8 +48,8 @@ public class BaseDeDatos {
         return gestorClientes.listarClientes();
     }
 
-    public String listarLlamadasCliente(String nif) {
-        return gestorClientes.listarLlamadasCliente(nif);
+    public String listarLlamadasCliente(String telf) {
+        return gestorClientes.listarLlamadasCliente(telf);
     }
 
     public void emitirFactura(LocalDate fechaIni, LocalDate fechaFin, String nif) {

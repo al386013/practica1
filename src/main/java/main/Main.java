@@ -11,7 +11,7 @@ public class Main {
         BaseDeDatos baseDeDatos = new BaseDeDatos();
 
         //cargar la base de datos de la empresa con algunos datos
-        GeneradorDatosINE generadorDatosINE = new GeneradorDatosINE();
+        /*GeneradorDatosINE generadorDatosINE = new GeneradorDatosINE();
         for (int i = 0; i < 100; i++) {
             String nif = generadorDatosINE.getNIF();
             String nombre = generadorDatosINE.getNombre();
@@ -24,7 +24,7 @@ public class Main {
                 baseDeDatos.anadirParticular(nombre, apellidos, "xxxxxxxxx", nif, dir, email);
             } else
                 baseDeDatos.anadirEmpresa(nombre, "xxxxxxxxx", nif, dir, email);
-        }
+        }*/
 
         //mostramos el menu de opciones, leemos la opcion y lanzamos el metodo correspondiente
         Salida salida = new Salida(baseDeDatos);

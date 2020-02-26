@@ -35,7 +35,7 @@ public class GestorClientes {
 
     //Metodo existeTelf: devuelve true si existe el telefono del cliente en la base de datos
     public boolean existeTelf(String telf) {
-        return (telfNif.get(telf) != null);
+        return telfNif.get(telf) != null;
     }
 
     //Metodo anadirParticular, llama al constructor de Cliente, lo crea, se anade a la base de datos
@@ -85,10 +85,10 @@ public class GestorClientes {
         clientes.get(telfNif.get(telfOrigen)).anadirLlamada(llamada);
     }
 
-    //Metodo listarLlamadasCliente: lista todas las llamadas de un cliente
-    public String listarLlamadasCliente(String nif) {
+    //Metodo listarLlamadasCliente: lista todas las llamadas de un cliente a partir de su telefono
+    public String listarLlamadasCliente(String telf) {
         StringBuilder sb = new StringBuilder();
-        for (Llamada llamada : clientes.get(nif).getLlamadas())
+        for (Llamada llamada : clientes.get(telfNif.get(telf)).getLlamadas())
             sb.append(llamada.toString());
         return sb.toString();
     }
