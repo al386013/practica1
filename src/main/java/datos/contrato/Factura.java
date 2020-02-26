@@ -8,17 +8,21 @@ public class Factura implements tieneFecha {
     private int codigo;
     private Tarifa tarifa; //la que tenga el cliente en ese momento
     private String fecha_emision; //CAMBIAR, FECHA ACTUAL CON LOCAL DATE
-    private PeriodoFacturacion periodo_fact;
+    private PeriodoFacturacion periodoFact;
     private double importe;
     private String nifCliente;
 
-    public Factura(PeriodoFacturacion periodo_fact, Cliente cliente) {
+    public Factura(PeriodoFacturacion periodoFact, Cliente cliente) {
         this.codigo = hashCode();
         this.tarifa = cliente.getTarifa();
         this.fecha_emision = "HOLA"; //CAMBIAR CON LOCALDATE
-        this.periodo_fact = periodo_fact;
+        this.periodoFact = periodoFact;
         this.importe = calcularImporte(cliente);
         this.nifCliente = cliente.getNIF();
+    }
+
+    public int getCodigo() {
+        return this.codigo;
     }
 
     @Override

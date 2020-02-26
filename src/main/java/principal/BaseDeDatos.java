@@ -3,6 +3,7 @@ package principal;
 import datos.clientes.Cliente;
 import datos.clientes.Direccion;
 import datos.contrato.Factura;
+import datos.contrato.PeriodoFacturacion;
 import datos.llamadas.Llamada;
 
 import java.util.Calendar;
@@ -52,9 +53,10 @@ public class BaseDeDatos {
         return gestorClientes.listarLlamadasCliente();
     }
 
-    public void emitirFactura(String nif) {
-        gestorClientes.devuelveCliente(nif);
-
+    public void emitirFactura(String fechaIni, String fechaFin, String nif) {
+        PeriodoFacturacion periodoFact = new PeriodoFacturacion(fechaIni, fechaFin);
+        Cliente cliente = gestorClientes.devuelveCliente(nif);
+        gestorFacturas.emitirFactura(periodoFact, cliente);
     }
 
     public void listarDatosFactura(int cod) {

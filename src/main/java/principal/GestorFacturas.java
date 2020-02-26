@@ -2,6 +2,7 @@ package principal;
 
 import datos.clientes.Cliente;
 import datos.contrato.Factura;
+import datos.contrato.PeriodoFacturacion;
 import datos.llamadas.Llamada;
 
 import java.util.Calendar;
@@ -25,4 +26,14 @@ public class GestorFacturas {
         if (factura == null) return null;
         else return factura.toString();
     }
+
+    //Metodo emitirFactura: anade una factura a totalFacturas
+    public void emitirFactura(PeriodoFacturacion periodoFacturacion, Cliente cliente) {
+        Factura nuevaFactura = new Factura(periodoFacturacion, cliente);
+        //se anade al total de facturas
+        totalFacturas.put(nuevaFactura.getCodigo(), nuevaFactura);
+        //y al conjunto de facturas del cliente
+        cliente.anadirFactura(nuevaFactura);
+    }
+
 }
