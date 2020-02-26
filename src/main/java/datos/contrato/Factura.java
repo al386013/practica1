@@ -44,7 +44,7 @@ public class Factura implements tieneFecha {
         sb.append("Código: " + codigo + ", ");
         sb.append("Tarifa: " + tarifa + ", ");
         sb.append("Fecha de emisión: " + fecha_emision + ", ");
-        sb.append("Período de facturación: " + periodo_fact + " días, ");
+        sb.append("Período de facturación: " + periodoFact + " días, ");
         sb.append("Importe: " + importe + "€.");
         return sb.toString();
     }

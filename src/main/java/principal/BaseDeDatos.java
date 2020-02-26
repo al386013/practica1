@@ -2,11 +2,7 @@ package principal;
 
 import datos.clientes.Cliente;
 import datos.clientes.Direccion;
-import datos.contrato.Factura;
 import datos.contrato.PeriodoFacturacion;
-import datos.llamadas.Llamada;
-
-import java.util.Calendar;
 
 public class BaseDeDatos {
     //ATRIBUTOS
@@ -49,8 +45,8 @@ public class BaseDeDatos {
         return gestorClientes.listarClientes();
     }
 
-    public String listarLlamadasCliente() {
-        return gestorClientes.listarLlamadasCliente();
+    public String listarLlamadasCliente(String nif) {
+        return gestorClientes.listarLlamadasCliente(nif);
     }
 
     public void emitirFactura(String fechaIni, String fechaFin, String nif) {
@@ -59,11 +55,15 @@ public class BaseDeDatos {
         gestorFacturas.emitirFactura(periodoFact, cliente);
     }
 
-    public void listarDatosFactura(int cod) {
-        gestorFacturas.listarDatosFactura();
+    public String listarDatosFactura(int cod) {
+        return gestorFacturas.listarDatosFactura(cod);
     }
 
     public String listarFacturasCliente(String nif) {
-        gestorClientes.listarFacturasCliente(nif);
+        return gestorClientes.listarFacturasCliente(nif);
+    }
+
+    public boolean existeCliente(String nif) {
+        return gestorClientes.existeCliente(nif);
     }
 }
