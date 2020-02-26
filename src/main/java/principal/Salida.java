@@ -162,24 +162,25 @@ public class Salida {
 
     public void lanzarMetodo7() {
         System.out.println("\n7) Listar todas las llamadas de un cliente: \n");
-        String nif = pedirNIF();
-        String res = gestorLlamadas.listarLlamadas(nif);
-        if(res == null) System.out.println("El cliente todavia no ha efectuado ninguna llamada.\n");
-        else System.out.println(res);
+        String NIF = pedirNIF();
+        baseDeDatos.listarLlamadasCliente(NIF);
     }
 
     public void lanzarMetodo8() {
         System.out.println("\n8) Emitir factura para un cliente. ");
         String NIF = pedirNIF();
-        gestorFacturas.emitirFactura(gestorClientes, NIF);
-        System.out.println("Operación realizada con exito.\n");
+        System.out.print("- Introduce la fecha de inicio de la factura: ");
+        String fechaIni = sc.next();
+        String fechaActual = "FECHA ACTUAL";
+        baseDeDatos.emitirFactura(fechaIni, fechaActual, NIF);
+        mensajeExito();
     }
 
     public void lanzarMetodo9() {
         System.out.println("\n9) Recuperar datos de una factura. ");
         System.out.print("- Introduce su codigo: \n");
         int cod = sc.nextInt();
-        String res = gestorFacturas.recDatosFactura(cod);
+        String res = baseDeDatos.listarDatosFactura(cod);
         if(res == null) System.out.println("Codigo de factura no existente en la base de datos.\n");
         else System.out.println(res);
     }
@@ -187,7 +188,7 @@ public class Salida {
     public void lanzarMetodo10() {
         System.out.println("\n10) Listar todas las facturas de un cliente:\n");
         String NIF = pedirNIF();
-        System.out.println(gestorFacturas.listarFacturasCliente(gestorClientes, NIF));
+        System.out.println(baseDeDatos.listarFacturasCliente(NIF));
     }
 
     public void lanzarMetodo11() {
@@ -197,7 +198,7 @@ public class Salida {
     public String pedirNIF() {
         System.out.print("- Introduce el NIF del cliente: ");
         String NIF = sc.next();
-        boolean existeCliente = gestorClientes.existeCliente(NIF);
+        boolean existeCliente = baseDeDatos.existeCliente(NIF);
         while(!existeCliente) {
             System.out.print("Cliente no existente en la base de datos. Vuelve a introducir el NIF: ");
             NIF = sc.next();
