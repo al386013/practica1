@@ -4,14 +4,12 @@ import datos.clientes.Direccion;
 import es.uji.www.GeneradorDatosINE;
 import principal.GestorClientes;
 import principal.GestorFacturas;
-import principal.GestorLlamadas;
 import principal.Salida;
 
 public class Main {
     public static void main(String[] args) {
         //Instanciamos los Gestores:
         GestorClientes gestorClientes = new GestorClientes();
-        GestorLlamadas gestorLlamadas = new GestorLlamadas();
         GestorFacturas gestorFacturas = new GestorFacturas();
 
         //cargar la base de datos de la empresa con algunos datos
@@ -31,7 +29,7 @@ public class Main {
         }
 
         //mostramos el menu de opciones, leemos la opcion y lanzamos el metodo correspondiente
-        Salida salida = new Salida(gestorClientes, gestorLlamadas, gestorFacturas);
+        Salida salida = new Salida(gestorClientes, gestorFacturas);
         System.out.println(salida.mostrarMenu());
         int op = salida.leerOpcion();
         salida.lanzarMetodo(op);

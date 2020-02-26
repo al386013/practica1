@@ -17,8 +17,8 @@ public abstract class Cliente {
     private String email;
     private DateFormat fechaDeAlta;
     private Tarifa tarifa;
-    private HashSet<Factura> facturas;
-    private HashSet<Llamada> llamadas;
+    private HashSet<Factura> facturas; //conjunto con todas las facturas del cliente
+    private HashSet<Llamada> llamadas; //conjunto con todas las llamadas del cliente
     private Date date;
 
     public Cliente(final String nombre,final String telefono, final String NIF, final Direccion direccion, final String email){
@@ -35,14 +35,6 @@ public abstract class Cliente {
         this.facturas = new HashSet<Factura>();
         //this.llamadasPeriodoFact = new HashSet<Llamada>();
     }
-
-    //public void anadirLlamadaPeriodoFact(Llamada llamada) {
-        //llamadasPeriodoFact.add(llamada);
-    //}
-
-    //public void clearLlamadasPeriodoFact() {
-        //llamadasPeriodoFact = new HashSet<Llamada>();
-    //}
 
     public String getNombre() {
         return nombre;
@@ -84,6 +76,10 @@ public abstract class Cliente {
         return facturas;
     }
 
+    public void anadirLlamada(Llamada llamada) {
+        llamadas.add(llamada);
+    }
+
     public void anadirFactura(Factura factura) {
         facturas.add(factura);
     }
@@ -92,6 +88,7 @@ public abstract class Cliente {
         tarifa.setTarifa(nuevaTarifa);
     }
 
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(nombre + ", ");

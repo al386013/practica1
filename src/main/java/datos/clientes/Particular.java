@@ -17,13 +17,8 @@ public class Particular extends Cliente {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(getNombre() + " ");
         sb.append(apellidos + ", ");
-        sb.append("NIF: " + getNIF() + ", ");
-        sb.append("Direccion: " + getDireccion() + ", ");
-        sb.append("Email: " + getEmail() + ", ");
-        sb.append("Fecha de alta: " + getFechaDeAlta() + ", ");
-        sb.append("Tarifa: " + getTarifa() + ".");
+        sb.append(super.toString());
         return sb.toString();
     }
 }

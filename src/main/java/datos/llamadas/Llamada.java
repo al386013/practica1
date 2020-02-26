@@ -7,13 +7,10 @@ public class Llamada implements tieneFecha {
     private String telf;
     private String fecha;
     private String hora;
-    private int duracion;
+    private int duracion; //en segundos
 
     public Llamada(String telfDestino, String fecha, String hora, int duracion) {
         this.telf = telfDestino;
-        //Calendar fechaActual = Calendar.getInstance();
-        //this.fecha = fechaActual.getTime().toString();
-        //this.hora = fechaActual.getTime().toString();
         this.fecha = fecha;
         this.hora = hora;
         this.duracion = duracion;

@@ -17,29 +17,12 @@ public class GestorFacturas {
         totalFacturas = new HashMap<Integer, Factura>();
     }
 
-
     //METODOS
 
-    //Metodo recDatosFactura, recupera los datos de la factura de un cliente a partir de su codigo
-    public String recDatosFactura(int cod) {
+    //Metodo listarDatosFactura: recupera los datos de la factura a partir de su codigo
+    public String listarDatosFactura(int cod) {
         Factura factura = totalFacturas.get(cod);
         if (factura == null) return null;
         else return factura.toString();
     }
-
-    //Metodo efectuarLlamada, da de alta una llamada
-    public void efectuarLlamada(GestorClientes gc, String nif, String telfDestino, String fecha, String hora, int duracion) {
-//        Cliente cliente = gc.devuelveCliente(nif);
-//        Llamada llamada = new Llamada(telfDestino, fecha, hora, duracion);
-//        //cliente.anadirLlamadaPeriodoFact(llamada);
-//        LinkedList<Llamada> listaLlamadas = llamadas.get(nif);
-//        if(listaLlamadas == null) {
-//            listaLlamadas = new LinkedList<Llamada>();
-//            listaLlamadas.add(llamada);
-//            llamadas.put(nif, listaLlamadas);
-//        }
-//        else listaLlamadas.add(llamada);
-    }
-
-
 }

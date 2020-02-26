@@ -5,65 +5,35 @@ import datos.llamadas.Llamada;
 import interfaces.tieneFecha;
 
 public class Factura implements tieneFecha {
-    private final int codigo;
-    private Tarifa tarifa; // €/min, tipo float o double o tarifa
-    private final String fecha_emision;
-    private final int periodo_fact; //en dias?????
-    private final double importe; //float o double??
-    private final String nifCliente;
+    private int codigo;
+    private Tarifa tarifa; //la que tenga el cliente en ese momento
+    private String fecha_emision; //CAMBIAR, FECHA ACTUAL CON LOCAL DATE
+    private PeriodoFacturacion periodo_fact;
+    private double importe;
+    private String nifCliente;
 
-    //todos final?? la fecha de emisión es un parametro?
-    public Factura(Tarifa tarifa, String fecha_emision, int periodo_fact, String nif) {
+    public Factura(PeriodoFacturacion periodo_fact, Cliente cliente) {
         this.codigo = hashCode();
-        this.tarifa = tarifa;
-        this.fecha_emision = fecha_emision;
+        this.tarifa = cliente.getTarifa();
+        this.fecha_emision = "HOLA"; //CAMBIAR CON LOCALDATE
         this.periodo_fact = periodo_fact;
-        this.importe = calcularImporte();
-        this.nifCliente = nif;
-    }
-
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public Tarifa getTarifa() {
-        return tarifa;
-    }
-
-    public String getFecha_emision() {
-        return fecha_emision;
-    }
-
-    public int getPeriodo_fact() {
-        return periodo_fact;
-    }
-
-    public double getImporte() {
-        return importe;
-    }
-
-    public String getNifCliente() {
-        return nifCliente;
+        this.importe = calcularImporte(cliente);
+        this.nifCliente = cliente.getNIF();
     }
 
     @Override
     public String getFecha() {
         return fecha_emision;
-    }
+    } //CAMBIAR CON LOCALDATE
 
-    public void emitirFactura(){
-
-        //Se llama a este metodo desde BaseDeDAtos, desde el metodo emitir factura.
-
-    }
-
-    private double calcularImporte(Cliente cliente, Tarifa tarifa) {
+    private float calcularImporte(Cliente cliente) {
         int segundosTotales = 0;
-        for(Llamada llamada : cliente.getLlamadas())
+        for(Llamada llamada : cliente.getLlamadas())  //COMPARAR las fechas! FALTA HACERLO PARA VER SI ESTÁN DENTRO DEL PERIODO DE FACT
             segundosTotales += llamada.getDuracion();
-        return segundosTotales * tarifa.getTarifa();
+        return segundosTotales * cliente.getTarifa().getTarifa();
     }
 
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("NIF del cliente: " + nifCliente + ", ");

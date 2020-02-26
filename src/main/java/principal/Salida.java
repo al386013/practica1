@@ -5,15 +5,11 @@ import datos.clientes.Direccion;
 import java.util.Scanner;
 
 public class Salida {
-    GestorClientes gestorClientes;
-    GestorLlamadas gestorLlamadas;
-    GestorFacturas gestorFacturas;
+    BaseDeDatos baseDeDatos;
     Scanner sc = new Scanner(System.in);
 
-    public Salida(GestorClientes gc, GestorLlamadas gl, GestorFacturas gf) {
-        gestorClientes = gc;
-        gestorLlamadas = gl;
-        gestorFacturas = gf;
+    public Salida(BaseDeDatos baseDeDatos) {
+        this.baseDeDatos = baseDeDatos;
     }
 
     public String mostrarMenu(){
@@ -107,45 +103,47 @@ public class Salida {
         if(letra == "p") { //anadir particular
             System.out.print("- Introduce apellidos: ");
             String apellidos = sc.next();
-            gestorClientes.anadirParticular(nombre, apellidos, telf, nif, direccion, email);
+            baseDeDatos.anadirParticular(nombre, apellidos, telf, nif, direccion, email);
         }
-        else gestorClientes.anadirEmpresa(nombre, telf, nif, direccion, email);
-        System.out.println("Operación realizada con éxito.\n");
+        else baseDeDatos.anadirEmpresa(nombre, telf, nif, direccion, email);
+        mensajeExito();
     }
 
     public void lanzarMetodo2() {
         System.out.println("\n2) Borrar un cliente.");
         String nif = pedirNIF();
-        System.out.println("Operación realizada con éxito.\n");
+        baseDeDatos.borrarCliente(nif);
+        mensajeExito();
     }
 
     public void lanzarMetodo3() {
         System.out.println("\n3) Cambiar la tarifa de un cliente. ");
         String nif = pedirNIF();
         System.out.print("- Introduce la tarifa deseada (en €/min): ");
-        double tarifa = sc.nextDouble();
+        float tarifa = sc.nextFloat();
         while (tarifa < 0 || tarifa > 100) {
             System.out.print("Tarifa no permitida, vuelve a introducir la tarifa deseada: ");
-            tarifa = sc.nextDouble();
+            tarifa = sc.nextFloat();
         }
-        gestorClientes.cambioTarifa(tarifa, nif);
-        System.out.println("Operación realizada con éxito.\n");
+        baseDeDatos.cambiarTarifa(tarifa, nif);
+        mensajeExito();
     }
 
     public void lanzarMetodo4() {
         System.out.println("\n4) Recuperar los datos de un cliente. ");
         String nif = pedirNIF();
-        System.out.println(gestorClientes.recDatosCliente(nif) + "\n");
+        System.out.println(baseDeDatos.listarDatosCliente(nif) + "\n");
     }
 
     public void lanzarMetodo5() {
         System.out.println("\n5) Recuperar el listado de todos los clientes:\n");
-        System.out.println(gestorClientes.listarClientes());
+        System.out.println(baseDeDatos.listarClientes());
     }
 
     public void lanzarMetodo6() {
         System.out.println("\n6) Dar de alta una llamada.\n");
-        String nif = pedirNIF();
+        System.out.print("- Introduce el telefono de origen: ");
+        String telfOrigen = sc.next();
         System.out.print("- Introduce el telefono de destino: ");
         String telfDest = sc.next();
         System.out.print("- Introduce la fecha de la llamada (formato dd/mm/aaaa)"); //comprobar que está correcta??
@@ -158,8 +156,8 @@ public class Salida {
             System.out.print("Duracion incorrecta. Vuelve a introducir la duracion (en segundos): ");
             duracion = sc.nextInt();
         }
-        gestorLlamadas.efectuarLlamada(gestorClientes, nif, telfDest, fecha, hora, duracion);
-        System.out.println("Operación realizada con exito.\n");
+        baseDeDatos.darDeAltaLlamada(telfOrigen, telfDest, fecha, hora, duracion);
+        mensajeExito();
     }
 
     public void lanzarMetodo7() {
@@ -205,6 +203,10 @@ public class Salida {
             NIF = sc.next();
         }
         return NIF;
+    }
+
+    public void mensajeExito() {
+        System.out.println("Operación realizada con éxito.\n");
     }
 }
 

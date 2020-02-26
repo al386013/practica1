@@ -11,6 +11,7 @@ public class Direccion {
         this.poblacion = poblacion;
     }
 
+    @Override
     public String toString() {
         return this.poblacion + " " + this.provincia + " " + this.CP;
     }
