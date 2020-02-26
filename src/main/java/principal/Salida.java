@@ -82,14 +82,19 @@ public class Salida {
 
     public void lanzarMetodo1() {
         System.out.println("\n1) Dar de alta un nuevo cliente.\n");
-        System.out.print("- Introduce 'e' para empresa o 'p' para particular: \n");
+        System.out.print("- Introduce 'e' para empresa o 'p' para particular: ");
         String letra = sc.next();
-        while(letra != "e" && letra != "p") {
+        while(!letra.equals("e") && !letra.equals("p")) {
             System.out.print("Parámetro incorrecto. Vuelve a intentarlo: ");
             letra = sc.next();
         }
         System.out.print("- Introduce nombre: ");
         String nombre = sc.next();
+        String apellidos = null;
+        if(letra.equals("p")) {
+            System.out.print("- Introduce apellidos: ");
+            apellidos = sc.next();
+        }
         System.out.print("- Introduce telefono: ");
         String telf = sc.next();
         System.out.print("- Introduce el NIF del cliente: ");                  //excepción por si YA existe el NIF!!!
@@ -107,11 +112,8 @@ public class Salida {
         Direccion direccion = new Direccion(cp, provincia, poblacion);
         System.out.print("- Introduce email: ");
         String email = sc.next();
-        if(letra == "p") { //anadir particular
-            System.out.print("- Introduce apellidos: ");
-            String apellidos = sc.next();
+        if(letra.equals("p"))  //anadir particular
             baseDeDatos.anadirParticular(nombre, apellidos, telf, nif, direccion, email);
-        }
         else baseDeDatos.anadirEmpresa(nombre, telf, nif, direccion, email);
         mensajeExito();
     }

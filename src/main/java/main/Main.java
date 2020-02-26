@@ -2,15 +2,13 @@ package main;
 
 import datos.clientes.Direccion;
 import es.uji.www.GeneradorDatosINE;
-import principal.GestorClientes;
-import principal.GestorFacturas;
+import principal.BaseDeDatos;
 import principal.Salida;
 
 public class Main {
     public static void main(String[] args) {
-        //Instanciamos los Gestores:
-        GestorClientes gestorClientes = new GestorClientes();
-        GestorFacturas gestorFacturas = new GestorFacturas();
+        //Creamos una base de datos
+        BaseDeDatos baseDeDatos = new BaseDeDatos();
 
         //cargar la base de datos de la empresa con algunos datos
         GeneradorDatosINE generadorDatosINE = new GeneradorDatosINE();
@@ -23,13 +21,13 @@ public class Main {
             Direccion dir = new Direccion("cp", provincia, poblacion);
             if (i < 5) {
                 String apellidos = generadorDatosINE.getApellido();
-                gestorClientes.anadirParticular(nombre, apellidos, "xxxxxxxxx", nif, dir, email);
+                baseDeDatos.anadirParticular(nombre, apellidos, "xxxxxxxxx", nif, dir, email);
             } else
-                gestorClientes.anadirEmpresa(nombre, "xxxxxxxxx", nif, dir, email);
+                baseDeDatos.anadirEmpresa(nombre, "xxxxxxxxx", nif, dir, email);
         }
 
         //mostramos el menu de opciones, leemos la opcion y lanzamos el metodo correspondiente
-        Salida salida = new Salida(gestorClientes, gestorFacturas);
+        Salida salida = new Salida(baseDeDatos);
         System.out.println(salida.mostrarMenu());
         int op = salida.leerOpcion();
         salida.lanzarMetodo(op);
