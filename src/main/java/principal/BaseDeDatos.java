@@ -49,8 +49,8 @@ public class BaseDeDatos {
         return gestorClientes.listarClientes();
     }
 
-    public String listarLlamadasCliente() {
-        return gestorClientes.listarLlamadasCliente();
+    public String listarLlamadasCliente(String nif) {
+        return gestorClientes.listarLlamadasCliente(nif);
     }
 
     public void emitirFactura(String fechaIni, String fechaFin, String nif) {
@@ -60,10 +60,10 @@ public class BaseDeDatos {
     }
 
     public void listarDatosFactura(int cod) {
-        gestorFacturas.listarDatosFactura();
+        gestorFacturas.listarDatosFactura(cod);
     }
 
     public String listarFacturasCliente(String nif) {
-        gestorClientes.listarFacturasCliente(nif);
+       return gestorClientes.listarFacturasCliente(nif);
     }
 }
