@@ -28,8 +28,8 @@ public class BaseDeDatos {
         gestorClientes.anadirEmpresa(nombre, tlf, NIF, dir, email);
     }
 
-    public void borrarCliente(String NIF) {
-        gestorClientes.borrarCliente(NIF);
+    public void borrarCliente(String telf) {
+        gestorClientes.borrarCliente(telf);
     }
 
     public void cambiarTarifa(float tarifa, String NIF) {
@@ -71,6 +71,6 @@ public class BaseDeDatos {
     }
 
     public boolean existeTelf(String telf) {
-        return gestorClientes.existeCliente(telf);
+        return gestorClientes.existeTelf(telf);
     }
 }
