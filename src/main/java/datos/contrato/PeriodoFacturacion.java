@@ -1,11 +1,21 @@
 package datos.contrato;
 
-public class PeriodoFacturacion {
-    private String fechaIni;
-    private String fechaFin;
+import java.time.LocalDate;
 
-    public PeriodoFacturacion(String fechaIni, String fechaFin) {
+public class PeriodoFacturacion{
+    private LocalDate fechaIni;
+    private LocalDate fechaFin;
+
+    public PeriodoFacturacion(LocalDate fechaIni, LocalDate fechaFin) {
         this.fechaIni = fechaIni;
         this.fechaFin = fechaFin;
+    }
+
+    public LocalDate getFechaFin() {
+        return fechaFin;
+    }
+
+    public LocalDate getFechaIni() {
+        return fechaIni;
     }
 }
