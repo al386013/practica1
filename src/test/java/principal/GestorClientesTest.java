@@ -28,5 +28,8 @@ public class GestorClientesTest {
 
 
     }
-    //@AfterAll
+    @AfterAll
+    public void borrado(){
+        
+    }
 }
