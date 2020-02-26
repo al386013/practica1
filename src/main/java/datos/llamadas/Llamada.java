@@ -1,15 +1,18 @@
 package datos.llamadas;
 
 import interfaces.tieneFecha;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Calendar;
 
 public class Llamada implements tieneFecha {
     private String telf;
-    private String fecha;
-    private String hora;
+    private LocalDate fecha;
+    private LocalTime hora;
     private int duracion; //en segundos
 
-    public Llamada(String telfDestino, String fecha, String hora, int duracion) {
+    public Llamada(String telfDestino, LocalDate fecha, LocalTime hora, int duracion) {
         this.telf = telfDestino;
         this.fecha = fecha;
         this.hora = hora;
@@ -17,7 +20,7 @@ public class Llamada implements tieneFecha {
     }
 
     @Override
-    public String getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
@@ -29,14 +32,14 @@ public class Llamada implements tieneFecha {
         return duracion;
     }
 
-    public String getHora() {
+    public LocalTime getHora() {
         return hora;
     }
 
     @Override
     public String toString() {
-        return "Llamada realizada el " + fecha +
-                " a las " + hora +
+        return "Llamada realizada el " + fecha.toString() +
+                " a las " + hora.toString() +
                 " con una duracion de " + duracion +
                 " al telefono " + telf + "\n";
     }

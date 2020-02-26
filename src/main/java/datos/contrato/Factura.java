@@ -4,10 +4,12 @@ import datos.clientes.Cliente;
 import datos.llamadas.Llamada;
 import interfaces.tieneFecha;
 
+import java.time.LocalDate;
+
 public class Factura implements tieneFecha {
     private int codigo;
     private Tarifa tarifa; //la que tenga el cliente en ese momento
-    private String fecha_emision; //CAMBIAR, FECHA ACTUAL CON LOCAL DATE
+    private LocalDate fecha_emision; //CAMBIAR, FECHA ACTUAL CON LOCAL DATE
     private PeriodoFacturacion periodoFact;
     private double importe;
     private String nifCliente;
@@ -15,7 +17,7 @@ public class Factura implements tieneFecha {
     public Factura(PeriodoFacturacion periodoFact, Cliente cliente) {
         this.codigo = hashCode();
         this.tarifa = cliente.getTarifa();
-        this.fecha_emision = "HOLA"; //CAMBIAR CON LOCALDATE
+        this.fecha_emision = LocalDate.now();
         this.periodoFact = periodoFact;
         this.importe = calcularImporte(cliente);
         this.nifCliente = cliente.getNIF();
@@ -26,9 +28,9 @@ public class Factura implements tieneFecha {
     }
 
     @Override
-    public String getFecha() {
+    public LocalDate getFecha() {
         return fecha_emision;
-    } //CAMBIAR CON LOCALDATE
+    }
 
     private float calcularImporte(Cliente cliente) {
         int segundosTotales = 0;
@@ -43,7 +45,7 @@ public class Factura implements tieneFecha {
         sb.append("NIF del cliente: " + nifCliente + ", ");
         sb.append("Código: " + codigo + ", ");
         sb.append("Tarifa: " + tarifa + ", ");
-        sb.append("Fecha de emisión: " + fecha_emision + ", ");
+        sb.append("Fecha de emisión: " + fecha_emision.toString() + ", ");
         sb.append("Período de facturación: " + periodoFact + " días, ");
         sb.append("Importe: " + importe + "€.");
         return sb.toString();

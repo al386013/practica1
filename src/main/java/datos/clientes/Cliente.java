@@ -6,6 +6,7 @@ import datos.llamadas.Llamada;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 
 public abstract class Cliente {
@@ -15,7 +16,7 @@ public abstract class Cliente {
     private String telf;
     private Direccion direccion;
     private String email;
-    private DateFormat fechaDeAlta;
+    private LocalDate fechaDeAlta;
     private Tarifa tarifa;
     private HashSet<Factura> facturas; //conjunto con todas las facturas del cliente
     private HashSet<Llamada> llamadas; //conjunto con todas las llamadas del cliente
@@ -30,7 +31,7 @@ public abstract class Cliente {
         //Preguntar si las siguentes sentencias corresponde a la fecha actual del sistema:
         //Calendar fechaActual = Calendar.getInstance();
         this.date = new Date();
-        this.fechaDeAlta = new SimpleDateFormat("dd/MM/yyyy");
+        this.fechaDeAlta = LocalDate.now();
         this.tarifa = new Tarifa(); //Preguntar si es necesario instanciar
         this.facturas = new HashSet<Factura>();
         //this.llamadasPeriodoFact = new HashSet<Llamada>();
@@ -52,7 +53,7 @@ public abstract class Cliente {
         return email;
     }
 
-    public DateFormat getFechaDeAlta() {
+    public LocalDate getFechaDeAlta() {
         return fechaDeAlta;
     }
 
@@ -95,7 +96,7 @@ public abstract class Cliente {
         sb.append("NIF: " + NIF + ", ");
         sb.append("Direccion: " + direccion + ", ");
         sb.append("Email: " + email + ", ");
-        sb.append("Fecha de alta: " + fechaDeAlta.format(date) + ", ");
+        sb.append("Fecha de alta: " + fechaDeAlta.toString() + ", ");
         sb.append("Tarifa: " + tarifa + ".");
         return sb.toString();
     }
