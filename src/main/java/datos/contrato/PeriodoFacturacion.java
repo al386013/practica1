@@ -21,6 +21,6 @@ public class PeriodoFacturacion{
 
     @Override
     public String toString() {
-        return fechaIni + "-" + fechaFin;
+        return fechaIni + " - " + fechaFin;
     }
 }

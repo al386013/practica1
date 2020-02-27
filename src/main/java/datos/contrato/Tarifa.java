@@ -1,5 +1,7 @@
 package datos.contrato;
 
+import java.text.DecimalFormat;
+
 public class Tarifa {
     //ATRIBUTO
     private float tarifa;

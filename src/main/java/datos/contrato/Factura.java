@@ -4,6 +4,8 @@ import datos.clientes.Cliente;
 import datos.llamadas.Llamada;
 import interfaces.tieneFecha;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 
 public class Factura implements tieneFecha {
@@ -11,7 +13,7 @@ public class Factura implements tieneFecha {
     private Tarifa tarifa; //la que tenga el cliente en ese momento
     private LocalDate fechaEmision;
     private PeriodoFacturacion periodoFact;
-    private double importe;
+    private float importe;
     private String nifCliente;
 
     public Factura(PeriodoFacturacion periodoFact, Cliente cliente) {
@@ -39,7 +41,10 @@ public class Factura implements tieneFecha {
             if(fecha.isAfter(periodoFact.getFechaIni()) || fecha.isBefore(periodoFact.getFechaFin()))
                 segundosTotales += llamada.getDuracion();
         }
-        return segundosTotales * cliente.getTarifa().getTarifa();
+        float importe = segundosTotales * cliente.getTarifa().getTarifa();
+        //codigo para redondear a dos decimales:
+        BigDecimal redondeado = new BigDecimal(importe).setScale(2, RoundingMode.HALF_EVEN);
+        return redondeado.floatValue();
     }
 
     @Override
