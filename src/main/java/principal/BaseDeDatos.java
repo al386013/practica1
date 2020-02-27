@@ -20,6 +20,7 @@ public class BaseDeDatos {
 
     //METODOS
 
+
     public void anadirParticular(String nombre, String apellidos, String tlf, String NIF, Direccion dir, String email) {
         gestorClientes.anadirParticular(nombre, apellidos, tlf, NIF, dir, email);
     }
@@ -56,7 +57,9 @@ public class BaseDeDatos {
         PeriodoFacturacion periodoFact = new PeriodoFacturacion(fechaIni, fechaFin);
         Cliente cliente = gestorClientes.devuelveCliente(nif);
         gestorFacturas.emitirFactura(periodoFact, cliente);
+
     }
+
 
     public String listarDatosFactura(int cod) {
         return gestorFacturas.listarDatosFactura(cod);
