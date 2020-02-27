@@ -6,8 +6,6 @@ import datos.clientes.Empresa;
 import datos.clientes.Particular;
 import datos.contrato.Factura;
 import datos.llamadas.Llamada;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.HashMap;
 
 public class GestorClientes {
@@ -80,8 +78,8 @@ public class GestorClientes {
     }
 
     //Método darDeAltaLlamada: crea y anade una llamada al conjunto de llamadas de un cliente
-    public void darDeAltaLlamada(String telfOrigen, String telfDestino, LocalDate fecha, LocalTime hora, int duracion) {
-        Llamada llamada = new Llamada(telfDestino, fecha, hora, duracion);
+    public void darDeAltaLlamada(String telfOrigen, String telfDestino, int duracion) {
+        Llamada llamada = new Llamada(telfDestino, duracion);
         clientes.get(telfNif.get(telfOrigen)).anadirLlamada(llamada);
     }
 

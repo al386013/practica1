@@ -30,32 +30,12 @@ public abstract class Cliente {
         this.llamadas = new HashSet<Llamada>();
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
     public String getNIF() {
         return NIF;
     }
 
-    public String getTelf() {
-        return telf;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public LocalDate getFechaDeAlta() {
-        return fechaDeAlta;
-    }
-
     public Tarifa getTarifa() {
         return tarifa;
-    }
-
-    public Direccion getDireccion() {
-        return direccion;
     }
 
     public HashSet<Llamada> getLlamadas() {

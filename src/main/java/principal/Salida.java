@@ -3,7 +3,6 @@ package principal;
 import datos.clientes.Direccion;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Scanner;
 
 public class Salida {
@@ -25,18 +24,18 @@ public class Salida {
         sb.append("6) Dar de alta una llamada \n");
         sb.append("7) Listar todas las llamadas de un cliente \n");
         sb.append("8) Emitir una factura para un cliente \n");
-        sb.append("9) Recuperar los datos de una factura a partir de su código \n");
+        sb.append("9) Recuperar los datos de una factura a partir de su codigo \n");
         sb.append("10) Recuperar todas las facturas de un cliente \n");
         sb.append("11) Salir \n");
         return sb.toString();
     }
 
     public int leerOpcion() {
-        System.out.print("Introduce una opción: ");
+        System.out.print("Introduce una opcion: ");
         int op = sc.nextInt();
         while(op < 1 || op > 11) {
-            System.out.println("Opción incorrecta, vuelve a intentarlo.");
-            System.out.print("Introduce otra opción: ");
+            System.out.println("Opcion incorrecta, vuelve a intentarlo.");
+            System.out.print("Introduce otra opcion: ");
             op = sc.nextInt();
         }
         return op;
@@ -85,7 +84,7 @@ public class Salida {
         System.out.print("- Introduce 'e' para empresa o 'p' para particular: ");
         String letra = sc.next();
         while(!letra.equals("e") && !letra.equals("p")) {
-            System.out.print("Parámetro incorrecto. Vuelve a intentarlo: ");
+            System.out.print("Parametro incorrecto. Vuelve a intentarlo: ");
             letra = sc.next();
         }
         System.out.print("- Introduce nombre: ");
@@ -98,10 +97,6 @@ public class Salida {
         }
         String nif = pedirNifUnico();
         String telf = pedirTelUnico();
-        while(baseDeDatos.existeCliente(nif)) {
-            System.out.println("El NIF del cliente ya existe en la base de datos. Prueba otro NIF: ");
-            nif = sc.next();
-        }
         System.out.print("- Introduce CP: ");
         String cp = sc.next();
         System.out.print("- Introduce provincia: ");
@@ -112,7 +107,7 @@ public class Salida {
         Direccion direccion = new Direccion(cp, provincia, poblacion);
         System.out.print("- Introduce email: ");
         String email = sc.next();
-        if(letra.equals("p"))  //anadir particular
+        if(letra.equals("p"))
             baseDeDatos.anadirParticular(nombre, apellidos, telf, nif, direccion, email);
         else baseDeDatos.anadirEmpresa(nombre, telf, nif, direccion, email);
         mensajeExito();
@@ -154,25 +149,13 @@ public class Salida {
         String telfOrigen = pedirTelfExistente(); //pedir telfOrigen
         System.out.print("- Introduce el telefono de destino: ");
         String telfDest = sc.next();
-        System.out.print("- Introduce la fecha de la llamada (formato aaaa-mm-dd): "); //comprobar que está correcta
-        String fechaCadena = sc.next();
-        LocalDate fecha = LocalDate.parse(fechaCadena);
-        //comprobar que la fecha de llamada es anterior a la fecha actual
-        while(!fecha.isBefore(LocalDate.now())) {
-            System.out.println("Fecha de inicio posterior a la fecha actual. Vuelve a introducirla (aaaa-mm-dd): ");
-            fechaCadena = sc.next();
-            fecha = LocalDate.parse(fechaCadena);
-        }
-        System.out.print("- Introduce la hora de la llamada (formato hh:mm:ss): ");
-        String horaCadena = sc.next();
-        LocalTime hora = LocalTime.parse(horaCadena);
-        System.out.print("- Introduce la duración de la llamada (en segundos): ");
+        System.out.print("- Introduce la duracion de la llamada (en segundos): ");
         int duracion = sc.nextInt();
         while(duracion < 0) {
             System.out.print("Duracion incorrecta. Vuelve a introducir la duracion (en segundos): ");
             duracion = sc.nextInt();
         }
-        baseDeDatos.darDeAltaLlamada(telfOrigen, telfDest, fecha, hora, duracion);
+        baseDeDatos.darDeAltaLlamada(telfOrigen, telfDest, duracion);
         mensajeExito();
     }
 
@@ -186,14 +169,16 @@ public class Salida {
         System.out.println("\n8) Emitir factura para un cliente. ");
         String NIF = pedirNifExistente();
         System.out.print("- Introduce la fecha de inicio de la factura (formato aaaa-mm-dd): ");
-        String fechaIniCadena = sc.next();
-        LocalDate fechaIni = LocalDate.parse(fechaIniCadena);
-        LocalDate fechaFin = LocalDate.now();
-        //comprobar que la fecha de inicio de factura sea anterior a la fecha actual
+        LocalDate fechaIni = LocalDate.parse(sc.next());
+        System.out.print("- Introduce la fecha de fin de la factura (formato aaaa-mm-dd): ");
+        LocalDate fechaFin = LocalDate.parse(sc.next());
+        //comprobar que la fecha de inicio de factura sea anterior a la fecha de fin
         while(!fechaIni.isBefore(fechaFin)) {
-            System.out.println("Fecha de inicio posterior a la fecha actual. Vuelve a introducirla (aaaa-mm-dd): ");
-            fechaIniCadena = sc.next();
-            fechaIni = LocalDate.parse(fechaIniCadena);
+            System.out.println("Fecha de inicio posterior a la fecha de fin. Vuelve a introducirlas (aaaa-mm-dd): ");
+            System.out.print("- Fecha de inicio: ");
+            fechaIni = LocalDate.parse(sc.next());
+            System.out.print("- Fecha de fin: ");
+            fechaFin = LocalDate.parse(sc.next());
         }
         baseDeDatos.emitirFactura(fechaIni, fechaFin, NIF);
         mensajeExito();
@@ -259,6 +244,6 @@ public class Salida {
     }
 
     public void mensajeExito() {
-        System.out.println("Operación realizada con éxito.\n");
+        System.out.println("Operacion realizada con exito.\n");
     }
 }

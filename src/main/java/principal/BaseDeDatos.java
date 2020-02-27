@@ -3,9 +3,7 @@ package principal;
 import datos.clientes.Cliente;
 import datos.clientes.Direccion;
 import datos.contrato.PeriodoFacturacion;
-
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 public class BaseDeDatos {
     //ATRIBUTOS
@@ -19,7 +17,6 @@ public class BaseDeDatos {
     }
 
     //METODOS
-
 
     public void anadirParticular(String nombre, String apellidos, String tlf, String NIF, Direccion dir, String email) {
         gestorClientes.anadirParticular(nombre, apellidos, tlf, NIF, dir, email);
@@ -37,8 +34,8 @@ public class BaseDeDatos {
         gestorClientes.cambioTarifa(tarifa, NIF);
     }
 
-    public void darDeAltaLlamada(String telfOrigen, String telfDestino, LocalDate fecha, LocalTime hora, int duracion) {
-        gestorClientes.darDeAltaLlamada(telfOrigen, telfDestino, fecha, hora, duracion);
+    public void darDeAltaLlamada(String telfOrigen, String telfDestino, int duracion) {
+        gestorClientes.darDeAltaLlamada(telfOrigen, telfDestino, duracion);
     }
 
     public String listarDatosCliente(String NIF) {
@@ -57,9 +54,7 @@ public class BaseDeDatos {
         PeriodoFacturacion periodoFact = new PeriodoFacturacion(fechaIni, fechaFin);
         Cliente cliente = gestorClientes.devuelveCliente(nif);
         gestorFacturas.emitirFactura(periodoFact, cliente);
-
     }
-
 
     public String listarDatosFactura(int cod) {
         return gestorFacturas.listarDatosFactura(cod);

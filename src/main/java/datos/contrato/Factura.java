@@ -41,7 +41,7 @@ public class Factura implements tieneFecha {
             if(fecha.isAfter(periodoFact.getFechaIni()) || fecha.isBefore(periodoFact.getFechaFin()))
                 segundosTotales += llamada.getDuracion();
         }
-        float importe = segundosTotales * cliente.getTarifa().getTarifa();
+        float importe = (segundosTotales/60) * cliente.getTarifa().getTarifa();
         //codigo para redondear a dos decimales:
         BigDecimal redondeado = new BigDecimal(importe).setScale(2, RoundingMode.HALF_EVEN);
         return redondeado.floatValue();
@@ -51,10 +51,10 @@ public class Factura implements tieneFecha {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("NIF: " + nifCliente + ", ");
-        sb.append("Código: " + codigo + ", ");
+        sb.append("Codigo: " + codigo + ", ");
         sb.append("Tarifa: " + tarifa + ", ");
-        sb.append("Fecha de emisión: " + fechaEmision.toString() + ", ");
-        sb.append("Período de facturación: " + periodoFact + ", ");
+        sb.append("Fecha de emision: " + fechaEmision.toString() + ", ");
+        sb.append("Periodo de facturacion: " + periodoFact + ", ");
         sb.append("Importe: " + importe + "€.");
         return sb.toString();
     }
