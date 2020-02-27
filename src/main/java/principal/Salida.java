@@ -157,6 +157,12 @@ public class Salida {
         System.out.print("- Introduce la fecha de la llamada (formato aaaa-mm-dd): "); //comprobar que está correcta
         String fechaCadena = sc.next();
         LocalDate fecha = LocalDate.parse(fechaCadena);
+        //comprobar que la fecha de llamada es anterior a la fecha actual
+        while(!fecha.isBefore(LocalDate.now())) {
+            System.out.println("Fecha de inicio posterior a la fecha actual. Vuelve a introducirla (aaaa-mm-dd): ");
+            fechaCadena = sc.next();
+            fecha = LocalDate.parse(fechaCadena);
+        }
         System.out.print("- Introduce la hora de la llamada (formato hh:mm:ss): ");
         String horaCadena = sc.next();
         LocalTime hora = LocalTime.parse(horaCadena);

@@ -34,8 +34,11 @@ public class Factura implements tieneFecha {
 
     private float calcularImporte(Cliente cliente) {
         int segundosTotales = 0;
-        for (Llamada llamada : cliente.getLlamadas())  //COMPARAR las fechas! FALTA HACERLO PARA VER SI ESTÁN DENTRO DEL PERIODO DE FACT
-            segundosTotales += llamada.getDuracion();
+        for (Llamada llamada : cliente.getLlamadas()) {
+            LocalDate fecha = llamada.getFecha();
+            if(fecha.isAfter(periodoFact.getFechaIni()) || fecha.isBefore(periodoFact.getFechaFin()))
+                segundosTotales += llamada.getDuracion();
+        }
         return segundosTotales * cliente.getTarifa().getTarifa();
     }
 
