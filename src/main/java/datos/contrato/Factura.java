@@ -3,6 +3,7 @@ package datos.contrato;
 import datos.clientes.Cliente;
 import datos.llamadas.Llamada;
 import interfaces.tieneFecha;
+import datos.contrato.PeriodoFacturacion;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
