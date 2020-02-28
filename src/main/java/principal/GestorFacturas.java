@@ -31,4 +31,9 @@ public class GestorFacturas {
         //y al conjunto de facturas del cliente
         cliente.anadirFactura(nuevaFactura);
     }
+
+    //Metodo obtenerFactura: devuelve la factura a partir de su codigo de factura
+    public Factura obtenerFactura(String codFac){
+        return this.totalFacturas.get(codFac);
+    }
 }
