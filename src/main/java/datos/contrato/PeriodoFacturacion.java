@@ -2,8 +2,7 @@ package datos.contrato;
 
 import java.time.LocalDate;
 
-public class PeriodoFacturacion{
-
+public class PeriodoFacturacion {
     private LocalDate fechaIni;
     private LocalDate fechaFin;
 
@@ -24,4 +23,6 @@ public class PeriodoFacturacion{
     public String toString() {
         return fechaIni + " - " + fechaFin;
     }
+
+
 }

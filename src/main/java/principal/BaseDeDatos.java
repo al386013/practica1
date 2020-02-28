@@ -16,7 +16,7 @@ public class BaseDeDatos {
         this.gestorFacturas = new GestorFacturas();
     }
 
-    //METODOS
+    // METODOS
 
     public void anadirParticular(String nombre, String apellidos, String tlf, String NIF, Direccion dir, String email) {
         gestorClientes.anadirParticular(nombre, apellidos, tlf, NIF, dir, email);
