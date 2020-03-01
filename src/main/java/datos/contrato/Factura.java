@@ -28,9 +28,15 @@ public class Factura implements tieneFecha {
         return this.codigo;
     }
 
+    public Tarifa getTarifa() { return this.tarifa; }
+
+    public float getImporte() { return this.importe; }
+
+    public String getNifCliente() { return this.nifCliente; }
+
     @Override
     public LocalDate getFecha() {
-        return fechaEmision;
+        return this.fechaEmision;
     }
 
     private float calcularImporte(Cliente cliente) {

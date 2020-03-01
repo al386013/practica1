@@ -99,10 +99,10 @@ public class GestorClientesTest {
     @Test
     public void testListarDatosCliente() {
         assertEquals(baseDeDatos.listarDatosCliente("20925403"), "prado banarro, alberto, NIF: 20925403, Telf: 692242216, " +
-                "Direccion: Castelllon - Castellon de la plana - 12005, Email: albertoprado@gmail.com, Fecha de alta: 2020-03-01, " +
-                "Tarifa: " + alberto.getTarifa() + ". ");
+                "Direccion: Castelllon - Castellon de la plana - 12005, Email: albertoprado@gmail.com, Fecha de alta: " + LocalDate.now() +
+                ", Tarifa: " + alberto.getTarifa() + ". ");
         assertEquals(baseDeDatos.listarDatosCliente("63302284"), "pamesa, NIF: 63302284, Telf: 964246252, " +
-                "Direccion: Castelllon - VillaReal - 12006, Email: pamesa@gmail.com, Fecha de alta: 2020-03-01, Tarifa: 0.05 €/min. ");
+                "Direccion: Castelllon - VillaReal - 12006, Email: pamesa@gmail.com, Fecha de alta: " + LocalDate.now() + ", Tarifa: 0.05 €/min. ");
     }
 
     //comprueba darDeAltaLlamada y listarLlamadasCliente
