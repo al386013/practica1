@@ -2,84 +2,136 @@ package principal;
 
 import datos.clientes.Cliente;
 import datos.clientes.Direccion;
-import datos.clientes.Empresa;
-import datos.clientes.Particular;
 import datos.llamadas.Llamada;
 import es.uji.www.GeneradorDatosINE;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-
+import static org.junit.Assert.assertEquals;
 
 public class GestorClientesTest {
-    GestorClientes gestorClientes;
-    Cliente alberto;
-    Cliente pamesa;
+    private static BaseDeDatos baseDeDatos;
+    private static Cliente alberto;
+    private static Direccion dirAlberto;
+    private static Cliente pamesa;
+    private static Direccion dirPamesa;
 
     @BeforeAll
-    public void inicializaClientes(){
-        gestorClientes = new GestorClientes();
-        for(int i = 0; i < 100 ; i++){
+    public static void inicializa() {
+        baseDeDatos = new BaseDeDatos();
+        for (int i = 0; i < 100; i++) {
             GeneradorDatosINE generadorDatosINE = new GeneradorDatosINE();
+            String nombre = generadorDatosINE.getNombre();
+            String nif = generadorDatosINE.getNIF();
             String provincia = generadorDatosINE.getProvincia();
             String poblacion = generadorDatosINE.getPoblacion(provincia);
-            String Cp = "12005"; //GENERADOR INE NO TIENE CP
-            Direccion direccion = new Direccion(Cp, provincia, poblacion);
-            gestorClientes.anadirParticular(generadorDatosINE.getNombre(), generadorDatosINE.getApellido(), "666666666",generadorDatosINE.getNIF(), direccion, "ejemplo@gmail.com" );
+            String cp = "12005"; //GENERADOR INE NO TIENE CP
+            Direccion direccion = new Direccion(cp, provincia, poblacion);
+            //creamos 50 particulares y 50 empresas
+            if (i < 50) {
+                String apellidos = generadorDatosINE.getApellido();
+                baseDeDatos.anadirParticular(nombre, apellidos, "666666666", nif, direccion, "particular@gmail.com");
+            } else baseDeDatos.anadirEmpresa(nombre, "666666666", nif, direccion, "empresa@gmail.com");
         }
-        Direccion direccion = new Direccion("12005", "Castellon de la plana", "Castelllon");
-        gestorClientes.anadirParticular("alberto", "prado banarro","692242216","20925403",direccion,"albertoprado@gmail.com");
-        alberto = new Particular("alberto", "prado banarro","692242216","20925403", direccion,"albertoprado@gmail.com");
 
-        Direccion direccionPamesa = new Direccion("12006", "VillaReal", "Castelllon");
-        gestorClientes.anadirEmpresa("pamesa", "964246252", "63302284",direccionPamesa, "pamesa@gmail.com");
-        pamesa = new Empresa("pamesa","964246252", "63302284", direccionPamesa, "pamesa@gmail.com");
+        dirAlberto = new Direccion("12005", "Castellon de la plana", "Castelllon");
+        baseDeDatos.anadirParticular("alberto", "prado banarro", "692242216", "20925403", dirAlberto, "albertoprado@gmail.com");
+        alberto = baseDeDatos.devuelveCliente("20925403");
 
-
+        dirPamesa = new Direccion("12006", "VillaReal", "Castelllon");
+        baseDeDatos.anadirEmpresa("pamesa", "964246252", "63302284", dirPamesa, "pamesa@gmail.com");
+        pamesa = baseDeDatos.devuelveCliente("63302284");
     }
 
     @Test
-    public void testDevuelveCliente(){
-        assertThat(gestorClientes.devuelveCliente("20925403"), is(alberto));
-        assertThat(gestorClientes.devuelveCliente("22921854"), is(null));
-        assertThat(gestorClientes.devuelveCliente("63302284"), is(pamesa));
-        assertThat(gestorClientes.devuelveCliente("00000000"), is(null));
-
+    public void testExisteCliente() { //devuelve true si el nif existe
+        assertThat(baseDeDatos.existeCliente("20925403"), is(true));
+        assertThat(baseDeDatos.existeCliente("22921854"), is(false));
+        assertThat(baseDeDatos.existeCliente("63302284"), is(true));
+        assertThat(baseDeDatos.existeCliente("00000000"), is(false));
     }
 
     @Test
-    public void testExisteCliente(){
-        assertThat(gestorClientes.existeCliente("20925403"), is(true));
-        assertThat(gestorClientes.devuelveCliente("22921854"), is(false));
-        assertThat(gestorClientes.devuelveCliente("63302284"), is(true));
-        assertThat(gestorClientes.devuelveCliente("00000000"), is(false));
-
+    public void testExisteTelf() { //devuelve true si el telf existe
+        assertThat(baseDeDatos.existeTelf("692242216"), is(true));
+        assertThat(baseDeDatos.existeTelf("999999999"), is(false));
+        assertThat(baseDeDatos.existeTelf("964246252"), is(true));
+        assertThat(baseDeDatos.existeTelf("00000000"), is(false));
     }
 
     @Test
-    public void testAñadirParticular(){
-        //El cliente que se busca se ha añadido en el BeforeAll ("alberto")
-        assertThat(gestorClientes.existeCliente("20925403") , is(true));
-
-
+    public void testAñadirParticular() {
+        //Se busca el cliente alberto anadido en el BeforeAll
+        assertEquals(alberto.getNIF(), "20925403");
+        assertEquals(alberto.getNombre(), "alberto");
+        assertEquals(alberto.getEmail(), "albertoprado@gmail.com");
+        assertEquals(alberto.getTelf(), "692242216");
+        assertEquals(alberto.getFecha(), LocalDate.now());
+        assertEquals(alberto.getDireccion(), dirAlberto);
+        //la tarifa se comrpueba en testCambiarTarifa
     }
 
     @Test
-    public void testAñadirEmpresa(){
-        //El cliente que se busca se ha añadido en el BeforeAll ("pamesa")
-       assertThat(gestorClientes.existeCliente("63302284"), is(true));
-
+    public void testAñadirEmpresa() {
+        //Se busca la empresa pamesa anadida en el BeforeAll
+        assertEquals(pamesa.getNIF(), "63302284");
+        assertEquals(pamesa.getNombre(), "pamesa");
+        assertEquals(pamesa.getEmail(), "pamesa@gmail.com");
+        assertEquals(pamesa.getTelf(), "964246252");
+        assertEquals(pamesa.getFecha(), LocalDate.now());
+        assertEquals(pamesa.getDireccion(), dirPamesa);
+        assertEquals(pamesa.getTarifa().getTarifa(), 0.05f, 0);
     }
 
-//    @Test
-//    public void testDarDeAltaLlamada(){
-//
-//    }
+    @Test
+    public void testCambiarTarifa() {
+        //comprobamos la tarifa de alberto
+        assertEquals(alberto.getTarifa().getTarifa(), 0.05f, 0);
+        //cambiamos la tarifa de alberto y comprobamos el cambio
+        baseDeDatos.cambiarTarifa(0.15f, alberto.getNIF());
+        assertEquals(alberto.getTarifa().getTarifa(), 0.15f, 0);
+    }
+
+    @Test
+    public void testListarDatosCliente() {
+        assertEquals(baseDeDatos.listarDatosCliente("20925403"), "prado banarro, alberto, NIF: 20925403, Telf: 692242216, " +
+                "Direccion: Castelllon - Castellon de la plana - 12005, Email: albertoprado@gmail.com, Fecha de alta: 2020-03-01, " +
+                "Tarifa: " + alberto.getTarifa() + ". ");
+        assertEquals(baseDeDatos.listarDatosCliente("63302284"), "pamesa, NIF: 63302284, Telf: 964246252, " +
+                "Direccion: Castelllon - VillaReal - 12006, Email: pamesa@gmail.com, Fecha de alta: 2020-03-01, Tarifa: 0.05 €/min. ");
+    }
+
+    //comprueba darDeAltaLlamada y listarLlamadasCliente
+    @Test
+    public void testLlamadas() { //podria fallar si justo cambia el minuto al comprobar el test
+        baseDeDatos.darDeAltaLlamada("692242216", "000000000", 120);
+        assertEquals(baseDeDatos.listarLlamadasCliente("692242216"), "Llamada realizada el " + LocalDate.now() + " a las " +
+                LocalTime.now().getHour() + ":" + LocalTime.now().getMinute() + " con una duracion de 120 segundos al telefono 000000000\n");
+        for(Llamada llamada : alberto.getLlamadas()) { //solo hay una
+            assertEquals(llamada.getTelfDest(), "000000000");
+            assertEquals(llamada.getDuracion(), 120);
+            assertEquals(llamada.getFecha(), LocalDate.now());
+        }
+    }
+
+    @Test
+    public void testBorrarCliente() {
+        //creamos un cliente
+        baseDeDatos.anadirParticular("maria", "gracia rubio", "123456789", "X1234567S", dirAlberto, "mariagracia@gmail.com");
+        //vemos que se ha anadido
+        assertThat(baseDeDatos.existeCliente("X1234567S"), is(true));
+        //lo borramos
+        baseDeDatos.borrarCliente("123456789");
+        //vemos que se ha borrado
+        assertEquals(baseDeDatos.existeCliente("X1234567S"), false);
+    }
+
     @AfterAll
-    public void borrado(){
-        gestorClientes = null;
+    public static void borraTodo(){
+        baseDeDatos = null;
     }
 }

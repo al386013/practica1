@@ -17,6 +17,7 @@ public class BaseDeDatos {
     }
 
     // METODOS
+    //BaseDeDatos llama al metodo correspondiente de gestorClientes, gestorFacturas o ambos; es el intermediario
 
     public void anadirParticular(String nombre, String apellidos, String tlf, String NIF, Direccion dir, String email) {
         gestorClientes.anadirParticular(nombre, apellidos, tlf, NIF, dir, email);
@@ -29,6 +30,8 @@ public class BaseDeDatos {
     public void borrarCliente(String telf) {
         gestorClientes.borrarCliente(telf);
     }
+
+    public Cliente devuelveCliente(String nif) { return gestorClientes.devuelveCliente(nif); }
 
     public void cambiarTarifa(float tarifa, String NIF) {
         gestorClientes.cambioTarifa(tarifa, NIF);

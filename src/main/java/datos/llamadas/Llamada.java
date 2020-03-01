@@ -5,13 +5,13 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Llamada implements tieneFecha {
-    private String telf;
+    private String telfDest;
     private LocalDate fecha;
     private LocalTime hora;
     private int duracion; //en segundos
 
-    public Llamada(String telfDestino, int duracion) {
-        this.telf = telfDestino;
+    public Llamada(String telfDest, int duracion) {
+        this.telfDest = telfDest;
         this.fecha = LocalDate.now();
         this.hora = LocalTime.now();
         this.duracion = duracion;
@@ -26,13 +26,15 @@ public class Llamada implements tieneFecha {
         return duracion;
     }
 
+    public String getTelfDest() { return telfDest; }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Llamada realizada el " + fecha);
         sb.append(" a las " + hora.getHour() + ":" + hora.getMinute());
         sb.append(" con una duracion de " + duracion + " segundos");
-        sb.append(" al telefono " + telf);
+        sb.append(" al telefono " + telfDest);
         return sb.toString();
     }
 }

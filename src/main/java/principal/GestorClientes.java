@@ -51,7 +51,7 @@ public class GestorClientes {
     }
 
     //Metodo borrarCliente: lo elimina de clientes a partir de su telefono
-    public void borrarCliente(String telf) { //al borrarlo no se forran sus facturas de totalFacturas
+    public void borrarCliente(String telf) { //al borrarlo no se borran sus facturas de totalFacturas
         String nif = telfNif.get(telf);
         clientes.remove(nif); //se borra de clientes
         telfNif.remove(telf); //y del telfNif

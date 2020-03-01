@@ -6,7 +6,7 @@ public class Tarifa {
 
     //CONSTRUCTOR POR DEFECTO
     public Tarifa() {
-        tarifa = (float)0.05;
+        tarifa = 0.05f;
     }
 
     public Tarifa(float tarifa) {

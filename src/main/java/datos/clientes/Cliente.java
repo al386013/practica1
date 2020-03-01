@@ -2,11 +2,12 @@ package datos.clientes;
 
 import datos.contrato.Factura;
 import datos.contrato.Tarifa;
+import interfaces.tieneFecha;
 import datos.llamadas.Llamada;
 import java.time.LocalDate;
 import java.util.*;
 
-public abstract class Cliente {
+public abstract class Cliente implements tieneFecha {
 
     private String nombre;
     private String NIF;
@@ -30,13 +31,22 @@ public abstract class Cliente {
         this.llamadas = new HashSet<Llamada>();
     }
 
+    public String getNombre() { return nombre; }
+
+    public String getTelf() { return telf; }
+
     public String getNIF() {
         return NIF;
     }
 
-    public Tarifa getTarifa() {
-        return tarifa;
-    }
+    public Direccion getDireccion() { return direccion; }
+
+    public String getEmail() { return email; }
+
+    @Override
+    public LocalDate getFecha() { return fechaDeAlta; }
+
+    public Tarifa getTarifa() { return tarifa; }
 
     public HashSet<Llamada> getLlamadas() {
         return llamadas;
@@ -67,7 +77,7 @@ public abstract class Cliente {
         sb.append("Direccion: " + direccion + ", ");
         sb.append("Email: " + email + ", ");
         sb.append("Fecha de alta: " + fechaDeAlta.toString() + ", ");
-        sb.append("Tarifa: " + tarifa + ".");
+        sb.append("Tarifa: " + tarifa + ". ");
         return sb.toString();
     }
 }
