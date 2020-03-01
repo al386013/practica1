@@ -1,6 +1,7 @@
 package principal;
 
 import datos.clientes.Direccion;
+import excepciones.DuracionNegativaException;
 import excepciones.NifRepetidoException;
 
 import java.time.LocalDate;
@@ -146,7 +147,7 @@ public class Salida {
         System.out.println(baseDeDatos.listarClientes());
     }
 
-    public void lanzarMetodo6() {
+    public void lanzarMetodo6() throws DuracionNegativaException {
         System.out.println("\n6) Dar de alta una llamada.");
         String telfOrigen = pedirTelfExistente(); //pedir telfOrigen
         System.out.print("- Introduce el telefono de destino: ");

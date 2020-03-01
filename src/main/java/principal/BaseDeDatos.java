@@ -3,6 +3,7 @@ package principal;
 import datos.clientes.Cliente;
 import datos.clientes.Direccion;
 import datos.contrato.PeriodoFacturacion;
+import excepciones.DuracionNegativaException;
 import excepciones.NifRepetidoException;
 
 import java.time.LocalDate;
@@ -42,7 +43,8 @@ public class BaseDeDatos {
         gestorClientes.cambioTarifa(tarifa, NIF);
     }
 
-    public void darDeAltaLlamada(String telfOrigen, String telfDestino, int duracion) {
+    public void darDeAltaLlamada(String telfOrigen, String telfDestino, int duracion) throws DuracionNegativaException {
+        //La excepcion DuracionNegativa se trata en gestorClientes
         gestorClientes.darDeAltaLlamada(telfOrigen, telfDestino, duracion);
     }
 

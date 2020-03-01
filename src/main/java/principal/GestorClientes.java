@@ -6,6 +6,7 @@ import datos.clientes.Empresa;
 import datos.clientes.Particular;
 import datos.contrato.Factura;
 import datos.llamadas.Llamada;
+import excepciones.DuracionNegativaException;
 import excepciones.NifRepetidoException;
 
 import java.util.HashMap;
@@ -82,7 +83,8 @@ public class GestorClientes {
     }
 
     //Método darDeAltaLlamada: crea y anade una llamada al conjunto de llamadas de un cliente
-    public void darDeAltaLlamada(String telfOrigen, String telfDestino, int duracion) {
+    public void darDeAltaLlamada(String telfOrigen, String telfDestino, int duracion) throws DuracionNegativaException{
+        if(duracion < 0) throw new DuracionNegativaException();
         Llamada llamada = new Llamada(telfDestino, duracion);
         clientes.get(telfNif.get(telfOrigen)).anadirLlamada(llamada);
     }
