@@ -29,9 +29,9 @@ public class GestorClientesTest {
             String nombre = generadorDatosINE.getNombre();
             String nif = generadorDatosINE.getNIF();
             String provincia = generadorDatosINE.getProvincia();
-            String poblacion = generadorDatosINE.getPoblacion(provincia);
+            //String poblacion = generadorDatosINE.getPoblacion(provincia); nos da error el generador
             String cp = "12005"; //GENERADOR INE NO TIENE CP
-            Direccion direccion = new Direccion(cp, provincia, poblacion);
+            Direccion direccion = new Direccion(cp, provincia, "Poblacion");
             //creamos 50 particulares y 50 empresas
             if (i < 50) {
                 String apellidos = generadorDatosINE.getApellido();
