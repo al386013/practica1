@@ -6,6 +6,8 @@ import datos.clientes.Empresa;
 import datos.clientes.Particular;
 import datos.contrato.Factura;
 import datos.llamadas.Llamada;
+import excepciones.NifRepetidoException;
+
 import java.util.HashMap;
 
 public class GestorClientes {
@@ -37,14 +39,16 @@ public class GestorClientes {
     }
 
     //Metodo anadirParticular, llama al constructor de Cliente, lo crea, se anade a la base de datos
-    public void anadirParticular(String nombre, String apellidos, String telf, String NIF, Direccion dir, String email) {
+    public void anadirParticular(String nombre, String apellidos, String telf, String NIF, Direccion dir, String email) throws NifRepetidoException {
+        if (existeCliente(NIF)) throw new NifRepetidoException();
         Cliente nuevo = new Particular(nombre, apellidos, telf, NIF, dir, email);
         clientes.put(NIF, nuevo);
         telfNif.put(telf, NIF);
     }
 
     //Metodo anadirEmpresa, llama al constructor de Cliente, lo crea, se anade a la base de datos
-    public void anadirEmpresa(String nombre, String telf, String NIF, Direccion dir, String email) {
+    public void anadirEmpresa(String nombre, String telf, String NIF, Direccion dir, String email) throws NifRepetidoException{
+        if (existeCliente(NIF)) throw new NifRepetidoException();
         Cliente nuevo = new Empresa(nombre, telf, NIF, dir, email);
         clientes.put(NIF, nuevo);
         telfNif.put(telf, NIF);
