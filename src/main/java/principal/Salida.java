@@ -1,6 +1,7 @@
 package principal;
 
 import datos.clientes.Direccion;
+import excepciones.NifRepetidoException;
 
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -41,7 +42,7 @@ public class Salida {
         return op;
     }
 
-    public void lanzarMetodo(int op) {
+    public void lanzarMetodo(int op) throws NifRepetidoException {
         switch (op) {
             case 1:
                 lanzarMetodo1();
@@ -79,7 +80,7 @@ public class Salida {
         }
     }
 
-    public void lanzarMetodo1() {
+    public void lanzarMetodo1() throws NifRepetidoException {
         System.out.println("\n1) Dar de alta un nuevo cliente.");
         System.out.print("- Introduce 'e' para empresa o 'p' para particular: ");
         String letra = sc.next();
@@ -95,7 +96,8 @@ public class Salida {
             System.out.print("- Introduce apellidos: ");
             apellidos = sc.nextLine();
         }
-        String nif = pedirNifUnico();
+        System.out.print("- Introduce NIF: ");
+        String nif = sc.next();
         String telf = pedirTelUnico();
         System.out.print("- Introduce CP: ");
         String cp = sc.next();
@@ -221,16 +223,6 @@ public class Salida {
             telf = sc.next();
         }
         return telf;
-    }
-
-    public String pedirNifUnico() {
-        System.out.print("- Introduce el NIF del cliente: ");
-        String nif = sc.next();
-        while (baseDeDatos.existeCliente(nif)) {
-            System.out.print("Nif ya existente en la base de datos. Vuelve a introducir el NIF: ");
-            nif = sc.next();
-        }
-        return nif;
     }
 
     public String pedirTelUnico() {

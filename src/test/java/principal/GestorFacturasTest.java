@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import datos.clientes.Direccion;
 import datos.contrato.Factura;
 import es.uji.www.GeneradorDatosINE;
+import excepciones.NifRepetidoException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,7 @@ public class GestorFacturasTest {
     private static Cliente pamesa;
 
     @BeforeAll
-    public static void inicializa() {
+    public static void inicializa() throws NifRepetidoException {
         baseDeDatos = new BaseDeDatos();
 
         //cargamos la base de datos con algunos clientes

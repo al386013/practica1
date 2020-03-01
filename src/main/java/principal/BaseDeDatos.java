@@ -21,7 +21,8 @@ public class BaseDeDatos {
     // METODOS
     //BaseDeDatos llama al metodo correspondiente de gestorClientes, gestorFacturas o ambos; es el intermediario
 
-    public void anadirParticular(String nombre, String apellidos, String tlf, String NIF, Direccion dir, String email)throws NifRepetidoException{
+    public void anadirParticular(String nombre, String apellidos, String tlf, String NIF, Direccion dir, String email)
+            throws NifRepetidoException{
         //La excepcion nifRepetido se resuelve en la clase GestorClientes
         gestorClientes.anadirParticular(nombre, apellidos, tlf, NIF, dir, email);
     }
