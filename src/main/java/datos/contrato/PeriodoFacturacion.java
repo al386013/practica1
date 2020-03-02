@@ -23,5 +23,5 @@ public class PeriodoFacturacion {
     public String toString() {
         return fechaIni + " - " + fechaFin;
     }
-    
+
 }

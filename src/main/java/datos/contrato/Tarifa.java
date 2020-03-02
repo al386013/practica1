@@ -9,10 +9,6 @@ public class Tarifa {
         tarifa = 0.05f;
     }
 
-    public Tarifa(float tarifa) {
-        this.tarifa = tarifa;
-    }
-
     //METODOS
     public float getTarifa() { return tarifa; }
 
