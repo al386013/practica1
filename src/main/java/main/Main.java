@@ -1,11 +1,12 @@
 package main;
 
+import excepciones.DuracionNegativaException;
 import excepciones.NifRepetidoException;
 import principal.BaseDeDatos;
 import principal.Salida;
 
 public class Main {
-    public static void main(String[] args) throws NifRepetidoException {
+    public static void main(String[] args) throws NifRepetidoException, DuracionNegativaException {
         //Creamos una base de datos
         BaseDeDatos baseDeDatos = new BaseDeDatos();
 
