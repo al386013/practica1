@@ -4,6 +4,7 @@ import datos.clientes.Cliente;
 import datos.clientes.Direccion;
 import datos.llamadas.Llamada;
 import es.uji.www.GeneradorDatosINE;
+import excepciones.DuracionNegativaException;
 import excepciones.NifRepetidoException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -108,7 +109,7 @@ public class GestorClientesTest {
 
     //comprueba darDeAltaLlamada y listarLlamadasCliente
     @Test
-    public void testLlamadas() { //podria fallar si justo cambia el minuto al comprobar el test
+    public void testLlamadas() throws DuracionNegativaException { //podria fallar si justo cambia el minuto al comprobar el test
         baseDeDatos.darDeAltaLlamada("692242216", "000000000", 120);
         assertEquals(baseDeDatos.listarLlamadasCliente("692242216"), "Llamada realizada el " + LocalDate.now() + " a las " +
                 LocalTime.now().getHour() + ":" + LocalTime.now().getMinute() + " con una duracion de 120 segundos al telefono 000000000\n");

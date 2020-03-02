@@ -5,7 +5,6 @@ import datos.clientes.Direccion;
 import datos.contrato.PeriodoFacturacion;
 import excepciones.DuracionNegativaException;
 import excepciones.NifRepetidoException;
-
 import java.time.LocalDate;
 
 public class BaseDeDatos {

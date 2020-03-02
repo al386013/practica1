@@ -43,7 +43,7 @@ public class Salida {
         return op;
     }
 
-    public void lanzarMetodo(int op) throws NifRepetidoException {
+    public void lanzarMetodo(int op) throws NifRepetidoException, DuracionNegativaException {
         switch (op) {
             case 1:
                 lanzarMetodo1();
@@ -154,10 +154,6 @@ public class Salida {
         String telfDest = sc.next();
         System.out.print("- Introduce la duracion de la llamada (en segundos): ");
         int duracion = sc.nextInt();
-        while(duracion < 0) {
-            System.out.print("Duracion incorrecta. Vuelve a introducir la duracion (en segundos): ");
-            duracion = sc.nextInt();
-        }
         baseDeDatos.darDeAltaLlamada(telfOrigen, telfDest, duracion);
         mensajeExito();
     }
