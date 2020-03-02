@@ -43,7 +43,7 @@ public class Salida {
         return op;
     }
 
-    public void lanzarMetodo(int op) throws NifRepetidoException {
+    public void lanzarMetodo(int op) throws NifRepetidoException, DuracionNegativaException {
         switch (op) {
             case 1:
                 lanzarMetodo1();
