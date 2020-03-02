@@ -11,8 +11,8 @@ public class Salida {
     BaseDeDatos baseDeDatos;
     Scanner sc = new Scanner(System.in);
 
-    public Salida(BaseDeDatos baseDeDatos) {
-        this.baseDeDatos = baseDeDatos;
+    public Salida() {
+        this.baseDeDatos =  new BaseDeDatos();
     }
 
     public String mostrarMenu(){
@@ -99,7 +99,7 @@ public class Salida {
         }
         System.out.print("- Introduce NIF: ");
         String nif = sc.next();
-        String telf = pedirTelUnico();
+        String telf = pedirTelfUnico();
         System.out.print("- Introduce CP: ");
         String cp = sc.next();
         System.out.print("- Introduce provincia: ");
@@ -199,10 +199,10 @@ public class Salida {
     }
 
     public void lanzarMetodo11() {
-        System.out.println("\n --> Programa cerrado. <-- ");
+        System.out.println("\n --> Programa cerrado <-- ");
     }
 
-    public String pedirNifExistente() {
+    private String pedirNifExistente() {
         System.out.print("- Introduce el NIF del cliente: ");
         String NIF = sc.next();
         while(!baseDeDatos.existeCliente(NIF)) {
@@ -212,7 +212,7 @@ public class Salida {
         return NIF;
     }
 
-    public String pedirTelfExistente() {
+    private String pedirTelfExistente() {
         System.out.print("- Introduce el telefono del cliente: ");
         String telf = sc.next();
         while(!baseDeDatos.existeTelf(telf)) {
@@ -222,7 +222,7 @@ public class Salida {
         return telf;
     }
 
-    public String pedirTelUnico() {
+    private String pedirTelfUnico() {
         System.out.print("- Introduce el telefono del cliente: ");
         String telf = sc.next();
         while (baseDeDatos.existeTelf(telf)) {
@@ -232,7 +232,7 @@ public class Salida {
         return telf;
     }
 
-    public void mensajeExito() {
+    private void mensajeExito() {
         System.out.println("Operacion realizada con exito.\n");
     }
 }

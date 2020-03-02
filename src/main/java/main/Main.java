@@ -2,16 +2,12 @@ package main;
 
 import excepciones.DuracionNegativaException;
 import excepciones.NifRepetidoException;
-import principal.BaseDeDatos;
 import principal.Salida;
 
 public class Main {
     public static void main(String[] args) throws NifRepetidoException, DuracionNegativaException {
-        //Creamos una base de datos
-        BaseDeDatos baseDeDatos = new BaseDeDatos();
-
         //mostramos el menu de opciones
-        Salida salida = new Salida(baseDeDatos);
+        Salida salida = new Salida();
         System.out.println(salida.mostrarMenu());
         //leemos la opcion
         int op = salida.leerOpcion();
@@ -19,6 +15,7 @@ public class Main {
         salida.lanzarMetodo(op);
         //pedimos una nueva opcion
         while (op != 11) {
+            System.out.println(salida.mostrarMenu());
             op = salida.leerOpcion();
             salida.lanzarMetodo(op);
         }
