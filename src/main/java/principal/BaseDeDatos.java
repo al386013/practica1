@@ -93,7 +93,7 @@ public class BaseDeDatos {
     }
 
 
-    public static < T extends tieneFecha> Collection< T > tiposIguales(HashSet< T > conjunto, LocalDate fechaIni, LocalDate fechaFin) {
+    private < T extends tieneFecha> Collection< T > entreFechas(Collection< T > conjunto, LocalDate fechaIni, LocalDate fechaFin) {
         Collection< T > res = new HashSet< >();
         for (T elem : conjunto) {
             LocalDate fecha = elem.getFecha();
@@ -102,4 +102,17 @@ public class BaseDeDatos {
         }
         return res;
     }
+
+    public Collection<Cliente> clientesEntreFechas(Collection<Cliente> clientes, LocalDate fechaIni, LocalDate fechaFin) {
+        return entreFechas(clientes, fechaIni, fechaFin);
+    }
+    public Collection<Llamada> LlamadasEntreFechas(String telf, LocalDate fechaIni, LocalDate fechaFin) {
+        return entreFechas(gestorClientes.clientes.get(gestorClientes.telfNif.get(telf)).getLlamadas(), fechaIni, fechaFin);
+    }
+
+    public Collection<Factura> facturasEntreFechas(String nif, LocalDate fechaIni, LocalDate fechaFin) {
+        return entreFechas(gestorClientes.clientes.get(nif).getFacturas(), fechaIni, fechaFin);
+    }
+
+
 }
