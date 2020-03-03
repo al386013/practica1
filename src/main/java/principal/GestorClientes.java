@@ -5,9 +5,11 @@ import datos.clientes.Direccion;
 import datos.clientes.Empresa;
 import datos.clientes.Particular;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class GestorClientes {
-    private HashMap<String, Cliente> clientes;
+    private HashMap<String, Cliente> clientes; //Clave es el NIF del cliente
+    private HashSet
 
     public GestorClientes() {
         clientes = new HashMap<String, Cliente>();
