@@ -92,8 +92,8 @@ public class BaseDeDatos {
         return gestorClientes.existeTelf(telf);
     }
 
-    private < T extends tieneFecha> Collection< T > entreFechas(HashSet< T > conjunto, LocalDate fechaIni, LocalDate fechaFin) {
-        Collection<T> res = new HashSet<>();
+    private < T extends tieneFecha> Collection< T > entreFechas(Collection< T > conjunto, LocalDate fechaIni, LocalDate fechaFin) {
+        Collection< T > res = new HashSet< >();
         for (T elem : conjunto) {
             LocalDate fecha = elem.getFecha();
             if (fecha.isAfter(fechaIni) && fecha.isBefore(fechaFin))
@@ -102,13 +102,14 @@ public class BaseDeDatos {
         return res;
     }
 
-    public < T extends tieneFecha> String listarEntreFechas(HashSet< T > conjunto) {
-        StringBuilder sb = new StringBuilder();
-        for (T elem : conjunto) {
-            sb.append(elem.toString());
-            sb.append("\n");
-        }
-        return sb.toString();
+    public Collection<Cliente> clientesEntreFechas(Collection<Cliente> clientes, LocalDate fechaIni, LocalDate fechaFin) {
+        return entreFechas(clientes, fechaIni, fechaFin);
+    }
+    public Collection<Llamada> LlamadasEntreFechas(String telf, LocalDate fechaIni, LocalDate fechaFin) {
+        return entreFechas(gestorClientes.clientes.get(gestorClientes.telfNif.get(telf)).getLlamadas(), fechaIni, fechaFin);
     }
 
+    public Collection<Factura> facturasEntreFechas(String nif, LocalDate fechaIni, LocalDate fechaFin) {
+        return entreFechas(gestorClientes.clientes.get(nif).getFacturas(), fechaIni, fechaFin);
+    }
 }

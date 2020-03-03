@@ -9,7 +9,7 @@ public class GestorClientes {
 
     //ATRIBUTOS
     HashMap<String, Cliente> clientes; //clave: nif
-    private HashMap<String, String> telfNif;   //clave: telf - relaciona el telf con el nif del cliente
+    HashMap<String, String> telfNif;   //clave: telf - relaciona el telf con el nif del cliente
 
     //CONSTRUCTORES
     public GestorClientes() {
