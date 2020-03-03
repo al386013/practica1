@@ -5,6 +5,7 @@ import datos.clientes.Direccion;
 import datos.contrato.Factura;
 import es.uji.www.GeneradorDatosINE;
 import excepciones.DuracionNegativaException;
+import excepciones.IntervaloFechasIncorrectoException;
 import excepciones.NifRepetidoException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -54,7 +55,7 @@ public class GestorFacturasTest {
     }
 
     @Test
-    public void testEmitirListarFactura() {
+    public void testEmitirListarFactura() throws IntervaloFechasIncorrectoException {
         //emite una factura para alberto con todas las llamadas desde ayer a hoy (las 50 anadidas)
         baseDeDatos.emitirFactura(LocalDate.now().minusDays(1), LocalDate.now(), "20925403");
         //comprobar que los datos de la factura son correctos

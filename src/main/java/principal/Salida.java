@@ -2,6 +2,7 @@ package principal;
 
 import datos.clientes.Direccion;
 import excepciones.DuracionNegativaException;
+import excepciones.IntervaloFechasIncorrectoException;
 import excepciones.NifRepetidoException;
 
 import java.time.LocalDate;
@@ -52,11 +53,7 @@ public class Salida {
     public void lanzarMetodo(int op) {
         switch (op) {
             case 1:
-                try {
-                    daAltaCliente();
-                } catch (NifRepetidoException e) {
-                    e.printStackTrace();
-                }
+                daAltaCliente();
                 break;
             case 2:
                borraCliente();
@@ -74,11 +71,7 @@ public class Salida {
                 clientesEntreFechas();
                 break;
             case 7:
-                try {
-                    daAltaLlamada();
-                } catch (DuracionNegativaException e) {
-                    e.printStackTrace();
-                }
+                daAltaLlamada();
                 break;
             case 8:
                 llamadasCliente();
@@ -101,39 +94,44 @@ public class Salida {
         }
     }
 
-    public void daAltaCliente() throws NifRepetidoException {
-        System.out.println("\nDAR DE ALTA UN NUEVO CLIENTE");
-        System.out.print("--> Introduce 'e' para empresa o 'p' para particular: ");
-        String letra = sc.next();
-        while(!letra.equals("e") && !letra.equals("p")) {
-            System.out.print("* Parametro incorrecto. Vuelve a intentarlo: ");
-            letra = sc.next();
+    public void daAltaCliente() {
+        try {
+            System.out.println("\nDAR DE ALTA UN NUEVO CLIENTE");
+            System.out.print("--> Introduce 'e' para empresa o 'p' para particular: ");
+            String letra = sc.next();
+            while(!letra.equals("e") && !letra.equals("p")) {
+                System.out.print("* Parametro incorrecto. Vuelve a intentarlo: ");
+                letra = sc.next();
+            }
+            System.out.print("- Introduce nombre: ");
+            sc.nextLine();
+            String nombre = sc.nextLine();
+            String apellidos = null;
+            if(letra.equals("p")) {
+                System.out.print("- Introduce apellidos: ");
+                apellidos = sc.nextLine();
+            }
+            System.out.print("- Introduce NIF: ");
+            String nif = sc.next();
+            String telf = pedirTelfUnico();
+            System.out.print("- Introduce CP: ");
+            String cp = sc.next();
+            System.out.print("- Introduce provincia: ");
+            sc.nextLine();
+            String provincia = sc.nextLine();
+            System.out.print("- Introduce poblacion: ");
+            String poblacion = sc.nextLine();
+            Direccion direccion = new Direccion(cp, provincia, poblacion);
+            System.out.print("- Introduce email: ");
+            String email = sc.next();
+            if(letra.equals("p"))
+                baseDeDatos.anadirParticular(nombre, apellidos, telf, nif, direccion, email);
+            else baseDeDatos.anadirEmpresa(nombre, telf, nif, direccion, email);
+            System.out.println("\n\tCreado cliente " + nombre + " con NIF " + nif + " y telefono " + telf + ".\n");
+
+        } catch (NifRepetidoException e) {
+            e.printStackTrace();
         }
-        System.out.print("- Introduce nombre: ");
-        sc.nextLine();
-        String nombre = sc.nextLine();
-        String apellidos = null;
-        if(letra.equals("p")) {
-            System.out.print("- Introduce apellidos: ");
-            apellidos = sc.nextLine();
-        }
-        System.out.print("- Introduce NIF: ");
-        String nif = sc.next();
-        String telf = pedirTelfUnico();
-        System.out.print("- Introduce CP: ");
-        String cp = sc.next();
-        System.out.print("- Introduce provincia: ");
-        sc.nextLine();
-        String provincia = sc.nextLine();
-        System.out.print("- Introduce poblacion: ");
-        String poblacion = sc.nextLine();
-        Direccion direccion = new Direccion(cp, provincia, poblacion);
-        System.out.print("- Introduce email: ");
-        String email = sc.next();
-        if(letra.equals("p"))
-            baseDeDatos.anadirParticular(nombre, apellidos, telf, nif, direccion, email);
-        else baseDeDatos.anadirEmpresa(nombre, telf, nif, direccion, email);
-        System.out.println("\n\tCreado cliente " + nombre + " con NIF " + nif + " y telefono " + telf + ".\n");
     }
 
     public void borraCliente() {
@@ -168,31 +166,39 @@ public class Salida {
     }
 
     public void clientesEntreFechas() {
-        System.out.println("\nMOSTRAR LISTADO DE LOS CLIENTES DADOS DE ALTA ENTRE DOS FECHAS");
-        System.out.print("- Introduce la fecha de inicio (formato aaaa-mm-dd): ");
-        LocalDate fechaIni = LocalDate.parse(sc.next());
-        System.out.print("- Introduce la fecha de fin (formato aaaa-mm-dd): ");
-        LocalDate fechaFin = LocalDate.parse(sc.next());
-        //comprobar que la fecha de inicio de factura sea anterior a la fecha de fin
-        while(!fechaIni.isBefore(fechaFin)) {
-            System.out.println("* Fecha de inicio posterior a la fecha de fin. Vuelve a introducirlas (aaaa-mm-dd): ");
-            System.out.print("- Fecha de inicio: ");
-            fechaIni = LocalDate.parse(sc.next());
-            System.out.print("- Fecha de fin: ");
-            fechaFin = LocalDate.parse(sc.next());
+        try {
+            System.out.println("\nMOSTRAR LISTADO DE LOS CLIENTES DADOS DE ALTA ENTRE DOS FECHAS");
+            System.out.print("- Introduce la fecha de inicio (formato aaaa-mm-dd): ");
+            LocalDate fechaIni = LocalDate.parse(sc.next());
+            System.out.print("- Introduce la fecha de fin (formato aaaa-mm-dd): ");
+            LocalDate fechaFin = LocalDate.parse(sc.next());
+            //comprobar que la fecha de inicio de factura sea anterior a la fecha de fin
+            while(!fechaIni.isBefore(fechaFin)) {
+                System.out.println("* Fecha de inicio posterior a la fecha de fin. Vuelve a introducirlas (aaaa-mm-dd): ");
+                System.out.print("- Fecha de inicio: ");
+                fechaIni = LocalDate.parse(sc.next());
+                System.out.print("- Fecha de fin: ");
+                fechaFin = LocalDate.parse(sc.next());
+            }
+            System.out.println(baseDeDatos.listarClientesEntreFechas(fechaIni, fechaFin));
+        } catch (IntervaloFechasIncorrectoException e) {
+            e.printStackTrace();
         }
-        System.out.println(baseDeDatos.listarClientesEntreFechas(fechaIni, fechaFin));
     }
 
-    public void daAltaLlamada() throws DuracionNegativaException {
-        System.out.println("\nDAR DE ALTA UNA LLAMADA");
-        String telfOrigen = pedirTelfExistente(); //pedir telfOrigen
-        System.out.print("- Introduce el telefono de destino: ");
-        String telfDest = sc.next();
-        System.out.print("- Introduce la duracion de la llamada (en segundos): ");
-        int duracion = sc.nextInt();
-        baseDeDatos.darDeAltaLlamada(telfOrigen, telfDest, duracion);
-        System.out.println("\n\tLlamada de " + telfOrigen + " a " + telfDest + " realizada con exito.\n");
+    public void daAltaLlamada() {
+        try {
+            System.out.println("\nDAR DE ALTA UNA LLAMADA");
+            String telfOrigen = pedirTelfExistente(); //pedir telfOrigen
+            System.out.print("- Introduce el telefono de destino: ");
+            String telfDest = sc.next();
+            System.out.print("- Introduce la duracion de la llamada (en segundos): ");
+            int duracion = sc.nextInt();
+            baseDeDatos.darDeAltaLlamada(telfOrigen, telfDest, duracion);
+            System.out.println("\n\tLlamada de " + telfOrigen + " a " + telfDest + " realizada con exito.\n");
+        } catch (DuracionNegativaException e) {
+            e.printStackTrace();
+        }
     }
 
     public void llamadasCliente() {
@@ -202,40 +208,41 @@ public class Salida {
     }
 
     public void llamadasCliEntreFechas() {
-        System.out.println("\nMOSTRAR LISTADO DE LAS LLAMADAS REALIZADAS ENTRE DOS FECHAS");
-        String telf = pedirTelfExistente();
-        System.out.print("- Introduce la fecha de inicio (formato aaaa-mm-dd): ");
-        LocalDate fechaIni = LocalDate.parse(sc.next());
-        System.out.print("- Introduce la fecha de fin (formato aaaa-mm-dd): ");
-        LocalDate fechaFin = LocalDate.parse(sc.next());
-        //comprobar que la fecha de inicio de factura sea anterior a la fecha de fin
-        while(!fechaIni.isBefore(fechaFin)) {
-            System.out.println("* Fecha de inicio posterior a la fecha de fin. Vuelve a introducirlas (aaaa-mm-dd): ");
-            System.out.print("- Fecha de inicio: ");
-            fechaIni = LocalDate.parse(sc.next());
-            System.out.print("- Fecha de fin: ");
-            fechaFin = LocalDate.parse(sc.next());
+        try {
+            System.out.println("\nMOSTRAR LISTADO DE LAS LLAMADAS REALIZADAS ENTRE DOS FECHAS");
+            String telf = pedirTelfExistente();
+            System.out.print("- Introduce la fecha de inicio (formato aaaa-mm-dd): ");
+            LocalDate fechaIni = LocalDate.parse(sc.next());
+            System.out.print("- Introduce la fecha de fin (formato aaaa-mm-dd): ");
+            LocalDate fechaFin = LocalDate.parse(sc.next());
+            //comprobar que la fecha de inicio de factura sea anterior a la fecha de fin
+            while(!fechaIni.isBefore(fechaFin)) {
+                System.out.println("* Fecha de inicio posterior a la fecha de fin. Vuelve a introducirlas (aaaa-mm-dd): ");
+                System.out.print("- Fecha de inicio: ");
+                fechaIni = LocalDate.parse(sc.next());
+                System.out.print("- Fecha de fin: ");
+                fechaFin = LocalDate.parse(sc.next());
+            }
+            System.out.println(baseDeDatos.listarLlamadasEntreFechas(telf, fechaIni, fechaFin));
+        } catch (IntervaloFechasIncorrectoException e) {
+            e.printStackTrace();
         }
-        System.out.println(baseDeDatos.listarLlamadasEntreFechas(telf, fechaIni, fechaFin));
     }
 
     public void emiteFactura() {
-        System.out.println("\nEMITIR FACTURA PARA UN CLIENTE");
-        String nif = pedirNifExistente();
-        System.out.print("- Introduce la fecha de inicio de la factura (formato aaaa-mm-dd): ");
-        LocalDate fechaIni = LocalDate.parse(sc.next());
-        System.out.print("- Introduce la fecha de fin de la factura (formato aaaa-mm-dd): ");
-        LocalDate fechaFin = LocalDate.parse(sc.next());
-        //comprobar que la fecha de inicio de factura sea anterior a la fecha de fin
-        while(!fechaIni.isBefore(fechaFin)) {
-            System.out.println("* Fecha de inicio posterior a la fecha de fin. Vuelve a introducirlas (aaaa-mm-dd): ");
-            System.out.print("- Fecha de inicio: ");
-            fechaIni = LocalDate.parse(sc.next());
-            System.out.print("- Fecha de fin: ");
-            fechaFin = LocalDate.parse(sc.next());
+        try {
+            System.out.println("\nEMITIR FACTURA PARA UN CLIENTE");
+            String nif = pedirNifExistente();
+            System.out.print("- Introduce la fecha de inicio de la factura (formato aaaa-mm-dd): ");
+            LocalDate fechaIni = LocalDate.parse(sc.next());
+            System.out.print("- Introduce la fecha de fin de la factura (formato aaaa-mm-dd): ");
+            LocalDate fechaFin = LocalDate.parse(sc.next());
+            //comprobar que la fecha de inicio de factura sea anterior a la fecha de fin
+            baseDeDatos.emitirFactura(fechaIni, fechaFin, nif);
+            System.out.println("\n\tFactura del cliente con NIF " + nif + " emitida con exito.\n");
+        } catch (IntervaloFechasIncorrectoException e) {
+            e.printStackTrace();
         }
-        baseDeDatos.emitirFactura(fechaIni, fechaFin, nif);
-        System.out.println("\n\tFactura del cliente con NIF " + nif + " emitida con exito.\n");
     }
 
     public void datosFactura() {
@@ -254,21 +261,17 @@ public class Salida {
     }
 
     public void facturasCliEntreFechas() {
-        System.out.println("\nMOSTRAR LISTADO DE LAS FACTURAS DADAS DE ALTA ENTRE DOS FECHAS");
-        String nif = pedirNifExistente();
-        System.out.print("- Introduce la fecha de inicio (formato aaaa-mm-dd): ");
-        LocalDate fechaIni = LocalDate.parse(sc.next());
-        System.out.print("- Introduce la fecha de fin (formato aaaa-mm-dd): ");
-        LocalDate fechaFin = LocalDate.parse(sc.next());
-        //comprobar que la fecha de inicio de factura sea anterior a la fecha de fin
-        while(!fechaIni.isBefore(fechaFin)) {
-            System.out.println("* Fecha de inicio posterior a la fecha de fin. Vuelve a introducirlas (aaaa-mm-dd): ");
-            System.out.print("- Fecha de inicio: ");
-            fechaIni = LocalDate.parse(sc.next());
-            System.out.print("- Fecha de fin: ");
-            fechaFin = LocalDate.parse(sc.next());
+        try {
+            System.out.println("\nMOSTRAR LISTADO DE LAS FACTURAS DADAS DE ALTA ENTRE DOS FECHAS");
+            String nif = pedirNifExistente();
+            System.out.print("- Introduce la fecha de inicio (formato aaaa-mm-dd): ");
+            LocalDate fechaIni = LocalDate.parse(sc.next());
+            System.out.print("- Introduce la fecha de fin (formato aaaa-mm-dd): ");
+            LocalDate fechaFin = LocalDate.parse(sc.next());
+            System.out.println(baseDeDatos.listarFacturasEntreFechas(nif, fechaIni, fechaFin));
+        } catch (IntervaloFechasIncorrectoException e) {
+            e.printStackTrace();
         }
-        System.out.println(baseDeDatos.listarFacturasEntreFechas(nif, fechaIni, fechaFin));
     }
 
     public void salir() {

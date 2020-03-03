@@ -8,6 +8,7 @@ import datos.contrato.Factura;
 import datos.contrato.PeriodoFacturacion;
 import datos.llamadas.Llamada;
 import excepciones.DuracionNegativaException;
+import excepciones.IntervaloFechasIncorrectoException;
 import excepciones.NifRepetidoException;
 import interfaces.tieneFecha;
 
@@ -61,7 +62,8 @@ public class BaseDeDatos {
         return gestorClientes.listarDatosCliente(NIF);
     }
 
-    public void emitirFactura(LocalDate fechaIni, LocalDate fechaFin, String nif) {
+    public void emitirFactura(LocalDate fechaIni, LocalDate fechaFin, String nif) throws IntervaloFechasIncorrectoException {
+       if(fechaIni.isAfter(fechaFin)) throw new IntervaloFechasIncorrectoException();
         PeriodoFacturacion periodoFact = new PeriodoFacturacion(fechaIni, fechaFin);
         Cliente cliente = gestorClientes.devuelveCliente(nif);
         Factura nuevaFactura = new Factura(periodoFact,cliente);
@@ -80,7 +82,9 @@ public class BaseDeDatos {
         return gestorClientes.existeTelf(telf);
     }
 
-    private < T extends tieneFecha> Collection< T > entreFechas(Collection< T > conjunto, LocalDate fechaIni, LocalDate fechaFin) {
+    private < T extends tieneFecha> Collection< T > entreFechas(Collection< T > conjunto, LocalDate fechaIni, LocalDate fechaFin)
+            throws IntervaloFechasIncorrectoException {
+        if(fechaIni.isAfter(fechaFin)) throw new IntervaloFechasIncorrectoException();
         Collection<T> res = new HashSet<>();
         for (T elem : conjunto) {
             LocalDate fecha = elem.getFecha();
@@ -100,17 +104,17 @@ public class BaseDeDatos {
         return sb.toString();
     }
 
-    public String listarClientesEntreFechas(LocalDate fechaIni, LocalDate fechaFin) {
+    public String listarClientesEntreFechas(LocalDate fechaIni, LocalDate fechaFin) throws IntervaloFechasIncorrectoException {
         Collection<Cliente> conjunto = entreFechas(gestorClientes.clientes.values(), fechaIni, fechaFin);
         return listar(conjunto);
     }
 
-    public String listarLlamadasEntreFechas(String telf, LocalDate fechaIni, LocalDate fechaFin) {
+    public String listarLlamadasEntreFechas(String telf, LocalDate fechaIni, LocalDate fechaFin) throws IntervaloFechasIncorrectoException {
         Collection<Llamada> conjunto = entreFechas(gestorClientes.clientes.get(gestorClientes.telfNif.get(telf)).getLlamadas(), fechaIni, fechaFin);
         return listar(conjunto);
     }
 
-    public String listarFacturasEntreFechas(String nif, LocalDate fechaIni, LocalDate fechaFin) {
+    public String listarFacturasEntreFechas(String nif, LocalDate fechaIni, LocalDate fechaFin) throws IntervaloFechasIncorrectoException {
         Collection<Factura> conjunto = entreFechas(gestorClientes.clientes.get(nif).getFacturas(), fechaIni, fechaFin);
         return listar(conjunto);
     }

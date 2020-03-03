@@ -5,14 +5,13 @@ import datos.clientes.Direccion;
 import datos.contrato.Factura;
 import es.uji.www.GeneradorDatosINE;
 import excepciones.DuracionNegativaException;
+import excepciones.IntervaloFechasIncorrectoException;
 import excepciones.NifRepetidoException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 
 public class BaseDeDatosTest {
@@ -56,7 +55,7 @@ public class BaseDeDatosTest {
 
     //comprueba listarLlamadasCliente() y listarLlamadasEntreFechas()
     @Test
-    public void testLlamadasCliente() throws DuracionNegativaException {
+    public void testLlamadasCliente() throws DuracionNegativaException, IntervaloFechasIncorrectoException {
         //alberto hace una llamada
         baseDeDatos.darDeAltaLlamada("692242216", "000000000", 120);
         //test listarLlamadasCliente()
@@ -71,7 +70,7 @@ public class BaseDeDatosTest {
 
     //comprueba listarFacturasCliente() y listarFacturasEntreFechas()
     @Test
-    public void testFacturasCliente() {
+    public void testFacturasCliente() throws IntervaloFechasIncorrectoException {
         //emite una factura para pamesa con todas las llamadas desde ayer a hoy (las 50 anadidas)
         baseDeDatos.emitirFactura(LocalDate.now().minusDays(1), LocalDate.now(), "63302284");
         for (Factura factura : pamesa.getFacturas()) { //solo hay una
