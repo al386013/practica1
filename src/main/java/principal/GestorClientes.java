@@ -1,7 +1,6 @@
 package principal;
 
 import datos.clientes.Cliente;
-import datos.contrato.Factura;
 import datos.llamadas.Llamada;
 import java.util.HashMap;
 

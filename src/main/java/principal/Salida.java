@@ -181,7 +181,7 @@ public class Salida {
             System.out.print("- Fecha de fin: ");
             fechaFin = LocalDate.parse(sc.next());
         }
-        System.out.println(baseDeDatos.listarClientesEntreFechas(fechaIni, fechaIni));
+        System.out.println(baseDeDatos.listarClientesEntreFechas(fechaIni, fechaFin));
     }
 
     public void daAltaLlamada() throws DuracionNegativaException {
@@ -216,7 +216,7 @@ public class Salida {
             System.out.print("- Fecha de fin: ");
             fechaFin = LocalDate.parse(sc.next());
         }
-        System.out.println(baseDeDatos.listarLlamadasEntreFechas(telf, fechaIni, fechaIni));
+        System.out.println(baseDeDatos.listarLlamadasEntreFechas(telf, fechaIni, fechaFin));
     }
 
     public void emiteFactura() {
@@ -268,7 +268,7 @@ public class Salida {
             System.out.print("- Fecha de fin: ");
             fechaFin = LocalDate.parse(sc.next());
         }
-        System.out.println(baseDeDatos.listarFacturasEntreFechas(nif, fechaIni, fechaIni));
+        System.out.println(baseDeDatos.listarFacturasEntreFechas(nif, fechaIni, fechaFin));
     }
 
     public void salir() {

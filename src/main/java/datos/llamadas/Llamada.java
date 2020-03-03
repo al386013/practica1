@@ -32,7 +32,7 @@ public class Llamada implements tieneFecha {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Llamada realizada el " + fecha);
-        sb.append(" a las " + hora.getHour() + ":" + hora.getMinute());
+        sb.append(" a las " + hora.getHour() + " horas y " + hora.getMinute() + " minutos");
         sb.append(" con una duracion de " + duracion + " segundos");
         sb.append(" al telefono " + telfDest);
         return sb.toString();

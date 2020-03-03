@@ -84,7 +84,7 @@ public class BaseDeDatos {
         Collection<T> res = new HashSet<>();
         for (T elem : conjunto) {
             LocalDate fecha = elem.getFecha();
-            if (fecha.isAfter(fechaIni) && fecha.isBefore(fechaFin))
+            if (fecha.isAfter(fechaIni) && fecha.isBefore(fechaFin) || (fecha.isEqual(fechaIni) || fecha.isEqual(fechaFin)))
                 res.add(elem);
         }
         return res;

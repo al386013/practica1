@@ -19,7 +19,7 @@ public class GestorFacturasTest {
 
     @BeforeAll
     public static void inicializa() throws NifRepetidoException, DuracionNegativaException {
-        baseDeDatos = new BaseDeDatos();
+        baseDeDatos = new BaseDeDatos(new GestorClientes(), new GestorFacturas());
 
         //cargamos la base de datos con algunos clientes
         for (int i = 0; i < 100; i++) {
@@ -70,19 +70,6 @@ public class GestorFacturasTest {
         assertEquals(baseDeDatos.listarDatosFactura(codFact), "NIF: 20925403, Codigo: " + codFact + ", Tarifa: 0.05 €/min, " +
                 "Fecha de emision: " + LocalDate.now() + ", Periodo de facturacion: " + LocalDate.now().minusDays(1) + " - " + LocalDate.now() +
                 ", Importe: 3.75€.");
-    }
-
-    @Test
-    public void testListarFacturasCliente() {
-        //emite una factura para pamesa con todas las llamadas desde ayer a hoy (las 50 anadidas)
-        baseDeDatos.emitirFactura(LocalDate.now().minusDays(1), LocalDate.now(), "63302284");
-        //comprobamos que lista correctamente la factura
-        for (Factura factura : pamesa.getFacturas()) { //solo hay una
-            int codFact = factura.getCodigo();
-            assertEquals(baseDeDatos.listarFacturasCliente("63302284"), "NIF: 63302284, Codigo: " + codFact +
-                    ", Tarifa: 0.05 €/min, Fecha de emision: " + LocalDate.now() + ", Periodo de facturacion: "
-                    + LocalDate.now().minusDays(1) + " - " + LocalDate.now() + ", Importe: 5.0€.\n");
-        }
     }
 
     @AfterAll
