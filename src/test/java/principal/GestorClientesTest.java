@@ -6,6 +6,7 @@ import datos.llamadas.Llamada;
 import es.uji.www.GeneradorDatosINE;
 import excepciones.DuracionNegativaException;
 import excepciones.NifRepetidoException;
+import excepciones.TelfRepetidoException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,7 @@ public class GestorClientesTest {
     private static Direccion dirPamesa;
 
     @BeforeAll
-    public static void inicializa() throws NifRepetidoException {
+    public static void inicializa() throws NifRepetidoException, TelfRepetidoException {
         baseDeDatos = new BaseDeDatos(new GestorClientes(), new GestorFacturas());
 
         for (int i = 0; i < 100; i++) {
@@ -91,7 +92,7 @@ public class GestorClientesTest {
     }
 
     @Test
-    public void testBorrarCliente() throws NifRepetidoException {
+    public void testBorrarCliente() throws NifRepetidoException, TelfRepetidoException {
         //creamos un cliente
         baseDeDatos.anadirParticular("maria", "gracia rubio", "123456789", "X1234567S", dirAlberto, "mariagracia@gmail.com");
         //vemos que se ha anadido

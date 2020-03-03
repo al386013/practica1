@@ -10,6 +10,7 @@ import datos.llamadas.Llamada;
 import excepciones.DuracionNegativaException;
 import excepciones.IntervaloFechasIncorrectoException;
 import excepciones.NifRepetidoException;
+import excepciones.TelfRepetidoException;
 import interfaces.tieneFecha;
 
 import java.time.LocalDate;
@@ -30,15 +31,19 @@ public class BaseDeDatos {
     // METODOS
     //BaseDeDatos llama al metodo correspondiente de gestorClientes, gestorFacturas o ambos; es el intermediario
 
-    public void anadirParticular(String nombre, String apellidos, String tlf, String NIF, Direccion dir, String email) throws NifRepetidoException{
-        if (existeCliente(NIF)) throw new NifRepetidoException();
-        Cliente nuevoParticular = new Particular(nombre, apellidos, tlf, NIF,dir, email);
+    public void anadirParticular(String nombre, String apellidos, String telf, String nif, Direccion dir, String email)
+            throws NifRepetidoException, TelfRepetidoException {
+        if (existeCliente(nif)) throw new NifRepetidoException();
+        if (existeTelf(telf)) throw new TelfRepetidoException();
+        Cliente nuevoParticular = new Particular(nombre, apellidos, telf, nif,dir, email);
         gestorClientes.anadirCliente(nuevoParticular);
     }
 
-    public void anadirEmpresa(String nombre, String tlf, String NIF, Direccion dir, String email) throws NifRepetidoException {
-        if (existeCliente(NIF)) throw new NifRepetidoException();
-        Cliente nuevaEmpresa = new Empresa(nombre,tlf, NIF, dir, email);
+    public void anadirEmpresa(String nombre, String telf, String nif, Direccion dir, String email)
+            throws NifRepetidoException, TelfRepetidoException {
+        if (existeCliente(nif)) throw new NifRepetidoException();
+        if (existeTelf(telf)) throw new TelfRepetidoException();
+        Cliente nuevaEmpresa = new Empresa(nombre,telf, nif, dir, email);
         gestorClientes.anadirCliente(nuevaEmpresa);
     }
 

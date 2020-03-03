@@ -4,6 +4,7 @@ import datos.clientes.Direccion;
 import excepciones.DuracionNegativaException;
 import excepciones.IntervaloFechasIncorrectoException;
 import excepciones.NifRepetidoException;
+import excepciones.TelfRepetidoException;
 
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -113,7 +114,8 @@ public class Salida {
             }
             System.out.print("- Introduce NIF: ");
             String nif = sc.next();
-            String telf = pedirTelfUnico();
+            System.out.print("- Introduce el telefono del cliente: ");
+            String telf = sc.next();
             System.out.print("- Introduce CP: ");
             String cp = sc.next();
             System.out.print("- Introduce provincia: ");
@@ -128,10 +130,12 @@ public class Salida {
                 baseDeDatos.anadirParticular(nombre, apellidos, telf, nif, direccion, email);
             else baseDeDatos.anadirEmpresa(nombre, telf, nif, direccion, email);
             System.out.println("\n\tCreado cliente " + nombre + " con NIF " + nif + " y telefono " + telf + ".\n");
-
         } catch (NifRepetidoException e) {
             e.printStackTrace();
+        } catch (TelfRepetidoException e) {
+            e.printStackTrace();
         }
+
     }
 
     public void borraCliente() {
@@ -172,14 +176,6 @@ public class Salida {
             LocalDate fechaIni = LocalDate.parse(sc.next());
             System.out.print("- Introduce la fecha de fin (formato aaaa-mm-dd): ");
             LocalDate fechaFin = LocalDate.parse(sc.next());
-            //comprobar que la fecha de inicio de factura sea anterior a la fecha de fin
-            while(!fechaIni.isBefore(fechaFin)) {
-                System.out.println("* Fecha de inicio posterior a la fecha de fin. Vuelve a introducirlas (aaaa-mm-dd): ");
-                System.out.print("- Fecha de inicio: ");
-                fechaIni = LocalDate.parse(sc.next());
-                System.out.print("- Fecha de fin: ");
-                fechaFin = LocalDate.parse(sc.next());
-            }
             System.out.println(baseDeDatos.listarClientesEntreFechas(fechaIni, fechaFin));
         } catch (IntervaloFechasIncorrectoException e) {
             e.printStackTrace();
@@ -215,14 +211,6 @@ public class Salida {
             LocalDate fechaIni = LocalDate.parse(sc.next());
             System.out.print("- Introduce la fecha de fin (formato aaaa-mm-dd): ");
             LocalDate fechaFin = LocalDate.parse(sc.next());
-            //comprobar que la fecha de inicio de factura sea anterior a la fecha de fin
-            while(!fechaIni.isBefore(fechaFin)) {
-                System.out.println("* Fecha de inicio posterior a la fecha de fin. Vuelve a introducirlas (aaaa-mm-dd): ");
-                System.out.print("- Fecha de inicio: ");
-                fechaIni = LocalDate.parse(sc.next());
-                System.out.print("- Fecha de fin: ");
-                fechaFin = LocalDate.parse(sc.next());
-            }
             System.out.println(baseDeDatos.listarLlamadasEntreFechas(telf, fechaIni, fechaFin));
         } catch (IntervaloFechasIncorrectoException e) {
             e.printStackTrace();
@@ -293,16 +281,6 @@ public class Salida {
         String telf = sc.next();
         while(!baseDeDatos.existeTelf(telf)) {
             System.out.print("* Telefono del cliente no existente en la base de datos.\nVuelve a introducirlo: ");
-            telf = sc.next();
-        }
-        return telf;
-    }
-
-    private String pedirTelfUnico() {
-        System.out.print("- Introduce el telefono del cliente: ");
-        String telf = sc.next();
-        while (baseDeDatos.existeTelf(telf)) {
-            System.out.print("* Telefono ya existente en la base de datos.\nVuelve a introducir el telefono: ");
             telf = sc.next();
         }
         return telf;

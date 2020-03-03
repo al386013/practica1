@@ -7,6 +7,7 @@ import es.uji.www.GeneradorDatosINE;
 import excepciones.DuracionNegativaException;
 import excepciones.IntervaloFechasIncorrectoException;
 import excepciones.NifRepetidoException;
+import excepciones.TelfRepetidoException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -19,7 +20,7 @@ public class GestorFacturasTest {
     private static Cliente pamesa;
 
     @BeforeAll
-    public static void inicializa() throws NifRepetidoException, DuracionNegativaException {
+    public static void inicializa() throws NifRepetidoException, DuracionNegativaException, TelfRepetidoException {
         baseDeDatos = new BaseDeDatos(new GestorClientes(), new GestorFacturas());
 
         //cargamos la base de datos con algunos clientes
