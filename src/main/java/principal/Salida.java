@@ -5,42 +5,34 @@ import excepciones.DuracionNegativaException;
 import excepciones.IntervaloFechasIncorrectoException;
 import excepciones.NifRepetidoException;
 import excepciones.TelfRepetidoException;
-
+import menus.MenuClientes;
+import menus.MenuFacturas;
+import menus.MenuLlamadas;
+import menus.MenuPrincipal;
 import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Salida {
     private BaseDeDatos baseDeDatos;
     private Scanner sc = new Scanner(System.in);
+    private MenuPrincipal opcionMenu = null;
 
     public Salida(BaseDeDatos baseDeDatos) {
         this.baseDeDatos =  baseDeDatos;
     }
 
-    public String mostrarMenu(){
-        StringBuilder sb = new StringBuilder();
-        sb.append("\n* * * * * ¿QUE OPCION DESEA REALIZAR? * * * * * \n\n");
-        sb.append("----> CLIENTES \n");
-        sb.append("\t1) Dar de alta un nuevo cliente \n");
-        sb.append("\t2) Borrar un cliente \n");
-        sb.append("\t3) Cambiar la tarifa de un cliente \n");
-        sb.append("\t4) Recuperar los datos de un cliente a partir de su NIF \n");
-        sb.append("\t5) Recuperar el listado de todos los clientes \n");
-        sb.append("\t6) Mostrar listado de clientes dados de alta entre dos fechas \n\n");
-        sb.append("----> LLAMADAS \n");
-        sb.append("\t7) Dar de alta una llamada \n");
-        sb.append("\t8) Listar todas las llamadas de un cliente \n");
-        sb.append("\t9) Mostrar listado de llamadas de un cliente realizadas entre dos fechas \n\n");
-        sb.append("----> FACTURAS \n");
-        sb.append("\t10) Emitir una factura para un cliente \n");
-        sb.append("\t11) Recuperar los datos de una factura a partir de su codigo \n");
-        sb.append("\t12) Recuperar todas las facturas de un cliente \n");
-        sb.append("\t13) Mostrar listado de facturas de un cliente emitidas entre dos fechas \n\n");
-        sb.append("\t14) Salir \n");
-        return sb.toString();
+    public void menuYopcion() {
+        while (opcionMenu != MenuPrincipal.SALIR) {
+            System.out.println("\n* * * * * * * OPCIONES DISPONIBLES * * * * * * *\n");
+            System.out.println(MenuPrincipal.getMenu());
+            System.out.print("Introduce una opción: ");
+            byte opcion = sc.nextByte();
+            opcionMenu = MenuPrincipal.getOpcion(opcion);
+            lanzarOpcionPrincipal(opcionMenu);
+        }
     }
 
-    public int leerOpcion() {
+    /* public int leerOpcion() {
         System.out.print("Introduce una opcion: ");
         int op = sc.nextInt();
         while(op < 1 || op > 11) {
@@ -49,47 +41,104 @@ public class Salida {
             op = sc.nextInt();
         }
         return op;
+    } */
+
+    public void lanzarOpcionPrincipal(MenuPrincipal opcionMenu) {
+        switch (opcionMenu) {
+            case CLIENTES:
+                System.out.println("\n* * * * * * * OPCIONES DE CLIENTES * * * * * * *\n");
+                System.out.println(MenuClientes.getMenu());
+                System.out.print("Introduce una opción: ");
+                byte opcion = sc.nextByte();
+                MenuClientes opcionClientes = MenuClientes.getOpcion(opcion);
+                lanzarOpcionClientes(opcionClientes);
+                break;
+            case LLAMADAS:
+                System.out.println("\n* * * * * * * OPCIONES DE LLAMADAS * * * * * * *\n");
+                System.out.println(MenuLlamadas.getMenu());
+                System.out.print("Introduce una opción: ");
+                opcion = sc.nextByte();
+                MenuLlamadas opcionLlamadas = MenuLlamadas.getOpcion(opcion);
+                lanzarOpcionLlamadas(opcionLlamadas);
+                break;
+            case FACTURAS:
+                System.out.println("\n* * * * * * * OPCIONES DE FACTURAS * * * * * * *\n");
+                System.out.println(MenuFacturas.getMenu());
+                System.out.print("Introduce una opción: ");
+                opcion = sc.nextByte();
+                MenuFacturas opcionFacturas = MenuFacturas.getOpcion(opcion);
+                lanzarOpcionFacturas(opcionFacturas);
+                break;
+            case SALIR:
+                salir();
+                break;
+        }
     }
 
-    public void lanzarMetodo(int op) {
-        switch (op) {
-            case 1:
+    public void lanzarOpcionClientes(MenuClientes opcionClientes) {
+        switch (opcionClientes) {
+            case DAR_ALTA_CLIENTE:
                 daAltaCliente();
                 break;
-            case 2:
-               borraCliente();
+            case BORRAR_CLIENTE:
+                borraCliente();
                 break;
-            case 3:
+            case CAMBIAR_TARIFA:
                 cambiaTarifa();
                 break;
-            case 4:
+            case DATOS_CLIENTE:
                 datosCliente();
                 break;
-            case 5:
+            case LISTAR_CLIENTES:
                 listadoClientes();
                 break;
-            case 6:
+            case CLIENTES_ENTRE_FECHAS:
                 clientesEntreFechas();
                 break;
-            case 7:
+            case VOLVER_MENU_PRINCIPAL:
+                menuYopcion();
+                break;
+            case SALIR:
+                salir();
+                break;
+        }
+    }
+
+    public void lanzarOpcionLlamadas(MenuLlamadas opcionLlamadas) {
+        switch (opcionLlamadas) {
+            case DAR_ALTA_LLAMADA:
                 daAltaLlamada();
                 break;
-            case 8:
+            case LLAMADAS_CLIENTE:
                 llamadasCliente();
                 break;
-            case 9:
+            case LLAMADAS_ENTRE_FECHAS:
                 llamadasCliEntreFechas();
                 break;
-            case 10:
+            case VOLVER_MENU_PRINCIPAL:
+                menuYopcion();
+                break;
+            case SALIR:
+                salir();
+                break;
+        }
+    }
+
+    public void lanzarOpcionFacturas(MenuFacturas opcionFacturas) {
+        switch (opcionFacturas) {
+            case EMITIR_FACTURA:
                 emiteFactura();
                 break;
-            case 11:
-               datosFactura();
-            case 12:
+            case DATOS_FACTURA:
+                datosFactura();
+            case FACTURAS_CLIENTE:
                 facturasCliente();
-            case 13:
+            case FACTURAS_ENTRE_FECHAS:
                 facturasCliEntreFechas();
-            case 14:
+            case VOLVER_MENU_PRINCIPAL:
+                menuYopcion();
+                break;
+            case SALIR:
                 salir();
                 break;
         }
@@ -263,6 +312,7 @@ public class Salida {
     }
 
     public void salir() {
+        opcionMenu = MenuPrincipal.SALIR;
         System.out.println("\n -----> Programa cerrado <----- ");
     }
 

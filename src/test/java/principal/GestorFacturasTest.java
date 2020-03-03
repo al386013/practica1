@@ -35,8 +35,8 @@ public class GestorFacturasTest {
             //creamos 50 particulares y 50 empresas
             if (i < 50) {
                 String apellidos = generadorDatosINE.getApellido();
-                baseDeDatos.anadirParticular(nombre, apellidos, "666666666", nif, direccion, "particular@gmail.com");
-            } else baseDeDatos.anadirEmpresa(nombre, "666666666", nif, direccion, "empresa@gmail.com");
+                baseDeDatos.anadirParticular(nombre, apellidos, "5555555" + i, nif, direccion, "particular@gmail.com");
+            } else baseDeDatos.anadirEmpresa(nombre, "6666666" + i, nif, direccion, "empresa@gmail.com");
         }
 
         //insertamos un particular y una empresa
