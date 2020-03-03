@@ -44,7 +44,7 @@ public class Factura implements tieneFecha {
         int segundosTotales = 0;
         for (Llamada llamada : cliente.getLlamadas()) {
             LocalDate fecha = llamada.getFecha();
-            if(fecha.isAfter(periodoFact.getFechaIni()) || fecha.isBefore(periodoFact.getFechaFin()))
+            if(fecha.isAfter(periodoFact.getFechaIni()) && fecha.isBefore(periodoFact.getFechaFin()))
                 segundosTotales += llamada.getDuracion();
         }
         float importe = (segundosTotales/60.0f) * cliente.getTarifa().getTarifa();
