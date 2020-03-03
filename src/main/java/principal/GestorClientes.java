@@ -1,13 +1,8 @@
 package principal;
 
 import datos.clientes.Cliente;
-import datos.clientes.Direccion;
-import datos.clientes.Empresa;
-import datos.clientes.Particular;
 import datos.contrato.Factura;
 import datos.llamadas.Llamada;
-import excepciones.DuracionNegativaException;
-import excepciones.NifRepetidoException;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -41,20 +36,10 @@ public class GestorClientes {
         return telfNif.get(telf) != null;
     }
 
-    //Metodo anadirParticular, llama al constructor de Cliente, lo crea, se anade a la base de datos
-    public void anadirParticular(String nombre, String apellidos, String telf, String NIF, Direccion dir, String email) throws NifRepetidoException {
-        if (existeCliente(NIF)) throw new NifRepetidoException();
-        Cliente nuevo = new Particular(nombre, apellidos, telf, NIF, dir, email);
-        clientes.put(NIF, nuevo);
-        telfNif.put(telf, NIF);
-    }
-
-    //Metodo anadirEmpresa, llama al constructor de Cliente, lo crea, se anade a la base de datos
-    public void anadirEmpresa(String nombre, String telf, String NIF, Direccion dir, String email) throws NifRepetidoException{
-        if (existeCliente(NIF)) throw new NifRepetidoException();
-        Cliente nuevo = new Empresa(nombre, telf, NIF, dir, email);
-        clientes.put(NIF, nuevo);
-        telfNif.put(telf, NIF);
+    //Metodo anadirCliente, llama al constructor de Cliente, lo crea, se anade a la base de datos
+    public void anadirCliente(Cliente cliente) {
+        clientes.put(cliente.getNIF(), cliente);
+        telfNif.put(cliente.getTelf(), cliente.getNIF());
     }
 
     //Metodo borrarCliente: lo elimina de clientes a partir de su telefono
@@ -85,9 +70,7 @@ public class GestorClientes {
     }
 
     //Método darDeAltaLlamada: crea y anade una llamada al conjunto de llamadas de un cliente
-    public void darDeAltaLlamada(String telfOrigen, String telfDestino, int duracion) throws DuracionNegativaException{
-        if(duracion < 0) throw new DuracionNegativaException();
-        Llamada llamada = new Llamada(telfDestino, duracion);
+    public void darDeAltaLlamada(String telfOrigen, Llamada llamada) {
         clientes.get(telfNif.get(telfOrigen)).anadirLlamada(llamada);
     }
 

@@ -23,15 +23,18 @@ public class Salida {
         sb.append("\t2) Borrar un cliente \n");
         sb.append("\t3) Cambiar la tarifa de un cliente \n");
         sb.append("\t4) Recuperar los datos de un cliente a partir de su NIF \n");
-        sb.append("\t5) Recuperar el listado de todos los clientes \n\n");
+        sb.append("\t5) Recuperar el listado de todos los clientes \n");
+        sb.append("\t6) Mostrar listado de clientes dados de alta entre dos fechas \n\n");
         sb.append("----> LLAMADAS \n");
-        sb.append("\t6) Dar de alta una llamada \n");
-        sb.append("\t7) Listar todas las llamadas de un cliente \n\n");
+        sb.append("\t7) Dar de alta una llamada \n");
+        sb.append("\t8) Listar todas las llamadas de un cliente \n");
+        sb.append("\t9) Mostrar listado de llamadas de un cliente realizadas entre dos fechas \n\n");
         sb.append("----> FACTURAS \n");
-        sb.append("\t8) Emitir una factura para un cliente \n");
-        sb.append("\t9) Recuperar los datos de una factura a partir de su codigo \n");
-        sb.append("\t10) Recuperar todas las facturas de un cliente \n");
-        sb.append("\t11) Salir \n");
+        sb.append("\t10) Emitir una factura para un cliente \n");
+        sb.append("\t11) Recuperar los datos de una factura a partir de su codigo \n");
+        sb.append("\t12) Recuperar todas las facturas de un cliente \n");
+        sb.append("\t13) Mostrar listado de facturas de un cliente emitidas entre dos fechas \n\n");
+        sb.append("\t14) Salir \n");
         return sb.toString();
     }
 
@@ -46,10 +49,14 @@ public class Salida {
         return op;
     }
 
-    public void lanzarMetodo(int op) throws NifRepetidoException, DuracionNegativaException {
+    public void lanzarMetodo(int op) {
         switch (op) {
             case 1:
-                lanzarMetodo1();
+                try {
+                    lanzarMetodo1();
+                } catch (NifRepetidoException e) {
+                    e.printStackTrace();
+                }
                 break;
             case 2:
                lanzarMetodo2();
@@ -67,7 +74,11 @@ public class Salida {
                 lanzarMetodo6();
                 break;
             case 7:
-                lanzarMetodo7();
+                try {
+                    lanzarMetodo7();
+                } catch (DuracionNegativaException e) {
+                    e.printStackTrace();
+                }
                 break;
             case 8:
                 lanzarMetodo8();
@@ -80,6 +91,12 @@ public class Salida {
                 break;
             case 11:
                lanzarMetodo11();
+            case 12:
+                lanzarMetodo12();
+            case 13:
+                lanzarMetodo13();
+            case 14:
+                lanzarMetodo14();
                 break;
         }
     }
@@ -150,8 +167,24 @@ public class Salida {
         System.out.println(baseDeDatos.listarClientes());
     }
 
-    public void lanzarMetodo6() throws DuracionNegativaException {
-        System.out.println("\n6) DAR DE ALTA UNA LLAMADA");
+    public void lanzarMetodo6() {
+        System.out.println("\n6) MOSTRAR LISTADO DE LOS CLIENTES DADOS DE ALTA ENTRE DOS FECHAS");
+        System.out.print("- Introduce la fecha de inicio (formato aaaa-mm-dd): ");
+        LocalDate fechaIni = LocalDate.parse(sc.next());
+        System.out.print("- Introduce la fecha de fin (formato aaaa-mm-dd): ");
+        LocalDate fechaFin = LocalDate.parse(sc.next());
+        //comprobar que la fecha de inicio de factura sea anterior a la fecha de fin
+        while(!fechaIni.isBefore(fechaFin)) {
+            System.out.println("* Fecha de inicio posterior a la fecha de fin. Vuelve a introducirlas (aaaa-mm-dd): ");
+            System.out.print("- Fecha de inicio: ");
+            fechaIni = LocalDate.parse(sc.next());
+            System.out.print("- Fecha de fin: ");
+            fechaFin = LocalDate.parse(sc.next());
+        }
+    }
+
+    public void lanzarMetodo7() throws DuracionNegativaException {
+        System.out.println("\n7) DAR DE ALTA UNA LLAMADA");
         String telfOrigen = pedirTelfExistente(); //pedir telfOrigen
         System.out.print("- Introduce el telefono de destino: ");
         String telfDest = sc.next();
@@ -161,14 +194,30 @@ public class Salida {
         System.out.println("\n\tLlamada de " + telfOrigen + " a " + telfDest + " realizada con exito.\n");
     }
 
-    public void lanzarMetodo7() {
-        System.out.println("\n7) LISTAR TODAS LAS LLAMADAS DE UN CLIENTE");
+    public void lanzarMetodo8() {
+        System.out.println("\n8) LISTAR TODAS LAS LLAMADAS DE UN CLIENTE");
         String telf = pedirTelfExistente();
         System.out.println(baseDeDatos.listarLlamadasCliente(telf));
     }
 
-    public void lanzarMetodo8() {
-        System.out.println("\n8) EMITIR FACTURA PARA UN CLIENTE");
+    public void lanzarMetodo9() {
+        System.out.println("\n9) MOSTRAR LISTADO DE LAS LLAMAS DADOS DE ALTA ENTRE DOS FECHAS");
+        System.out.print("- Introduce la fecha de inicio (formato aaaa-mm-dd): ");
+        LocalDate fechaIni = LocalDate.parse(sc.next());
+        System.out.print("- Introduce la fecha de fin (formato aaaa-mm-dd): ");
+        LocalDate fechaFin = LocalDate.parse(sc.next());
+        //comprobar que la fecha de inicio de factura sea anterior a la fecha de fin
+        while(!fechaIni.isBefore(fechaFin)) {
+            System.out.println("* Fecha de inicio posterior a la fecha de fin. Vuelve a introducirlas (aaaa-mm-dd): ");
+            System.out.print("- Fecha de inicio: ");
+            fechaIni = LocalDate.parse(sc.next());
+            System.out.print("- Fecha de fin: ");
+            fechaFin = LocalDate.parse(sc.next());
+        }
+    }
+
+    public void lanzarMetodo10() {
+        System.out.println("\n10) EMITIR FACTURA PARA UN CLIENTE");
         String nif = pedirNifExistente();
         System.out.print("- Introduce la fecha de inicio de la factura (formato aaaa-mm-dd): ");
         LocalDate fechaIni = LocalDate.parse(sc.next());
@@ -186,8 +235,8 @@ public class Salida {
         System.out.println("\n\tFactura del cliente con NIF " + nif + " emitida con exito.\n");
     }
 
-    public void lanzarMetodo9() {
-        System.out.println("\n9) RECUPERAR DATOS DE UNA FACTURA");
+    public void lanzarMetodo11() {
+        System.out.println("\n11) RECUPERAR DATOS DE UNA FACTURA");
         System.out.print("- Introduce su codigo: ");
         int cod = sc.nextInt();
         String res = baseDeDatos.listarDatosFactura(cod);
@@ -195,13 +244,29 @@ public class Salida {
         else System.out.println(res + "\n");
     }
 
-    public void lanzarMetodo10() {
-        System.out.println("\n10) LISTAR LAS FACTURAS DE UN CLIENTE");
+    public void lanzarMetodo12() {
+        System.out.println("\n12) LISTAR LAS FACTURAS DE UN CLIENTE");
         String NIF = pedirNifExistente();
         System.out.println(baseDeDatos.listarFacturasCliente(NIF));
     }
 
-    public void lanzarMetodo11() {
+    public void lanzarMetodo13() {
+        System.out.println("\n13) MOSTRAR LISTADO DE LAS FACTURAS DADAS DE ALTA ENTRE DOS FECHAS");
+        System.out.print("- Introduce la fecha de inicio (formato aaaa-mm-dd): ");
+        LocalDate fechaIni = LocalDate.parse(sc.next());
+        System.out.print("- Introduce la fecha de fin (formato aaaa-mm-dd): ");
+        LocalDate fechaFin = LocalDate.parse(sc.next());
+        //comprobar que la fecha de inicio de factura sea anterior a la fecha de fin
+        while(!fechaIni.isBefore(fechaFin)) {
+            System.out.println("* Fecha de inicio posterior a la fecha de fin. Vuelve a introducirlas (aaaa-mm-dd): ");
+            System.out.print("- Fecha de inicio: ");
+            fechaIni = LocalDate.parse(sc.next());
+            System.out.print("- Fecha de fin: ");
+            fechaFin = LocalDate.parse(sc.next());
+        }
+    }
+
+    public void lanzarMetodo14() {
         System.out.println("\n -----> Programa cerrado <----- ");
     }
 

@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.HashSet;
 
 public class MetodoGenerico {
-    public static < T extends tieneFecha> Collection< T > tiposIguales(HashSet< T > conjunto, LocalDate fechaIni, LocalDate fechaFin) {
+    public static < T extends tieneFecha> Collection< T > comparaFechas(HashSet< T > conjunto, LocalDate fechaIni, LocalDate fechaFin) {
         Collection< T > res = new HashSet< >();
         for (T elem : conjunto) {
             LocalDate fecha = elem.getFecha();
