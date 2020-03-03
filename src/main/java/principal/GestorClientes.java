@@ -35,7 +35,7 @@ public class GestorClientes {
     }
 
     //Metodo anadirCliente, llama al constructor de Cliente, lo crea, se anade a la base de datos
-    public void anadirParticular(Cliente cliente) {
+    public void anadirCliente(Cliente cliente) {
         clientes.put(cliente.getNIF(), cliente);
         telfNif.put(cliente.getTelf(), cliente.getNIF());
     }
