@@ -15,6 +15,7 @@ public class Factura implements tieneFecha {
     private float importe;
     private String nifCliente;
 
+
     public Factura(PeriodoFacturacion periodoFact, Cliente cliente) {
         this.codigo = hashCode();
         this.tarifa = cliente.getTarifa();

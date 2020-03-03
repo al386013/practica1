@@ -5,8 +5,10 @@ import datos.contrato.Factura;
 import datos.llamadas.Llamada;
 
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class GestorClientes {
+
     //ATRIBUTOS
     private HashMap<String, Cliente> clientes; //clave: nif
     private HashMap<String, String> telfNif;   //clave: telf - relaciona el telf con el nif del cliente

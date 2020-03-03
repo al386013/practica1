@@ -2,10 +2,18 @@ package principal;
 
 import datos.clientes.Cliente;
 import datos.clientes.Direccion;
+import datos.clientes.Empresa;
+import datos.clientes.Particular;
+import datos.contrato.Factura;
 import datos.contrato.PeriodoFacturacion;
+import datos.llamadas.Llamada;
 import excepciones.DuracionNegativaException;
 import excepciones.NifRepetidoException;
+import interfaces.tieneFecha;
+
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.HashSet;
 
 public class BaseDeDatos {
     //ATRIBUTOS
@@ -21,15 +29,16 @@ public class BaseDeDatos {
     // METODOS
     //BaseDeDatos llama al metodo correspondiente de gestorClientes, gestorFacturas o ambos; es el intermediario
 
-    public void anadirParticular(String nombre, String apellidos, String tlf, String NIF, Direccion dir, String email)
-            throws NifRepetidoException{
-        //La excepcion nifRepetido se resuelve en la clase GestorClientes
-        gestorClientes.anadirParticular(nombre, apellidos, tlf, NIF, dir, email);
+    public void anadirParticular(String nombre, String apellidos, String tlf, String NIF, Direccion dir, String email) throws NifRepetidoException{
+        if (existeCliente(NIF)) throw new NifRepetidoException();
+        Cliente nuevoParticular = new Particular(nombre, apellidos, tlf, NIF,dir, email);
+        gestorClientes.anadirCliente(nuevoParticular);
     }
 
     public void anadirEmpresa(String nombre, String tlf, String NIF, Direccion dir, String email) throws NifRepetidoException {
-        //La excepcion nifRepetido se resuelve en la clase GestorClientes
-        gestorClientes.anadirEmpresa(nombre, tlf, NIF, dir, email);
+        if (existeCliente(NIF)) throw new NifRepetidoException();
+        Cliente nuevaEmpresa = new Empresa(nombre,tlf, NIF, dir, email);
+        gestorClientes.anadirCliente(nuevaEmpresa);
     }
 
     public void borrarCliente(String telf) {
@@ -43,8 +52,9 @@ public class BaseDeDatos {
     }
 
     public void darDeAltaLlamada(String telfOrigen, String telfDestino, int duracion) throws DuracionNegativaException {
-        //La excepcion DuracionNegativa se trata en gestorClientes
-        gestorClientes.darDeAltaLlamada(telfOrigen, telfDestino, duracion);
+        if(duracion < 0) throw new DuracionNegativaException();
+        Llamada nuevaLlamada = new Llamada(telfDestino,duracion);
+        gestorClientes.darDeAltaLlamada(telfOrigen, nuevaLlamada);
     }
 
     public String listarDatosCliente(String NIF) {
@@ -62,7 +72,8 @@ public class BaseDeDatos {
     public void emitirFactura(LocalDate fechaIni, LocalDate fechaFin, String nif) {
         PeriodoFacturacion periodoFact = new PeriodoFacturacion(fechaIni, fechaFin);
         Cliente cliente = gestorClientes.devuelveCliente(nif);
-        gestorFacturas.emitirFactura(periodoFact, cliente);
+        Factura nuevaFactura = new Factura(periodoFact,cliente);
+        gestorFacturas.emitirFactura(nuevaFactura, cliente);
     }
 
     public String listarDatosFactura(int cod) {
@@ -79,5 +90,16 @@ public class BaseDeDatos {
 
     public boolean existeTelf(String telf) {
         return gestorClientes.existeTelf(telf);
+    }
+
+
+    public static < T extends tieneFecha> Collection< T > tiposIguales(HashSet< T > conjunto, LocalDate fechaIni, LocalDate fechaFin) {
+        Collection< T > res = new HashSet< >();
+        for (T elem : conjunto) {
+            LocalDate fecha = elem.getFecha();
+            if(fecha.isAfter(fechaIni) && fecha.isBefore(fechaFin))
+                res.add(elem);
+        }
+        return res;
     }
 }
