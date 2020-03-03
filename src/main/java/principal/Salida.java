@@ -181,6 +181,7 @@ public class Salida {
             System.out.print("- Fecha de fin: ");
             fechaFin = LocalDate.parse(sc.next());
         }
+        System.out.println(clientes);
     }
 
     public void lanzarMetodo7() throws DuracionNegativaException {

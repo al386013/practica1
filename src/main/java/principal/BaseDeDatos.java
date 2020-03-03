@@ -92,14 +92,23 @@ public class BaseDeDatos {
         return gestorClientes.existeTelf(telf);
     }
 
-
-    public static < T extends tieneFecha> Collection< T > tiposIguales(HashSet< T > conjunto, LocalDate fechaIni, LocalDate fechaFin) {
-        Collection< T > res = new HashSet< >();
+    private < T extends tieneFecha> Collection< T > entreFechas(HashSet< T > conjunto, LocalDate fechaIni, LocalDate fechaFin) {
+        Collection<T> res = new HashSet<>();
         for (T elem : conjunto) {
             LocalDate fecha = elem.getFecha();
-            if(fecha.isAfter(fechaIni) && fecha.isBefore(fechaFin))
+            if (fecha.isAfter(fechaIni) && fecha.isBefore(fechaFin))
                 res.add(elem);
         }
         return res;
     }
+
+    public < T extends tieneFecha> String listarEntreFechas(HashSet< T > conjunto) {
+        StringBuilder sb = new StringBuilder();
+        for (T elem : conjunto) {
+            sb.append(elem.toString());
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+
 }
