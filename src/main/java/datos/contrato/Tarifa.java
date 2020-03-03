@@ -1,16 +1,22 @@
 package datos.contrato;
 
 public class Tarifa {
-    private double tarifa = 0.05;
+    //ATRIBUTO
+    private float tarifa;
 
-    public Tarifa() { }
+    //CONSTRUCTOR POR DEFECTO
+    public Tarifa() {
+        tarifa = 0.05f;
+    }
 
-    public double getTarifa() { return tarifa; }
+    //METODOS
+    public float getTarifa() { return tarifa; }
 
-    public void setTarifa(double tarifa) {
+    public void setTarifa(float tarifa) {
         this.tarifa = tarifa;
     }
 
+    @Override
     public String toString() {
         return tarifa + " €/min";
     }

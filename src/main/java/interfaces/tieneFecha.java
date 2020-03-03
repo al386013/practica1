@@ -1,5 +1,7 @@
 package interfaces;
 
+import java.time.LocalDate;
+
 public interface tieneFecha {
-    public String getFecha();
+    LocalDate getFecha();
 }

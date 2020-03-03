@@ -1,46 +1,40 @@
 package datos.llamadas;
 
 import interfaces.tieneFecha;
-import java.util.Calendar;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Llamada implements tieneFecha {
-    private String telf;
-    private String fecha;
-    private String hora;
-    private int duracion; //en minutos??
+    private String telfDest;
+    private LocalDate fecha;
+    private LocalTime hora;
+    private int duracion; //en segundos
 
-    public Llamada(String telfDestino, String fecha, String hora, int duracion) {
-        this.telf = telfDestino;
-        //Calendar fechaActual = Calendar.getInstance();
-        //this.fecha = fechaActual.getTime().toString();
-        //this.hora = fechaActual.getTime().toString();
-        this.fecha = fecha;
-        this.hora = hora;
+    public Llamada(String telfDest, int duracion) {
+        this.telfDest = telfDest;
+        this.fecha = LocalDate.now();
+        this.hora = LocalTime.now();
         this.duracion = duracion;
     }
 
     @Override
-    public String getFecha() {
+    public LocalDate getFecha() {
         return fecha;
-    }
-
-    public String getTelf() {
-        return telf;
     }
 
     public int getDuracion() {
         return duracion;
     }
 
-    public String getHora() {
-        return hora;
-    }
+    public String getTelfDest() { return telfDest; }
 
     @Override
     public String toString() {
-        return "Llamada realizada el " + fecha +
-                " a las " + hora +
-                " con una duracion de " + duracion +
-                " al telefono " + telf + "\n";
+        StringBuilder sb = new StringBuilder();
+        sb.append("Llamada realizada el " + fecha);
+        sb.append(" a las " + hora.getHour() + ":" + hora.getMinute());
+        sb.append(" con una duracion de " + duracion + " segundos");
+        sb.append(" al telefono " + telfDest);
+        return sb.toString();
     }
 }

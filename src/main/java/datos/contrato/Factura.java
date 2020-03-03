@@ -3,68 +3,64 @@ package datos.contrato;
 import datos.clientes.Cliente;
 import datos.llamadas.Llamada;
 import interfaces.tieneFecha;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.LocalDate;
 
 public class Factura implements tieneFecha {
-    private final int codigo;
-    private Tarifa tarifa; // €/min, tipo float o double o tarifa
-    private final String fecha_emision;
-    private final int periodo_fact; //en dias?????
-    private final double importe; //float o double??
-    private final String nifCliente;
+    private int codigo;
+    private Tarifa tarifa; //la que tenga el cliente en ese momento
+    private LocalDate fechaEmision;
+    private PeriodoFacturacion periodoFact;
+    private float importe;
+    private String nifCliente;
 
-    //todos final?? la fecha de emisión es un parametro?
-    public Factura(Tarifa tarifa, String fecha_emision, int periodo_fact, Cliente cliente) {
+
+    public Factura(PeriodoFacturacion periodoFact, Cliente cliente) {
         this.codigo = hashCode();
-        this.tarifa = tarifa;
-        this.fecha_emision = fecha_emision;
-        this.periodo_fact = periodo_fact;
-        this.importe = calcularImporte(cliente, tarifa);
+        this.tarifa = cliente.getTarifa();
+        this.fechaEmision = LocalDate.now();
+        this.periodoFact = periodoFact;
+        this.importe = calcularImporte(cliente);
         this.nifCliente = cliente.getNIF();
     }
 
     public int getCodigo() {
-        return codigo;
+        return this.codigo;
     }
 
-    public Tarifa getTarifa() {
-        return tarifa;
+    public Tarifa getTarifa() { return this.tarifa; }
+
+    public float getImporte() { return this.importe; }
+
+    public String getNifCliente() { return this.nifCliente; }
+
+    @Override
+    public LocalDate getFecha() {
+        return this.fechaEmision;
     }
 
-    public String getFecha_emision() {
-        return fecha_emision;
-    }
-
-    public int getPeriodo_fact() {
-        return periodo_fact;
-    }
-
-    public double getImporte() {
-        return importe;
-    }
-
-    public String getNifCliente() {
-        return nifCliente;
+    private float calcularImporte(Cliente cliente) {
+        int segundosTotales = 0;
+        for (Llamada llamada : cliente.getLlamadas()) {
+            LocalDate fecha = llamada.getFecha();
+            if(fecha.isAfter(periodoFact.getFechaIni()) || fecha.isBefore(periodoFact.getFechaFin()))
+                segundosTotales += llamada.getDuracion();
+        }
+        float importe = (segundosTotales/60.0f) * cliente.getTarifa().getTarifa();
+        //codigo para redondear a dos decimales:
+        BigDecimal redondeado = new BigDecimal(importe).setScale(2, RoundingMode.HALF_EVEN);
+        return redondeado.floatValue();
     }
 
     @Override
-    public String getFecha() {
-        return fecha_emision;
-    }
-
-    private double calcularImporte(Cliente cliente, Tarifa tarifa) {
-        int segundosTotales = 0;
-        for(Llamada llamada : cliente.getLlamadasPeriodoFact())
-            segundosTotales += llamada.getDuracion();
-        return segundosTotales * tarifa.getTarifa();
-    }
-
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("NIF del cliente: " + nifCliente + ", ");
-        sb.append("Código: " + codigo + ", ");
+        sb.append("NIF: " + nifCliente + ", ");
+        sb.append("Codigo: " + codigo + ", ");
         sb.append("Tarifa: " + tarifa + ", ");
-        sb.append("Fecha de emisión: " + fecha_emision + ", ");
-        sb.append("Período de facturación: " + periodo_fact + " días, ");
+        sb.append("Fecha de emision: " + fechaEmision.toString() + ", ");
+        sb.append("Periodo de facturacion: " + periodoFact + ", ");
         sb.append("Importe: " + importe + "€.");
         return sb.toString();
     }

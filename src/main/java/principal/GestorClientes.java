@@ -4,65 +4,73 @@ import datos.clientes.Cliente;
 import datos.clientes.Direccion;
 import datos.clientes.Empresa;
 import datos.clientes.Particular;
+import datos.contrato.Factura;
+import datos.llamadas.Llamada;
+import excepciones.DuracionNegativaException;
+import excepciones.NifRepetidoException;
+
 import java.util.HashMap;
 import java.util.HashSet;
 
 public class GestorClientes {
-    private HashMap<String, Cliente> clientes; //Clave es el NIF del cliente
-    private HashSet
 
+    //ATRIBUTOS
+    private HashMap<String, Cliente> clientes; //clave: nif
+    private HashMap<String, String> telfNif;   //clave: telf - relaciona el telf con el nif del cliente
+
+    //CONSTRUCTORES
     public GestorClientes() {
         clientes = new HashMap<String, Cliente>();
+        telfNif = new HashMap<String, String>();
     }
 
-    //Metodo devuelveCliente: si no existe devuelve null
+    //METODOS
+
+    //Metodo devuelveCliente: si un cliente no existe devuelve null
     public Cliente devuelveCliente(String NIF) {
         return clientes.get(NIF);
     }
 
-    //Metodo existeCliente: devuelve si existe el cliente en la base de datos
+    //Metodo existeCliente: devuelve true si existe el cliente en la base de datos
     public boolean existeCliente(String NIF) {
         return clientes.get(NIF) != null;
     }
 
-    //Metodo anadirParticular, llama al constructor de Cliente, lo crea, se anade a la cartera y lo devuelve.
-    //Devuelve null si ya existe el cliente y no lo modifica
-    public Cliente anadirParticular(String nombre,String apellidos, String telefono, String NIF, Direccion direccion, String email) {
-        //Comprobar que no existe el cliente:
-        if (clientes.containsKey(NIF)) return null;
-        else {
-            Cliente nuevo = new Particular(nombre, apellidos, telefono, NIF, direccion, email);
-            clientes.put(NIF, nuevo);
-            return nuevo;
-        }
+    //Metodo existeTelf: devuelve true si existe el telefono del cliente en la base de datos
+    public boolean existeTelf(String telf) {
+        return telfNif.get(telf) != null;
     }
 
-    //Metodo anadirEmpresa, llama al constructor de Cliente, lo crea, se anade a la cartera y lo devuelve.
-    //Devuelve null si ya existe el cliente y no lo modifica
-    public Cliente anadirEmpresa(String nombre, String telefono, String NIF, Direccion direccion, String email) {
-        //Comprobar que no existe el cliente:
-        if (clientes.containsKey(NIF)) return null;
-        else {
-            Cliente nuevo = new Empresa(nombre, telefono, NIF, direccion, email);
-            clientes.put(NIF, nuevo);
-            return nuevo;
-        }
+    //Metodo anadirParticular, llama al constructor de Cliente, lo crea, se anade a la base de datos
+    public void anadirParticular(String nombre, String apellidos, String telf, String NIF, Direccion dir, String email) throws NifRepetidoException {
+        if (existeCliente(NIF)) throw new NifRepetidoException();
+        Cliente nuevo = new Particular(nombre, apellidos, telf, NIF, dir, email);
+        clientes.put(NIF, nuevo);
+        telfNif.put(telf, NIF);
     }
 
-    //Metodo borrarCliente: lo elimina de clientes a partir de su nif
-    public void borrarCliente(String NIF) {
-        Cliente cliente = clientes.get(NIF);
-        clientes.remove(NIF);
+    //Metodo anadirEmpresa, llama al constructor de Cliente, lo crea, se anade a la base de datos
+    public void anadirEmpresa(String nombre, String telf, String NIF, Direccion dir, String email) throws NifRepetidoException{
+        if (existeCliente(NIF)) throw new NifRepetidoException();
+        Cliente nuevo = new Empresa(nombre, telf, NIF, dir, email);
+        clientes.put(NIF, nuevo);
+        telfNif.put(telf, NIF);
+    }
+
+    //Metodo borrarCliente: lo elimina de clientes a partir de su telefono
+    public void borrarCliente(String telf) { //al borrarlo no se borran sus facturas de totalFacturas
+        String nif = telfNif.get(telf);
+        clientes.remove(nif); //se borra de clientes
+        telfNif.remove(telf); //y del telfNif
     }
 
     //Metodo cambioTarifa: cambia la tarifa de un cliente dado su nif
-    public void cambioTarifa(Double nuevaTarifa, String NIF) {
-        Cliente cliente = devuelveCliente(NIF);
-        cliente.cambiarTarifa(nuevaTarifa);
+    public void cambioTarifa(float nuevaTarifa, String NIF) {
+        clientes.get(NIF).cambiarTarifa(nuevaTarifa);
     }
 
-    //Metodo recDatosCliente, recupera todos los datos de un cliente a partir del NIF
-    public String recDatosCliente(String NIF) {
+    //Metodo listarDatosCliente, recupera todos los datos de un cliente a partir del NIF
+    public String listarDatosCliente(String NIF) {
        return clientes.get(NIF).toString();
     }
 
@@ -70,7 +78,34 @@ public class GestorClientes {
     public String listarClientes() {
         StringBuilder sb = new StringBuilder();
         for (Cliente cliente : clientes.values()) {
-            sb.append(recDatosCliente(cliente.getNIF()));
+            sb.append(listarDatosCliente(cliente.getNIF()));
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+
+    //Método darDeAltaLlamada: crea y anade una llamada al conjunto de llamadas de un cliente
+    public void darDeAltaLlamada(String telfOrigen, String telfDestino, int duracion) throws DuracionNegativaException{
+        if(duracion < 0) throw new DuracionNegativaException();
+        Llamada llamada = new Llamada(telfDestino, duracion);
+        clientes.get(telfNif.get(telfOrigen)).anadirLlamada(llamada);
+    }
+
+    //Metodo listarLlamadasCliente: lista todas las llamadas de un cliente a partir de su telefono
+    public String listarLlamadasCliente(String telf) {
+        StringBuilder sb = new StringBuilder();
+        for (Llamada llamada : clientes.get(telfNif.get(telf)).getLlamadas()) {
+            sb.append(llamada.toString());
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+
+    //Metodo listarFacturasCliente: recupera todas las facturas de un cliente a partir de su nif
+    public String listarFacturasCliente(String nif) {
+        StringBuilder sb = new StringBuilder();
+        for (Factura factura : clientes.get(nif).getFacturas()) {
+            sb.append(factura.toString());
             sb.append("\n");
         }
         return sb.toString();
