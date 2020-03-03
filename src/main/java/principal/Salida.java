@@ -53,56 +53,56 @@ public class Salida {
         switch (op) {
             case 1:
                 try {
-                    lanzarMetodo1();
+                    daAltaCliente();
                 } catch (NifRepetidoException e) {
                     e.printStackTrace();
                 }
                 break;
             case 2:
-               lanzarMetodo2();
+               borraCliente();
                 break;
             case 3:
-                lanzarMetodo3();
+                cambiaTarifa();
                 break;
             case 4:
-                lanzarMetodo4();
+                datosCliente();
                 break;
             case 5:
-                lanzarMetodo5();
+                listadoClientes();
                 break;
             case 6:
-                lanzarMetodo6();
+                clientesEntreFechas();
                 break;
             case 7:
                 try {
-                    lanzarMetodo7();
+                    daAltaLlamada();
                 } catch (DuracionNegativaException e) {
                     e.printStackTrace();
                 }
                 break;
             case 8:
-                lanzarMetodo8();
+                llamadasCliente();
                 break;
             case 9:
-                lanzarMetodo9();
+                llamadasCliEntreFechas();
                 break;
             case 10:
-                lanzarMetodo10();
+                emiteFactura();
                 break;
             case 11:
-               lanzarMetodo11();
+               datosFactura();
             case 12:
-                lanzarMetodo12();
+                facturasCliente();
             case 13:
-                lanzarMetodo13();
+                facturasCliEntreFechas();
             case 14:
-                lanzarMetodo14();
+                salir();
                 break;
         }
     }
 
-    public void lanzarMetodo1() throws NifRepetidoException {
-        System.out.println("\n1) DAR DE ALTA UN NUEVO CLIENTE");
+    public void daAltaCliente() throws NifRepetidoException {
+        System.out.println("\nDAR DE ALTA UN NUEVO CLIENTE");
         System.out.print("--> Introduce 'e' para empresa o 'p' para particular: ");
         String letra = sc.next();
         while(!letra.equals("e") && !letra.equals("p")) {
@@ -136,15 +136,15 @@ public class Salida {
         System.out.println("\n\tCreado cliente " + nombre + " con NIF " + nif + " y telefono " + telf + ".\n");
     }
 
-    public void lanzarMetodo2() {
-        System.out.println("\n2) BORRAR UN CLIENTE");
+    public void borraCliente() {
+        System.out.println("\nBORRAR UN CLIENTE");
         String telf = pedirTelfExistente();
         baseDeDatos.borrarCliente(telf);
         System.out.println("\n\tCliente con numero " + telf + " borrado con exito.\n");
     }
 
-    public void lanzarMetodo3() {
-        System.out.println("\n3) CAMBIAR LA TARIFA DE UN CLIENTE");
+    public void cambiaTarifa() {
+        System.out.println("\nCAMBIAR LA TARIFA DE UN CLIENTE");
         String nif = pedirNifExistente();
         System.out.print("- Introduce la tarifa deseada (en _,_ €/min): ");
         float tarifa = sc.nextFloat();
@@ -156,19 +156,19 @@ public class Salida {
         System.out.println("\n\tTarifa del cliente con NIF " + nif + " cambiada a " + tarifa + " €/min.\n");
     }
 
-    public void lanzarMetodo4() {
-        System.out.println("\n4) RECUPERAR LOS DATOS DE UN CLIENTE");
+    public void datosCliente() {
+        System.out.println("\nRECUPERAR LOS DATOS DE UN CLIENTE");
         String nif = pedirNifExistente();
         System.out.println(baseDeDatos.listarDatosCliente(nif) + "\n");
     }
 
-    public void lanzarMetodo5() {
-        System.out.println("\n5) RECUPERAR EL LISTADO DE TODOS LOS CLIENTES");
+    public void listadoClientes() {
+        System.out.println("\nRECUPERAR EL LISTADO DE TODOS LOS CLIENTES");
         System.out.println(baseDeDatos.listarClientes());
     }
 
-    public void lanzarMetodo6() {
-        System.out.println("\n6) MOSTRAR LISTADO DE LOS CLIENTES DADOS DE ALTA ENTRE DOS FECHAS");
+    public void clientesEntreFechas() {
+        System.out.println("\nMOSTRAR LISTADO DE LOS CLIENTES DADOS DE ALTA ENTRE DOS FECHAS");
         System.out.print("- Introduce la fecha de inicio (formato aaaa-mm-dd): ");
         LocalDate fechaIni = LocalDate.parse(sc.next());
         System.out.print("- Introduce la fecha de fin (formato aaaa-mm-dd): ");
@@ -181,11 +181,11 @@ public class Salida {
             System.out.print("- Fecha de fin: ");
             fechaFin = LocalDate.parse(sc.next());
         }
-        System.out.println(clientes);
+        System.out.println(baseDeDatos.listarClientesEntreFechas(fechaIni, fechaIni));
     }
 
-    public void lanzarMetodo7() throws DuracionNegativaException {
-        System.out.println("\n7) DAR DE ALTA UNA LLAMADA");
+    public void daAltaLlamada() throws DuracionNegativaException {
+        System.out.println("\nDAR DE ALTA UNA LLAMADA");
         String telfOrigen = pedirTelfExistente(); //pedir telfOrigen
         System.out.print("- Introduce el telefono de destino: ");
         String telfDest = sc.next();
@@ -195,14 +195,15 @@ public class Salida {
         System.out.println("\n\tLlamada de " + telfOrigen + " a " + telfDest + " realizada con exito.\n");
     }
 
-    public void lanzarMetodo8() {
-        System.out.println("\n8) LISTAR TODAS LAS LLAMADAS DE UN CLIENTE");
+    public void llamadasCliente() {
+        System.out.println("\nLISTAR TODAS LAS LLAMADAS DE UN CLIENTE");
         String telf = pedirTelfExistente();
         System.out.println(baseDeDatos.listarLlamadasCliente(telf));
     }
 
-    public void lanzarMetodo9() {
-        System.out.println("\n9) MOSTRAR LISTADO DE LAS LLAMAS DADOS DE ALTA ENTRE DOS FECHAS");
+    public void llamadasCliEntreFechas() {
+        System.out.println("\nMOSTRAR LISTADO DE LAS LLAMADAS REALIZADAS ENTRE DOS FECHAS");
+        String telf = pedirTelfExistente();
         System.out.print("- Introduce la fecha de inicio (formato aaaa-mm-dd): ");
         LocalDate fechaIni = LocalDate.parse(sc.next());
         System.out.print("- Introduce la fecha de fin (formato aaaa-mm-dd): ");
@@ -215,10 +216,11 @@ public class Salida {
             System.out.print("- Fecha de fin: ");
             fechaFin = LocalDate.parse(sc.next());
         }
+        System.out.println(baseDeDatos.listarLlamadasEntreFechas(telf, fechaIni, fechaIni));
     }
 
-    public void lanzarMetodo10() {
-        System.out.println("\n10) EMITIR FACTURA PARA UN CLIENTE");
+    public void emiteFactura() {
+        System.out.println("\nEMITIR FACTURA PARA UN CLIENTE");
         String nif = pedirNifExistente();
         System.out.print("- Introduce la fecha de inicio de la factura (formato aaaa-mm-dd): ");
         LocalDate fechaIni = LocalDate.parse(sc.next());
@@ -236,8 +238,8 @@ public class Salida {
         System.out.println("\n\tFactura del cliente con NIF " + nif + " emitida con exito.\n");
     }
 
-    public void lanzarMetodo11() {
-        System.out.println("\n11) RECUPERAR DATOS DE UNA FACTURA");
+    public void datosFactura() {
+        System.out.println("\nRECUPERAR DATOS DE UNA FACTURA");
         System.out.print("- Introduce su codigo: ");
         int cod = sc.nextInt();
         String res = baseDeDatos.listarDatosFactura(cod);
@@ -245,14 +247,15 @@ public class Salida {
         else System.out.println(res + "\n");
     }
 
-    public void lanzarMetodo12() {
-        System.out.println("\n12) LISTAR LAS FACTURAS DE UN CLIENTE");
-        String NIF = pedirNifExistente();
-        System.out.println(baseDeDatos.listarFacturasCliente(NIF));
+    public void facturasCliente() {
+        System.out.println("\nLISTAR LAS FACTURAS DE UN CLIENTE");
+        String nif = pedirNifExistente();
+        System.out.println(baseDeDatos.listarFacturasCliente(nif));
     }
 
-    public void lanzarMetodo13() {
-        System.out.println("\n13) MOSTRAR LISTADO DE LAS FACTURAS DADAS DE ALTA ENTRE DOS FECHAS");
+    public void facturasCliEntreFechas() {
+        System.out.println("\nMOSTRAR LISTADO DE LAS FACTURAS DADAS DE ALTA ENTRE DOS FECHAS");
+        String nif = pedirNifExistente();
         System.out.print("- Introduce la fecha de inicio (formato aaaa-mm-dd): ");
         LocalDate fechaIni = LocalDate.parse(sc.next());
         System.out.print("- Introduce la fecha de fin (formato aaaa-mm-dd): ");
@@ -265,9 +268,10 @@ public class Salida {
             System.out.print("- Fecha de fin: ");
             fechaFin = LocalDate.parse(sc.next());
         }
+        System.out.println(baseDeDatos.listarFacturasEntreFechas(nif, fechaIni, fechaIni));
     }
 
-    public void lanzarMetodo14() {
+    public void salir() {
         System.out.println("\n -----> Programa cerrado <----- ");
     }
 

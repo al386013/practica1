@@ -57,38 +57,8 @@ public class GestorClientes {
        return clientes.get(NIF).toString();
     }
 
-    //Metodo listarClientes, lista todos los clientes
-    public String listarClientes() {
-        StringBuilder sb = new StringBuilder();
-        for (Cliente cliente : clientes.values()) {
-            sb.append(listarDatosCliente(cliente.getNIF()));
-            sb.append("\n");
-        }
-        return sb.toString();
-    }
-
     //Método darDeAltaLlamada: crea y anade una llamada al conjunto de llamadas de un cliente
     public void darDeAltaLlamada(String telfOrigen, Llamada llamada) {
         clientes.get(telfNif.get(telfOrigen)).anadirLlamada(llamada);
-    }
-
-    //Metodo listarLlamadasCliente: lista todas las llamadas de un cliente a partir de su telefono
-    public String listarLlamadasCliente(String telf) {
-        StringBuilder sb = new StringBuilder();
-        for (Llamada llamada : clientes.get(telfNif.get(telf)).getLlamadas()) {
-            sb.append(llamada.toString());
-            sb.append("\n");
-        }
-        return sb.toString();
-    }
-
-    //Metodo listarFacturasCliente: recupera todas las facturas de un cliente a partir de su nif
-    public String listarFacturasCliente(String nif) {
-        StringBuilder sb = new StringBuilder();
-        for (Factura factura : clientes.get(nif).getFacturas()) {
-            sb.append(factura.toString());
-            sb.append("\n");
-        }
-        return sb.toString();
     }
 }

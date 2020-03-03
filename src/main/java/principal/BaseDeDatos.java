@@ -61,14 +61,6 @@ public class BaseDeDatos {
         return gestorClientes.listarDatosCliente(NIF);
     }
 
-    public String listarClientes() {
-        return gestorClientes.listarClientes();
-    }
-
-    public String listarLlamadasCliente(String telf) {
-        return gestorClientes.listarLlamadasCliente(telf);
-    }
-
     public void emitirFactura(LocalDate fechaIni, LocalDate fechaFin, String nif) {
         PeriodoFacturacion periodoFact = new PeriodoFacturacion(fechaIni, fechaFin);
         Cliente cliente = gestorClientes.devuelveCliente(nif);
@@ -80,10 +72,6 @@ public class BaseDeDatos {
         return gestorFacturas.listarDatosFactura(cod);
     }
 
-    public String listarFacturasCliente(String nif) {
-        return gestorClientes.listarFacturasCliente(nif);
-    }
-
     public boolean existeCliente(String nif) {
         return gestorClientes.existeCliente(nif);
     }
@@ -93,7 +81,7 @@ public class BaseDeDatos {
     }
 
     private < T extends tieneFecha> Collection< T > entreFechas(Collection< T > conjunto, LocalDate fechaIni, LocalDate fechaFin) {
-        Collection< T > res = new HashSet< >();
+        Collection<T> res = new HashSet<>();
         for (T elem : conjunto) {
             LocalDate fecha = elem.getFecha();
             if (fecha.isAfter(fechaIni) && fecha.isBefore(fechaFin))
@@ -102,14 +90,43 @@ public class BaseDeDatos {
         return res;
     }
 
-    public Collection<Cliente> clientesEntreFechas(Collection<Cliente> clientes, LocalDate fechaIni, LocalDate fechaFin) {
-        return entreFechas(clientes, fechaIni, fechaFin);
-    }
-    public Collection<Llamada> LlamadasEntreFechas(String telf, LocalDate fechaIni, LocalDate fechaFin) {
-        return entreFechas(gestorClientes.clientes.get(gestorClientes.telfNif.get(telf)).getLlamadas(), fechaIni, fechaFin);
+    //Metodo listar: devuelve una cadena para imprimir los elementos de un conjunto
+    public < T extends tieneFecha> String listar(Collection< T > conjunto) {
+        StringBuilder sb = new StringBuilder();
+        for (T elem : conjunto) {
+            sb.append(elem.toString());
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 
-    public Collection<Factura> facturasEntreFechas(String nif, LocalDate fechaIni, LocalDate fechaFin) {
-        return entreFechas(gestorClientes.clientes.get(nif).getFacturas(), fechaIni, fechaFin);
+    public String listarClientesEntreFechas(LocalDate fechaIni, LocalDate fechaFin) {
+        Collection<Cliente> conjunto = entreFechas(gestorClientes.clientes.values(), fechaIni, fechaFin);
+        return listar(conjunto);
+    }
+
+    public String listarLlamadasEntreFechas(String telf, LocalDate fechaIni, LocalDate fechaFin) {
+        Collection<Llamada> conjunto = entreFechas(gestorClientes.clientes.get(gestorClientes.telfNif.get(telf)).getLlamadas(), fechaIni, fechaFin);
+        return listar(conjunto);
+    }
+
+    public String listarFacturasEntreFechas(String nif, LocalDate fechaIni, LocalDate fechaFin) {
+        Collection<Factura> conjunto = entreFechas(gestorClientes.clientes.get(nif).getFacturas(), fechaIni, fechaFin);
+        return listar(conjunto);
+    }
+
+    //Metodo listarClientes, lista todos los clientes
+    public String listarClientes() {
+        return listar(gestorClientes.clientes.values());
+    }
+
+    //Metodo listarLlamadasCliente: lista todas las llamadas de un cliente a partir de su telefono
+    public String listarLlamadasCliente(String telf) {
+        return listar(gestorClientes.clientes.get(gestorClientes.telfNif.get(telf)).getLlamadas());
+    }
+
+    //Metodo listarFacturasCliente: recupera todas las facturas de un cliente a partir de su nif
+    public String listarFacturasCliente(String nif) {
+        return listar(gestorClientes.clientes.get(nif).getFacturas());
     }
 }

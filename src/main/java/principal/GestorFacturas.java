@@ -2,7 +2,6 @@ package principal;
 
 import datos.clientes.Cliente;
 import datos.contrato.Factura;
-import datos.contrato.PeriodoFacturacion;
 import java.util.HashMap;
 
 public class GestorFacturas {
