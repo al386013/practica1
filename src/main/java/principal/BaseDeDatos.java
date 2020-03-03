@@ -21,9 +21,9 @@ public class BaseDeDatos {
     private GestorFacturas gestorFacturas;
 
     //CONSTRUCTOR:
-    public BaseDeDatos(){
-        this.gestorClientes = new GestorClientes();
-        this.gestorFacturas = new GestorFacturas();
+    public BaseDeDatos(GestorClientes gestorClientes, GestorFacturas gestorFacturas){
+        this.gestorClientes = gestorClientes;
+        this.gestorFacturas = gestorFacturas;
     }
 
     // METODOS

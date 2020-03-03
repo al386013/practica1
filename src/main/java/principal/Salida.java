@@ -11,8 +11,8 @@ public class Salida {
     private BaseDeDatos baseDeDatos;
     private Scanner sc = new Scanner(System.in);
 
-    public Salida() {
-        this.baseDeDatos =  new BaseDeDatos();
+    public Salida(BaseDeDatos baseDeDatos) {
+        this.baseDeDatos =  baseDeDatos;
     }
 
     public String mostrarMenu(){
