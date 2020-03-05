@@ -1,5 +1,6 @@
 package principal;
 
+import datos.clientes.Cliente;
 import datos.clientes.Direccion;
 import excepciones.DuracionNegativaException;
 import excepciones.IntervaloFechasIncorrectoException;
@@ -18,6 +19,7 @@ public class Salida implements Serializable {
     private BaseDeDatos baseDeDatos;
     private Scanner sc = new Scanner(System.in);
     private MenuPrincipal opcionMenu = null;
+    private BaseDeDatos agenda = null;
 
     public Salida(BaseDeDatos baseDeDatos) {
         this.baseDeDatos =  baseDeDatos;
@@ -38,7 +40,6 @@ public class Salida implements Serializable {
         switch (opcionMenu) {
             case CARGAR_DATOS:
                 importarDatos();
-                System.out.println("\n* * * * * DATOS IMPORTADOS CORRECTAMENTE * * * * *\n");
                 break;
             case CLIENTES:
                 System.out.println("\n* * * * * * * OPCIONES DE CLIENTES * * * * * * *\n");
@@ -306,11 +307,6 @@ public class Salida implements Serializable {
         }
     }
 
-    private void salir() {
-        opcionMenu = MenuPrincipal.SALIR_GUARDAR;
-        System.out.println("\n -----> Programa cerrado <----- ");
-    }
-
     private String pedirNifExistente() {
         System.out.print("- Introduce el NIF del cliente: ");
         String NIF = sc.next();
@@ -331,19 +327,44 @@ public class Salida implements Serializable {
         return telf;
     }
 
-    //El metodo exportatDatos se encarga de guardar los datos en la base de datos previamente antes de finalizar el programa
-    private void exportarDatosYsalir(){
-        FileOutputStream fos = new FileOutputStream("agenda.bin");
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(agenda);
-        oos.close();
-    }
-
     //El metodo importar datos se encarga de cargar los datos que ya habiamos obtenido en nuestra base de datos
     private void importarDatos(){
-        FileInputStream fis = new FileInputStream("agenda.bin");
-        ObjectInputStream ois = new ObjectInputStream(fis);
-        agenda = (Agenda) ois.readObject();
-        ois.close();
+        ObjectInputStream ois = null;
+        try {
+            try {
+                FileInputStream fis = new FileInputStream("agenda.bin");
+                ois = new ObjectInputStream(fis);
+                agenda = (BaseDeDatos) ois.readObject();
+                System.out.println("\n -----> DATOS IMPORTADOS CORRECTAMENTE <----- ");
+            } finally {
+                ois.close();
+            }
+        } catch(FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //El metodo exportatDatos se encarga de guardar los datos en la base de datos previamente antes de finalizar el programa
+    private void exportarDatosYsalir(){
+        ObjectOutputStream oos = null;
+        try {
+            try {
+                opcionMenu = MenuPrincipal.SALIR_GUARDAR;
+                FileOutputStream fos = new FileOutputStream("agenda.bin");
+                oos = new ObjectOutputStream(fos);
+                oos.writeObject(agenda);
+                System.out.println("\n -----> Datos guardados y programa cerrado <----- ");
+            } finally {
+                oos.close();
+            }
+        } catch(FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
