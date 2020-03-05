@@ -8,7 +8,7 @@ public enum MenuClientes {
     LISTAR_CLIENTES("Recuperar el listado de todos los clientes."),
     CLIENTES_ENTRE_FECHAS("Mostrar listado de clientes dados de alta entre dos fechas."),
     VOLVER_MENU_PRINCIPAL("Volver al menu principal."),
-    SALIR("Salir.");
+    SALIR_GUARDAR("Salir y guardar datos.");
 
     private String descripcion;
 

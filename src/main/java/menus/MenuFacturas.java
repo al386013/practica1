@@ -6,7 +6,7 @@ public enum MenuFacturas {
     FACTURAS_CLIENTE("Recuperar todas las facturas de un cliente."),
     FACTURAS_ENTRE_FECHAS("Mostrar listado de facturas de un cliente emitidas entre dos fechas"),
     VOLVER_MENU_PRINCIPAL("Volver al menu principal."),
-    SALIR("Salir.");
+    SALIR_GUARDAR("Salir y guardar datos.");
 
     private String descripcion;
 

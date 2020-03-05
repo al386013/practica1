@@ -2,9 +2,8 @@ package main;
 
 import principal.*;
 
-import java.util.Scanner;
-
 public class Main { //Serializable
+
     public static void main(String[] args) {
 
         //creamos los objetos

@@ -34,19 +34,12 @@ public class Salida implements Serializable {
         }
     }
 
-    /* public int leerOpcion() {
-        System.out.print("Introduce una opcion: ");
-        int op = sc.nextInt();
-        while(op < 1 || op > 11) {
-            System.out.println("* Opcion incorrecta, vuelve a intentarlo.\n");
-            System.out.print("Introduce otra opcion: ");
-            op = sc.nextInt();
-        }
-        return op;
-    } */
-
-    public void lanzarOpcionPrincipal(MenuPrincipal opcionMenu) {
+    private void lanzarOpcionPrincipal(MenuPrincipal opcionMenu) {
         switch (opcionMenu) {
+            case CARGAR_DATOS:
+                importarDatos();
+                System.out.println("\n* * * * * DATOS IMPORTADOS CORRECTAMENTE * * * * *\n");
+                break;
             case CLIENTES:
                 System.out.println("\n* * * * * * * OPCIONES DE CLIENTES * * * * * * *\n");
                 System.out.println(MenuClientes.getMenu());
@@ -71,13 +64,13 @@ public class Salida implements Serializable {
                 MenuFacturas opcionFacturas = MenuFacturas.getOpcion(opcion);
                 lanzarOpcionFacturas(opcionFacturas);
                 break;
-            case SALIR:
-                salir();
+            case SALIR_GUARDAR:
+                exportarDatosYsalir();
                 break;
         }
     }
 
-    public void lanzarOpcionClientes(MenuClientes opcionClientes) {
+    private void lanzarOpcionClientes(MenuClientes opcionClientes) {
         switch (opcionClientes) {
             case DAR_ALTA_CLIENTE:
                 daAltaCliente();
@@ -100,13 +93,13 @@ public class Salida implements Serializable {
             case VOLVER_MENU_PRINCIPAL:
                 menuYopcion();
                 break;
-            case SALIR:
-                salir();
+            case SALIR_GUARDAR:
+                exportarDatosYsalir();
                 break;
         }
     }
 
-    public void lanzarOpcionLlamadas(MenuLlamadas opcionLlamadas) {
+    private void lanzarOpcionLlamadas(MenuLlamadas opcionLlamadas) {
         switch (opcionLlamadas) {
             case DAR_ALTA_LLAMADA:
                 daAltaLlamada();
@@ -120,13 +113,13 @@ public class Salida implements Serializable {
             case VOLVER_MENU_PRINCIPAL:
                 menuYopcion();
                 break;
-            case SALIR:
-                salir();
+            case SALIR_GUARDAR:
+                exportarDatosYsalir();
                 break;
         }
     }
 
-    public void lanzarOpcionFacturas(MenuFacturas opcionFacturas) {
+    private void lanzarOpcionFacturas(MenuFacturas opcionFacturas) {
         switch (opcionFacturas) {
             case EMITIR_FACTURA:
                 emiteFactura();
@@ -140,13 +133,13 @@ public class Salida implements Serializable {
             case VOLVER_MENU_PRINCIPAL:
                 menuYopcion();
                 break;
-            case SALIR:
-                salir();
+            case SALIR_GUARDAR:
+                exportarDatosYsalir();
                 break;
         }
     }
 
-    public void daAltaCliente() {
+    private void daAltaCliente() {
         try {
             System.out.println("\nDAR DE ALTA UN NUEVO CLIENTE");
             System.out.print("--> Introduce 'e' para empresa o 'p' para particular: ");
@@ -189,14 +182,14 @@ public class Salida implements Serializable {
 
     }
 
-    public void borraCliente() {
+    private void borraCliente() {
         System.out.println("\nBORRAR UN CLIENTE");
         String telf = pedirTelfExistente();
         baseDeDatos.borrarCliente(telf);
         System.out.println("\n\tCliente con numero " + telf + " borrado con exito.\n");
     }
 
-    public void cambiaTarifa() {
+    private void cambiaTarifa() {
         System.out.println("\nCAMBIAR LA TARIFA DE UN CLIENTE");
         String nif = pedirNifExistente();
         System.out.print("- Introduce la tarifa deseada (en _,_ €/min): ");
@@ -209,18 +202,18 @@ public class Salida implements Serializable {
         System.out.println("\n\tTarifa del cliente con NIF " + nif + " cambiada a " + tarifa + " €/min.\n");
     }
 
-    public void datosCliente() {
+    private void datosCliente() {
         System.out.println("\nRECUPERAR LOS DATOS DE UN CLIENTE");
         String nif = pedirNifExistente();
         System.out.println(baseDeDatos.listarDatosCliente(nif) + "\n");
     }
 
-    public void listadoClientes() {
+    private void listadoClientes() {
         System.out.println("\nRECUPERAR EL LISTADO DE TODOS LOS CLIENTES");
         System.out.println(baseDeDatos.listarClientes());
     }
 
-    public void clientesEntreFechas() {
+    private void clientesEntreFechas() {
         try {
             System.out.println("\nMOSTRAR LISTADO DE LOS CLIENTES DADOS DE ALTA ENTRE DOS FECHAS");
             System.out.print("- Introduce la fecha de inicio (formato aaaa-mm-dd): ");
@@ -233,7 +226,7 @@ public class Salida implements Serializable {
         }
     }
 
-    public void daAltaLlamada() {
+    private void daAltaLlamada() {
         try {
             System.out.println("\nDAR DE ALTA UNA LLAMADA");
             String telfOrigen = pedirTelfExistente(); //pedir telfOrigen
@@ -248,13 +241,13 @@ public class Salida implements Serializable {
         }
     }
 
-    public void llamadasCliente() {
+    private void llamadasCliente() {
         System.out.println("\nLISTAR TODAS LAS LLAMADAS DE UN CLIENTE");
         String telf = pedirTelfExistente();
         System.out.println(baseDeDatos.listarLlamadasCliente(telf));
     }
 
-    public void llamadasCliEntreFechas() {
+    private void llamadasCliEntreFechas() {
         try {
             System.out.println("\nMOSTRAR LISTADO DE LAS LLAMADAS REALIZADAS ENTRE DOS FECHAS");
             String telf = pedirTelfExistente();
@@ -268,7 +261,7 @@ public class Salida implements Serializable {
         }
     }
 
-    public void emiteFactura() {
+    private void emiteFactura() {
         try {
             System.out.println("\nEMITIR FACTURA PARA UN CLIENTE");
             String nif = pedirNifExistente();
@@ -284,7 +277,7 @@ public class Salida implements Serializable {
         }
     }
 
-    public void datosFactura() {
+    private void datosFactura() {
         System.out.println("\nRECUPERAR DATOS DE UNA FACTURA");
         System.out.print("- Introduce su codigo: ");
         int cod = sc.nextInt();
@@ -293,13 +286,13 @@ public class Salida implements Serializable {
         else System.out.println(res + "\n");
     }
 
-    public void facturasCliente() {
+    private void facturasCliente() {
         System.out.println("\nLISTAR LAS FACTURAS DE UN CLIENTE");
         String nif = pedirNifExistente();
         System.out.println(baseDeDatos.listarFacturasCliente(nif));
     }
 
-    public void facturasCliEntreFechas() {
+    private void facturasCliEntreFechas() {
         try {
             System.out.println("\nMOSTRAR LISTADO DE LAS FACTURAS DADAS DE ALTA ENTRE DOS FECHAS");
             String nif = pedirNifExistente();
@@ -313,7 +306,7 @@ public class Salida implements Serializable {
         }
     }
 
-    public void salir() {
+    private void salir() {
         opcionMenu = MenuPrincipal.SALIR;
         System.out.println("\n -----> Programa cerrado <----- ");
     }
