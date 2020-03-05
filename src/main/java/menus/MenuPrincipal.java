@@ -3,10 +3,11 @@ package menus;
 import interfaces.DescripcionMenu;
 
 public enum MenuPrincipal implements DescripcionMenu {
+    CARGAR_DATOS("Importar los datos."),
     CLIENTES("Operacion clientes."),
     LLAMADAS("Operacion llamadas."),
     FACTURAS("Operacion facturas."),
-    SALIR("Salir.");
+    SALIR("Salir y guardar datos.");
 
     private String descripcion;
 
