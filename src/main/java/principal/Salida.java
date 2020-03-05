@@ -9,10 +9,12 @@ import menus.MenuClientes;
 import menus.MenuFacturas;
 import menus.MenuLlamadas;
 import menus.MenuPrincipal;
+
+import java.io.*;
 import java.time.LocalDate;
 import java.util.Scanner;
 
-public class Salida {
+public class Salida implements Serializable {
     private BaseDeDatos baseDeDatos;
     private Scanner sc = new Scanner(System.in);
     private MenuPrincipal opcionMenu = null;
@@ -334,5 +336,21 @@ public class Salida {
             telf = sc.next();
         }
         return telf;
+    }
+
+    //El metodo exportatDatos se encarga de guardar los datos en la base de datos previamente antes de finalizar el programa
+    private void exportarDatosYsalir(){
+        FileOutputStream fos = new FileOutputStream("agenda.bin");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(agenda);
+        oos.close();
+    }
+
+    //El metodo importar datos se encarga de cargar los datos que ya habiamos obtenido en nuestra base de datos
+    private void importarDatos(){
+        FileInputStream fis = new FileInputStream("agenda.bin");
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        agenda = (Agenda) ois.readObject();
+        ois.close();
     }
 }

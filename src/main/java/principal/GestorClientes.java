@@ -2,9 +2,11 @@ package principal;
 
 import datos.clientes.Cliente;
 import datos.llamadas.Llamada;
+
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class GestorClientes {
+public class GestorClientes implements Serializable {
 
     //ATRIBUTOS
     HashMap<String, Cliente> clientes; //clave: nif
@@ -60,4 +62,6 @@ public class GestorClientes {
     public void darDeAltaLlamada(String telfOrigen, Llamada llamada) {
         clientes.get(telfNif.get(telfOrigen)).anadirLlamada(llamada);
     }
+
+
 }

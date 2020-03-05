@@ -13,11 +13,12 @@ import excepciones.NifRepetidoException;
 import excepciones.TelfRepetidoException;
 import interfaces.tieneFecha;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
 
-public class BaseDeDatos {
+public class BaseDeDatos implements Serializable {
     //ATRIBUTOS
     private GestorClientes gestorClientes;
     private GestorFacturas gestorFacturas;

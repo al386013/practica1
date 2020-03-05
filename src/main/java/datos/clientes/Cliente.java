@@ -5,10 +5,11 @@ import datos.contrato.Tarifa;
 import interfaces.tieneFecha;
 import datos.llamadas.Llamada;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
 
-public abstract class Cliente implements tieneFecha {
+public abstract class Cliente implements tieneFecha, Serializable {
 
     private String nombre;
     private String NIF;
