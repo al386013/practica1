@@ -22,7 +22,7 @@ public class Salida {
     }
 
     public void menuYopcion() {
-        while (opcionMenu != MenuPrincipal.SALIR) {
+        while (opcionMenu != MenuPrincipal.SALIR_GUARDAR) {
             System.out.println("\n* * * * * * * OPCIONES DISPONIBLES * * * * * * *\n");
             System.out.println(MenuPrincipal.getMenu());
             System.out.print("Introduce una opción: ");
@@ -305,7 +305,7 @@ public class Salida {
     }
 
     private void salir() {
-        opcionMenu = MenuPrincipal.SALIR;
+        opcionMenu = MenuPrincipal.SALIR_GUARDAR;
         System.out.println("\n -----> Programa cerrado <----- ");
     }
 
