@@ -2,8 +2,9 @@ package main;
 
 import principal.*;
 
-public class Main { //Serializable
+import java.io.Serializable;
 
+public class Main implements Serializable {
     public static void main(String[] args) {
 
         //creamos los objetos

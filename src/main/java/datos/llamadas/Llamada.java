@@ -1,12 +1,12 @@
 package datos.llamadas;
 
-import interfaces.tieneFecha;
+import interfaces.TieneFecha;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class Llamada implements tieneFecha, Serializable {
+public class Llamada implements TieneFecha, Serializable {
     private String telfDest;
     private LocalDate fecha;
     private LocalTime hora;
