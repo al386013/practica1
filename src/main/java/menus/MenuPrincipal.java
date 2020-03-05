@@ -7,7 +7,7 @@ public enum MenuPrincipal implements DescripcionMenu {
     CLIENTES("Operacion clientes."),
     LLAMADAS("Operacion llamadas."),
     FACTURAS("Operacion facturas."),
-    SALIR("Salir y guardar datos.");
+    SALIR_GUARDAR("Salir y guardar datos.");
 
     private String descripcion;
 

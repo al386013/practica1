@@ -62,8 +62,8 @@ public class Salida {
                 MenuFacturas opcionFacturas = MenuFacturas.getOpcion(opcion);
                 lanzarOpcionFacturas(opcionFacturas);
                 break;
-            case SALIR:
-                salir();
+            case SALIR_GUARDAR:
+                exportarDatosYsalir();
                 break;
         }
     }
@@ -91,8 +91,8 @@ public class Salida {
             case VOLVER_MENU_PRINCIPAL:
                 menuYopcion();
                 break;
-            case SALIR:
-                salir();
+            case SALIR_GUARDAR:
+                exportarDatosYsalir();
                 break;
         }
     }
@@ -111,8 +111,8 @@ public class Salida {
             case VOLVER_MENU_PRINCIPAL:
                 menuYopcion();
                 break;
-            case SALIR:
-                salir();
+            case SALIR_GUARDAR:
+                exportarDatosYsalir();
                 break;
         }
     }
@@ -131,8 +131,8 @@ public class Salida {
             case VOLVER_MENU_PRINCIPAL:
                 menuYopcion();
                 break;
-            case SALIR:
-                salir();
+            case SALIR_GUARDAR:
+                exportarDatosYsalir();
                 break;
         }
     }

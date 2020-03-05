@@ -5,7 +5,7 @@ public enum MenuLlamadas {
     LLAMADAS_CLIENTE("Listar todas las llamadas de un cliente."),
     LLAMADAS_ENTRE_FECHAS("Mostrar listado de llamadas de un cliente realizadas entre dos fechas."),
     VOLVER_MENU_PRINCIPAL("Volver al menu principal."),
-    SALIR("Salir y guardar datos.");
+    SALIR_GUARDAR("Salir y guardar datos.");
 
     private String descripcion;
 
