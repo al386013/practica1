@@ -2,14 +2,14 @@ package datos.clientes;
 
 import datos.contrato.Factura;
 import datos.contrato.Tarifa;
-import interfaces.tieneFecha;
+import interfaces.TieneFecha;
 import datos.llamadas.Llamada;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
 
-public abstract class Cliente implements tieneFecha, Serializable {
+public abstract class Cliente implements TieneFecha, Serializable {
 
     private String nombre;
     private String NIF;

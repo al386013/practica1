@@ -11,7 +11,7 @@ import excepciones.DuracionNegativaException;
 import excepciones.IntervaloFechasIncorrectoException;
 import excepciones.NifRepetidoException;
 import excepciones.TelfRepetidoException;
-import interfaces.tieneFecha;
+import interfaces.TieneFecha;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -88,7 +88,7 @@ public class BaseDeDatos implements Serializable {
         return gestorClientes.existeTelf(telf);
     }
 
-    private < T extends tieneFecha> Collection< T > entreFechas(Collection< T > conjunto, LocalDate fechaIni, LocalDate fechaFin)
+    private < T extends TieneFecha> Collection< T > entreFechas(Collection< T > conjunto, LocalDate fechaIni, LocalDate fechaFin)
             throws IntervaloFechasIncorrectoException {
         if(fechaIni.isAfter(fechaFin)) throw new IntervaloFechasIncorrectoException();
         Collection<T> res = new HashSet<>();
@@ -101,7 +101,7 @@ public class BaseDeDatos implements Serializable {
     }
 
     //Metodo listar: devuelve una cadena para imprimir los elementos de un conjunto
-    public < T extends tieneFecha> String listar(Collection< T > conjunto) {
+    public < T extends TieneFecha> String listar(Collection< T > conjunto) {
         StringBuilder sb = new StringBuilder();
         for (T elem : conjunto) {
             sb.append(elem.toString());
