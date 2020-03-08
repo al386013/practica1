@@ -1,6 +1,8 @@
 package menus;
 
-public enum MenuClientes {
+import java.io.Serializable;
+
+public enum MenuClientes implements Serializable {
     DAR_ALTA_CLIENTE("Dar de alta un nuevo cliente."),
     BORRAR_CLIENTE("Borrar un cliente."),
     CAMBIAR_TARIFA("Cambiar la tarifa de un cliente."),
