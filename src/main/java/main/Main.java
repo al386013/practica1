@@ -3,8 +3,7 @@ package main;
 import principal.*;
 import java.io.Serializable;
 
-public class Main implements Serializable { //Serializable
-
+public class Main implements Serializable {
     public static void main(String[] args) {
 
         //creamos los objetos
