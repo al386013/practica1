@@ -332,7 +332,7 @@ public class Salida implements Serializable {
         ObjectInputStream ois = null;
         try {
             try {
-                FileInputStream fis = new FileInputStream("agenda.bin");
+                FileInputStream fis = new FileInputStream("baseDeDatos.bin");
                 ois = new ObjectInputStream(fis);
                 agenda = (BaseDeDatos) ois.readObject();
                 System.out.println("\n -----> DATOS IMPORTADOS CORRECTAMENTE <----- ");
@@ -354,7 +354,7 @@ public class Salida implements Serializable {
         try {
             try {
                 opcionMenu = MenuPrincipal.SALIR_GUARDAR;
-                FileOutputStream fos = new FileOutputStream("agenda.bin");
+                FileOutputStream fos = new FileOutputStream("baseDeDatos.bin");
                 oos = new ObjectOutputStream(fos);
                 oos.writeObject(agenda);
                 System.out.println("\n -----> Datos guardados y programa cerrado <----- ");
