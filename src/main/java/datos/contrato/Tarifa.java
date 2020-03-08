@@ -1,6 +1,8 @@
 package datos.contrato;
 
-public class Tarifa {
+import java.io.Serializable;
+
+public class Tarifa implements Serializable {
     //ATRIBUTO
     private float tarifa;
 

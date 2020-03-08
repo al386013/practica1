@@ -1,23 +1,18 @@
 package main;
 
-import excepciones.DuracionNegativaException;
-import excepciones.NifRepetidoException;
-import principal.Salida;
+import principal.*;
 
-public class Main {
-    public static void main(String[] args) throws NifRepetidoException, DuracionNegativaException {
-        //mostramos el menu de opciones
-        Salida salida = new Salida();
-        System.out.println(salida.mostrarMenu());
-        //leemos la opcion
-        int op = salida.leerOpcion();
-        //lanzamos la opcion correspondiente
-        salida.lanzarMetodo(op);
-        //pedimos una nueva opcion
-        while (op != 11) {
-            System.out.println(salida.mostrarMenu());
-            op = salida.leerOpcion();
-            salida.lanzarMetodo(op);
-        }
+public class Main { //Serializable
+
+    public static void main(String[] args) {
+
+        //creamos los objetos
+        GestorClientes gestorClientes = new GestorClientes();
+        GestorFacturas gestorFacturas = new GestorFacturas();
+        BaseDeDatos baseDeDatos = new BaseDeDatos(gestorClientes, gestorFacturas);
+        Salida salida = new Salida(baseDeDatos);
+
+        //mostramos el menu de opciones, leemos la opcion y lanzamos el metodo
+        salida.menuYopcion();
     }
 }

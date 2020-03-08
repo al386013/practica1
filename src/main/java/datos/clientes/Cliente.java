@@ -4,10 +4,12 @@ import datos.contrato.Factura;
 import datos.contrato.Tarifa;
 import interfaces.tieneFecha;
 import datos.llamadas.Llamada;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
 
-public abstract class Cliente implements tieneFecha {
+public abstract class Cliente implements tieneFecha, Serializable {
 
     private String nombre;
     private String NIF;
@@ -16,6 +18,7 @@ public abstract class Cliente implements tieneFecha {
     private String email;
     private LocalDate fechaDeAlta;
     private Tarifa tarifa;
+
     private HashSet<Factura> facturas; //conjunto con todas las facturas del cliente
     private HashSet<Llamada> llamadas; //conjunto con todas las llamadas del cliente
 
@@ -25,6 +28,7 @@ public abstract class Cliente implements tieneFecha {
         this.NIF = NIF;
         this.direccion = direccion;
         this.email = email;
+
         this.fechaDeAlta = LocalDate.now();
         this.tarifa = new Tarifa();
         this.facturas = new HashSet<Factura>();
@@ -42,6 +46,7 @@ public abstract class Cliente implements tieneFecha {
     public Direccion getDireccion() { return direccion; }
 
     public String getEmail() { return email; }
+
 
     @Override
     public LocalDate getFecha() { return fechaDeAlta; }
@@ -76,6 +81,7 @@ public abstract class Cliente implements tieneFecha {
         sb.append("Telf: " + telf + ", ");
         sb.append("Direccion: " + direccion + ", ");
         sb.append("Email: " + email + ", ");
+
         sb.append("Fecha de alta: " + fechaDeAlta.toString() + ", ");
         sb.append("Tarifa: " + tarifa + ". ");
         return sb.toString();

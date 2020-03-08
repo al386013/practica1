@@ -1,212 +1,317 @@
 package principal;
 
+import datos.clientes.Cliente;
 import datos.clientes.Direccion;
 import excepciones.DuracionNegativaException;
+import excepciones.IntervaloFechasIncorrectoException;
 import excepciones.NifRepetidoException;
+import excepciones.TelfRepetidoException;
+import menus.MenuClientes;
+import menus.MenuFacturas;
+import menus.MenuLlamadas;
+import menus.MenuPrincipal;
 
+import java.io.*;
 import java.time.LocalDate;
 import java.util.Scanner;
 
-public class Salida {
-    BaseDeDatos baseDeDatos;
-    Scanner sc = new Scanner(System.in);
+public class Salida implements Serializable {
+    private BaseDeDatos baseDeDatos;
+    private Scanner sc = new Scanner(System.in);
+    private MenuPrincipal opcionMenu = null;
+    private BaseDeDatos agenda = null;
 
-    public Salida() {
-        this.baseDeDatos =  new BaseDeDatos();
+    public Salida(BaseDeDatos baseDeDatos) {
+        this.baseDeDatos =  baseDeDatos;
     }
 
-    public String mostrarMenu(){
-        StringBuilder sb = new StringBuilder();
-        sb.append("Escoja una de las siguientes opciones: \n");
-        sb.append("1) Dar de alta un nuevo cliente \n");
-        sb.append("2) Borrar un cliente \n");
-        sb.append("3) Cambiar la tarifa de un cliente \n");
-        sb.append("4) Recuperar los datos de un cliente a partir de su NIF \n");
-        sb.append("5) Recuperar el listado de todos los clientes \n");
-        sb.append("6) Dar de alta una llamada \n");
-        sb.append("7) Listar todas las llamadas de un cliente \n");
-        sb.append("8) Emitir una factura para un cliente \n");
-        sb.append("9) Recuperar los datos de una factura a partir de su codigo \n");
-        sb.append("10) Recuperar todas las facturas de un cliente \n");
-        sb.append("11) Salir \n");
-        return sb.toString();
-    }
-
-    public int leerOpcion() {
-        System.out.print("Introduce una opcion: ");
-        int op = sc.nextInt();
-        while(op < 1 || op > 11) {
-            System.out.println("Opcion incorrecta, vuelve a intentarlo.");
-            System.out.print("Introduce otra opcion: ");
-            op = sc.nextInt();
+    public void menuYopcion() {
+        while (opcionMenu != MenuPrincipal.SALIR_GUARDAR) {
+            System.out.println("\n* * * * * * * OPCIONES DISPONIBLES * * * * * * *\n");
+            System.out.println(MenuPrincipal.getMenu());
+            System.out.print("Introduce una opción: ");
+            byte opcion = sc.nextByte();
+            opcionMenu = MenuPrincipal.getOpcion(opcion);
+            lanzarOpcionPrincipal(opcionMenu);
         }
-        return op;
     }
 
-    public void lanzarMetodo(int op) throws NifRepetidoException, DuracionNegativaException {
-        switch (op) {
-            case 1:
-                lanzarMetodo1();
+    private void lanzarOpcionPrincipal(MenuPrincipal opcionMenu) {
+        switch (opcionMenu) {
+            case CARGAR_DATOS:
+                importarDatos();
                 break;
-            case 2:
-               lanzarMetodo2();
+            case CLIENTES:
+                System.out.println("\n* * * * * * * OPCIONES DE CLIENTES * * * * * * *\n");
+                System.out.println(MenuClientes.getMenu());
+                System.out.print("Introduce una opción: ");
+                byte opcion = sc.nextByte();
+                MenuClientes opcionClientes = MenuClientes.getOpcion(opcion);
+                lanzarOpcionClientes(opcionClientes);
                 break;
-            case 3:
-                lanzarMetodo3();
+            case LLAMADAS:
+                System.out.println("\n* * * * * * * OPCIONES DE LLAMADAS * * * * * * *\n");
+                System.out.println(MenuLlamadas.getMenu());
+                System.out.print("Introduce una opción: ");
+                opcion = sc.nextByte();
+                MenuLlamadas opcionLlamadas = MenuLlamadas.getOpcion(opcion);
+                lanzarOpcionLlamadas(opcionLlamadas);
                 break;
-            case 4:
-                lanzarMetodo4();
+            case FACTURAS:
+                System.out.println("\n* * * * * * * OPCIONES DE FACTURAS * * * * * * *\n");
+                System.out.println(MenuFacturas.getMenu());
+                System.out.print("Introduce una opción: ");
+                opcion = sc.nextByte();
+                MenuFacturas opcionFacturas = MenuFacturas.getOpcion(opcion);
+                lanzarOpcionFacturas(opcionFacturas);
                 break;
-            case 5:
-                lanzarMetodo5();
-                break;
-            case 6:
-                lanzarMetodo6();
-                break;
-            case 7:
-                lanzarMetodo7();
-                break;
-            case 8:
-                lanzarMetodo8();
-                break;
-            case 9:
-                lanzarMetodo9();
-                break;
-            case 10:
-                lanzarMetodo10();
-                break;
-            case 11:
-               lanzarMetodo11();
+            case SALIR_GUARDAR:
+                exportarDatosYsalir();
                 break;
         }
     }
 
-    public void lanzarMetodo1() throws NifRepetidoException {
-        System.out.println("\n1) Dar de alta un nuevo cliente.");
-        System.out.print("- Introduce 'e' para empresa o 'p' para particular: ");
-        String letra = sc.next();
-        while(!letra.equals("e") && !letra.equals("p")) {
-            System.out.print("Parametro incorrecto. Vuelve a intentarlo: ");
-            letra = sc.next();
+    private void lanzarOpcionClientes(MenuClientes opcionClientes) {
+        switch (opcionClientes) {
+            case DAR_ALTA_CLIENTE:
+                daAltaCliente();
+                break;
+            case BORRAR_CLIENTE:
+                borraCliente();
+                break;
+            case CAMBIAR_TARIFA:
+                cambiaTarifa();
+                break;
+            case DATOS_CLIENTE:
+                datosCliente();
+                break;
+            case LISTAR_CLIENTES:
+                listadoClientes();
+                break;
+            case CLIENTES_ENTRE_FECHAS:
+                clientesEntreFechas();
+                break;
+            case VOLVER_MENU_PRINCIPAL:
+                menuYopcion();
+                break;
+            case SALIR_GUARDAR:
+                exportarDatosYsalir();
+                break;
         }
-        System.out.print("- Introduce nombre: ");
-        sc.nextLine();
-        String nombre = sc.nextLine();
-        String apellidos = null;
-        if(letra.equals("p")) {
-            System.out.print("- Introduce apellidos: ");
-            apellidos = sc.nextLine();
-        }
-        System.out.print("- Introduce NIF: ");
-        String nif = sc.next();
-        String telf = pedirTelfUnico();
-        System.out.print("- Introduce CP: ");
-        String cp = sc.next();
-        System.out.print("- Introduce provincia: ");
-        sc.nextLine();
-        String provincia = sc.nextLine();
-        System.out.print("- Introduce poblacion: ");
-        String poblacion = sc.nextLine();
-        Direccion direccion = new Direccion(cp, provincia, poblacion);
-        System.out.print("- Introduce email: ");
-        String email = sc.next();
-        if(letra.equals("p"))
-            baseDeDatos.anadirParticular(nombre, apellidos, telf, nif, direccion, email);
-        else baseDeDatos.anadirEmpresa(nombre, telf, nif, direccion, email);
-        mensajeExito();
     }
 
-    public void lanzarMetodo2() {
-        System.out.println("\n2) Borrar un cliente.");
+    private void lanzarOpcionLlamadas(MenuLlamadas opcionLlamadas) {
+        switch (opcionLlamadas) {
+            case DAR_ALTA_LLAMADA:
+                daAltaLlamada();
+                break;
+            case LLAMADAS_CLIENTE:
+                llamadasCliente();
+                break;
+            case LLAMADAS_ENTRE_FECHAS:
+                llamadasCliEntreFechas();
+                break;
+            case VOLVER_MENU_PRINCIPAL:
+                menuYopcion();
+                break;
+            case SALIR_GUARDAR:
+                exportarDatosYsalir();
+                break;
+        }
+    }
+
+    private void lanzarOpcionFacturas(MenuFacturas opcionFacturas) {
+        switch (opcionFacturas) {
+            case EMITIR_FACTURA:
+                emiteFactura();
+                break;
+            case DATOS_FACTURA:
+                datosFactura();
+            case FACTURAS_CLIENTE:
+                facturasCliente();
+            case FACTURAS_ENTRE_FECHAS:
+                facturasCliEntreFechas();
+            case VOLVER_MENU_PRINCIPAL:
+                menuYopcion();
+                break;
+            case SALIR_GUARDAR:
+                exportarDatosYsalir();
+                break;
+        }
+    }
+
+    private void daAltaCliente() {
+        try {
+            System.out.println("\nDAR DE ALTA UN NUEVO CLIENTE");
+            System.out.print("--> Introduce 'e' para empresa o 'p' para particular: ");
+            String letra = sc.next();
+            while(!letra.equals("e") && !letra.equals("p")) {
+                System.out.print("* Parametro incorrecto. Vuelve a intentarlo: ");
+                letra = sc.next();
+            }
+            System.out.print("- Introduce nombre: ");
+            sc.nextLine();
+            String nombre = sc.nextLine();
+            String apellidos = null;
+            if(letra.equals("p")) {
+                System.out.print("- Introduce apellidos: ");
+                apellidos = sc.nextLine();
+            }
+            System.out.print("- Introduce NIF: ");
+            String nif = sc.next();
+            System.out.print("- Introduce el telefono del cliente: ");
+            String telf = sc.next();
+            System.out.print("- Introduce CP: ");
+            String cp = sc.next();
+            System.out.print("- Introduce provincia: ");
+            sc.nextLine();
+            String provincia = sc.nextLine();
+            System.out.print("- Introduce poblacion: ");
+            String poblacion = sc.nextLine();
+            Direccion direccion = new Direccion(cp, provincia, poblacion);
+            System.out.print("- Introduce email: ");
+            String email = sc.next();
+            if(letra.equals("p"))
+                baseDeDatos.anadirParticular(nombre, apellidos, telf, nif, direccion, email);
+            else baseDeDatos.anadirEmpresa(nombre, telf, nif, direccion, email);
+            System.out.println("\n\tCreado cliente " + nombre + " con NIF " + nif + " y telefono " + telf + ".\n");
+        } catch (NifRepetidoException e) {
+            e.printStackTrace();
+        } catch (TelfRepetidoException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void borraCliente() {
+        System.out.println("\nBORRAR UN CLIENTE");
         String telf = pedirTelfExistente();
         baseDeDatos.borrarCliente(telf);
-        mensajeExito();
+        System.out.println("\n\tCliente con numero " + telf + " borrado con exito.\n");
     }
 
-    public void lanzarMetodo3() {
-        System.out.println("\n3) Cambiar la tarifa de un cliente. ");
+    private void cambiaTarifa() {
+        System.out.println("\nCAMBIAR LA TARIFA DE UN CLIENTE");
         String nif = pedirNifExistente();
-        System.out.print("- Introduce la tarifa deseada (en €/min): ");
+        System.out.print("- Introduce la tarifa deseada (en _,_ €/min): ");
         float tarifa = sc.nextFloat();
         while (tarifa < 0 || tarifa > 100) {
-            System.out.print("Tarifa no permitida, vuelve a introducir la tarifa deseada: ");
+            System.out.print("* Tarifa no permitida, vuelve a introducir la tarifa deseada: ");
             tarifa = sc.nextFloat();
         }
         baseDeDatos.cambiarTarifa(tarifa, nif);
-        mensajeExito();
+        System.out.println("\n\tTarifa del cliente con NIF " + nif + " cambiada a " + tarifa + " €/min.\n");
     }
 
-    public void lanzarMetodo4() {
-        System.out.println("\n4) Recuperar los datos de un cliente.");
+    private void datosCliente() {
+        System.out.println("\nRECUPERAR LOS DATOS DE UN CLIENTE");
         String nif = pedirNifExistente();
         System.out.println(baseDeDatos.listarDatosCliente(nif) + "\n");
     }
 
-    public void lanzarMetodo5() {
-        System.out.println("\n5) Recuperar el listado de todos los clientes:");
+    private void listadoClientes() {
+        System.out.println("\nRECUPERAR EL LISTADO DE TODOS LOS CLIENTES");
         System.out.println(baseDeDatos.listarClientes());
     }
 
-    public void lanzarMetodo6() throws DuracionNegativaException {
-        System.out.println("\n6) Dar de alta una llamada.");
-        String telfOrigen = pedirTelfExistente(); //pedir telfOrigen
-        System.out.print("- Introduce el telefono de destino: ");
-        String telfDest = sc.next();
-        System.out.print("- Introduce la duracion de la llamada (en segundos): ");
-        int duracion = sc.nextInt();
-        baseDeDatos.darDeAltaLlamada(telfOrigen, telfDest, duracion);
-        mensajeExito();
+    private void clientesEntreFechas() {
+        try {
+            System.out.println("\nMOSTRAR LISTADO DE LOS CLIENTES DADOS DE ALTA ENTRE DOS FECHAS");
+            System.out.print("- Introduce la fecha de inicio (formato aaaa-mm-dd): ");
+            LocalDate fechaIni = LocalDate.parse(sc.next());
+            System.out.print("- Introduce la fecha de fin (formato aaaa-mm-dd): ");
+            LocalDate fechaFin = LocalDate.parse(sc.next());
+            System.out.println(baseDeDatos.listarClientesEntreFechas(fechaIni, fechaFin));
+        } catch (IntervaloFechasIncorrectoException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void lanzarMetodo7() {
-        System.out.println("\n7) Listar todas las llamadas de un cliente: ");
+    private void daAltaLlamada() {
+        try {
+            System.out.println("\nDAR DE ALTA UNA LLAMADA");
+            String telfOrigen = pedirTelfExistente(); //pedir telfOrigen
+            System.out.print("- Introduce el telefono de destino: ");
+            String telfDest = sc.next();
+            System.out.print("- Introduce la duracion de la llamada (en segundos): ");
+            int duracion = sc.nextInt();
+            baseDeDatos.darDeAltaLlamada(telfOrigen, telfDest, duracion);
+            System.out.println("\n\tLlamada de " + telfOrigen + " a " + telfDest + " realizada con exito.\n");
+        } catch (DuracionNegativaException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void llamadasCliente() {
+        System.out.println("\nLISTAR TODAS LAS LLAMADAS DE UN CLIENTE");
         String telf = pedirTelfExistente();
         System.out.println(baseDeDatos.listarLlamadasCliente(telf));
     }
 
-    public void lanzarMetodo8() {
-        System.out.println("\n8) Emitir factura para un cliente. ");
-        String NIF = pedirNifExistente();
-        System.out.print("- Introduce la fecha de inicio de la factura (formato aaaa-mm-dd): ");
-        LocalDate fechaIni = LocalDate.parse(sc.next());
-        System.out.print("- Introduce la fecha de fin de la factura (formato aaaa-mm-dd): ");
-        LocalDate fechaFin = LocalDate.parse(sc.next());
-        //comprobar que la fecha de inicio de factura sea anterior a la fecha de fin
-        while(!fechaIni.isBefore(fechaFin)) {
-            System.out.println("Fecha de inicio posterior a la fecha de fin. Vuelve a introducirlas (aaaa-mm-dd): ");
-            System.out.print("- Fecha de inicio: ");
-            fechaIni = LocalDate.parse(sc.next());
-            System.out.print("- Fecha de fin: ");
-            fechaFin = LocalDate.parse(sc.next());
+    private void llamadasCliEntreFechas() {
+        try {
+            System.out.println("\nMOSTRAR LISTADO DE LAS LLAMADAS REALIZADAS ENTRE DOS FECHAS");
+            String telf = pedirTelfExistente();
+            System.out.print("- Introduce la fecha de inicio (formato aaaa-mm-dd): ");
+            LocalDate fechaIni = LocalDate.parse(sc.next());
+            System.out.print("- Introduce la fecha de fin (formato aaaa-mm-dd): ");
+            LocalDate fechaFin = LocalDate.parse(sc.next());
+            System.out.println(baseDeDatos.listarLlamadasEntreFechas(telf, fechaIni, fechaFin));
+        } catch (IntervaloFechasIncorrectoException e) {
+            e.printStackTrace();
         }
-        baseDeDatos.emitirFactura(fechaIni, fechaFin, NIF);
-        mensajeExito();
     }
 
-    public void lanzarMetodo9() {
-        System.out.println("\n9) Recuperar datos de una factura. ");
+    private void emiteFactura() {
+        try {
+            System.out.println("\nEMITIR FACTURA PARA UN CLIENTE");
+            String nif = pedirNifExistente();
+            System.out.print("- Introduce la fecha de inicio de la factura (formato aaaa-mm-dd): ");
+            LocalDate fechaIni = LocalDate.parse(sc.next());
+            System.out.print("- Introduce la fecha de fin de la factura (formato aaaa-mm-dd): ");
+            LocalDate fechaFin = LocalDate.parse(sc.next());
+            //comprobar que la fecha de inicio de factura sea anterior a la fecha de fin
+            baseDeDatos.emitirFactura(fechaIni, fechaFin, nif);
+            System.out.println("\n\tFactura del cliente con NIF " + nif + " emitida con exito.\n");
+        } catch (IntervaloFechasIncorrectoException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void datosFactura() {
+        System.out.println("\nRECUPERAR DATOS DE UNA FACTURA");
         System.out.print("- Introduce su codigo: ");
         int cod = sc.nextInt();
         String res = baseDeDatos.listarDatosFactura(cod);
-        if(res == null) System.out.println("Codigo de factura no existente en la base de datos.\n");
+        if(res == null) System.out.println("* Codigo de factura no existente en la base de datos.\n");
         else System.out.println(res + "\n");
     }
 
-    public void lanzarMetodo10() {
-        System.out.println("\n10) Listar todas las facturas de un cliente:");
-        String NIF = pedirNifExistente();
-        System.out.println(baseDeDatos.listarFacturasCliente(NIF));
+    private void facturasCliente() {
+        System.out.println("\nLISTAR LAS FACTURAS DE UN CLIENTE");
+        String nif = pedirNifExistente();
+        System.out.println(baseDeDatos.listarFacturasCliente(nif));
     }
 
-    public void lanzarMetodo11() {
-        System.out.println("\n --> Programa cerrado <-- ");
+    private void facturasCliEntreFechas() {
+        try {
+            System.out.println("\nMOSTRAR LISTADO DE LAS FACTURAS DADAS DE ALTA ENTRE DOS FECHAS");
+            String nif = pedirNifExistente();
+            System.out.print("- Introduce la fecha de inicio (formato aaaa-mm-dd): ");
+            LocalDate fechaIni = LocalDate.parse(sc.next());
+            System.out.print("- Introduce la fecha de fin (formato aaaa-mm-dd): ");
+            LocalDate fechaFin = LocalDate.parse(sc.next());
+            System.out.println(baseDeDatos.listarFacturasEntreFechas(nif, fechaIni, fechaFin));
+        } catch (IntervaloFechasIncorrectoException e) {
+            e.printStackTrace();
+        }
     }
 
     private String pedirNifExistente() {
         System.out.print("- Introduce el NIF del cliente: ");
         String NIF = sc.next();
         while(!baseDeDatos.existeCliente(NIF)) {
-            System.out.print("Cliente no existente en la base de datos. Vuelve a introducir el NIF: ");
+            System.out.print("* Cliente no existente en la base de datos.\nVuelve a introducir el NIF: ");
             NIF = sc.next();
         }
         return NIF;
@@ -216,23 +321,50 @@ public class Salida {
         System.out.print("- Introduce el telefono del cliente: ");
         String telf = sc.next();
         while(!baseDeDatos.existeTelf(telf)) {
-            System.out.print("Telefono del cliente no existente en la base de datos. Vuelve a introducirlo: ");
+            System.out.print("* Telefono del cliente no existente en la base de datos.\nVuelve a introducirlo: ");
             telf = sc.next();
         }
         return telf;
     }
 
-    private String pedirTelfUnico() {
-        System.out.print("- Introduce el telefono del cliente: ");
-        String telf = sc.next();
-        while (baseDeDatos.existeTelf(telf)) {
-            System.out.print("Telefono ya existente en la base de datos. Vuelve a introducir el telefono: ");
-            telf = sc.next();
+    //El metodo importar datos se encarga de cargar los datos que ya habiamos obtenido en nuestra base de datos
+    private void importarDatos(){
+        ObjectInputStream ois = null;
+        try {
+            try {
+                FileInputStream fis = new FileInputStream("agenda.bin");
+                ois = new ObjectInputStream(fis);
+                agenda = (BaseDeDatos) ois.readObject();
+                System.out.println("\n -----> DATOS IMPORTADOS CORRECTAMENTE <----- ");
+            } finally {
+                ois.close();
+            }
+        } catch(FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }catch (IOException e) {
+            e.printStackTrace();
         }
-        return telf;
     }
 
-    private void mensajeExito() {
-        System.out.println("Operacion realizada con exito.\n");
+    //El metodo exportatDatos se encarga de guardar los datos en la base de datos previamente antes de finalizar el programa
+    private void exportarDatosYsalir(){
+        ObjectOutputStream oos = null;
+        try {
+            try {
+                opcionMenu = MenuPrincipal.SALIR_GUARDAR;
+                FileOutputStream fos = new FileOutputStream("agenda.bin");
+                oos = new ObjectOutputStream(fos);
+                oos.writeObject(agenda);
+                System.out.println("\n -----> Datos guardados y programa cerrado <----- ");
+            } finally {
+                oos.close();
+            }
+        } catch(FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

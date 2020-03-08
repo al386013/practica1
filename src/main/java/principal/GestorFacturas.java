@@ -2,10 +2,11 @@ package principal;
 
 import datos.clientes.Cliente;
 import datos.contrato.Factura;
-import datos.contrato.PeriodoFacturacion;
+
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class GestorFacturas {
+public class GestorFacturas implements Serializable {
     //ATRIBUTOS
     private HashMap<Integer, Factura> totalFacturas; //Clave: codigo de factura
 
@@ -24,11 +25,10 @@ public class GestorFacturas {
     }
 
     //Metodo emitirFactura: anade una factura a totalFacturas
-    public void emitirFactura(PeriodoFacturacion periodoFacturacion, Cliente cliente) {
-        Factura nuevaFactura = new Factura(periodoFacturacion, cliente);
+    public void emitirFactura(Factura factura, Cliente cliente) {
         //se anade al total de facturas
-        totalFacturas.put(nuevaFactura.getCodigo(), nuevaFactura);
+        totalFacturas.put(factura.getCodigo(), factura);
         //y al conjunto de facturas del cliente
-        cliente.anadirFactura(nuevaFactura);
+        cliente.anadirFactura(factura);
     }
 }

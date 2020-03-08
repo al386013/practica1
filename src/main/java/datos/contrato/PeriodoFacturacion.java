@@ -1,8 +1,9 @@
 package datos.contrato;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class PeriodoFacturacion {
+public class PeriodoFacturacion implements Serializable {
     private LocalDate fechaIni;
     private LocalDate fechaFin;
 

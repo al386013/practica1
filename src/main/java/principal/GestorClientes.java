@@ -1,20 +1,16 @@
 package principal;
 
 import datos.clientes.Cliente;
-import datos.clientes.Direccion;
-import datos.clientes.Empresa;
-import datos.clientes.Particular;
-import datos.contrato.Factura;
 import datos.llamadas.Llamada;
-import excepciones.DuracionNegativaException;
-import excepciones.NifRepetidoException;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class GestorClientes {
+public class GestorClientes implements Serializable {
+
     //ATRIBUTOS
-    private HashMap<String, Cliente> clientes; //clave: nif
-    private HashMap<String, String> telfNif;   //clave: telf - relaciona el telf con el nif del cliente
+    HashMap<String, Cliente> clientes; //clave: nif
+    HashMap<String, String> telfNif;   //clave: telf - relaciona el telf con el nif del cliente
 
     //CONSTRUCTORES
     public GestorClientes() {
@@ -39,20 +35,10 @@ public class GestorClientes {
         return telfNif.get(telf) != null;
     }
 
-    //Metodo anadirParticular, llama al constructor de Cliente, lo crea, se anade a la base de datos
-    public void anadirParticular(String nombre, String apellidos, String telf, String NIF, Direccion dir, String email) throws NifRepetidoException {
-        if (existeCliente(NIF)) throw new NifRepetidoException();
-        Cliente nuevo = new Particular(nombre, apellidos, telf, NIF, dir, email);
-        clientes.put(NIF, nuevo);
-        telfNif.put(telf, NIF);
-    }
-
-    //Metodo anadirEmpresa, llama al constructor de Cliente, lo crea, se anade a la base de datos
-    public void anadirEmpresa(String nombre, String telf, String NIF, Direccion dir, String email) throws NifRepetidoException{
-        if (existeCliente(NIF)) throw new NifRepetidoException();
-        Cliente nuevo = new Empresa(nombre, telf, NIF, dir, email);
-        clientes.put(NIF, nuevo);
-        telfNif.put(telf, NIF);
+    //Metodo anadirCliente, llama al constructor de Cliente, lo crea, se anade a la base de datos
+    public void anadirCliente(Cliente cliente) {
+        clientes.put(cliente.getNIF(), cliente);
+        telfNif.put(cliente.getTelf(), cliente.getNIF());
     }
 
     //Metodo borrarCliente: lo elimina de clientes a partir de su telefono
@@ -72,40 +58,10 @@ public class GestorClientes {
        return clientes.get(NIF).toString();
     }
 
-    //Metodo listarClientes, lista todos los clientes
-    public String listarClientes() {
-        StringBuilder sb = new StringBuilder();
-        for (Cliente cliente : clientes.values()) {
-            sb.append(listarDatosCliente(cliente.getNIF()));
-            sb.append("\n");
-        }
-        return sb.toString();
-    }
-
     //Método darDeAltaLlamada: crea y anade una llamada al conjunto de llamadas de un cliente
-    public void darDeAltaLlamada(String telfOrigen, String telfDestino, int duracion) throws DuracionNegativaException{
-        if(duracion < 0) throw new DuracionNegativaException();
-        Llamada llamada = new Llamada(telfDestino, duracion);
+    public void darDeAltaLlamada(String telfOrigen, Llamada llamada) {
         clientes.get(telfNif.get(telfOrigen)).anadirLlamada(llamada);
     }
 
-    //Metodo listarLlamadasCliente: lista todas las llamadas de un cliente a partir de su telefono
-    public String listarLlamadasCliente(String telf) {
-        StringBuilder sb = new StringBuilder();
-        for (Llamada llamada : clientes.get(telfNif.get(telf)).getLlamadas()) {
-            sb.append(llamada.toString());
-            sb.append("\n");
-        }
-        return sb.toString();
-    }
 
-    //Metodo listarFacturasCliente: recupera todas las facturas de un cliente a partir de su nif
-    public String listarFacturasCliente(String nif) {
-        StringBuilder sb = new StringBuilder();
-        for (Factura factura : clientes.get(nif).getFacturas()) {
-            sb.append(factura.toString());
-            sb.append("\n");
-        }
-        return sb.toString();
-    }
 }

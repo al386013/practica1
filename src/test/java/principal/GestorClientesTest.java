@@ -6,6 +6,7 @@ import datos.llamadas.Llamada;
 import es.uji.www.GeneradorDatosINE;
 import excepciones.DuracionNegativaException;
 import excepciones.NifRepetidoException;
+import excepciones.TelfRepetidoException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -23,8 +24,9 @@ public class GestorClientesTest {
     private static Direccion dirPamesa;
 
     @BeforeAll
-    public static void inicializa() throws NifRepetidoException {
-        baseDeDatos = new BaseDeDatos();
+    public static void inicializa() throws NifRepetidoException, TelfRepetidoException {
+        baseDeDatos = new BaseDeDatos(new GestorClientes(), new GestorFacturas());
+
         for (int i = 0; i < 100; i++) {
             GeneradorDatosINE generadorDatosINE = new GeneradorDatosINE();
             String nombre = generadorDatosINE.getNombre();
@@ -36,8 +38,8 @@ public class GestorClientesTest {
             //creamos 50 particulares y 50 empresas
             if (i < 50) {
                 String apellidos = generadorDatosINE.getApellido();
-                baseDeDatos.anadirParticular(nombre, apellidos, "666666666", nif, direccion, "particular@gmail.com");
-            } else baseDeDatos.anadirEmpresa(nombre, "666666666", nif, direccion, "empresa@gmail.com");
+                baseDeDatos.anadirParticular(nombre, apellidos, "5555555" + i, nif, direccion, "particular@gmail.com");
+            } else baseDeDatos.anadirEmpresa(nombre, "6666666" + i, nif, direccion, "empresa@gmail.com");
         }
 
         dirAlberto = new Direccion("12005", "Castellon de la plana", "Castelllon");
@@ -90,6 +92,18 @@ public class GestorClientesTest {
     }
 
     @Test
+    public void testBorrarCliente() throws NifRepetidoException, TelfRepetidoException {
+        //creamos un cliente
+        baseDeDatos.anadirParticular("maria", "gracia rubio", "123456789", "X1234567S", dirAlberto, "mariagracia@gmail.com");
+        //vemos que se ha anadido
+        assertThat(baseDeDatos.existeCliente("X1234567S"), is(true));
+        //lo borramos
+        baseDeDatos.borrarCliente("123456789");
+        //vemos que se ha borrado
+        assertEquals(baseDeDatos.existeCliente("X1234567S"), false);
+    }
+
+    @Test
     public void testCambiarTarifa() {
         //comprobamos la tarifa de alberto
         assertEquals(alberto.getTarifa().getTarifa(), 0.05f, 0);
@@ -107,29 +121,18 @@ public class GestorClientesTest {
                 "Direccion: Castelllon - VillaReal - 12006, Email: pamesa@gmail.com, Fecha de alta: " + LocalDate.now() + ", Tarifa: 0.05 €/min. ");
     }
 
-    //comprueba darDeAltaLlamada y listarLlamadasCliente
+    //comprueba darDeAltaLlamada
     @Test
-    public void testLlamadas() throws DuracionNegativaException { //podria fallar si justo cambia el minuto al comprobar el test
+    public void testDarDeAltaLlamada() throws DuracionNegativaException { //podria fallar si justo cambia el minuto al comprobar el test
         baseDeDatos.darDeAltaLlamada("692242216", "000000000", 120);
         assertEquals(baseDeDatos.listarLlamadasCliente("692242216"), "Llamada realizada el " + LocalDate.now() + " a las " +
-                LocalTime.now().getHour() + ":" + LocalTime.now().getMinute() + " con una duracion de 120 segundos al telefono 000000000\n");
+                LocalTime.now().getHour() + " horas y " + LocalTime.now().getMinute() + " minutos con una duracion de 120 segundos " +
+                "al telefono 000000000\n");
         for(Llamada llamada : alberto.getLlamadas()) { //solo hay una
             assertEquals(llamada.getTelfDest(), "000000000");
             assertEquals(llamada.getDuracion(), 120);
             assertEquals(llamada.getFecha(), LocalDate.now());
         }
-    }
-
-    @Test
-    public void testBorrarCliente() throws NifRepetidoException {
-        //creamos un cliente
-        baseDeDatos.anadirParticular("maria", "gracia rubio", "123456789", "X1234567S", dirAlberto, "mariagracia@gmail.com");
-        //vemos que se ha anadido
-        assertThat(baseDeDatos.existeCliente("X1234567S"), is(true));
-        //lo borramos
-        baseDeDatos.borrarCliente("123456789");
-        //vemos que se ha borrado
-        assertEquals(baseDeDatos.existeCliente("X1234567S"), false);
     }
 
     @AfterAll
