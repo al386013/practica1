@@ -1,6 +1,5 @@
 package principal;
 
-import datos.clientes.Cliente;
 import datos.clientes.Direccion;
 import excepciones.DuracionNegativaException;
 import excepciones.IntervaloFechasIncorrectoException;

@@ -2,14 +2,14 @@ package datos.contrato;
 
 import datos.clientes.Cliente;
 import datos.llamadas.Llamada;
-import interfaces.tieneFecha;
+import interfaces.TieneFecha;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 
-public class Factura implements tieneFecha, Serializable {
+public class Factura implements TieneFecha, Serializable {
     private int codigo;
     private Tarifa tarifa; //la que tenga el cliente en ese momento
     private LocalDate fechaEmision;

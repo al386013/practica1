@@ -1,8 +1,9 @@
 package main;
 
 import principal.*;
+import java.io.Serializable;
 
-public class Main { //Serializable
+public class Main implements Serializable { //Serializable
 
     public static void main(String[] args) {
 
