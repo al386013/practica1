@@ -8,6 +8,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Factura implements TieneFecha, Serializable {
     private int codigo;
@@ -18,13 +20,13 @@ public class Factura implements TieneFecha, Serializable {
     private String nifCliente;
 
 
-    public Factura(PeriodoFacturacion periodoFact, Cliente cliente) {
+    public Factura(PeriodoFacturacion periodoFact, String nifCliente, Set<Llamada> llamadas, Tarifa tarifa) {
         this.codigo = hashCode();
-        this.tarifa = cliente.getTarifa();
+        this.tarifa = tarifa;
         this.fechaEmision = LocalDate.now();
         this.periodoFact = periodoFact;
-        this.importe = calcularImporte(cliente);
-        this.nifCliente = cliente.getNIF();
+        this.importe = calcularImporte(tarifa, llamadas);
+        this.nifCliente = nifCliente;
     }
 
     public int getCodigo() {
@@ -42,15 +44,15 @@ public class Factura implements TieneFecha, Serializable {
         return this.fechaEmision;
     }
 
-    private float calcularImporte(Cliente cliente) {
+    private float calcularImporte(Tarifa tarifa, Set<Llamada> llamadas) {
         int segundosTotales = 0;
-        for (Llamada llamada : cliente.getLlamadas()) {
+        for (Llamada llamada : llamadas) {
             LocalDate fecha = llamada.getFecha();
             if(fecha.isAfter(periodoFact.getFechaIni()) && fecha.isBefore(periodoFact.getFechaFin()) ||
                     (fecha.isEqual(periodoFact.getFechaIni()) || fecha.isEqual(periodoFact.getFechaFin())))
                 segundosTotales += llamada.getDuracion();
         }
-        float importe = (segundosTotales/60.0f) * cliente.getTarifa().getTarifa();
+        float importe = (segundosTotales/60.0f) * tarifa.getTarifa();
         //codigo para redondear a dos decimales:
         BigDecimal redondeado = new BigDecimal(importe).setScale(2, RoundingMode.HALF_EVEN);
         return redondeado.floatValue();

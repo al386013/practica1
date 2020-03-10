@@ -6,7 +6,7 @@ public class Direccion implements Serializable {
     private String CP;
     private String provincia;
     private String poblacion;
-    
+
     public Direccion(final String CP, final String provincia, final String poblacion) {
         this.CP = CP;
         this.provincia = provincia;

@@ -5,6 +5,7 @@ import datos.contrato.Factura;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Set;
 
 public class GestorFacturas implements Serializable {
     //ATRIBUTOS
@@ -25,10 +26,10 @@ public class GestorFacturas implements Serializable {
     }
 
     //Metodo emitirFactura: anade una factura a totalFacturas
-    public void emitirFactura(Factura factura, Cliente cliente) {
+    public void emitirFactura(Factura factura, Set<Factura> facturasCliente) {
         //se anade al total de facturas
         totalFacturas.put(factura.getCodigo(), factura);
         //y al conjunto de facturas del cliente
-        cliente.anadirFactura(factura);
+        facturasCliente.add(factura);
     }
 }

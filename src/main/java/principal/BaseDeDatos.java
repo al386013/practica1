@@ -6,6 +6,7 @@ import datos.clientes.Empresa;
 import datos.clientes.Particular;
 import datos.contrato.Factura;
 import datos.contrato.PeriodoFacturacion;
+import datos.contrato.Tarifa;
 import datos.llamadas.Llamada;
 import interfaces.TieneFecha;
 import principal.excepciones.DuracionNegativaException;
@@ -17,6 +18,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
 
 public class BaseDeDatos implements Serializable {
     //ATRIBUTOS
@@ -71,11 +73,18 @@ public class BaseDeDatos implements Serializable {
     public void emitirFactura(LocalDate fechaIni, LocalDate fechaFin, String nif) throws IntervaloFechasIncorrectoException {
        if(fechaIni.isAfter(fechaFin)) throw new IntervaloFechasIncorrectoException();
         PeriodoFacturacion periodoFact = new PeriodoFacturacion(fechaIni, fechaFin);
-        Cliente cliente = gestorClientes.devuelveCliente(nif);
-        Factura nuevaFactura = new Factura(periodoFact,cliente);
-        gestorFacturas.emitirFactura(nuevaFactura, cliente);
+        Tarifa tarifa = new Tarifa();
+        Factura nuevaFactura = new Factura(periodoFact,nif,devolverLlamadas(nif), tarifa);
+        gestorFacturas.emitirFactura(nuevaFactura, devolverFacturas(nif));
     }
-
+    private Set<Llamada> devolverLlamadas(String nif){
+        Cliente c = gestorClientes.devuelveCliente(nif);
+        return c.getLlamadas();
+    }
+    private Set<Factura> devolverFacturas(String nif){
+        Cliente c = gestorClientes.devuelveCliente(nif);
+        return c.getFacturas();
+    }
     public String listarDatosFactura(int cod) {
         return gestorFacturas.listarDatosFactura(cod);
     }
