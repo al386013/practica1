@@ -77,16 +77,7 @@ public class BaseDeDatos implements Serializable {
         Cliente cliente = gestorClientes.devuelveCliente(nif);
         Factura nuevaFactura = new Factura(periodoFact, nif, cliente.getLlamadas(), cliente.getTarifa());
         gestorFacturas.emitirFactura(nuevaFactura, cliente.getFacturas());
-
-        /*Factura nuevaFactura = new Factura(periodoFact, nif, devolverLlamadas(nif), devolverTarifa(nif));
-        gestorFacturas.emitirFactura(nuevaFactura, devolverFacturas(nif)); */
     }
-
-    /*
-    private Tarifa devolverTarifa(String nif) {
-        Cliente cliente = gestorClientes.devuelveCliente(nif);
-        return cliente.getTarifa();
-    } */
 
     private Set<Llamada> devolverLlamadas(String nif) {
         Cliente cliente = gestorClientes.devuelveCliente(nif);
