@@ -1,6 +1,5 @@
 package datos.contrato;
 
-import datos.clientes.Cliente;
 import datos.llamadas.Llamada;
 import interfaces.TieneFecha;
 
@@ -8,29 +7,36 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Set;
 
 public class Factura implements TieneFecha, Serializable {
-    private int codigo;
     private Tarifa tarifa; //la que tenga el cliente en ese momento
     private LocalDate fechaEmision;
     private PeriodoFacturacion periodoFact;
     private float importe;
     private String nifCliente;
+    private Set<Llamada> llamadas;
 
+    public Factura(){
+        this.tarifa = null;
+        this.fechaEmision = null;
+        this.periodoFact = null;
+        this.importe = 0.00f;
+        this.nifCliente = null;
+        this.llamadas = null;
+    }
 
     public Factura(PeriodoFacturacion periodoFact, String nifCliente, Set<Llamada> llamadas, Tarifa tarifa) {
-        this.codigo = hashCode();
         this.tarifa = tarifa;
         this.fechaEmision = LocalDate.now();
         this.periodoFact = periodoFact;
         this.importe = calcularImporte(tarifa, llamadas);
         this.nifCliente = nifCliente;
+        this.llamadas = llamadas;
     }
 
     public int getCodigo() {
-        return this.codigo;
+        return this.hashCode();
     }
 
     public Tarifa getTarifa() { return this.tarifa; }
@@ -62,11 +68,14 @@ public class Factura implements TieneFecha, Serializable {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("NIF: " + nifCliente + ", ");
-        sb.append("Codigo: " + codigo + ", ");
+        sb.append("Codigo: " + this.hashCode() + ", ");
         sb.append("Tarifa: " + tarifa + ", ");
         sb.append("Fecha de emision: " + fechaEmision.toString() + ", ");
         sb.append("Periodo de facturacion: " + periodoFact + ", ");
         sb.append("Importe: " + importe + "€.");
+        sb.append("Lista de llamadas de esta factura: ");
+        for(Llamada llamada: llamadas) sb.append(llamada.toString());
         return sb.toString();
+
     }
 }

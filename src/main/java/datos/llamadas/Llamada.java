@@ -12,12 +12,22 @@ public class Llamada implements TieneFecha, Serializable {
     private LocalTime hora;
     private int duracion; //en segundos
 
+    //CONSTRUCTOR POR DEFECTO
+    public Llamada() {
+        this.telfDest = "";
+        this.fecha = null;
+        this.hora = null;
+        this.duracion = 0;
+    }
+    //CONSTRUCTOR
     public Llamada(String telfDest, int duracion) {
         this.telfDest = telfDest;
         this.fecha = LocalDate.now();
         this.hora = LocalTime.now();
         this.duracion = duracion;
     }
+
+
 
     @Override
     public LocalDate getFecha() {
