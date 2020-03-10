@@ -7,6 +7,11 @@ import es.uji.www.GeneradorDatosINE;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import principal.excepciones.DuracionNegativaException;
+import principal.excepciones.IntervaloFechasIncorrectoException;
+import principal.excepciones.NifRepetidoException;
+import principal.excepciones.TelfRepetidoException;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import static org.junit.Assert.assertEquals;

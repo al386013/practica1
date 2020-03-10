@@ -1,4 +1,4 @@
-package principal;
+package principal.excepciones;
 
 public class OpcionIncorrecta extends Exception {
     public OpcionIncorrecta() {
