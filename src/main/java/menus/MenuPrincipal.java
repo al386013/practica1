@@ -2,8 +2,6 @@ package menus;
 
 import interfaces.DescripcionMenu;
 
-import java.io.Serializable;
-
 public enum MenuPrincipal implements DescripcionMenu {
     CARGAR_DATOS("Importar los datos."),
     CLIENTES("Operacion clientes."),
