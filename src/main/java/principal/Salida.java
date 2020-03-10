@@ -334,10 +334,10 @@ public class Salida implements Serializable {
                 baseDeDatos = (BaseDeDatos) ois.readObject();
                 System.out.println("\n -----> DATOS IMPORTADOS CORRECTAMENTE <----- ");
             } finally {
-                ois.close();
+                if (ois != null) ois.close();
             }
         } catch(FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("No se ha encontrado el fichero");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }catch (IOException e) {
