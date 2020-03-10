@@ -7,7 +7,7 @@ public class Particular extends Cliente {
     private final String apellidos;
 
     //CONSTRUCTOR POR DEFECTO
-    public Particular(){
+    public Particular() {
         super();
         this.apellidos = "";
     }
@@ -20,7 +20,7 @@ public class Particular extends Cliente {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(apellidos + ", ");
+        sb.append("\n" + apellidos + ", ");
         sb.append(super.toString());
         return sb.toString();
     }

@@ -25,7 +25,7 @@ public enum MenuPrincipal implements DescripcionMenu {
 
     public static String getMenu() {
         StringBuilder sb = new StringBuilder();
-        for(MenuPrincipal opcion: MenuPrincipal.values()) {
+        for (MenuPrincipal opcion : MenuPrincipal.values()) {
             sb.append(opcion.ordinal());
             sb.append(".- ");
             sb.append(opcion.getDescripcion());
@@ -34,5 +34,3 @@ public enum MenuPrincipal implements DescripcionMenu {
         return sb.toString();
     }
 }
-
-

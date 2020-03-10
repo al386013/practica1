@@ -24,8 +24,8 @@ public class BaseDeDatos implements Serializable {
     private GestorClientes gestorClientes;
     private GestorFacturas gestorFacturas;
 
-    //CONSTRUCTOR:
-    public BaseDeDatos(GestorClientes gestorClientes, GestorFacturas gestorFacturas){
+    //CONSTRUCTOR
+    public BaseDeDatos(GestorClientes gestorClientes, GestorFacturas gestorFacturas) {
         this.gestorClientes = gestorClientes;
         this.gestorFacturas = gestorFacturas;
     }
@@ -37,7 +37,7 @@ public class BaseDeDatos implements Serializable {
             throws NifRepetidoException, TelfRepetidoException {
         if (existeCliente(nif)) throw new NifRepetidoException();
         if (existeTelf(telf)) throw new TelfRepetidoException();
-        Cliente nuevoParticular = new Particular(nombre, apellidos, telf, nif,dir, email, new Tarifa());
+        Cliente nuevoParticular = new Particular(nombre, apellidos, telf, nif, dir, email, new Tarifa());
         gestorClientes.anadirCliente(nuevoParticular);
     }
 
@@ -45,7 +45,7 @@ public class BaseDeDatos implements Serializable {
             throws NifRepetidoException, TelfRepetidoException {
         if (existeCliente(nif)) throw new NifRepetidoException();
         if (existeTelf(telf)) throw new TelfRepetidoException();
-        Cliente nuevaEmpresa = new Empresa(nombre,telf, nif, dir, email, new Tarifa());
+        Cliente nuevaEmpresa = new Empresa(nombre, telf, nif, dir, email, new Tarifa());
         gestorClientes.anadirCliente(nuevaEmpresa);
     }
 
@@ -53,15 +53,17 @@ public class BaseDeDatos implements Serializable {
         gestorClientes.borrarCliente(telf);
     }
 
-    public Cliente devuelveCliente(String nif) { return gestorClientes.devuelveCliente(nif); }
+    public Cliente devuelveCliente(String nif) {
+        return gestorClientes.devuelveCliente(nif);
+    }
 
     public void cambiarTarifa(float tarifa, String NIF) {
         gestorClientes.cambioTarifa(tarifa, NIF);
     }
 
     public void darDeAltaLlamada(String telfOrigen, String telfDestino, int duracion) throws DuracionNegativaException {
-        if(duracion < 0) throw new DuracionNegativaException();
-        Llamada nuevaLlamada = new Llamada(telfDestino,duracion);
+        if (duracion < 0) throw new DuracionNegativaException();
+        Llamada nuevaLlamada = new Llamada(telfDestino, duracion);
         gestorClientes.darDeAltaLlamada(telfOrigen, nuevaLlamada);
     }
 
@@ -70,20 +72,32 @@ public class BaseDeDatos implements Serializable {
     }
 
     public void emitirFactura(LocalDate fechaIni, LocalDate fechaFin, String nif) throws IntervaloFechasIncorrectoException {
-       if(fechaIni.isAfter(fechaFin)) throw new IntervaloFechasIncorrectoException();
+        if (fechaIni.isAfter(fechaFin)) throw new IntervaloFechasIncorrectoException();
         PeriodoFacturacion periodoFact = new PeriodoFacturacion(fechaIni, fechaFin);
-        Tarifa tarifa = new Tarifa();
-        Factura nuevaFactura = new Factura(periodoFact,nif,devolverLlamadas(nif), tarifa);
-        gestorFacturas.emitirFactura(nuevaFactura, devolverFacturas(nif));
+        Cliente cliente = gestorClientes.devuelveCliente(nif);
+        Factura nuevaFactura = new Factura(periodoFact, nif, cliente.getLlamadas(), cliente.getTarifa());
+        gestorFacturas.emitirFactura(nuevaFactura, cliente.getFacturas());
+
+        /*Factura nuevaFactura = new Factura(periodoFact, nif, devolverLlamadas(nif), devolverTarifa(nif));
+        gestorFacturas.emitirFactura(nuevaFactura, devolverFacturas(nif)); */
     }
-    private Set<Llamada> devolverLlamadas(String nif){
-        Cliente c = gestorClientes.devuelveCliente(nif);
-        return c.getLlamadas();
+
+    /*
+    private Tarifa devolverTarifa(String nif) {
+        Cliente cliente = gestorClientes.devuelveCliente(nif);
+        return cliente.getTarifa();
+    } */
+
+    private Set<Llamada> devolverLlamadas(String nif) {
+        Cliente cliente = gestorClientes.devuelveCliente(nif);
+        return cliente.getLlamadas();
     }
-    private Set<Factura> devolverFacturas(String nif){
-        Cliente c = gestorClientes.devuelveCliente(nif);
-        return c.getFacturas();
+
+    private Set<Factura> devolverFacturas(String nif) {
+        Cliente cliente = gestorClientes.devuelveCliente(nif);
+        return cliente.getFacturas();
     }
+
     public String listarDatosFactura(int cod) {
         return gestorFacturas.listarDatosFactura(cod);
     }
@@ -96,9 +110,10 @@ public class BaseDeDatos implements Serializable {
         return gestorClientes.existeTelf(telf);
     }
 
-    private < T extends TieneFecha> Collection< T > entreFechas(Collection< T > conjunto, LocalDate fechaIni, LocalDate fechaFin)
+    //Metodo entreFechas: de un conjunto, devuelve un subconjunto con los elementos de fecha entre fechaIni y fechaFin
+    private <T extends TieneFecha> Collection<T> entreFechas(Collection<T> conjunto, LocalDate fechaIni, LocalDate fechaFin)
             throws IntervaloFechasIncorrectoException {
-        if(fechaIni.isAfter(fechaFin)) throw new IntervaloFechasIncorrectoException();
+        if (fechaIni.isAfter(fechaFin)) throw new IntervaloFechasIncorrectoException();
         Collection<T> res = new HashSet<>();
         for (T elem : conjunto) {
             LocalDate fecha = elem.getFecha();
@@ -109,7 +124,7 @@ public class BaseDeDatos implements Serializable {
     }
 
     //Metodo listar: devuelve una cadena para imprimir los elementos de un conjunto
-    public < T extends TieneFecha> String listar(Collection< T > conjunto) {
+    public <T extends TieneFecha> String listar(Collection<T> conjunto) {
         StringBuilder sb = new StringBuilder();
         for (T elem : conjunto) {
             sb.append(elem.toString());
@@ -118,33 +133,38 @@ public class BaseDeDatos implements Serializable {
         return sb.toString();
     }
 
+    //Metodo listarClientesEntreFechas: lista los clientes dados de alta entre dos fechas
     public String listarClientesEntreFechas(LocalDate fechaIni, LocalDate fechaFin) throws IntervaloFechasIncorrectoException {
         Collection<Cliente> conjunto = entreFechas(gestorClientes.clientes.values(), fechaIni, fechaFin);
         return listar(conjunto);
     }
 
+    //Metodo listarLlamadasEntreFechas: lista las llamadas de un cliente realizadas entre dos fechas, dado su telefono
     public String listarLlamadasEntreFechas(String telf, LocalDate fechaIni, LocalDate fechaFin) throws IntervaloFechasIncorrectoException {
-        Collection<Llamada> conjunto = entreFechas(gestorClientes.clientes.get(gestorClientes.telfNif.get(telf)).getLlamadas(), fechaIni, fechaFin);
+        String nif = gestorClientes.telfNif.get(telf);
+        Collection<Llamada> conjunto = entreFechas(devolverLlamadas(nif), fechaIni, fechaFin);
         return listar(conjunto);
     }
 
+    //Metodo listarFacturasEntreFechas: lista las facturas de un cliente emitidas entre dos fechas, dado su nif
     public String listarFacturasEntreFechas(String nif, LocalDate fechaIni, LocalDate fechaFin) throws IntervaloFechasIncorrectoException {
-        Collection<Factura> conjunto = entreFechas(gestorClientes.clientes.get(nif).getFacturas(), fechaIni, fechaFin);
+        Collection<Factura> conjunto = entreFechas(devolverFacturas(nif), fechaIni, fechaFin);
         return listar(conjunto);
     }
 
-    //Metodo listarClientes, lista todos los clientes
+    //Metodo listarClientes: lista todos los clientes
     public String listarClientes() {
         return listar(gestorClientes.clientes.values());
     }
 
     //Metodo listarLlamadasCliente: lista todas las llamadas de un cliente a partir de su telefono
     public String listarLlamadasCliente(String telf) {
-        return listar(gestorClientes.clientes.get(gestorClientes.telfNif.get(telf)).getLlamadas());
+        String nif = gestorClientes.telfNif.get(telf);
+        return listar(devolverLlamadas(nif));
     }
 
     //Metodo listarFacturasCliente: recupera todas las facturas de un cliente a partir de su nif
     public String listarFacturasCliente(String nif) {
-        return listar(gestorClientes.clientes.get(nif).getFacturas());
+        return listar(devolverFacturas(nif));
     }
 }

@@ -25,7 +25,7 @@ public enum MenuLlamadas implements DescripcionMenu {
 
     public static String getMenu() {
         StringBuilder sb = new StringBuilder();
-        for(MenuLlamadas opcion: MenuLlamadas.values()) {
+        for (MenuLlamadas opcion : MenuLlamadas.values()) {
             sb.append(opcion.ordinal());
             sb.append(".- ");
             sb.append(opcion.getDescripcion());

@@ -12,22 +12,21 @@ public class Llamada implements TieneFecha, Serializable {
     private LocalTime hora;
     private int duracion; //en segundos
 
-    //CONSTRUCTOR POR DEFECTO
+    //CONSTRUCTORES
+
     public Llamada() {
         this.telfDest = "";
         this.fecha = null;
         this.hora = null;
         this.duracion = 0;
     }
-    //CONSTRUCTOR
+
     public Llamada(String telfDest, int duracion) {
         this.telfDest = telfDest;
         this.fecha = LocalDate.now();
         this.hora = LocalTime.now();
         this.duracion = duracion;
     }
-
-
 
     @Override
     public LocalDate getFecha() {
@@ -38,12 +37,14 @@ public class Llamada implements TieneFecha, Serializable {
         return duracion;
     }
 
-    public String getTelfDest() { return telfDest; }
+    public String getTelfDest() {
+        return telfDest;
+    }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Llamada realizada el " + fecha);
+        sb.append("\t- Llamada realizada el " + fecha);
         sb.append(" a las " + hora.getHour() + " horas y " + hora.getMinute() + " minutos");
         sb.append(" con una duracion de " + duracion + " segundos");
         sb.append(" al telefono " + telfDest);

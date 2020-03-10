@@ -6,7 +6,7 @@ public class Empresa extends Cliente {
     //TODOS SUS ATRIBUTOS LOS HEREDA DE CLIENTE
 
     //CONSTRUCTOR POR DEFECTO
-    public Empresa(){
+    public Empresa() {
         super();
     }
 
@@ -14,4 +14,10 @@ public class Empresa extends Cliente {
         super(nombre, telefono, NIF, direccion, email, tarifa);
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n" + super.toString()); //insertamos el salto de linea antes del nombre
+        return sb.toString();
+    }
 }

@@ -12,13 +12,11 @@ public class GestorClientes implements Serializable {
     Map<String, Cliente> clientes; //clave: nif
     Map<String, String> telfNif;   //clave: telf - relaciona el telf con el nif del cliente
 
-    //CONSTRUCTORES
+    //CONSTRUCTOR
     public GestorClientes() {
         clientes = new HashMap<String, Cliente>();
         telfNif = new HashMap<String, String>();
     }
-
-    //METODOS
 
     //Metodo devuelveCliente: si un cliente no existe devuelve null
     public Cliente devuelveCliente(String NIF) {
@@ -55,13 +53,11 @@ public class GestorClientes implements Serializable {
 
     //Metodo listarDatosCliente, recupera todos los datos de un cliente a partir del NIF
     public String listarDatosCliente(String NIF) {
-       return clientes.get(NIF).toString();
+        return clientes.get(NIF).toString();
     }
 
     //Método darDeAltaLlamada: crea y anade una llamada al conjunto de llamadas de un cliente
     public void darDeAltaLlamada(String telfOrigen, Llamada llamada) {
         clientes.get(telfNif.get(telfOrigen)).anadirLlamada(llamada);
     }
-
-
 }
