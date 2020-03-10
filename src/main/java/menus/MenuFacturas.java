@@ -2,7 +2,7 @@ package menus;
 
 import java.io.Serializable;
 
-public enum MenuFacturas implements Serializable {
+public enum MenuFacturas {
     EMITIR_FACTURA("Emitir una factura para un cliente."),
     DATOS_FACTURA("Recuperar los datos de una factura a partir de su codigo."),
     FACTURAS_CLIENTE("Recuperar todas las facturas de un cliente."),
