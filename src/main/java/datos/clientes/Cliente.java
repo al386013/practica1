@@ -81,7 +81,6 @@ public abstract class Cliente implements TieneFecha, Serializable {
         sb.append("Telf: " + telf + ", ");
         sb.append("Direccion: " + direccion + ", ");
         sb.append("Email: " + email + ", ");
-
         sb.append("Fecha de alta: " + fechaDeAlta.toString() + ", ");
         sb.append("Tarifa: " + tarifa + ". ");
         return sb.toString();
