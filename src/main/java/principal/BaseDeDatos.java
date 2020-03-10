@@ -13,7 +13,6 @@ import principal.excepciones.DuracionNegativaException;
 import principal.excepciones.IntervaloFechasIncorrectoException;
 import principal.excepciones.NifRepetidoException;
 import principal.excepciones.TelfRepetidoException;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Collection;
@@ -38,7 +37,7 @@ public class BaseDeDatos implements Serializable {
             throws NifRepetidoException, TelfRepetidoException {
         if (existeCliente(nif)) throw new NifRepetidoException();
         if (existeTelf(telf)) throw new TelfRepetidoException();
-        Cliente nuevoParticular = new Particular(nombre, apellidos, telf, nif,dir, email);
+        Cliente nuevoParticular = new Particular(nombre, apellidos, telf, nif,dir, email, new Tarifa());
         gestorClientes.anadirCliente(nuevoParticular);
     }
 
@@ -46,7 +45,7 @@ public class BaseDeDatos implements Serializable {
             throws NifRepetidoException, TelfRepetidoException {
         if (existeCliente(nif)) throw new NifRepetidoException();
         if (existeTelf(telf)) throw new TelfRepetidoException();
-        Cliente nuevaEmpresa = new Empresa(nombre,telf, nif, dir, email);
+        Cliente nuevaEmpresa = new Empresa(nombre,telf, nif, dir, email, new Tarifa());
         gestorClientes.anadirCliente(nuevaEmpresa);
     }
 

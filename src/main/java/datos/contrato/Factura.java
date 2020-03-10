@@ -2,7 +2,6 @@ package datos.contrato;
 
 import datos.llamadas.Llamada;
 import interfaces.TieneFecha;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -25,6 +24,7 @@ public class Factura implements TieneFecha, Serializable {
         this.nifCliente = null;
         this.llamadas = null;
     }
+
 
     public Factura(PeriodoFacturacion periodoFact, String nifCliente, Set<Llamada> llamadas, Tarifa tarifa) {
         this.tarifa = tarifa;
@@ -76,6 +76,5 @@ public class Factura implements TieneFecha, Serializable {
         sb.append("Lista de llamadas de esta factura: ");
         for(Llamada llamada: llamadas) sb.append(llamada.toString());
         return sb.toString();
-
     }
 }

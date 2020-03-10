@@ -4,7 +4,6 @@ import datos.contrato.Factura;
 import datos.contrato.Tarifa;
 import interfaces.TieneFecha;
 import datos.llamadas.Llamada;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;

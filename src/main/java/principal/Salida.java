@@ -9,7 +9,6 @@ import principal.excepciones.DuracionNegativaException;
 import principal.excepciones.IntervaloFechasIncorrectoException;
 import principal.excepciones.NifRepetidoException;
 import principal.excepciones.TelfRepetidoException;
-
 import java.io.*;
 import java.time.LocalDate;
 import java.util.Scanner;
