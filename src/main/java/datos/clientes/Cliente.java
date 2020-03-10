@@ -61,14 +61,6 @@ public abstract class Cliente implements TieneFecha, Serializable {
         return facturas;
     }
 
-    public void anadirLlamada(Llamada llamada) {
-        llamadas.add(llamada);
-    }
-
-    public void anadirFactura(Factura factura) {
-        facturas.add(factura);
-    }
-
     public void cambiarTarifa(float nuevaTarifa) {
         tarifa.setTarifa(nuevaTarifa);
     }
