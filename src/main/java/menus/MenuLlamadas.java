@@ -1,8 +1,10 @@
 package menus;
 
+import interfaces.DescripcionMenu;
+
 import java.io.Serializable;
 
-public enum MenuLlamadas implements Serializable {
+public enum MenuLlamadas implements DescripcionMenu {
     DAR_ALTA_LLAMADA("Dar de alta una llamada."),
     LLAMADAS_CLIENTE("Listar todas las llamadas de un cliente."),
     LLAMADAS_ENTRE_FECHAS("Mostrar listado de llamadas de un cliente realizadas entre dos fechas."),

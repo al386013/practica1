@@ -1,8 +1,10 @@
 package menus;
 
+import interfaces.DescripcionMenu;
+
 import java.io.Serializable;
 
-public enum MenuClientes implements Serializable {
+public enum MenuClientes implements DescripcionMenu {
     DAR_ALTA_CLIENTE("Dar de alta un nuevo cliente."),
     BORRAR_CLIENTE("Borrar un cliente."),
     CAMBIAR_TARIFA("Cambiar la tarifa de un cliente."),
