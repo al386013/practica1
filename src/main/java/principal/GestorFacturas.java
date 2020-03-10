@@ -1,15 +1,14 @@
 package principal;
 
-import datos.clientes.Cliente;
 import datos.contrato.Factura;
-
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 public class GestorFacturas implements Serializable {
     //ATRIBUTOS
-    private HashMap<Integer, Factura> totalFacturas; //Clave: codigo de factura
+    private Map<Integer, Factura> totalFacturas; //Clave: codigo de factura
 
     //CONSTRUCTORES
     public GestorFacturas() {

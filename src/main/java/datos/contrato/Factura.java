@@ -1,14 +1,11 @@
 package datos.contrato;
 
-import datos.clientes.Cliente;
 import datos.llamadas.Llamada;
 import interfaces.TieneFecha;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Set;
 
 public class Factura implements TieneFecha, Serializable {
@@ -18,7 +15,6 @@ public class Factura implements TieneFecha, Serializable {
     private PeriodoFacturacion periodoFact;
     private float importe;
     private String nifCliente;
-
 
     public Factura(PeriodoFacturacion periodoFact, String nifCliente, Set<Llamada> llamadas, Tarifa tarifa) {
         this.codigo = hashCode();

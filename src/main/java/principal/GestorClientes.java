@@ -2,15 +2,15 @@ package principal;
 
 import datos.clientes.Cliente;
 import datos.llamadas.Llamada;
-
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Map;
 
 public class GestorClientes implements Serializable {
 
     //ATRIBUTOS
-    HashMap<String, Cliente> clientes; //clave: nif
-    HashMap<String, String> telfNif;   //clave: telf - relaciona el telf con el nif del cliente
+    Map<String, Cliente> clientes; //clave: nif
+    Map<String, String> telfNif;   //clave: telf - relaciona el telf con el nif del cliente
 
     //CONSTRUCTORES
     public GestorClientes() {
