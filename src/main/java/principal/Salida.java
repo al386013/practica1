@@ -5,10 +5,7 @@ import menus.MenuClientes;
 import menus.MenuFacturas;
 import menus.MenuLlamadas;
 import menus.MenuPrincipal;
-import principal.excepciones.DuracionNegativaException;
-import principal.excepciones.IntervaloFechasIncorrectoException;
-import principal.excepciones.NifRepetidoException;
-import principal.excepciones.TelfRepetidoException;
+import principal.excepciones.*;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -19,8 +16,10 @@ public class Salida implements Serializable {
     private transient MenuPrincipal opcionMenu = null;
 
     public Salida(BaseDeDatos baseDeDatos) {
-        this.baseDeDatos =  baseDeDatos;
+        this.baseDeDatos = baseDeDatos;
     }
+
+    //METODOS DEL MENU: MOSTRAR Y PEDIR OPCIONES Y LANZAR METODOS
 
     public void menuYopcion() {
         while (opcionMenu != MenuPrincipal.SALIR_GUARDAR) {
@@ -28,43 +27,35 @@ public class Salida implements Serializable {
             System.out.println(MenuPrincipal.getMenu());
             System.out.print("Introduce una opción: ");
             byte opcion = sc.nextByte();
-            opcionMenu = MenuPrincipal.getOpcion(opcion);
-            lanzarOpcionPrincipal(opcionMenu);
+            if(opcion < 0 || opcion > 4) System.out.println("\n-------------> Opcion incorrecta <-------------");
+            else {
+                opcionMenu = MenuPrincipal.getOpcion(opcion); //es un atributo global para toda la clase
+                lanzarOpcionPrincipal();
+            }
         }
     }
 
-    private void lanzarOpcionPrincipal(MenuPrincipal opcionMenu) {
-        switch (opcionMenu) {
-            case CARGAR_DATOS:
-                importarDatos();
-                break;
-            case CLIENTES:
-                System.out.println("\n* * * * * * * OPCIONES DE CLIENTES * * * * * * *\n");
-                System.out.println(MenuClientes.getMenu());
-                System.out.print("Introduce una opción: ");
-                byte opcion = sc.nextByte();
-                MenuClientes opcionClientes = MenuClientes.getOpcion(opcion);
-                lanzarOpcionClientes(opcionClientes);
-                break;
-            case LLAMADAS:
-                System.out.println("\n* * * * * * * OPCIONES DE LLAMADAS * * * * * * *\n");
-                System.out.println(MenuLlamadas.getMenu());
-                System.out.print("Introduce una opción: ");
-                opcion = sc.nextByte();
-                MenuLlamadas opcionLlamadas = MenuLlamadas.getOpcion(opcion);
-                lanzarOpcionLlamadas(opcionLlamadas);
-                break;
-            case FACTURAS:
-                System.out.println("\n* * * * * * * OPCIONES DE FACTURAS * * * * * * *\n");
-                System.out.println(MenuFacturas.getMenu());
-                System.out.print("Introduce una opción: ");
-                opcion = sc.nextByte();
-                MenuFacturas opcionFacturas = MenuFacturas.getOpcion(opcion);
-                lanzarOpcionFacturas(opcionFacturas);
-                break;
-            case SALIR_GUARDAR:
-                exportarDatosYsalir();
-                break;
+    private void lanzarOpcionPrincipal() {
+        try {
+            switch (opcionMenu) {
+                case CARGAR_DATOS:
+                    importarDatos();
+                    break;
+                case CLIENTES:
+                    seleccionaOpcionClientes();
+                    break;
+                case LLAMADAS:
+                    seleccionaOpcionLlamadas();
+                    break;
+                case FACTURAS:
+                    seleccionaOpcionFacturas();
+                    break;
+                case SALIR_GUARDAR:
+                    exportarDatosYsalir();
+                    break;
+            }
+        } catch (OpcionIncorrectaException e) {
+            e.printStackTrace();
         }
     }
 
@@ -124,10 +115,13 @@ public class Salida implements Serializable {
                 break;
             case DATOS_FACTURA:
                 datosFactura();
+                break;
             case FACTURAS_CLIENTE:
                 facturasCliente();
+                break;
             case FACTURAS_ENTRE_FECHAS:
                 facturasCliEntreFechas();
+                break;
             case VOLVER_MENU_PRINCIPAL:
                 menuYopcion();
                 break;
@@ -137,12 +131,48 @@ public class Salida implements Serializable {
         }
     }
 
+    private void seleccionaOpcionClientes() throws OpcionIncorrectaException {
+        System.out.println("\n* * * * * * * OPCIONES DE CLIENTES * * * * * * *\n");
+        System.out.println(MenuClientes.getMenu());
+        System.out.print("Introduce una opción: ");
+        byte opcion = sc.nextByte();
+        if(opcion < 0 || opcion > 7)
+            throw new OpcionIncorrectaException();
+        MenuClientes opcionClientes = MenuClientes.getOpcion(opcion);
+        lanzarOpcionClientes(opcionClientes);
+    }
+
+    private void seleccionaOpcionLlamadas() throws OpcionIncorrectaException {
+        System.out.println("\n* * * * * * * OPCIONES DE LLAMADAS * * * * * * *\n");
+        System.out.println(MenuLlamadas.getMenu());
+        System.out.print("Introduce una opción: ");
+        byte opcion = sc.nextByte();
+        if(opcion < 0 || opcion > 4)
+            throw new OpcionIncorrectaException();
+        MenuLlamadas opcionLlamadas = MenuLlamadas.getOpcion(opcion);
+        lanzarOpcionLlamadas(opcionLlamadas);
+    }
+
+    private void seleccionaOpcionFacturas() throws OpcionIncorrectaException {
+        System.out.println("\n* * * * * * * OPCIONES DE FACTURAS * * * * * * *\n");
+        System.out.println(MenuFacturas.getMenu());
+        System.out.print("Introduce una opción: ");
+        byte opcion = sc.nextByte();
+        if(opcion < 0 || opcion > 5)
+            throw new OpcionIncorrectaException();
+        MenuFacturas opcionFacturas = MenuFacturas.getOpcion(opcion);
+        lanzarOpcionFacturas(opcionFacturas);
+    }
+
+
+    //ZONA DE METODOS PARA PEDIR LOS DATOS Y LLAMAR A BASE DE DATOS
+
     private void daAltaCliente() {
         try {
             System.out.println("\nDAR DE ALTA UN NUEVO CLIENTE");
             System.out.print("--> Introduce 'e' para empresa o 'p' para particular: ");
             String letra = sc.next();
-            while(!letra.equals("e") && !letra.equals("p")) {
+            while (!letra.equals("e") && !letra.equals("p")) {
                 System.out.print("* Parametro incorrecto. Vuelve a intentarlo: ");
                 letra = sc.next();
             }
@@ -150,7 +180,7 @@ public class Salida implements Serializable {
             sc.nextLine();
             String nombre = sc.nextLine();
             String apellidos = null;
-            if(letra.equals("p")) {
+            if (letra.equals("p")) {
                 System.out.print("- Introduce apellidos: ");
                 apellidos = sc.nextLine();
             }
@@ -168,7 +198,7 @@ public class Salida implements Serializable {
             Direccion direccion = new Direccion(cp, provincia, poblacion);
             System.out.print("- Introduce email: ");
             String email = sc.next();
-            if(letra.equals("p"))
+            if (letra.equals("p"))
                 baseDeDatos.anadirParticular(nombre, apellidos, telf, nif, direccion, email);
             else baseDeDatos.anadirEmpresa(nombre, telf, nif, direccion, email);
             System.out.println("\n\tCreado cliente " + nombre + " con NIF " + nif + " y telefono " + telf + ".\n");
@@ -177,7 +207,6 @@ public class Salida implements Serializable {
         } catch (TelfRepetidoException e) {
             e.printStackTrace();
         }
-
     }
 
     private void borraCliente() {
@@ -233,7 +262,7 @@ public class Salida implements Serializable {
             System.out.print("- Introduce la duracion de la llamada (en segundos): ");
             int duracion = sc.nextInt();
             baseDeDatos.darDeAltaLlamada(telfOrigen, telfDest, duracion);
-            System.out.println("\n\tLlamada de " + telfOrigen + " a " + telfDest + " realizada con exito.\n");
+            System.out.println("\n\tLlamada del " + telfOrigen + " al " + telfDest + " realizada con exito.\n");
         } catch (DuracionNegativaException e) {
             e.printStackTrace();
         }
@@ -280,7 +309,7 @@ public class Salida implements Serializable {
         System.out.print("- Introduce su codigo: ");
         int cod = sc.nextInt();
         String res = baseDeDatos.listarDatosFactura(cod);
-        if(res == null) System.out.println("* Codigo de factura no existente en la base de datos.\n");
+        if (res == null) System.out.println("* Codigo de factura no existente en la base de datos.\n");
         else System.out.println(res + "\n");
     }
 
@@ -307,7 +336,7 @@ public class Salida implements Serializable {
     private String pedirNifExistente() {
         System.out.print("- Introduce el NIF del cliente: ");
         String NIF = sc.next();
-        while(!baseDeDatos.existeCliente(NIF)) {
+        while (!baseDeDatos.existeCliente(NIF)) {
             System.out.print("* Cliente no existente en la base de datos.\nVuelve a introducir el NIF: ");
             NIF = sc.next();
         }
@@ -317,7 +346,7 @@ public class Salida implements Serializable {
     private String pedirTelfExistente() {
         System.out.print("- Introduce el telefono del cliente: ");
         String telf = sc.next();
-        while(!baseDeDatos.existeTelf(telf)) {
+        while (!baseDeDatos.existeTelf(telf)) {
             System.out.print("* Telefono del cliente no existente en la base de datos.\nVuelve a introducirlo: ");
             telf = sc.next();
         }
@@ -325,28 +354,28 @@ public class Salida implements Serializable {
     }
 
     //El metodo importar datos se encarga de cargar los datos que ya habiamos obtenido en nuestra base de datos
-    private void importarDatos(){
+    private void importarDatos() {
         ObjectInputStream ois = null;
         try {
             try {
                 FileInputStream fis = new FileInputStream("baseDeDatos.bin");
                 ois = new ObjectInputStream(fis);
                 baseDeDatos = (BaseDeDatos) ois.readObject();
-                System.out.println("\n -----> DATOS IMPORTADOS CORRECTAMENTE <----- ");
+                System.out.println("\n-------> DATOS IMPORTADOS CORRECTAMENTE <-------");
             } finally {
                 if (ois != null) ois.close();
             }
-        } catch(FileNotFoundException e) {
-            System.out.println("No se ha encontrado el fichero");
+        } catch (FileNotFoundException e) {
+            System.out.println("\n-----> ERROR: NO SE HA PODIDO ENCONTRAR EL FICHERO <-----");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     //El metodo exportatDatos se encarga de guardar los datos en la base de datos previamente antes de finalizar el programa
-    private void exportarDatosYsalir(){
+    private void exportarDatosYsalir() {
         ObjectOutputStream oos = null;
         try {
             try {
@@ -358,7 +387,7 @@ public class Salida implements Serializable {
             } finally {
                 oos.close();
             }
-        } catch(FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();

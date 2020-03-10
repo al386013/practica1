@@ -26,7 +26,7 @@ public enum MenuFacturas implements DescripcionMenu {
 
     public static String getMenu() {
         StringBuilder sb = new StringBuilder();
-        for(MenuFacturas opcion: MenuFacturas.values()) {
+        for (MenuFacturas opcion : MenuFacturas.values()) {
             sb.append(opcion.ordinal());
             sb.append(".- ");
             sb.append(opcion.getDescripcion());

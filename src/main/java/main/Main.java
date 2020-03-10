@@ -12,7 +12,7 @@ public class Main implements Serializable {
         BaseDeDatos baseDeDatos = new BaseDeDatos(gestorClientes, gestorFacturas);
         Salida salida = new Salida(baseDeDatos);
 
-        //mostramos el menu de opciones, leemos la opcion y lanzamos el metodo
+        //mostramos el menu de opciones, leemos la opcion y lanzamos el metodo correspondiente
         salida.menuYopcion();
     }
 }

@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.util.*;
 
 public abstract class Cliente implements TieneFecha, Serializable {
-
     private String nombre;
     private String NIF;
     private String telf;
@@ -21,7 +20,7 @@ public abstract class Cliente implements TieneFecha, Serializable {
     private Set<Factura> facturas; //conjunto con todas las facturas del cliente
     private Set<Llamada> llamadas; //conjunto con todas las llamadas del cliente
 
-    //constructor por defecto
+    //CONSSTRUCTOR POR DEFECTO
     public Cliente() {
         this.nombre = "";
         this.telf = "";
@@ -34,7 +33,7 @@ public abstract class Cliente implements TieneFecha, Serializable {
         this.llamadas = new HashSet<Llamada>();
     }
 
-    public Cliente(final String nombre,final String telefono, final String NIF, final Direccion direccion, final String email, final Tarifa tarifa) {
+    public Cliente(final String nombre, final String telefono, final String NIF, final Direccion direccion, final String email, final Tarifa tarifa) {
         this.nombre = nombre;
         this.telf = telefono;
         this.NIF = NIF;
@@ -46,23 +45,34 @@ public abstract class Cliente implements TieneFecha, Serializable {
         this.llamadas = new HashSet<Llamada>();
     }
 
-    public String getNombre() { return nombre; }
+    public String getNombre() {
+        return nombre;
+    }
 
-    public String getTelf() { return telf; }
+    public String getTelf() {
+        return telf;
+    }
 
     public String getNIF() {
         return NIF;
     }
 
-    public Direccion getDireccion() { return direccion; }
+    public Direccion getDireccion() {
+        return direccion;
+    }
 
-    public String getEmail() { return email; }
-
+    public String getEmail() {
+        return email;
+    }
 
     @Override
-    public LocalDate getFecha() { return fechaDeAlta; }
+    public LocalDate getFecha() {
+        return fechaDeAlta;
+    }
 
-    public Tarifa getTarifa() { return tarifa; }
+    public Tarifa getTarifa() {
+        return tarifa;
+    }
 
     public Set<Llamada> getLlamadas() {
         return llamadas;
@@ -83,13 +93,13 @@ public abstract class Cliente implements TieneFecha, Serializable {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(nombre + ", ");
-        sb.append("NIF: " + NIF + ", ");
-        sb.append("Telf: " + telf + ", ");
-        sb.append("Direccion: " + direccion + ", ");
-        sb.append("Email: " + email + ", ");
-        sb.append("Fecha de alta: " + fechaDeAlta.toString() + ", ");
-        sb.append("Tarifa: " + tarifa + ". ");
+        sb.append(nombre);
+        sb.append("\n\tNIF: " + NIF);
+        sb.append("\n\tTelefono: " + telf);
+        sb.append("\n\tDireccion: " + direccion);
+        sb.append("\n\tEmail: " + email);
+        sb.append("\n\tFecha de alta: " + fechaDeAlta.toString());
+        sb.append("\n\tTarifa: " + tarifa);
         return sb.toString();
     }
 }

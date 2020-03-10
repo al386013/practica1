@@ -10,12 +10,10 @@ public class GestorFacturas implements Serializable {
     //ATRIBUTOS
     private Map<Integer, Factura> totalFacturas; //Clave: codigo de factura
 
-    //CONSTRUCTORES
+    //CONSTRUCTOR
     public GestorFacturas() {
         totalFacturas = new HashMap<Integer, Factura>();
     }
-
-    //METODOS
 
     //Metodo listarDatosFactura: recupera los datos de la factura a partir de su codigo
     public String listarDatosFactura(int cod) {
@@ -26,7 +24,7 @@ public class GestorFacturas implements Serializable {
 
     //Metodo emitirFactura: anade una factura a totalFacturas
     public void emitirFactura(Factura factura, Set<Factura> facturasCliente) {
-        //se anade al total de facturas
+        //la nueva factura se anade al total de facturas
         totalFacturas.put(factura.getCodigo(), factura);
         //y al conjunto de facturas del cliente
         facturasCliente.add(factura);

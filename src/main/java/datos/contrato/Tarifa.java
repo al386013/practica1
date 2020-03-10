@@ -3,22 +3,21 @@ package datos.contrato;
 import java.io.Serializable;
 
 public class Tarifa implements Serializable {
-    //ATRIBUTO
     private float valor;
 
-
-    //CONSTRUCTOR POR DEFECTO
+    //CONSTRUCTORES
     public Tarifa() {
         valor = 0.05f;
     }
 
-    public Tarifa(float valorTarifa){
+    public Tarifa(float valorTarifa) {
         this.valor = valorTarifa;
     }
 
-
     //METODOS
-    public float getTarifa() { return valor; }
+    public float getTarifa() {
+        return valor;
+    }
 
     public void setTarifa(float tarifa) {
         this.valor = tarifa;
