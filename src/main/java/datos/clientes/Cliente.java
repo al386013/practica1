@@ -19,8 +19,21 @@ public abstract class Cliente implements TieneFecha, Serializable {
     private LocalDate fechaDeAlta;
     private Tarifa tarifa;
 
-    private HashSet<Factura> facturas; //conjunto con todas las facturas del cliente
-    private HashSet<Llamada> llamadas; //conjunto con todas las llamadas del cliente
+    private Set<Factura> facturas; //conjunto con todas las facturas del cliente
+    private Set<Llamada> llamadas; //conjunto con todas las llamadas del cliente
+
+    //constructor por defecto
+    public Cliente() {
+        this.nombre = "";
+        this.telf = "";
+        this.NIF = "";
+        this.direccion = null;
+        this.email = "";
+        this.fechaDeAlta = LocalDate.now();
+        this.tarifa = null;
+        this.facturas = new HashSet<Factura>();
+        this.llamadas = new HashSet<Llamada>();
+    }
 
     public Cliente(final String nombre,final String telefono, final String NIF, final Direccion direccion, final String email) {
         this.nombre = nombre;
@@ -28,7 +41,6 @@ public abstract class Cliente implements TieneFecha, Serializable {
         this.NIF = NIF;
         this.direccion = direccion;
         this.email = email;
-
         this.fechaDeAlta = LocalDate.now();
         this.tarifa = new Tarifa();
         this.facturas = new HashSet<Factura>();
@@ -53,11 +65,11 @@ public abstract class Cliente implements TieneFecha, Serializable {
 
     public Tarifa getTarifa() { return tarifa; }
 
-    public HashSet<Llamada> getLlamadas() {
+    public Set<Llamada> getLlamadas() {
         return llamadas;
     }
 
-    public HashSet<Factura> getFacturas() {
+    public Set<Factura> getFacturas() {
         return facturas;
     }
 
