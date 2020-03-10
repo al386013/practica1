@@ -4,22 +4,28 @@ import java.io.Serializable;
 
 public class Tarifa implements Serializable {
     //ATRIBUTO
-    private float tarifa;
+    private float valor;
+
 
     //CONSTRUCTOR POR DEFECTO
     public Tarifa() {
-        tarifa = 0.05f;
+        valor = 0.05f;
     }
 
+    public Tarifa(float valorTarifa){
+        this.valor = valorTarifa;
+    }
+
+
     //METODOS
-    public float getTarifa() { return tarifa; }
+    public float getTarifa() { return valor; }
 
     public void setTarifa(float tarifa) {
-        this.tarifa = tarifa;
+        this.valor = tarifa;
     }
 
     @Override
     public String toString() {
-        return tarifa + " €/min";
+        return valor + " €/min";
     }
 }

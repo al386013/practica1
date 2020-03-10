@@ -4,14 +4,15 @@ import static org.junit.Assert.assertEquals;
 import datos.clientes.Direccion;
 import datos.contrato.Factura;
 import es.uji.www.GeneradorDatosINE;
-import excepciones.DuracionNegativaException;
-import excepciones.IntervaloFechasIncorrectoException;
-import excepciones.NifRepetidoException;
-import excepciones.TelfRepetidoException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import datos.clientes.Cliente;
+import principal.excepciones.DuracionNegativaException;
+import principal.excepciones.IntervaloFechasIncorrectoException;
+import principal.excepciones.NifRepetidoException;
+import principal.excepciones.TelfRepetidoException;
+
 import java.time.LocalDate;
 
 public class GestorFacturasTest {

@@ -4,12 +4,13 @@ import datos.clientes.Cliente;
 import datos.clientes.Direccion;
 import datos.llamadas.Llamada;
 import es.uji.www.GeneradorDatosINE;
-import excepciones.DuracionNegativaException;
-import excepciones.NifRepetidoException;
-import excepciones.TelfRepetidoException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import principal.excepciones.DuracionNegativaException;
+import principal.excepciones.NifRepetidoException;
+import principal.excepciones.TelfRepetidoException;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import static org.hamcrest.MatcherAssert.assertThat;

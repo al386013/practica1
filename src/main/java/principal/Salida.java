@@ -1,25 +1,22 @@
 package principal;
 
-import datos.clientes.Cliente;
 import datos.clientes.Direccion;
-import excepciones.DuracionNegativaException;
-import excepciones.IntervaloFechasIncorrectoException;
-import excepciones.NifRepetidoException;
-import excepciones.TelfRepetidoException;
 import menus.MenuClientes;
 import menus.MenuFacturas;
 import menus.MenuLlamadas;
 import menus.MenuPrincipal;
-
+import principal.excepciones.DuracionNegativaException;
+import principal.excepciones.IntervaloFechasIncorrectoException;
+import principal.excepciones.NifRepetidoException;
+import principal.excepciones.TelfRepetidoException;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Salida implements Serializable {
     private BaseDeDatos baseDeDatos;
-    private Scanner sc = new Scanner(System.in);
-    private MenuPrincipal opcionMenu = null;
-    private BaseDeDatos agenda = null;
+    private transient Scanner sc = new Scanner(System.in);
+    private transient MenuPrincipal opcionMenu = null;
 
     public Salida(BaseDeDatos baseDeDatos) {
         this.baseDeDatos =  baseDeDatos;
@@ -334,13 +331,13 @@ public class Salida implements Serializable {
             try {
                 FileInputStream fis = new FileInputStream("baseDeDatos.bin");
                 ois = new ObjectInputStream(fis);
-                agenda = (BaseDeDatos) ois.readObject();
+                baseDeDatos = (BaseDeDatos) ois.readObject();
                 System.out.println("\n -----> DATOS IMPORTADOS CORRECTAMENTE <----- ");
             } finally {
-                ois.close();
+                if (ois != null) ois.close();
             }
         } catch(FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("No se ha encontrado el fichero");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }catch (IOException e) {
@@ -356,7 +353,7 @@ public class Salida implements Serializable {
                 opcionMenu = MenuPrincipal.SALIR_GUARDAR;
                 FileOutputStream fos = new FileOutputStream("baseDeDatos.bin");
                 oos = new ObjectOutputStream(fos);
-                oos.writeObject(agenda);
+                oos.writeObject(baseDeDatos);
                 System.out.println("\n -----> Datos guardados y programa cerrado <----- ");
             } finally {
                 oos.close();
