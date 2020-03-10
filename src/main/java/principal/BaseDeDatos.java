@@ -7,11 +7,11 @@ import datos.clientes.Particular;
 import datos.contrato.Factura;
 import datos.contrato.PeriodoFacturacion;
 import datos.llamadas.Llamada;
-import excepciones.DuracionNegativaException;
-import excepciones.IntervaloFechasIncorrectoException;
-import excepciones.NifRepetidoException;
-import excepciones.TelfRepetidoException;
 import interfaces.TieneFecha;
+import principal.excepciones.DuracionNegativaException;
+import principal.excepciones.IntervaloFechasIncorrectoException;
+import principal.excepciones.NifRepetidoException;
+import principal.excepciones.TelfRepetidoException;
 
 import java.io.Serializable;
 import java.time.LocalDate;

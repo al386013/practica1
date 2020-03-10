@@ -1,4 +1,4 @@
-package excepciones;
+package principal.excepciones;
 
 public class NifRepetidoException extends Exception {
     public NifRepetidoException() {

@@ -1,4 +1,4 @@
-package excepciones;
+package principal.excepciones;
 
 public class TelfRepetidoException extends Exception {
     public TelfRepetidoException() {

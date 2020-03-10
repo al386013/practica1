@@ -1,14 +1,14 @@
 package principal;
 
 import datos.clientes.Direccion;
-import excepciones.DuracionNegativaException;
-import excepciones.IntervaloFechasIncorrectoException;
-import excepciones.NifRepetidoException;
-import excepciones.TelfRepetidoException;
 import menus.MenuClientes;
 import menus.MenuFacturas;
 import menus.MenuLlamadas;
 import menus.MenuPrincipal;
+import principal.excepciones.DuracionNegativaException;
+import principal.excepciones.IntervaloFechasIncorrectoException;
+import principal.excepciones.NifRepetidoException;
+import principal.excepciones.TelfRepetidoException;
 
 import java.io.*;
 import java.time.LocalDate;
