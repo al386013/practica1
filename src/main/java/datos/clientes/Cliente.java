@@ -29,20 +29,20 @@ public abstract class Cliente implements TieneFecha, Serializable {
         this.NIF = "";
         this.direccion = null;
         this.email = "";
-        this.fechaDeAlta = LocalDate.now();
+        this.fechaDeAlta = null;
         this.tarifa = null;
         this.facturas = new HashSet<Factura>();
         this.llamadas = new HashSet<Llamada>();
     }
 
-    public Cliente(final String nombre,final String telefono, final String NIF, final Direccion direccion, final String email) {
+    public Cliente(final String nombre,final String telefono, final String NIF, final Direccion direccion, final String email, final Tarifa tarifa) {
         this.nombre = nombre;
         this.telf = telefono;
         this.NIF = NIF;
         this.direccion = direccion;
         this.email = email;
         this.fechaDeAlta = LocalDate.now();
-        this.tarifa = new Tarifa();
+        this.tarifa = tarifa;
         this.facturas = new HashSet<Factura>();
         this.llamadas = new HashSet<Llamada>();
     }
@@ -75,6 +75,10 @@ public abstract class Cliente implements TieneFecha, Serializable {
 
     public void cambiarTarifa(float nuevaTarifa) {
         tarifa.setTarifa(nuevaTarifa);
+    }
+
+    public void anadirLlamada(Llamada llamada) {
+        llamadas.add(llamada);
     }
 
     @Override
