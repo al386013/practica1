@@ -2,6 +2,7 @@ package datos.clientes;
 
 import datos.contrato.Factura;
 import datos.contrato.Tarifa;
+import datos.ComparadorFechas;
 import interfaces.TieneFecha;
 import datos.llamadas.Llamada;
 import java.io.Serializable;
@@ -31,6 +32,7 @@ public abstract class Cliente implements TieneFecha, Serializable {
         this.tarifa = null;
         this.facturas = new HashSet<Factura>();
         this.llamadas = new HashSet<Llamada>();
+        //this.llamadas = new TreeSet<Llamada>(new ComparadorFechas<>());
     }
 
     public Cliente(final String nombre, final String telefono, final String NIF, final Direccion direccion, final String email, final Tarifa tarifa) {
@@ -43,6 +45,7 @@ public abstract class Cliente implements TieneFecha, Serializable {
         this.tarifa = tarifa;
         this.facturas = new HashSet<Factura>();
         this.llamadas = new HashSet<Llamada>();
+        //this.llamadas = new TreeSet<Llamada>(new ComparadorFechas<>());
     }
 
     public String getNombre() {

@@ -7,6 +7,7 @@ import datos.clientes.Particular;
 import datos.contrato.Factura;
 import datos.contrato.PeriodoFacturacion;
 import datos.contrato.Tarifa;
+import datos.ComparadorFechas;
 import datos.llamadas.Llamada;
 import interfaces.TieneFecha;
 import principal.excepciones.DuracionNegativaException;
@@ -16,8 +17,8 @@ import principal.excepciones.TelfRepetidoException;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class BaseDeDatos implements Serializable {
     //ATRIBUTOS
@@ -105,7 +106,7 @@ public class BaseDeDatos implements Serializable {
     private <T extends TieneFecha> Collection<T> entreFechas(Collection<T> conjunto, LocalDate fechaIni, LocalDate fechaFin)
             throws IntervaloFechasIncorrectoException {
         if (fechaIni.isAfter(fechaFin)) throw new IntervaloFechasIncorrectoException();
-        Collection<T> res = new HashSet<>();
+        Collection<T> res = new TreeSet<>(new ComparadorFechas());
         for (T elem : conjunto) {
             LocalDate fecha = elem.getFecha();
             if (fecha.isAfter(fechaIni) && fecha.isBefore(fechaFin) || (fecha.isEqual(fechaIni) || fecha.isEqual(fechaFin)))
