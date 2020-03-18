@@ -2,12 +2,13 @@ package principal.acciones;
 
 import datos.clientes.Direccion;
 import interfaces.Accion;
+import principal.BaseDeDatos;
 import principal.excepciones.NifRepetidoException;
 import principal.excepciones.TelfRepetidoException;
 
 public class DarAltaCliente implements Accion {
     @Override
-    public void ejecutaAccion() {
+    public void ejecutaAccion(BaseDeDatos baseDeDatos) {
         try {
             //Scanner sc = new Scanner(System.in);
             System.out.println("\nDAR DE ALTA UN NUEVO CLIENTE");

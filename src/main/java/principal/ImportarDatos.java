@@ -1,7 +1,8 @@
-package principal.acciones;
+package principal;
 
 import interfaces.Accion;
 import principal.BaseDeDatos;
+import principal.Salida;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -10,13 +11,13 @@ import java.io.ObjectInputStream;
 
 public class ImportarDatos implements Accion {
     @Override
-    public void ejecutaAccion() {
+    public void ejecutaAccion(BaseDeDatos baseDeDatos) {
         ObjectInputStream ois = null;
         try {
             try {
                 FileInputStream fis = new FileInputStream("baseDeDatos.bin");
                 ois = new ObjectInputStream(fis);
-                baseDeDatos = (BaseDeDatos) ois.readObject();
+                MenuYopcion.baseDeDatos = (BaseDeDatos) ois.readObject();
                 System.out.println("\n-------> DATOS IMPORTADOS CORRECTAMENTE <-------");
             } finally {
                 if (ois != null) ois.close();

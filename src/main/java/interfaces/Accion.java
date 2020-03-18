@@ -1,5 +1,9 @@
 package interfaces;
 
+import principal.BaseDeDatos;
+import java.util.Scanner;
+
 public interface Accion {
-    void ejecutaAccion();
+    Scanner sc = new Scanner(System.in);
+    void ejecutaAccion(BaseDeDatos baseDeDatos);
 }

@@ -159,4 +159,5 @@ public class BaseDeDatos implements Serializable {
     public String listarFacturasCliente(String nif) {
         return listar(devolverFacturas(nif));
     }
+
 }

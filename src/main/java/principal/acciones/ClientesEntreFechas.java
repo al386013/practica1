@@ -1,13 +1,14 @@
 package principal.acciones;
 
 import interfaces.Accion;
+import principal.BaseDeDatos;
 import principal.excepciones.IntervaloFechasIncorrectoException;
 
 import java.time.LocalDate;
 
 public class ClientesEntreFechas implements Accion {
     @Override
-    public void ejecutaAccion() {
+    public void ejecutaAccion(BaseDeDatos baseDeDatos) {
         try {
             System.out.println("\nMOSTRAR LISTADO DE LOS CLIENTES DADOS DE ALTA ENTRE DOS FECHAS");
             System.out.print("- Introduce la fecha de inicio (formato aaaa-mm-dd): ");

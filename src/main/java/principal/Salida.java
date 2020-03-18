@@ -10,17 +10,19 @@ import java.io.*;
 import java.time.LocalDate;
 import java.util.Scanner;
 
-public class Salida implements Serializable {
-    private BaseDeDatos baseDeDatos;
+public class Salida implements Serializable {/*
+    //private BaseDeDatos baseDeDatos;
+    static BaseDeDatos baseDeDatos;
     private transient Scanner sc = new Scanner(System.in);
-    private transient MenuPrincipal opcionMenu = null;
+    //private transient MenuPrincipal opcionMenu = null;
+    static transient MenuPrincipal opcionMenu = null;
 
     public Salida(BaseDeDatos baseDeDatos) {
         this.baseDeDatos = baseDeDatos;
-    }
+    }*/
 
     //METODOS DEL MENU: MOSTRAR Y PEDIR OPCIONES Y LANZAR METODOS
-
+    /*
     public void menuYopcion() {
         while (opcionMenu != MenuPrincipal.SALIR_GUARDAR) {
             System.out.println("\n* * * * * * * OPCIONES DISPONIBLES * * * * * * *\n");
@@ -30,7 +32,7 @@ public class Salida implements Serializable {
             if(opcion < 0 || opcion > 4) System.out.println("\n-------------> Opcion incorrecta <-------------");
             else {
                 opcionMenu = MenuPrincipal.getOpcion(opcion); //es un atributo global para toda la clase
-                lanzarOpcionPrincipal();
+                //lanzarOpcionPrincipal();
             }
         }
     }
@@ -139,7 +141,7 @@ public class Salida implements Serializable {
         if(opcion < 0 || opcion > 7)
             throw new OpcionIncorrectaException();
         MenuClientes opcionClientes = MenuClientes.getOpcion(opcion);
-        lanzarOpcionClientes(opcionClientes);
+        //lanzarOpcionClientes(opcionClientes);
     }
 
     private void seleccionaOpcionLlamadas() throws OpcionIncorrectaException {
@@ -150,7 +152,7 @@ public class Salida implements Serializable {
         if(opcion < 0 || opcion > 4)
             throw new OpcionIncorrectaException();
         MenuLlamadas opcionLlamadas = MenuLlamadas.getOpcion(opcion);
-        lanzarOpcionLlamadas(opcionLlamadas);
+        //lanzarOpcionLlamadas(opcionLlamadas);
     }
 
     private void seleccionaOpcionFacturas() throws OpcionIncorrectaException {
@@ -161,7 +163,7 @@ public class Salida implements Serializable {
         if(opcion < 0 || opcion > 5)
             throw new OpcionIncorrectaException();
         MenuFacturas opcionFacturas = MenuFacturas.getOpcion(opcion);
-        lanzarOpcionFacturas(opcionFacturas);
+        //lanzarOpcionFacturas(opcionFacturas);
     }
 
 
@@ -392,5 +394,5 @@ public class Salida implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }
