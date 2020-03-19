@@ -1,16 +1,5 @@
 package menus;
 
-<<<<<<< HEAD
-import interfaces.DescripcionMenu;
-import principal.acciones.ImportarDatos;
-
-public enum MenuPrincipal implements DescripcionMenu {
-    CARGAR_DATOS("Importar los datos.", new ImportarDatos()),
-    CLIENTES("Operacion clientes."),
-    LLAMADAS("Operacion llamadas."),
-    FACTURAS("Operacion facturas."),
-    SALIR_GUARDAR("Salir y guardar datos.");
-=======
 import interfaces.Accion;
 import principal.BaseDeDatos;
 import principal.ExportarDatosYsalir;
@@ -20,8 +9,6 @@ import principal.acciones.SeleccionaOpcionFacturas;
 import principal.acciones.SeleccionaOpcionLlamada;
 
 public enum MenuPrincipal { //implements DescripcionMenu
->>>>>>> f7178cbc2396706556e9f9fd84b24784439b3f9f
-
     CARGAR_DATOS("Importar los datos.", new ImportarDatos()),
     CLIENTES("Operacion clientes.", new SeleccionaOpcionClientes()),
     LLAMADAS("Operacion llamadas.", new SeleccionaOpcionLlamada()),
