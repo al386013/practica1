@@ -2,6 +2,8 @@ package principal;
 
 import interfaces.Accion;
 import menus.MenuPrincipal;
+import principal.acciones.SeleccionaOpcionPrincipal;
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -13,7 +15,7 @@ public class ExportarDatosYsalir implements Accion {
         ObjectOutputStream oos = null;
         try {
             try {
-                MenuYopcion.opcionMenu = MenuPrincipal.SALIR_GUARDAR;
+                SeleccionaOpcionPrincipal.opcionMenu = MenuPrincipal.SALIR_GUARDAR;
                 FileOutputStream fos = new FileOutputStream("baseDeDatos.bin");
                 oos = new ObjectOutputStream(fos);
                 oos.writeObject(baseDeDatos);
