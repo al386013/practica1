@@ -2,6 +2,7 @@ package principal;
 
 import interfaces.Accion;
 import menus.MenuPrincipal;
+import principal.excepciones.OpcionIncorrectaException;
 
 import java.util.Scanner;
 

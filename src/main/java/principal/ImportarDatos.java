@@ -3,7 +3,6 @@ package principal;
 import interfaces.Accion;
 import principal.BaseDeDatos;
 import principal.Salida;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
