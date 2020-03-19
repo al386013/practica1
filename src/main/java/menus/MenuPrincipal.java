@@ -10,7 +10,6 @@ import principal.acciones.SeleccionaOpcionLlamada;
 import principal.excepciones.OpcionIncorrectaException;
 
 public enum MenuPrincipal { //implements DescripcionMenu
-
     CARGAR_DATOS("Importar los datos.", new ImportarDatos()),
     CLIENTES("Operacion clientes.", new SeleccionaOpcionClientes()),
     LLAMADAS("Operacion llamadas.", new SeleccionaOpcionLlamada()),

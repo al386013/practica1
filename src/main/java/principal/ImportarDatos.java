@@ -3,6 +3,8 @@ package principal;
 import interfaces.Accion;
 import principal.BaseDeDatos;
 import principal.Salida;
+import principal.acciones.SeleccionaOpcionPrincipal;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,7 +18,7 @@ public class ImportarDatos implements Accion {
             try {
                 FileInputStream fis = new FileInputStream("baseDeDatos.bin");
                 ois = new ObjectInputStream(fis);
-                MenuYopcion.baseDeDatos = (BaseDeDatos) ois.readObject();
+                SeleccionaOpcionPrincipal.baseDeDatos = (BaseDeDatos) ois.readObject();
                 System.out.println("\n-------> DATOS IMPORTADOS CORRECTAMENTE <-------");
             } finally {
                 if (ois != null) ois.close();
