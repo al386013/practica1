@@ -19,7 +19,7 @@ public abstract class Cliente implements TieneFecha, Serializable {
     private Tarifa tarifa;
 
     private Set<Factura> facturas; //conjunto con todas las facturas del cliente
-    private Set<Llamada> llamadas; //conjunto con todas las llamadas del cliente
+    private TreeSet<Llamada> llamadas; //conjunto con todas las llamadas del cliente
 
     //CONSSTRUCTOR POR DEFECTO
     public Cliente() {
@@ -31,8 +31,8 @@ public abstract class Cliente implements TieneFecha, Serializable {
         this.fechaDeAlta = null;
         this.tarifa = null;
         this.facturas = new HashSet<Factura>();
-        this.llamadas = new HashSet<Llamada>();
-        //this.llamadas = new TreeSet<Llamada>(new ComparadorFechas<>());
+        //this.llamadas = new HashSet<Llamada>();
+        this.llamadas = new TreeSet<Llamada>(new ComparadorFechas<>());
     }
 
     public Cliente(final String nombre, final String telefono, final String NIF, final Direccion direccion, final String email, final Tarifa tarifa) {
@@ -44,8 +44,8 @@ public abstract class Cliente implements TieneFecha, Serializable {
         this.fechaDeAlta = LocalDate.now();
         this.tarifa = tarifa;
         this.facturas = new HashSet<Factura>();
-        this.llamadas = new HashSet<Llamada>();
-        //this.llamadas = new TreeSet<Llamada>(new ComparadorFechas<>());
+        //this.llamadas = new HashSet<Llamada>();
+        this.llamadas = new TreeSet<Llamada>(new ComparadorFechas<>());
     }
 
     public String getNombre() {

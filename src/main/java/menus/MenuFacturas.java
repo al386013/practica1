@@ -5,6 +5,7 @@ import principal.BaseDeDatos;
 import principal.ExportarDatosYsalir;
 import principal.MenuYopcion;
 import principal.acciones.*;
+import principal.excepciones.OpcionIncorrectaException;
 
 public enum MenuFacturas  { //implements DescripcionMenu
     EMITIR_FACTURA("Emitir una factura para un cliente.", new EmiteFactura()),
@@ -40,7 +41,11 @@ public enum MenuFacturas  { //implements DescripcionMenu
     }
 
     public void ejecutaOpcion(BaseDeDatos baseDeDatos) {
-        accion.ejecutaAccion(baseDeDatos);
+        try {
+            accion.ejecutaAccion(baseDeDatos);
+        } catch(OpcionIncorrectaException e) {
+            e.printStackTrace();
+        }
     }
 
     //----------------------------

@@ -3,8 +3,8 @@ package menus;
 import interfaces.Accion;
 import principal.BaseDeDatos;
 import principal.ExportarDatosYsalir;
-import principal.MenuYopcion;
 import principal.acciones.*;
+import principal.excepciones.OpcionIncorrectaException;
 
 public enum MenuClientes { // implements DescripcionMenu
     DAR_ALTA_CLIENTE("Dar de alta un nuevo cliente.", new DarAltaCliente()),
@@ -42,7 +42,11 @@ public enum MenuClientes { // implements DescripcionMenu
     }
 
     public void ejecutaOpcion(BaseDeDatos baseDeDatos) {
-        accion.ejecutaAccion(baseDeDatos);
+        try {
+            accion.ejecutaAccion(baseDeDatos);
+        } catch(OpcionIncorrectaException e) {
+            e.printStackTrace();
+        }
     }
 
     //-------------------------
