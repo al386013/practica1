@@ -1,6 +1,8 @@
 package main;
 
 import principal.*;
+import principal.Salida;
+
 import java.io.Serializable;
 
 public class Main implements Serializable {

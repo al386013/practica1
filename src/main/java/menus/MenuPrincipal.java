@@ -1,9 +1,10 @@
 package menus;
 
 import interfaces.DescripcionMenu;
+import principal.acciones.ImportarDatos;
 
 public enum MenuPrincipal implements DescripcionMenu {
-    CARGAR_DATOS("Importar los datos."),
+    CARGAR_DATOS("Importar los datos.", new ImportarDatos()),
     CLIENTES("Operacion clientes."),
     LLAMADAS("Operacion llamadas."),
     FACTURAS("Operacion facturas."),
