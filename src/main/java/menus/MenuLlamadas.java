@@ -1,15 +1,50 @@
 package menus;
 
-import interfaces.DescripcionMenu;
+import interfaces.Accion;
+import principal.BaseDeDatos;
+import principal.ExportarDatosYsalir;
+import principal.MenuYopcion;
+import principal.acciones.*;
 
-public enum MenuLlamadas implements DescripcionMenu {
-    DAR_ALTA_LLAMADA("Dar de alta una llamada."),
-    LLAMADAS_CLIENTE("Listar todas las llamadas de un cliente."),
-    LLAMADAS_ENTRE_FECHAS("Mostrar listado de llamadas de un cliente realizadas entre dos fechas."),
-    VOLVER_MENU_PRINCIPAL("Volver al menu principal."),
-    SALIR_GUARDAR("Salir y guardar datos.");
+public enum MenuLlamadas { //implements DescripcionMenu
+    DAR_ALTA_LLAMADA("Dar de alta una llamada.", new DaAltaLlamada()),
+    LLAMADAS_CLIENTE("Listar todas las llamadas de un cliente.", new LlamadasCliente()),
+    LLAMADAS_ENTRE_FECHAS("Mostrar listado de llamadas de un cliente realizadas entre dos fechas.", new LlamadasClienteEntreFechas()),
+    //VOLVER_MENU_PRINCIPAL("Volver al menu principal.", new MenuYopcion()),
+    SALIR_GUARDAR("Salir y guardar datos.", new ExportarDatosYsalir());
 
-    private String descripcion;
+    //---------------------
+
+    private String textoOpcion;
+    private Accion accion;
+
+    private MenuLlamadas(final String textoOpcion, final Accion accion) {
+        this.textoOpcion = textoOpcion;
+        this.accion = accion;
+    }
+
+    public static MenuLlamadas getOpcion(int posicion) {
+        return values()[posicion];
+    }
+
+    public static String getMenu() {
+        StringBuilder sb = new StringBuilder();
+        for(MenuLlamadas opcion: MenuLlamadas.values()) {
+            sb.append(opcion.ordinal());
+            sb.append(".- ");
+            sb.append(opcion.textoOpcion);
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+
+    public void ejecutaOpcion(BaseDeDatos baseDeDatos) {
+        accion.ejecutaAccion(baseDeDatos);
+    }
+
+    //----------------------------
+
+    /*private String descripcion;
 
     private MenuLlamadas(String descripcion) {
         this.descripcion = descripcion;
@@ -32,5 +67,5 @@ public enum MenuLlamadas implements DescripcionMenu {
             sb.append("\n");
         }
         return sb.toString();
-    }
+    }*/
 }

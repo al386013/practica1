@@ -1,5 +1,6 @@
 package menus;
 
+<<<<<<< HEAD
 import interfaces.DescripcionMenu;
 import principal.acciones.ImportarDatos;
 
@@ -9,8 +10,56 @@ public enum MenuPrincipal implements DescripcionMenu {
     LLAMADAS("Operacion llamadas."),
     FACTURAS("Operacion facturas."),
     SALIR_GUARDAR("Salir y guardar datos.");
+=======
+import interfaces.Accion;
+import principal.BaseDeDatos;
+import principal.ExportarDatosYsalir;
+import principal.ImportarDatos;
+import principal.acciones.SeleccionaOpcionClientes;
+import principal.acciones.SeleccionaOpcionFacturas;
+import principal.acciones.SeleccionaOpcionLlamada;
 
-    private String descripcion;
+public enum MenuPrincipal { //implements DescripcionMenu
+>>>>>>> f7178cbc2396706556e9f9fd84b24784439b3f9f
+
+    CARGAR_DATOS("Importar los datos.", new ImportarDatos()),
+    CLIENTES("Operacion clientes.", new SeleccionaOpcionClientes()),
+    LLAMADAS("Operacion llamadas.", new SeleccionaOpcionLlamada()),
+    FACTURAS("Operacion facturas.", new SeleccionaOpcionFacturas()),
+    SALIR_GUARDAR("Salir y guardar datos.", new ExportarDatosYsalir());
+
+    //-------------------------
+
+    private String textoOpcion;
+    private Accion accion;
+
+    private MenuPrincipal(final String textoOpcion, final Accion accion) {
+        this.textoOpcion = textoOpcion;
+        this.accion = accion;
+    }
+
+    public static MenuPrincipal getOpcion(int posicion) {
+        return values()[posicion];
+    }
+
+    public static String getMenu() {
+        StringBuilder sb = new StringBuilder();
+        for(MenuPrincipal opcion: MenuPrincipal.values()) {
+            sb.append(opcion.ordinal());
+            sb.append(".- ");
+            sb.append(opcion.textoOpcion);
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+
+    public void ejecutaOpcion(BaseDeDatos baseDeDatos) {
+        accion.ejecutaAccion(baseDeDatos);
+    }
+
+    //-------------------------
+
+    /*private String descripcion;
 
     private MenuPrincipal(String descripcion) {
         this.descripcion = descripcion;
@@ -33,5 +82,5 @@ public enum MenuPrincipal implements DescripcionMenu {
             sb.append("\n");
         }
         return sb.toString();
-    }
+    }*/
 }

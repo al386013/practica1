@@ -1,12 +1,14 @@
 package principal.acciones;
 
 import interfaces.Accion;
+import principal.BaseDeDatos;
 
 public class CambiarTarifa implements Accion {
     @Override
-    public void ejecutaAccion() {
+    public void ejecutaAccion(BaseDeDatos baseDeDatos) {
         System.out.println("\nCAMBIAR LA TARIFA DE UN CLIENTE");
-        String nif = pedirNifExistente();
+        //String nif = pedirNifExistente();
+        String nif = PedirNifExistente.pedir(baseDeDatos);
         System.out.print("- Introduce la tarifa deseada (en _,_ €/min): ");
         float tarifa = sc.nextFloat();
         while (tarifa < 0 || tarifa > 100) {

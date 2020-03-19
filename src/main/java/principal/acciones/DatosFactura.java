@@ -1,10 +1,11 @@
 package principal.acciones;
 
 import interfaces.Accion;
+import principal.BaseDeDatos;
 
 public class DatosFactura implements Accion {
     @Override
-    public void ejecutaAccion() {
+    public void ejecutaAccion(BaseDeDatos baseDeDatos) {
         System.out.println("\nRECUPERAR DATOS DE UNA FACTURA");
         System.out.print("- Introduce su codigo: ");
         int cod = sc.nextInt();
