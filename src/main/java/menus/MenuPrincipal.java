@@ -7,6 +7,7 @@ import principal.ImportarDatos;
 import principal.acciones.SeleccionaOpcionClientes;
 import principal.acciones.SeleccionaOpcionFacturas;
 import principal.acciones.SeleccionaOpcionLlamada;
+import principal.excepciones.OpcionIncorrectaException;
 
 public enum MenuPrincipal { //implements DescripcionMenu
 
@@ -42,7 +43,11 @@ public enum MenuPrincipal { //implements DescripcionMenu
     }
 
     public void ejecutaOpcion(BaseDeDatos baseDeDatos) {
-        accion.ejecutaAccion(baseDeDatos);
+        try {
+            accion.ejecutaAccion(baseDeDatos);
+        } catch(OpcionIncorrectaException e) {
+            e.printStackTrace();
+        }
     }
 
     //-------------------------
