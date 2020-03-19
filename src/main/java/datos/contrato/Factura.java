@@ -6,11 +6,14 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Formatter;
 import java.util.Set;
 
 public class Factura implements TieneFecha, Serializable {
     private Tarifa tarifa;
-    private LocalDate fechaEmision;
+    private LocalDateTime fechaEmision;
     private PeriodoFacturacion periodoFact;
     private float importe;
     private String nifCliente;
@@ -29,7 +32,7 @@ public class Factura implements TieneFecha, Serializable {
 
     public Factura(PeriodoFacturacion periodoFact, String nifCliente, Set<Llamada> llamadas, Tarifa tarifa) {
         this.tarifa = tarifa;
-        this.fechaEmision = LocalDate.now();
+        this.fechaEmision = LocalDateTime.now();
         this.periodoFact = periodoFact;
         this.importe = calcularImporte(tarifa, llamadas);
         this.nifCliente = nifCliente;
@@ -54,8 +57,10 @@ public class Factura implements TieneFecha, Serializable {
 
     @Override
     public LocalDate getFecha() {
-        return this.fechaEmision;
+        return this.fechaEmision.toLocalDate();
     }
+
+    public LocalTime getHora() { return this.fechaEmision.toLocalTime(); }
 
     private float calcularImporte(Tarifa tarifa, Set<Llamada> llamadas) {
         int segundosTotales = 0;
@@ -73,11 +78,13 @@ public class Factura implements TieneFecha, Serializable {
 
     @Override
     public String toString() {
+        Formatter obj = new Formatter();
         StringBuilder sb = new StringBuilder();
         sb.append("\nCodigo de factura: " + this.hashCode() + ":");
         sb.append("\n\tNIF: " + nifCliente);
         sb.append("\n\tTarifa: " + tarifa);
-        sb.append("\n\tFecha de emision: " + fechaEmision.toString());
+        sb.append("\n\tFecha de emision: " + getFecha().toString());
+        sb.append("\n\tHora de emision: " + obj.format("%02d:%02d", getHora().getHour(), getHora().getMinute()));
         sb.append("\n\tPeriodo de facturacion: " + periodoFact);
         sb.append("\n\tImporte: " + importe + "€");
         sb.append("\n\tLista de llamadas de esta factura:\n");

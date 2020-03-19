@@ -14,8 +14,6 @@ public class SeleccionaOpcionClientes implements Accion {
         byte opcion = sc.nextByte();
         if(opcion < 0 || opcion > 7)
             throw new OpcionIncorrectaException();
-        /*if (opcion < 0 || opcion > 7)
-            System.out.println("\n-------------> Opcion incorrecta <-------------"); */
         else {
             MenuClientes opcionClientes = MenuClientes.getOpcion(opcion);
             opcionClientes.ejecutaOpcion(baseDeDatos);

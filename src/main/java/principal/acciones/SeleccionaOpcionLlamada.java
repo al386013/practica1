@@ -14,8 +14,6 @@ public class SeleccionaOpcionLlamada implements Accion {
         byte opcion = sc.nextByte();
         if(opcion < 0 || opcion > 4)
             throw new OpcionIncorrectaException();
-        /*if (opcion < 0 || opcion > 4)
-            System.out.println("\n-------------> Opcion incorrecta <-------------"); */
         else {
             MenuLlamadas opcionLlamadas = MenuLlamadas.getOpcion(opcion);
             opcionLlamadas.ejecutaOpcion(baseDeDatos);

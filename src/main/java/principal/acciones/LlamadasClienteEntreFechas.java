@@ -12,7 +12,7 @@ public class LlamadasClienteEntreFechas implements Accion {
         try {
             System.out.println("\nMOSTRAR LISTADO DE LAS LLAMADAS REALIZADAS ENTRE DOS FECHAS");
             //String telf = pedirTelfExistente();
-            String telf = PedirNifExistente.pedir(baseDeDatos);
+            String telf = PedirTelfExistente.pedir(baseDeDatos);
             System.out.print("- Introduce la fecha de inicio (formato aaaa-mm-dd): ");
             LocalDate fechaIni = LocalDate.parse(sc.next());
             System.out.print("- Introduce la fecha de fin (formato aaaa-mm-dd): ");

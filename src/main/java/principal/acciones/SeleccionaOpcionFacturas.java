@@ -14,8 +14,6 @@ public class SeleccionaOpcionFacturas implements Accion {
         byte opcion = sc.nextByte();
         if(opcion < 0 || opcion > 5)
             throw new OpcionIncorrectaException();
-        /*if (opcion < 0 || opcion > 5)
-            System.out.println("\n-------------> Opcion incorrecta <-------------");*/
         else {
             MenuFacturas opcionFacturas = MenuFacturas.getOpcion(opcion);
             opcionFacturas.ejecutaOpcion(baseDeDatos);

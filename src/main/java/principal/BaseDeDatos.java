@@ -1,5 +1,6 @@
 package principal;
 
+import datos.ComparadorFechaHora;
 import datos.clientes.Cliente;
 import datos.clientes.Direccion;
 import datos.clientes.Empresa;
@@ -7,7 +8,6 @@ import datos.clientes.Particular;
 import datos.contrato.Factura;
 import datos.contrato.PeriodoFacturacion;
 import datos.contrato.Tarifa;
-import datos.ComparadorFechas;
 import datos.llamadas.Llamada;
 import interfaces.TieneFecha;
 import principal.excepciones.DuracionNegativaException;
@@ -106,7 +106,7 @@ public class BaseDeDatos implements Serializable {
     private <T extends TieneFecha> Collection<T> entreFechas(Collection<T> conjunto, LocalDate fechaIni, LocalDate fechaFin)
             throws IntervaloFechasIncorrectoException {
         if (fechaIni.isAfter(fechaFin)) throw new IntervaloFechasIncorrectoException();
-        Collection<T> res = new TreeSet<>(new ComparadorFechas());
+        Collection<T> res = new TreeSet(new ComparadorFechaHora());
         for (T elem : conjunto) {
             LocalDate fecha = elem.getFecha();
             if (fecha.isAfter(fechaIni) && fecha.isBefore(fechaFin) || (fecha.isEqual(fechaIni) || fecha.isEqual(fechaFin)))
@@ -159,5 +159,4 @@ public class BaseDeDatos implements Serializable {
     public String listarFacturasCliente(String nif) {
         return listar(devolverFacturas(nif));
     }
-
 }

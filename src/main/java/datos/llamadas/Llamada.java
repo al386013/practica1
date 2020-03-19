@@ -1,10 +1,10 @@
 package datos.llamadas;
 
 import interfaces.TieneFecha;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Formatter;
 
 public class Llamada implements TieneFecha, Serializable {
     private String telfDest;
@@ -33,6 +33,8 @@ public class Llamada implements TieneFecha, Serializable {
         return fecha;
     }
 
+    public LocalTime getHora() { return hora; }
+
     public int getDuracion() {
         return duracion;
     }
@@ -43,9 +45,10 @@ public class Llamada implements TieneFecha, Serializable {
 
     @Override
     public String toString() {
+        Formatter obj = new Formatter();
         StringBuilder sb = new StringBuilder();
         sb.append("\t- Llamada realizada el " + fecha);
-        sb.append(" a las " + hora.getHour() + " horas y " + hora.getMinute() + " minutos");
+        sb.append(" a las " + obj.format("%02d:%02d", hora.getHour(), hora.getMinute()));
         sb.append(" con una duracion de " + duracion + " segundos");
         sb.append(" al telefono " + telfDest);
         return sb.toString();
