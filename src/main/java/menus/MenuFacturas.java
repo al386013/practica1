@@ -3,6 +3,7 @@ package menus;
 import interfaces.Accion;
 import principal.BaseDeDatos;
 import principal.ExportarDatosYsalir;
+import principal.SeleccionaOpcionPrincipal;
 import principal.acciones.*;
 import principal.excepciones.OpcionIncorrectaException;
 
@@ -11,7 +12,7 @@ public enum MenuFacturas  { //implements DescripcionMenu
     DATOS_FACTURA("Recuperar los datos de una factura a partir de su codigo.", new DatosFactura()),
     FACTURAS_CLIENTE("Recuperar todas las facturas de un cliente.", new FacturasCliente()),
     FACTURAS_ENTRE_FECHAS("Mostrar listado de facturas de un cliente emitidas entre dos fechas", new FacturasCliEntreFechas()),
-    //VOLVER_MENU_PRINCIPAL("Volver al menu principal.", new MenuYopcion()),
+    VOLVER_MENU_PRINCIPAL("Volver al menu principal.", new SeleccionaOpcionPrincipal()),
     SALIR_GUARDAR("Salir y guardar datos.", new ExportarDatosYsalir());
 
     //---------------------

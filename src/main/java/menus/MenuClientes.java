@@ -3,6 +3,7 @@ package menus;
 import interfaces.Accion;
 import principal.BaseDeDatos;
 import principal.ExportarDatosYsalir;
+import principal.SeleccionaOpcionPrincipal;
 import principal.acciones.*;
 import principal.excepciones.OpcionIncorrectaException;
 
@@ -13,7 +14,7 @@ public enum MenuClientes { // implements DescripcionMenu
     DATOS_CLIENTE("Recuperar los datos de un cliente a partir de su NIF.", new DatosCliente()),
     LISTAR_CLIENTES("Recuperar el listado de todos los clientes.", new ListadoClientes()),
     CLIENTES_ENTRE_FECHAS("Mostrar listado de clientes dados de alta entre dos fechas.", new ClientesEntreFechas()),
-    //VOLVER_MENU_PRINCIPAL("Volver al menu principal.", new MenuYopcion()),
+    VOLVER_MENU_PRINCIPAL("Volver al menu principal.", new SeleccionaOpcionPrincipal()),
     SALIR_GUARDAR("Salir y guardar datos.", new ExportarDatosYsalir());
 
     //-------------------------

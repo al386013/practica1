@@ -3,7 +3,7 @@ package menus;
 import interfaces.Accion;
 import principal.BaseDeDatos;
 import principal.ExportarDatosYsalir;
-import principal.MenuYopcion;
+import principal.SeleccionaOpcionPrincipal;
 import principal.acciones.*;
 import principal.excepciones.OpcionIncorrectaException;
 
@@ -11,7 +11,7 @@ public enum MenuLlamadas { //implements DescripcionMenu
     DAR_ALTA_LLAMADA("Dar de alta una llamada.", new DaAltaLlamada()),
     LLAMADAS_CLIENTE("Listar todas las llamadas de un cliente.", new LlamadasCliente()),
     LLAMADAS_ENTRE_FECHAS("Mostrar listado de llamadas de un cliente realizadas entre dos fechas.", new LlamadasClienteEntreFechas()),
-    //VOLVER_MENU_PRINCIPAL("Volver al menu principal.", new MenuYopcion()),
+    VOLVER_MENU_PRINCIPAL("Volver al menu principal.", new SeleccionaOpcionPrincipal()),
     SALIR_GUARDAR("Salir y guardar datos.", new ExportarDatosYsalir());
 
     //---------------------
@@ -30,7 +30,7 @@ public enum MenuLlamadas { //implements DescripcionMenu
 
     public static String getMenu() {
         StringBuilder sb = new StringBuilder();
-        for(MenuLlamadas opcion: MenuLlamadas.values()) {
+        for (MenuLlamadas opcion : MenuLlamadas.values()) {
             sb.append(opcion.ordinal());
             sb.append(".- ");
             sb.append(opcion.textoOpcion);
@@ -42,7 +42,7 @@ public enum MenuLlamadas { //implements DescripcionMenu
     public void ejecutaOpcion(BaseDeDatos baseDeDatos) {
         try {
             accion.ejecutaAccion(baseDeDatos);
-        } catch(OpcionIncorrectaException e) {
+        } catch (OpcionIncorrectaException e) {
             e.printStackTrace();
         }
     }

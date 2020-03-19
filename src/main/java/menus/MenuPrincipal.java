@@ -32,7 +32,7 @@ public enum MenuPrincipal { //implements DescripcionMenu
 
     public static String getMenu() {
         StringBuilder sb = new StringBuilder();
-        for(MenuPrincipal opcion: MenuPrincipal.values()) {
+        for (MenuPrincipal opcion : MenuPrincipal.values()) {
             sb.append(opcion.ordinal());
             sb.append(".- ");
             sb.append(opcion.textoOpcion);
@@ -44,7 +44,7 @@ public enum MenuPrincipal { //implements DescripcionMenu
     public void ejecutaOpcion(BaseDeDatos baseDeDatos) {
         try {
             accion.ejecutaAccion(baseDeDatos);
-        } catch(OpcionIncorrectaException e) {
+        } catch (OpcionIncorrectaException e) {
             e.printStackTrace();
         }
     }

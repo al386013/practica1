@@ -12,7 +12,7 @@ public class SeleccionaOpcionClientes implements Accion {
         System.out.println(MenuClientes.getMenu());
         System.out.print("Introduce una opción: ");
         byte opcion = sc.nextByte();
-        if(opcion < 0 || opcion > 6)
+        if(opcion < 0 || opcion > 7)
             throw new OpcionIncorrectaException();
         /*if (opcion < 0 || opcion > 7)
             System.out.println("\n-------------> Opcion incorrecta <-------------"); */

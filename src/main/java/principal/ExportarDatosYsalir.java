@@ -2,8 +2,6 @@ package principal;
 
 import interfaces.Accion;
 import menus.MenuPrincipal;
-import principal.acciones.SeleccionaOpcionPrincipal;
-
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
