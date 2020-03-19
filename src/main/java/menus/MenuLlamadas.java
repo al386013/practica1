@@ -5,6 +5,7 @@ import principal.BaseDeDatos;
 import principal.ExportarDatosYsalir;
 import principal.MenuYopcion;
 import principal.acciones.*;
+import principal.excepciones.OpcionIncorrectaException;
 
 public enum MenuLlamadas { //implements DescripcionMenu
     DAR_ALTA_LLAMADA("Dar de alta una llamada.", new DaAltaLlamada()),
@@ -39,7 +40,11 @@ public enum MenuLlamadas { //implements DescripcionMenu
     }
 
     public void ejecutaOpcion(BaseDeDatos baseDeDatos) {
-        accion.ejecutaAccion(baseDeDatos);
+        try {
+            accion.ejecutaAccion(baseDeDatos);
+        } catch(OpcionIncorrectaException e) {
+            e.printStackTrace();
+        }
     }
 
     //----------------------------
