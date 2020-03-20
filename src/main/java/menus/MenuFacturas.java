@@ -2,8 +2,8 @@ package menus;
 
 import interfaces.Accion;
 import principal.BaseDeDatos;
-import principal.ExportarDatosYsalir;
-import principal.SeleccionaOpcionPrincipal;
+import principal.acciones.ExportarDatosYsalir;
+import principal.acciones.SeleccionaOpcionPrincipal;
 import principal.acciones.*;
 import principal.excepciones.OpcionIncorrectaException;
 
