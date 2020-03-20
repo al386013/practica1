@@ -1,7 +1,8 @@
-package principal;
+package principal.acciones;
 
 import interfaces.Accion;
 import menus.MenuPrincipal;
+import principal.BaseDeDatos;
 import principal.excepciones.OpcionIncorrectaException;
 import java.io.Serializable;
 import java.util.Scanner;

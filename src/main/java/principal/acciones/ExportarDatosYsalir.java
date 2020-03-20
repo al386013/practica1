@@ -1,7 +1,9 @@
-package principal;
+package principal.acciones;
 
 import interfaces.Accion;
 import menus.MenuPrincipal;
+import principal.BaseDeDatos;
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
