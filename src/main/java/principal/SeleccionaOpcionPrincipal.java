@@ -42,5 +42,4 @@ public class SeleccionaOpcionPrincipal implements Accion, Serializable {
             throw new OpcionIncorrectaException();
         return opcion;
     }
-    
 }
