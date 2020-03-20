@@ -17,7 +17,6 @@ public enum MenuPrincipal { //implements DescripcionMenu
     SALIR_GUARDAR("Salir y guardar datos.", new ExportarDatosYsalir());
 
     //-------------------------
-
     private String textoOpcion;
     private Accion accion;
 
