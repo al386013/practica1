@@ -1,4 +1,4 @@
-package principal.excepciones;
+package principal;
 
 public class Hola {
     private String hola;
