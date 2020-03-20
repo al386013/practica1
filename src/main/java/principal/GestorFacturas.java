@@ -1,4 +1,4 @@
-qpackage principal;
+package principal;
 
 import datos.contrato.Factura;
 import java.io.Serializable;
