@@ -31,7 +31,7 @@ public class GestorFacturasTest {
         Direccion dirMaria = new Direccion("12005", "Castellon de la plana", "Castelllon");
         baseDeDatos.anadirParticular("alberto", "prado banarro", "600600600", "12341234", dirMaria, "mariaprado@gmail.com");
         maria = gestorClientes.devuelveCliente("12341234");
-
+        //maria hace una llamada
         baseDeDatos.darDeAltaLlamada("600600600", "000000000", 130);
 
         //cargamos la base de datos con algunos clientes
@@ -51,9 +51,9 @@ public class GestorFacturasTest {
         }
     }
 
+    //test de emitirFactura y listarDatosFactura
     @Test
-    public void testEmitirListarFactura() throws IntervaloFechasIncorrectoException {
-
+    public void testEmitirListarFactura() {
         baseDeDatos.darDeAltaLlamada("600600600", "111111111", 40);
 
         //emite una factura para alberto con todas las llamadas desde ayer a hoy (las 50 anadidas)
@@ -70,8 +70,8 @@ public class GestorFacturasTest {
             assertEquals(factura.getImporte(), (170 / 60.0) * 0.05f, 0.005);
         }
         //listar los datos de la factura
-        Formatter obj = new Formatter();
-        Formatter hora = obj.format("%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute());
+        Formatter hora = new Formatter();
+        hora.format("%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute());
         assertEquals(baseDeDatos.listarDatosFactura(codFact), "\nCodigo de factura: " + codFact + ":" +
                 "\n\tNIF: 12341234" +
                 "\n\tTarifa: 0.05 €/min" +

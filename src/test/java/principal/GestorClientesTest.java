@@ -143,6 +143,7 @@ public class GestorClientesTest {
     @Test
     public void testDarDeAltaLlamada() {
         baseDeDatos.darDeAltaLlamada("692242216", "000000000", 120);
+        baseDeDatos.darDeAltaLlamada("692242216", "000000000", 120);
         Formatter obj = new Formatter();
         assertEquals(baseDeDatos.listarLlamadasCliente("692242216"),
                 "\t- Llamada realizada el " + LocalDate.now()
