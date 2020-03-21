@@ -33,6 +33,7 @@ public class Llamada implements TieneFecha, Serializable {
         return fecha;
     }
 
+    @Override
     public LocalTime getHora() { return hora; }
 
     public int getDuracion() {

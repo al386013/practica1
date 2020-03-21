@@ -16,10 +16,10 @@ public class GestorFacturas implements Serializable {
     }
 
     //Metodo listarDatosFactura: recupera los datos de la factura a partir de su codigo
-    public String listarDatosFactura(int cod) {
+    public String listarDatosFactura(int cod) throws IllegalArgumentException {
         Factura factura = totalFacturas.get(cod);
-        if (factura == null) return null;
-        else return factura.toString();
+        if(factura == null) throw new IllegalArgumentException("La factura de codigo " + cod + " no existe. ");
+        return factura.toString();
     }
 
     //Metodo emitirFactura: anade una factura a totalFacturas

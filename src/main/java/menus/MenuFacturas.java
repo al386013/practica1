@@ -1,21 +1,22 @@
 package menus;
 
+import acciones.DatosFactura;
+import acciones.EmiteFactura;
+import acciones.FacturasCliEntreFechas;
+import acciones.FacturasCliente;
 import interfaces.Accion;
 import principal.BaseDeDatos;
-import principal.acciones.ExportarDatosYsalir;
-import principal.acciones.SeleccionaOpcionPrincipal;
-import principal.acciones.*;
-import principal.excepciones.OpcionIncorrectaException;
+import acciones.ExportarDatosYsalir;
+import acciones.SeleccionaOpcionPrincipal;
+import acciones.OpcionIncorrectaException;
 
-public enum MenuFacturas  { //implements DescripcionMenu
+public enum MenuFacturas {
     EMITIR_FACTURA("Emitir una factura para un cliente.", new EmiteFactura()),
     DATOS_FACTURA("Recuperar los datos de una factura a partir de su codigo.", new DatosFactura()),
     FACTURAS_CLIENTE("Recuperar todas las facturas de un cliente.", new FacturasCliente()),
     FACTURAS_ENTRE_FECHAS("Mostrar listado de facturas de un cliente emitidas entre dos fechas", new FacturasCliEntreFechas()),
     VOLVER_MENU_PRINCIPAL("Volver al menu principal.", new SeleccionaOpcionPrincipal()),
     SALIR_GUARDAR("Salir y guardar datos.", new ExportarDatosYsalir());
-
-    //---------------------
 
     private String textoOpcion;
     private Accion accion;
@@ -31,7 +32,7 @@ public enum MenuFacturas  { //implements DescripcionMenu
 
     public static String getMenu() {
         StringBuilder sb = new StringBuilder();
-        for(MenuFacturas opcion: MenuFacturas.values()) {
+        for (MenuFacturas opcion : MenuFacturas.values()) {
             sb.append(opcion.ordinal());
             sb.append(".- ");
             sb.append(opcion.textoOpcion);
@@ -43,35 +44,8 @@ public enum MenuFacturas  { //implements DescripcionMenu
     public void ejecutaOpcion(BaseDeDatos baseDeDatos) {
         try {
             accion.ejecutaAccion(baseDeDatos);
-        } catch(OpcionIncorrectaException e) {
+        } catch (OpcionIncorrectaException e) {
             e.printStackTrace();
         }
     }
-
-    //----------------------------
-
-    /*private String descripcion;
-
-    private MenuFacturas(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public static MenuFacturas getOpcion(int posicion) {
-        return values()[posicion];
-    }
-
-    public static String getMenu() {
-        StringBuilder sb = new StringBuilder();
-        for (MenuFacturas opcion : MenuFacturas.values()) {
-            sb.append(opcion.ordinal());
-            sb.append(".- ");
-            sb.append(opcion.getDescripcion());
-            sb.append("\n");
-        }
-        return sb.toString();
-    }*/
 }

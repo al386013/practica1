@@ -1,9 +1,8 @@
-package principal.acciones;
+package acciones;
 
 import interfaces.Accion;
 import menus.MenuFacturas;
 import principal.BaseDeDatos;
-import principal.excepciones.OpcionIncorrectaException;
 
 public class SeleccionaOpcionFacturas implements Accion {
     @Override
@@ -13,7 +12,7 @@ public class SeleccionaOpcionFacturas implements Accion {
         System.out.print("Introduce una opción: ");
         byte opcion = sc.nextByte();
         if(opcion < 0 || opcion > 5)
-            throw new OpcionIncorrectaException();
+            throw new OpcionIncorrectaException(5);
         else {
             MenuFacturas opcionFacturas = MenuFacturas.getOpcion(opcion);
             opcionFacturas.ejecutaOpcion(baseDeDatos);

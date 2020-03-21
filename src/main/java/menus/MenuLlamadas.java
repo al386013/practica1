@@ -1,20 +1,20 @@
 package menus;
 
+import acciones.DaAltaLlamada;
+import acciones.LlamadasCliente;
+import acciones.LlamadasClienteEntreFechas;
 import interfaces.Accion;
 import principal.BaseDeDatos;
-import principal.acciones.ExportarDatosYsalir;
-import principal.acciones.SeleccionaOpcionPrincipal;
-import principal.acciones.*;
-import principal.excepciones.OpcionIncorrectaException;
+import acciones.ExportarDatosYsalir;
+import acciones.SeleccionaOpcionPrincipal;
+import acciones.OpcionIncorrectaException;
 
-public enum MenuLlamadas { //implements DescripcionMenu
+public enum MenuLlamadas {
     DAR_ALTA_LLAMADA("Dar de alta una llamada.", new DaAltaLlamada()),
     LLAMADAS_CLIENTE("Listar todas las llamadas de un cliente.", new LlamadasCliente()),
     LLAMADAS_ENTRE_FECHAS("Mostrar listado de llamadas de un cliente realizadas entre dos fechas.", new LlamadasClienteEntreFechas()),
     VOLVER_MENU_PRINCIPAL("Volver al menu principal.", new SeleccionaOpcionPrincipal()),
     SALIR_GUARDAR("Salir y guardar datos.", new ExportarDatosYsalir());
-
-    //---------------------
 
     private String textoOpcion;
     private Accion accion;
@@ -46,31 +46,4 @@ public enum MenuLlamadas { //implements DescripcionMenu
             e.printStackTrace();
         }
     }
-
-    //----------------------------
-
-    /*private String descripcion;
-
-    private MenuLlamadas(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public static MenuLlamadas getOpcion(int posicion) {
-        return values()[posicion];
-    }
-
-    public static String getMenu() {
-        StringBuilder sb = new StringBuilder();
-        for (MenuLlamadas opcion : MenuLlamadas.values()) {
-            sb.append(opcion.ordinal());
-            sb.append(".- ");
-            sb.append(opcion.getDescripcion());
-            sb.append("\n");
-        }
-        return sb.toString();
-    }*/
 }

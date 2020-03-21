@@ -1,4 +1,4 @@
-package principal.acciones;
+package acciones;
 
 import interfaces.Accion;
 import principal.BaseDeDatos;

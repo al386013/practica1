@@ -1,16 +1,13 @@
-package principal.acciones;
+package acciones;
 
 import datos.clientes.Direccion;
 import interfaces.Accion;
-import principal.BaseDeDatos;
-import principal.excepciones.NifRepetidoException;
-import principal.excepciones.TelfRepetidoException;
+import principal.*;
 
 public class DarAltaCliente implements Accion {
     @Override
     public void ejecutaAccion(BaseDeDatos baseDeDatos) {
         try {
-            //Scanner sc = new Scanner(System.in);
             System.out.println("\nDAR DE ALTA UN NUEVO CLIENTE");
             System.out.print("--> Introduce 'e' para empresa o 'p' para particular: ");
             String letra = sc.next();
@@ -28,8 +25,12 @@ public class DarAltaCliente implements Accion {
             }
             System.out.print("- Introduce NIF: ");
             String nif = sc.next();
+            baseDeDatos.compruebaNifNoExistente(nif);
+
             System.out.print("- Introduce el telefono del cliente: ");
             String telf = sc.next();
+            baseDeDatos.compruebaTelfNoExistente(telf);
+
             System.out.print("- Introduce CP: ");
             String cp = sc.next();
             System.out.print("- Introduce provincia: ");
@@ -44,9 +45,7 @@ public class DarAltaCliente implements Accion {
                 baseDeDatos.anadirParticular(nombre, apellidos, telf, nif, direccion, email);
             else baseDeDatos.anadirEmpresa(nombre, telf, nif, direccion, email);
             System.out.println("\n\tCreado cliente " + nombre + " con NIF " + nif + " y telefono " + telf + ".\n");
-        } catch (NifRepetidoException e) {
-            e.printStackTrace();
-        } catch (TelfRepetidoException e) {
+        } catch (NifRepetidoException | TelfRepetidoException e) {
             e.printStackTrace();
         }
     }

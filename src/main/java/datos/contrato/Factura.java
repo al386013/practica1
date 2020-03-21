@@ -60,6 +60,7 @@ public class Factura implements TieneFecha, Serializable {
         return this.fechaEmision.toLocalDate();
     }
 
+    @Override
     public LocalTime getHora() { return this.fechaEmision.toLocalTime(); }
 
     private float calcularImporte(Tarifa tarifa, Set<Llamada> llamadas) {

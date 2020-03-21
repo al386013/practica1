@@ -1,7 +1,7 @@
 package interfaces;
 
 import principal.BaseDeDatos;
-import principal.excepciones.OpcionIncorrectaException;
+import acciones.OpcionIncorrectaException;
 
 import java.util.Scanner;
 

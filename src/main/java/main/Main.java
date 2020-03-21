@@ -1,7 +1,7 @@
 package main;
 
 import principal.*;
-import principal.acciones.SeleccionaOpcionPrincipal;
+import acciones.SeleccionaOpcionPrincipal;
 import java.io.Serializable;
 
 public class Main implements Serializable {

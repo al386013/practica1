@@ -1,9 +1,8 @@
-package principal.acciones;
+package acciones;
 
 import interfaces.Accion;
 import menus.MenuPrincipal;
 import principal.BaseDeDatos;
-import principal.excepciones.OpcionIncorrectaException;
 import java.io.Serializable;
 import java.util.Scanner;
 
@@ -12,12 +11,11 @@ public class SeleccionaOpcionPrincipal implements Accion, Serializable {
     static transient MenuPrincipal opcionMenu = null;
     static BaseDeDatos baseDeDatos;
 
-    //Constructor por defecto no sé qué poner pero si no pongo esta línea da error en los Menus
-    public SeleccionaOpcionPrincipal() {
-    }
+    //constructor por defecto
+    public SeleccionaOpcionPrincipal() {}
 
     public SeleccionaOpcionPrincipal(BaseDeDatos baseDeDatos) {
-        this.baseDeDatos = baseDeDatos;
+        SeleccionaOpcionPrincipal.baseDeDatos = baseDeDatos;
     }
 
     @Override
@@ -28,8 +26,8 @@ public class SeleccionaOpcionPrincipal implements Accion, Serializable {
             try {
                 byte opcion = pedirOpcion();
                 opcionMenu = MenuPrincipal.getOpcion(opcion);
-                opcionMenu.ejecutaOpcion(this.baseDeDatos);
-                sc.reset(); //No sé si es necesario, lo vi en internet !!!!!!!!!
+                opcionMenu.ejecutaOpcion(SeleccionaOpcionPrincipal.baseDeDatos);
+                sc.reset(); //No se si es necesario
             } catch (OpcionIncorrectaException e) {
                 e.printStackTrace();
             }
@@ -40,7 +38,7 @@ public class SeleccionaOpcionPrincipal implements Accion, Serializable {
         System.out.print("Introduce una opción: ");
         byte opcion = sc.nextByte();
         if (opcion < 0 || opcion > 4)
-            throw new OpcionIncorrectaException();
+            throw new OpcionIncorrectaException(4);
         return opcion;
     }
 }

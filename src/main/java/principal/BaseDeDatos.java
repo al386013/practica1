@@ -10,10 +10,6 @@ import datos.contrato.PeriodoFacturacion;
 import datos.contrato.Tarifa;
 import datos.llamadas.Llamada;
 import interfaces.TieneFecha;
-import principal.excepciones.DuracionNegativaException;
-import principal.excepciones.IntervaloFechasIncorrectoException;
-import principal.excepciones.NifRepetidoException;
-import principal.excepciones.TelfRepetidoException;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Collection;
@@ -25,7 +21,12 @@ public class BaseDeDatos implements Serializable {
     private GestorClientes gestorClientes;
     private GestorFacturas gestorFacturas;
 
-    //CONSTRUCTOR
+    //CONSTRUCTORES
+    public BaseDeDatos() {
+        this.gestorClientes = new GestorClientes();
+        this.gestorFacturas = new GestorFacturas();
+    }
+
     public BaseDeDatos(GestorClientes gestorClientes, GestorFacturas gestorFacturas) {
         this.gestorClientes = gestorClientes;
         this.gestorFacturas = gestorFacturas;
@@ -34,18 +35,28 @@ public class BaseDeDatos implements Serializable {
     // METODOS
     //BaseDeDatos llama al metodo correspondiente de gestorClientes, gestorFacturas o ambos; es el intermediario
 
-    public void anadirParticular(String nombre, String apellidos, String telf, String nif, Direccion dir, String email)
-            throws NifRepetidoException, TelfRepetidoException {
-        if (existeCliente(nif)) throw new NifRepetidoException();
-        if (existeTelf(telf)) throw new TelfRepetidoException();
+    public void compruebaNifNoExistente(String nif) throws NifRepetidoException {
+        if (existeCliente(nif)) throw new NifRepetidoException(nif);
+    }
+
+    public void compruebaTelfNoExistente(String telf) throws TelfRepetidoException {
+        if (existeTelf(telf)) throw new TelfRepetidoException(telf);
+    }
+
+    public void compruebaNifExistente(String nif) throws NifNoExistenteException {
+        if (!existeCliente(nif)) throw new NifNoExistenteException(nif);
+    }
+
+    public void compruebaTelfExistente(String telf) throws TelfNoExistenteException {
+        if (!existeTelf(telf)) throw new TelfNoExistenteException(telf);
+    }
+
+    public void anadirParticular(String nombre, String apellidos, String telf, String nif, Direccion dir, String email) {
         Cliente nuevoParticular = new Particular(nombre, apellidos, telf, nif, dir, email, new Tarifa());
         gestorClientes.anadirCliente(nuevoParticular);
     }
 
-    public void anadirEmpresa(String nombre, String telf, String nif, Direccion dir, String email)
-            throws NifRepetidoException, TelfRepetidoException {
-        if (existeCliente(nif)) throw new NifRepetidoException();
-        if (existeTelf(telf)) throw new TelfRepetidoException();
+    public void anadirEmpresa(String nombre, String telf, String nif, Direccion dir, String email) {
         Cliente nuevaEmpresa = new Empresa(nombre, telf, nif, dir, email, new Tarifa());
         gestorClientes.anadirCliente(nuevaEmpresa);
     }
@@ -54,16 +65,13 @@ public class BaseDeDatos implements Serializable {
         gestorClientes.borrarCliente(telf);
     }
 
-    public Cliente devuelveCliente(String nif) {
-        return gestorClientes.devuelveCliente(nif);
-    }
-
     public void cambiarTarifa(float tarifa, String NIF) {
         gestorClientes.cambioTarifa(tarifa, NIF);
     }
 
-    public void darDeAltaLlamada(String telfOrigen, String telfDestino, int duracion) throws DuracionNegativaException {
-        if (duracion < 0) throw new DuracionNegativaException();
+    public void darDeAltaLlamada(String telfOrigen, String telfDestino, int duracion) throws IllegalArgumentException {
+        if (duracion < 0) throw new IllegalArgumentException("La duracion de una llamada no puede ser negativa" +
+                " y la introducida ha sido " + duracion);
         Llamada nuevaLlamada = new Llamada(telfDestino, duracion);
         gestorClientes.darDeAltaLlamada(telfOrigen, nuevaLlamada);
     }
@@ -72,8 +80,7 @@ public class BaseDeDatos implements Serializable {
         return gestorClientes.listarDatosCliente(NIF);
     }
 
-    public void emitirFactura(LocalDate fechaIni, LocalDate fechaFin, String nif) throws IntervaloFechasIncorrectoException {
-        if (fechaIni.isAfter(fechaFin)) throw new IntervaloFechasIncorrectoException();
+    public void emitirFactura(LocalDate fechaIni, LocalDate fechaFin, String nif) {
         PeriodoFacturacion periodoFact = new PeriodoFacturacion(fechaIni, fechaFin);
         Cliente cliente = gestorClientes.devuelveCliente(nif);
         Factura nuevaFactura = new Factura(periodoFact, nif, cliente.getLlamadas(), cliente.getTarifa());
@@ -102,10 +109,13 @@ public class BaseDeDatos implements Serializable {
         return gestorClientes.existeTelf(telf);
     }
 
-    //Metodo entreFechas: de un conjunto, devuelve un subconjunto con los elementos de fecha entre fechaIni y fechaFin
-    private <T extends TieneFecha> Collection<T> entreFechas(Collection<T> conjunto, LocalDate fechaIni, LocalDate fechaFin)
-            throws IntervaloFechasIncorrectoException {
+    //comprueba que FechaIni sea anterior o igual a fechaFin
+    public void compruebaFechas(LocalDate fechaIni, LocalDate fechaFin) throws IntervaloFechasIncorrectoException {
         if (fechaIni.isAfter(fechaFin)) throw new IntervaloFechasIncorrectoException();
+    }
+
+    //Metodo entreFechas: de un conjunto, devuelve un subconjunto con los elementos de fecha entre fechaIni y fechaFin
+    private <T extends TieneFecha> Collection<T> entreFechas(Collection<T> conjunto, LocalDate fechaIni, LocalDate fechaFin) {
         Collection<T> res = new TreeSet(new ComparadorFechaHora());
         for (T elem : conjunto) {
             LocalDate fecha = elem.getFecha();
@@ -116,7 +126,7 @@ public class BaseDeDatos implements Serializable {
     }
 
     //Metodo listar: devuelve una cadena para imprimir los elementos de un conjunto
-    public <T extends TieneFecha> String listar(Collection<T> conjunto) {
+    private <T extends TieneFecha> String listar(Collection<T> conjunto) {
         StringBuilder sb = new StringBuilder();
         for (T elem : conjunto) {
             sb.append(elem.toString());
@@ -126,20 +136,20 @@ public class BaseDeDatos implements Serializable {
     }
 
     //Metodo listarClientesEntreFechas: lista los clientes dados de alta entre dos fechas
-    public String listarClientesEntreFechas(LocalDate fechaIni, LocalDate fechaFin) throws IntervaloFechasIncorrectoException {
+    public String listarClientesEntreFechas(LocalDate fechaIni, LocalDate fechaFin) {
         Collection<Cliente> conjunto = entreFechas(gestorClientes.clientes.values(), fechaIni, fechaFin);
         return listar(conjunto);
     }
 
     //Metodo listarLlamadasEntreFechas: lista las llamadas de un cliente realizadas entre dos fechas, dado su telefono
-    public String listarLlamadasEntreFechas(String telf, LocalDate fechaIni, LocalDate fechaFin) throws IntervaloFechasIncorrectoException {
+    public String listarLlamadasEntreFechas(String telf, LocalDate fechaIni, LocalDate fechaFin) {
         String nif = gestorClientes.telfNif.get(telf);
         Collection<Llamada> conjunto = entreFechas(devolverLlamadas(nif), fechaIni, fechaFin);
         return listar(conjunto);
     }
 
     //Metodo listarFacturasEntreFechas: lista las facturas de un cliente emitidas entre dos fechas, dado su nif
-    public String listarFacturasEntreFechas(String nif, LocalDate fechaIni, LocalDate fechaFin) throws IntervaloFechasIncorrectoException {
+    public String listarFacturasEntreFechas(String nif, LocalDate fechaIni, LocalDate fechaFin) {
         Collection<Factura> conjunto = entreFechas(devolverFacturas(nif), fechaIni, fechaFin);
         return listar(conjunto);
     }

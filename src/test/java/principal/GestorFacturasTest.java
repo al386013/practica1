@@ -1,6 +1,8 @@
 package principal;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
+
 import datos.clientes.Direccion;
 import datos.contrato.Factura;
 import es.uji.www.GeneradorDatosINE;
@@ -8,21 +10,29 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import datos.clientes.Cliente;
-import principal.excepciones.DuracionNegativaException;
-import principal.excepciones.IntervaloFechasIncorrectoException;
-import principal.excepciones.NifRepetidoException;
-import principal.excepciones.TelfRepetidoException;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Formatter;
 
 public class GestorFacturasTest {
+    private static GestorClientes gestorClientes;
+    private static GestorFacturas gestorFacturas;
     private static BaseDeDatos baseDeDatos;
-    private static Cliente alberto;
-    private static Cliente pamesa;
+    private static Cliente maria;
 
     @BeforeAll
-    public static void inicializa() throws NifRepetidoException, DuracionNegativaException, TelfRepetidoException {
-        baseDeDatos = new BaseDeDatos(new GestorClientes(), new GestorFacturas());
+    public static void inicializa() throws IllegalArgumentException {
+        gestorClientes = new GestorClientes();
+        gestorFacturas = new GestorFacturas();
+        baseDeDatos = new BaseDeDatos(gestorClientes, gestorFacturas);
+
+        //insertamos un particular
+        Direccion dirMaria = new Direccion("12005", "Castellon de la plana", "Castelllon");
+        baseDeDatos.anadirParticular("alberto", "prado banarro", "600600600", "12341234", dirMaria, "mariaprado@gmail.com");
+        maria = gestorClientes.devuelveCliente("12341234");
+
+        baseDeDatos.darDeAltaLlamada("600600600", "000000000", 130);
 
         //cargamos la base de datos con algunos clientes
         for (int i = 0; i < 100; i++) {
@@ -39,40 +49,41 @@ public class GestorFacturasTest {
                 baseDeDatos.anadirParticular(nombre, apellidos, "5555555" + i, nif, direccion, "particular@gmail.com");
             } else baseDeDatos.anadirEmpresa(nombre, "6666666" + i, nif, direccion, "empresa@gmail.com");
         }
-
-        //insertamos un particular y una empresa
-        Direccion dirAlberto = new Direccion("12005", "Castellon de la plana", "Castelllon");
-        baseDeDatos.anadirParticular("alberto", "prado banarro", "692242216", "20925403", dirAlberto, "albertoprado@gmail.com");
-        alberto = baseDeDatos.devuelveCliente("20925403");
-
-        Direccion dirPamesa = new Direccion("12006", "VillaReal", "Castelllon");
-        baseDeDatos.anadirEmpresa("pamesa", "964246252", "63302284", dirPamesa, "pamesa@gmail.com");
-        pamesa = baseDeDatos.devuelveCliente("63302284");
-
-        //realizamos llamadas
-        for (int i = 0; i < 50; i++)
-            baseDeDatos.darDeAltaLlamada("692242216", "666666" + i, 90);
-        for (int i = 0; i < 50; i++)
-            baseDeDatos.darDeAltaLlamada("964246252", "666666" + i, 120);
     }
 
     @Test
     public void testEmitirListarFactura() throws IntervaloFechasIncorrectoException {
+
+        baseDeDatos.darDeAltaLlamada("600600600", "111111111", 40);
+
         //emite una factura para alberto con todas las llamadas desde ayer a hoy (las 50 anadidas)
-        baseDeDatos.emitirFactura(LocalDate.now().minusDays(1), LocalDate.now(), "20925403");
+        baseDeDatos.emitirFactura(LocalDate.now().minusDays(1), LocalDate.now(), "12341234");
         //comprobar que los datos de la factura son correctos
         int codFact = 0;
-        for (Factura factura : alberto.getFacturas()) { //solo hay una
+        for (Factura factura : maria.getFacturas()) { //solo hay una
             codFact = factura.getCodigo();
             assertEquals(factura.getTarifa().getTarifa(), 0.05f, 0);
             assertEquals(factura.getFecha(), LocalDate.now());
-            assertEquals(factura.getNifCliente(), "20925403");
-            assertEquals(factura.getImporte(), ((50 * 90) / 60.0) * 0.05f, 0.001);
+            assertEquals(factura.getHora().getHour(), LocalTime.now().getHour());
+            assertEquals(factura.getHora().getMinute(), LocalTime.now().getMinute());
+            assertEquals(factura.getNifCliente(), "12341234");
+            assertEquals(factura.getImporte(), (170 / 60.0) * 0.05f, 0.005);
         }
         //listar los datos de la factura
-        assertEquals(baseDeDatos.listarDatosFactura(codFact), "NIF: 20925403, Codigo: " + codFact + ", Tarifa: 0.05 €/min, " +
-                "Fecha de emision: " + LocalDate.now() + ", Periodo de facturacion: " + LocalDate.now().minusDays(1) + " - " + LocalDate.now() +
-                ", Importe: 3.75€.");
+        Formatter obj = new Formatter();
+        Formatter hora = obj.format("%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute());
+        assertEquals(baseDeDatos.listarDatosFactura(codFact), "\nCodigo de factura: " + codFact + ":" +
+                "\n\tNIF: 12341234" +
+                "\n\tTarifa: 0.05 €/min" +
+                "\n\tFecha de emision: " + LocalDate.now() +
+                "\n\tHora de emision: " + hora +
+                "\n\tPeriodo de facturacion: " + LocalDate.now().minusDays(1) + " - " + LocalDate.now() +
+                "\n\tImporte: 0.14€" +
+                "\n\tLista de llamadas de esta factura:\n" +
+                "\n\t- Llamada realizada el " + LocalDate.now() +
+                " a las " + hora + " con una duracion de 130 segundos al telefono 000000000" +
+                "\n\t- Llamada realizada el " + LocalDate.now() +
+                " a las " + hora + " con una duracion de 40 segundos al telefono 111111111");
     }
 
     @AfterAll

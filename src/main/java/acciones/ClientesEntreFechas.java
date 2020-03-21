@@ -1,23 +1,22 @@
-package principal.acciones;
+package acciones;
 
 import interfaces.Accion;
 import principal.BaseDeDatos;
-import principal.excepciones.IntervaloFechasIncorrectoException;
+import principal.IntervaloFechasIncorrectoException;
 
 import java.time.LocalDate;
 
-public class FacturasCliEntreFechas implements Accion {
+public class ClientesEntreFechas implements Accion {
     @Override
     public void ejecutaAccion(BaseDeDatos baseDeDatos) {
         try {
-            System.out.println("\nMOSTRAR LISTADO DE LAS FACTURAS DADAS DE ALTA ENTRE DOS FECHAS");
-            //String nif = pedirNifExistente();
-            String nif = PedirNifExistente.pedir(baseDeDatos);
+            System.out.println("\nMOSTRAR LISTADO DE LOS CLIENTES DADOS DE ALTA ENTRE DOS FECHAS");
             System.out.print("- Introduce la fecha de inicio (formato aaaa-mm-dd): ");
             LocalDate fechaIni = LocalDate.parse(sc.next());
             System.out.print("- Introduce la fecha de fin (formato aaaa-mm-dd): ");
             LocalDate fechaFin = LocalDate.parse(sc.next());
-            System.out.println(baseDeDatos.listarFacturasEntreFechas(nif, fechaIni, fechaFin));
+            baseDeDatos.compruebaFechas(fechaIni, fechaFin);
+            System.out.println(baseDeDatos.listarClientesEntreFechas(fechaIni, fechaFin));
         } catch (IntervaloFechasIncorrectoException e) {
             e.printStackTrace();
         }

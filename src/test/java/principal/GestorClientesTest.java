@@ -7,17 +7,17 @@ import es.uji.www.GeneradorDatosINE;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import principal.excepciones.DuracionNegativaException;
-import principal.excepciones.NifRepetidoException;
-import principal.excepciones.TelfRepetidoException;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Formatter;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 public class GestorClientesTest {
+    private static GestorClientes gestorClientes;
+    private static GestorFacturas gestorFacturas;
     private static BaseDeDatos baseDeDatos;
     private static Cliente alberto;
     private static Direccion dirAlberto;
@@ -25,8 +25,10 @@ public class GestorClientesTest {
     private static Direccion dirPamesa;
 
     @BeforeAll
-    public static void inicializa() throws NifRepetidoException, TelfRepetidoException {
-        baseDeDatos = new BaseDeDatos(new GestorClientes(), new GestorFacturas());
+    public static void inicializa() {
+        gestorClientes = new GestorClientes();
+        gestorFacturas = new GestorFacturas();
+        baseDeDatos = new BaseDeDatos(gestorClientes, gestorFacturas);
 
         for (int i = 0; i < 100; i++) {
             GeneradorDatosINE generadorDatosINE = new GeneradorDatosINE();
@@ -45,11 +47,11 @@ public class GestorClientesTest {
 
         dirAlberto = new Direccion("12005", "Castellon de la plana", "Castelllon");
         baseDeDatos.anadirParticular("alberto", "prado banarro", "692242216", "20925403", dirAlberto, "albertoprado@gmail.com");
-        alberto = baseDeDatos.devuelveCliente("20925403");
+        alberto = gestorClientes.devuelveCliente("20925403");
 
         dirPamesa = new Direccion("12006", "VillaReal", "Castelllon");
         baseDeDatos.anadirEmpresa("pamesa", "964246252", "63302284", dirPamesa, "pamesa@gmail.com");
-        pamesa = baseDeDatos.devuelveCliente("63302284");
+        pamesa = gestorClientes.devuelveCliente("63302284");
     }
 
     @Test
@@ -67,6 +69,8 @@ public class GestorClientesTest {
         assertThat(baseDeDatos.existeTelf("964246252"), is(true));
         assertThat(baseDeDatos.existeTelf("00000000"), is(false));
     }
+
+    //comprueba que lanza la excepcion NifRepetidoException si al anadir un particular el nif ya existia
 
     @Test
     public void testAñadirParticular() {
@@ -93,7 +97,7 @@ public class GestorClientesTest {
     }
 
     @Test
-    public void testBorrarCliente() throws NifRepetidoException, TelfRepetidoException {
+    public void testBorrarCliente() {
         //creamos un cliente
         baseDeDatos.anadirParticular("maria", "gracia rubio", "123456789", "X1234567S", dirAlberto, "mariagracia@gmail.com");
         //vemos que se ha anadido
@@ -115,25 +119,47 @@ public class GestorClientesTest {
 
     @Test
     public void testListarDatosCliente() {
-        assertEquals(baseDeDatos.listarDatosCliente("20925403"), "prado banarro, alberto, NIF: 20925403, Telf: 692242216, " +
-                "Direccion: Castelllon - Castellon de la plana - 12005, Email: albertoprado@gmail.com, Fecha de alta: " + LocalDate.now() +
-                ", Tarifa: " + alberto.getTarifa() + ". ");
-        assertEquals(baseDeDatos.listarDatosCliente("63302284"), "pamesa, NIF: 63302284, Telf: 964246252, " +
-                "Direccion: Castelllon - VillaReal - 12006, Email: pamesa@gmail.com, Fecha de alta: " + LocalDate.now() + ", Tarifa: 0.05 €/min. ");
+        Formatter obj = new Formatter();
+        assertEquals(baseDeDatos.listarDatosCliente("20925403"), "\nprado banarro, alberto" +
+                "\n\tNIF: 20925403" +
+                "\n\tTelefono: 692242216" +
+                "\n\tDireccion: Castelllon - Castellon de la plana - 12005" +
+                "\n\tEmail: albertoprado@gmail.com" +
+                "\n\tFecha de alta: " + LocalDate.now() +
+                "\n\tHora de alta: " + obj.format("%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute()) +
+                "\n\tTarifa: " + alberto.getTarifa());
+        obj = new Formatter();
+        assertEquals(baseDeDatos.listarDatosCliente("63302284"), "\npamesa" +
+                "\n\tNIF: 63302284" +
+                "\n\tTelefono: 964246252" +
+                "\n\tDireccion: Castelllon - VillaReal - 12006" +
+                "\n\tEmail: pamesa@gmail.com" +
+                "\n\tFecha de alta: " + LocalDate.now() +
+                "\n\tHora de alta: " + obj.format("%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute()) +
+                "\n\tTarifa: " + pamesa.getTarifa());
     }
 
     //comprueba darDeAltaLlamada
     @Test
-    public void testDarDeAltaLlamada() throws DuracionNegativaException { //podria fallar si justo cambia el minuto al comprobar el test
+    public void testDarDeAltaLlamada() {
         baseDeDatos.darDeAltaLlamada("692242216", "000000000", 120);
-        assertEquals(baseDeDatos.listarLlamadasCliente("692242216"), "Llamada realizada el " + LocalDate.now() + " a las " +
-                LocalTime.now().getHour() + " horas y " + LocalTime.now().getMinute() + " minutos con una duracion de 120 segundos " +
-                "al telefono 000000000\n");
+        Formatter obj = new Formatter();
+        assertEquals(baseDeDatos.listarLlamadasCliente("692242216"),
+                "\t- Llamada realizada el " + LocalDate.now()
+                        + " a las " + obj.format("%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute())
+                        + " con una duracion de 120 segundos al telefono 000000000\n");
         for(Llamada llamada : alberto.getLlamadas()) { //solo hay una
             assertEquals(llamada.getTelfDest(), "000000000");
             assertEquals(llamada.getDuracion(), 120);
             assertEquals(llamada.getFecha(), LocalDate.now());
         }
+    }
+
+    //comprueba que lanza la excepcion si la duracion de la llamada es negativa
+    @Test
+    public void testDuracionNegativa() {
+        assertThrows(IllegalArgumentException.class,
+                () -> baseDeDatos.darDeAltaLlamada("692242216", "987654321", -1));
     }
 
     @AfterAll

@@ -74,6 +74,7 @@ public abstract class Cliente implements TieneFecha, Serializable {
         return fechaDeAlta.toLocalDate();
     }
 
+    @Override
     public LocalTime getHora() {
         return fechaDeAlta.toLocalTime();
     }
