@@ -1,5 +1,6 @@
 package datos.contrato;
 
+import datos.contrato.tarifas.Tarifa;
 import datos.llamadas.Llamada;
 import interfaces.TieneFecha;
 import java.io.Serializable;

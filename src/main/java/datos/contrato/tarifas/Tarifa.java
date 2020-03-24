@@ -1,8 +1,8 @@
-package datos.contrato;
+package datos.contrato.tarifas;
 
 import java.io.Serializable;
 
-public class Tarifa implements Serializable {
+public abstract class Tarifa implements Serializable {
     private float valor;
 
     //CONSTRUCTORES

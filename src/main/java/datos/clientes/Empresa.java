@@ -1,6 +1,6 @@
 package datos.clientes;
 
-import datos.contrato.Tarifa;
+import datos.contrato.tarifas.Tarifa;
 
 public class Empresa extends Cliente {
     //TODOS SUS ATRIBUTOS LOS HEREDA DE CLIENTE

@@ -7,7 +7,7 @@ import datos.clientes.Empresa;
 import datos.clientes.Particular;
 import datos.contrato.Factura;
 import datos.contrato.PeriodoFacturacion;
-import datos.contrato.Tarifa;
+import datos.contrato.tarifas.Tarifa;
 import datos.llamadas.Llamada;
 import interfaces.TieneFecha;
 import java.io.Serializable;

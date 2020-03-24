@@ -9,3 +9,4 @@ public class NifNoExistenteException extends Exception {
         super("Cliente con NIF " + nif + " no existente en la base de datos.");
     }
 }
+
