@@ -15,6 +15,7 @@ public abstract class TarifaEspecial extends Tarifa {
 
     @Override
     public String descripcion() {
-        return null;
+        return tarifa.descripcion();
     }
+
 }
