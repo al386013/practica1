@@ -12,5 +12,5 @@ public class TarifaEspecial extends Tarifa {
     public float getPrecio() {
         return tarifa.getPrecio() + super.getPrecio();
     }
-    
+
 }
