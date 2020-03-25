@@ -7,5 +7,4 @@ public class TarifaBasica extends Tarifa{
     public TarifaBasica(){
         super();
     }
-
 }
