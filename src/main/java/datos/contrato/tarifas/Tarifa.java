@@ -3,20 +3,22 @@ package datos.contrato.tarifas;
 import java.io.Serializable;
 
 public abstract class Tarifa implements Serializable {
-    private float valor;
+    private float precio;
 
     //CONSTRUCTOR
-    public Tarifa() {
-        valor = 0.05f;
+    public Tarifa(float precio) {
+        this.precio = precio;
     }
 
     //METODOS
     public float getPrecio() {
-        return valor;
+        return precio;
     }
+
+    public abstract String descripcion();
 
     @Override
     public String toString() {
-        return valor + " €/min";
+        return precio + " €/min";
     }
 }

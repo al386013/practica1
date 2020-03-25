@@ -72,7 +72,7 @@ public class Factura implements TieneFecha, Serializable {
                     (fecha.isEqual(periodoFact.getFechaIni()) || fecha.isEqual(periodoFact.getFechaFin())))
                 segundosTotales += llamada.getDuracion();
         }
-        float importe = (segundosTotales / 60.0f) * tarifa.getTarifa();
+        float importe = (segundosTotales / 60.0f) * tarifa.getPrecio();
         //codigo para redondear a dos decimales:
         BigDecimal redondeado = new BigDecimal(importe).setScale(2, RoundingMode.HALF_EVEN);
         return redondeado.floatValue();
