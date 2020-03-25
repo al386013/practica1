@@ -1,10 +1,10 @@
 package datos.contrato.tarifas;
 
-public class TarifaEspecial extends Tarifa {
+public abstract class TarifaEspecial extends Tarifa {
     private Tarifa tarifa;
 
-    public TarifaEspecial(Tarifa tarifa, float precioEspecial) {
-        super(precioEspecial);
+    public TarifaEspecial(Tarifa tarifa, float precio) {
+        super(precio);
         this.tarifa = tarifa;
     }
 
