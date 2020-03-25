@@ -13,4 +13,9 @@ public abstract class TarifaEspecial extends Tarifa {
         return tarifa.getPrecio() + super.getPrecio();
     }
 
+    @Override
+    public String descripcion() {
+        return tarifa.descripcion();
+    }
+
 }
