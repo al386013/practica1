@@ -93,7 +93,7 @@ public class GestorClientesTest {
         assertEquals(pamesa.getTelf(), "964246252");
         assertEquals(pamesa.getFecha(), LocalDate.now());
         assertEquals(pamesa.getDireccion(), dirPamesa);
-        assertEquals(pamesa.getTarifa().getTarifa(), 0.05f, 0);
+        assertEquals(pamesa.getTarifa().getPrecio(), 0.05f, 0);
     }
 
     @Test
@@ -111,10 +111,10 @@ public class GestorClientesTest {
     @Test
     public void testCambiarTarifa() {
         //comprobamos la tarifa de alberto
-        assertEquals(alberto.getTarifa().getTarifa(), 0.05f, 0);
+        assertEquals(alberto.getTarifa().getPrecio(), 0.05f, 0);
         //cambiamos la tarifa de alberto y comprobamos el cambio
-        baseDeDatos.cambiarTarifa(0.15f, alberto.getNIF());
-        assertEquals(alberto.getTarifa().getTarifa(), 0.15f, 0);
+        baseDeDatos.contratarTarifaEspecial("a", alberto.getNIF());
+        assertEquals(alberto.getTarifa().getPrecio(), 0.00f, 0); //????????????????????????????????????????????
     }
 
     @Test

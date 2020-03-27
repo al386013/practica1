@@ -10,7 +10,7 @@ import acciones.OpcionIncorrectaException;
 public enum MenuClientes {
     DAR_ALTA_CLIENTE("Dar de alta un nuevo cliente.", new DarAltaCliente()),
     BORRAR_CLIENTE("Borrar un cliente.", new BorrarCliente()),
-    CAMBIAR_TARIFA("Cambiar la tarifa de un cliente.", new CambiarTarifa()),
+    CAMBIAR_TARIFA("Cambiar la tarifa de un cliente.", new ContratarTarifaEspecial()),
     DATOS_CLIENTE("Recuperar los datos de un cliente a partir de su NIF.", new DatosCliente()),
     LISTAR_CLIENTES("Recuperar el listado de todos los clientes.", new ListadoClientes()),
     CLIENTES_ENTRE_FECHAS("Mostrar listado de clientes dados de alta entre dos fechas.", new ClientesEntreFechas()),

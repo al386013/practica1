@@ -16,15 +16,13 @@ import java.time.LocalTime;
 import java.util.Formatter;
 
 public class GestorFacturasTest {
-    private static GestorClientes gestorClientes;
-    private static GestorFacturas gestorFacturas;
     private static BaseDeDatos baseDeDatos;
     private static Cliente maria;
 
     @BeforeAll
     public static void inicializa() throws IllegalArgumentException {
-        gestorClientes = new GestorClientes();
-        gestorFacturas = new GestorFacturas();
+        GestorClientes gestorClientes = new GestorClientes();
+        GestorFacturas gestorFacturas = new GestorFacturas();
         baseDeDatos = new BaseDeDatos(gestorClientes, gestorFacturas);
 
         //insertamos un particular
@@ -62,7 +60,6 @@ public class GestorFacturasTest {
         int codFact = 0;
         for (Factura factura : maria.getFacturas()) { //solo hay una
             codFact = factura.getCodigo();
-            assertEquals(factura.getTarifa().getTarifa(), 0.05f, 0);
             assertEquals(factura.getFecha(), LocalDate.now());
             assertEquals(factura.getHora().getHour(), LocalTime.now().getHour());
             assertEquals(factura.getHora().getMinute(), LocalTime.now().getMinute());

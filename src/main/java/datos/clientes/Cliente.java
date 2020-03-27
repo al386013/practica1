@@ -91,8 +91,8 @@ public abstract class Cliente implements TieneFecha, Serializable {
         return facturas;
     }
 
-    public void cambiarTarifa(float nuevaTarifa) {
-        tarifa.setTarifa(nuevaTarifa);
+    public void setTarifa(Tarifa tarifa) {
+        this.tarifa = tarifa;
     }
 
     public void anadirLlamada(Llamada llamada) {
