@@ -58,14 +58,19 @@ public class Factura implements TieneFecha, Serializable {
     public LocalTime getHora() { return this.fechaEmision.toLocalTime(); }
 
     private float calcularImporte(Tarifa tarifa, Set<Llamada> llamadas) {
-        int segundosTotales = 0;
+        float importe = 0.00f;
+        float precioLlamada;
         for (Llamada llamada : llamadas) {
             LocalDate fecha = llamada.getFecha();
+            //si esta dentro del periodo de facturacion
             if (fecha.isAfter(periodoFact.getFechaIni()) && fecha.isBefore(periodoFact.getFechaFin()) ||
-                    (fecha.isEqual(periodoFact.getFechaIni()) || fecha.isEqual(periodoFact.getFechaFin())))
-                segundosTotales += llamada.getDuracion();
+                    (fecha.isEqual(periodoFact.getFechaIni()) || fecha.isEqual(periodoFact.getFechaFin()))) {
+                
+
+
+                importe = (llamada.getDuracion() / 60.0f) * tarifa.getPrecio();
+            }
         }
-        float importe = (segundosTotales / 60.0f) * tarifa.getPrecio();
         //codigo para redondear a dos decimales:
         BigDecimal redondeado = new BigDecimal(importe).setScale(2, RoundingMode.HALF_EVEN);
         return redondeado.floatValue();
