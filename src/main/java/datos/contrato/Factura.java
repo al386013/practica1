@@ -1,11 +1,14 @@
 package datos.contrato;
 
 import datos.contrato.tarifas.Tarifa;
+import datos.contrato.tarifas.TarifaPorDia;
+import datos.contrato.tarifas.TarifaPorHoras;
 import datos.llamadas.Llamada;
 import interfaces.TieneFecha;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -65,15 +68,28 @@ public class Factura implements TieneFecha, Serializable {
             //si esta dentro del periodo de facturacion
             if (fecha.isAfter(periodoFact.getFechaIni()) && fecha.isBefore(periodoFact.getFechaFin()) ||
                     (fecha.isEqual(periodoFact.getFechaIni()) || fecha.isEqual(periodoFact.getFechaFin()))) {
-                
-
-
-                importe = (llamada.getDuracion() / 60.0f) * tarifa.getPrecio();
+                precioLlamada = calcularPrecioLlamada(tarifa, llamada);
+                importe += (llamada.getDuracion() / 60.0f) * precioLlamada;
             }
         }
         //codigo para redondear a dos decimales:
         BigDecimal redondeado = new BigDecimal(importe).setScale(2, RoundingMode.HALF_EVEN);
         return redondeado.floatValue();
+    }
+
+    public float calcularPrecioLlamada(Tarifa tarifa, Llamada llamada) {
+        float mejorPrecio = tarifa.getPrecio();
+        Tarifa tarifaSuper = tarifa.getTarifa();
+
+        if(tarifaSuper != null) { //si no es la basica
+            float precioSuper = calcularPrecioLlamada(tarifaSuper, llamada); //llamada recursiva
+            //si tiene la tarifa alguna tarifa especial y la cumple, se compara
+            if( (tarifa instanceof TarifaPorDia && llamada.getFecha().getDayOfWeek() == DayOfWeek.SUNDAY) ||
+                    (tarifa instanceof TarifaPorHoras && (llamada.getHora().getHour() >= 16 || llamada.getHora().getHour() <= 19)) )
+                if(precioSuper < mejorPrecio )
+                    mejorPrecio = precioSuper;
+        }
+        return mejorPrecio;
     }
 
     @Override

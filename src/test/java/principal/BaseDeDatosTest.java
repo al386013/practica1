@@ -5,7 +5,7 @@ import datos.clientes.Direccion;
 import datos.contrato.Factura;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Formatter;
@@ -14,12 +14,11 @@ import static org.junit.Assert.assertThrows;
 
 public class BaseDeDatosTest {
     private static BaseDeDatos baseDeDatos;
-    private static GestorClientes gestorClientes;
     private static Cliente pamesa;
 
     @BeforeAll
     public static void inicializa() throws IllegalArgumentException {
-        gestorClientes = new GestorClientes();
+        GestorClientes gestorClientes = new GestorClientes();
         GestorFacturas gestorFacturas = new GestorFacturas();
         baseDeDatos = new BaseDeDatos(gestorClientes, gestorFacturas);
 

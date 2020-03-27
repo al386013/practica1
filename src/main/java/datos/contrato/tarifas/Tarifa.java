@@ -17,6 +17,8 @@ public abstract class Tarifa implements Serializable {
 
     public abstract String descripcion();
 
+    public abstract Tarifa getTarifa();
+
     @Override
     public String toString() {
         return precio + " €/min";

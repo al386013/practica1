@@ -6,6 +6,11 @@ public class TarifaBasica extends Tarifa {
     }
 
     @Override
+    public Tarifa getTarifa() {
+        return null;
+    }
+
+    @Override
     public String descripcion() {
         return "Tarifa basica";
     }

@@ -1,14 +1,12 @@
 package principal;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
-
 import datos.clientes.Direccion;
 import datos.contrato.Factura;
 import es.uji.www.GeneradorDatosINE;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import datos.clientes.Cliente;
 
 import java.time.LocalDate;
@@ -71,7 +69,6 @@ public class GestorFacturasTest {
         hora.format("%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute());
         assertEquals(baseDeDatos.listarDatosFactura(codFact), "\nCodigo de factura: " + codFact + ":" +
                 "\n\tNIF: 12341234" +
-                "\n\tTarifa: 0.05 €/min" +
                 "\n\tFecha de emision: " + LocalDate.now() +
                 "\n\tHora de emision: " + hora +
                 "\n\tPeriodo de facturacion: " + LocalDate.now().minusDays(1) + " - " + LocalDate.now() +

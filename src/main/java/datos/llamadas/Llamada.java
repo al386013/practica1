@@ -28,6 +28,10 @@ public class Llamada implements TieneFecha, Serializable {
         this.duracion = duracion;
     }
 
+    public void setFecha(LocalDate fecha) { this.fecha = fecha; }
+
+    public void setHora(LocalTime hora) { this.hora = hora; }
+
     @Override
     public LocalDate getFecha() {
         return fecha;

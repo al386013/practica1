@@ -1,4 +1,4 @@
-package principal;
+package datos;
 
 import datos.contrato.tarifas.Tarifa;
 import datos.contrato.tarifas.TarifaBasica;

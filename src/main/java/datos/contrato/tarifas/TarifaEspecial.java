@@ -10,8 +10,11 @@ public abstract class TarifaEspecial extends Tarifa {
 
     @Override
     public float getPrecio() {
-        return tarifa.getPrecio() + super.getPrecio();
+        return tarifa.getPrecio();
     }
+
+    @Override
+    public Tarifa getTarifa() { return tarifa; }
 
     @Override
     public String descripcion() {

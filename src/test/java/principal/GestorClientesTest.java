@@ -6,7 +6,7 @@ import datos.llamadas.Llamada;
 import es.uji.www.GeneradorDatosINE;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Formatter;
