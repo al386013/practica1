@@ -59,4 +59,61 @@ public class FacturaTest {
         //con tarifa basica + tarifa por dias + tarifa por horas
         assertEquals(factura.calcularPrecioLlamada(tarifaTotal, llamada), importe, 0.005f);
     }
+
+    @Test
+    public void TestPrecioLlamadaLunesTarde() {
+        Llamada llamada = new Llamada("666777888", 60);
+        llamada.setFecha(LocalDate.parse("2020-03-23")); //un lunes
+        llamada.setHora(LocalTime.parse("18:00:00")); //por la tarde
+        Set<Llamada> llamadas = new HashSet<Llamada>();
+        llamadas.add(llamada);
+        //con tarifa basica
+        Factura factura = new Factura(periodoFact, "1234", llamadas, tarifaBasica);
+        float importe = (llamada.getDuracion() / 60.0f) * 0.05f;
+        assertEquals(factura.calcularPrecioLlamada(tarifaBasica, llamada), importe, 0.005f);
+        //con tarifa basica + tarifa por dias
+        assertEquals(factura.calcularPrecioLlamada(tarifaPorDias, llamada), importe, 0.005f);
+        //con tarifa basica + tarifa por horas
+        assertEquals(factura.calcularPrecioLlamada(tarifaPorHoras, llamada), importe, 0.005f);
+        //con tarifa basica + tarifa por dias + tarifa por horas
+        assertEquals(factura.calcularPrecioLlamada(tarifaTotal, llamada), importe, 0.005f);
+    }
+
+    @Test
+    public void TestPrecioLlamadaDomingoManana() {
+        Llamada llamada = new Llamada("666777888", 20);
+        llamada.setFecha(LocalDate.parse("2020-03-22")); //un domingo
+        llamada.setHora(LocalTime.parse("10:00:00")); //por la manana
+        Set<Llamada> llamadas = new HashSet<Llamada>();
+        llamadas.add(llamada);
+        //con tarifa basica
+        Factura factura = new Factura(periodoFact, "1234", llamadas, tarifaBasica);
+        float importe = (llamada.getDuracion() / 60.0f) * 0.05f;
+        assertEquals(factura.calcularPrecioLlamada(tarifaBasica, llamada), importe, 0.005f);
+        //con tarifa basica + tarifa por dias
+        assertEquals(factura.calcularPrecioLlamada(tarifaPorDias, llamada), importe, 0.005f);
+        //con tarifa basica + tarifa por horas
+        assertEquals(factura.calcularPrecioLlamada(tarifaPorHoras, llamada), importe, 0.005f);
+        //con tarifa basica + tarifa por dias + tarifa por horas
+        assertEquals(factura.calcularPrecioLlamada(tarifaTotal, llamada), importe, 0.005f);
+    }
+
+    @Test
+    public void TestPrecioLlamadaDomingoTarde() {
+        Llamada llamada = new Llamada("666777888", 110);
+        llamada.setFecha(LocalDate.parse("2020-03-22")); //un domingo
+        llamada.setHora(LocalTime.parse("18:00:00")); //por la tarde
+        Set<Llamada> llamadas = new HashSet<Llamada>();
+        llamadas.add(llamada);
+        //con tarifa basica
+        Factura factura = new Factura(periodoFact, "1234", llamadas, tarifaBasica);
+        float importe = (llamada.getDuracion() / 60.0f) * 0.05f;
+        assertEquals(factura.calcularPrecioLlamada(tarifaBasica, llamada), importe, 0.005f);
+        //con tarifa basica + tarifa por dias
+        assertEquals(factura.calcularPrecioLlamada(tarifaPorDias, llamada), importe, 0.005f);
+        //con tarifa basica + tarifa por horas
+        assertEquals(factura.calcularPrecioLlamada(tarifaPorHoras, llamada), importe, 0.005f);
+        //con tarifa basica + tarifa por dias + tarifa por horas
+        assertEquals(factura.calcularPrecioLlamada(tarifaTotal, llamada), importe, 0.005f);
+    }
 }
