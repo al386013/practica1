@@ -14,10 +14,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GestorClientesTest {
-    private static GestorClientes gestorClientes;
-    private static GestorFacturas gestorFacturas;
     private static BaseDeDatos baseDeDatos;
     private static Cliente alberto;
     private static Direccion dirAlberto;
@@ -26,8 +26,8 @@ public class GestorClientesTest {
 
     @BeforeAll
     public static void inicializa() {
-        gestorClientes = new GestorClientes();
-        gestorFacturas = new GestorFacturas();
+        GestorClientes gestorClientes = new GestorClientes();
+        GestorFacturas gestorFacturas = new GestorFacturas();
         baseDeDatos = new BaseDeDatos(gestorClientes, gestorFacturas);
 
         for (int i = 0; i < 100; i++) {
@@ -73,7 +73,7 @@ public class GestorClientesTest {
     //comprueba que lanza la excepcion NifRepetidoException si al anadir un particular el nif ya existia
 
     @Test
-    public void testAñadirParticular() {
+    public void testAnadirParticular() {
         //Se busca el cliente alberto anadido en el BeforeAll
         assertEquals(alberto.getNIF(), "20925403");
         assertEquals(alberto.getNombre(), "alberto");
@@ -85,7 +85,7 @@ public class GestorClientesTest {
     }
 
     @Test
-    public void testAñadirEmpresa() {
+    public void testAnadirEmpresa() {
         //Se busca la empresa pamesa anadida en el BeforeAll
         assertEquals(pamesa.getNIF(), "63302284");
         assertEquals(pamesa.getNombre(), "pamesa");
@@ -94,6 +94,7 @@ public class GestorClientesTest {
         assertEquals(pamesa.getFecha(), LocalDate.now());
         assertEquals(pamesa.getDireccion(), dirPamesa);
         assertEquals(pamesa.getTarifa().getPrecio(), 0.05f, 0);
+        assertEquals(pamesa.getTarifa().descripcion(), "Tarifa basica");
     }
 
     @Test
@@ -101,20 +102,29 @@ public class GestorClientesTest {
         //creamos un cliente
         baseDeDatos.anadirParticular("maria", "gracia rubio", "123456789", "X1234567S", dirAlberto, "mariagracia@gmail.com");
         //vemos que se ha anadido
-        assertThat(baseDeDatos.existeCliente("X1234567S"), is(true));
+        assertTrue(baseDeDatos.existeCliente("X1234567S"));
         //lo borramos
         baseDeDatos.borrarCliente("123456789");
         //vemos que se ha borrado
-        assertEquals(baseDeDatos.existeCliente("X1234567S"), false);
+        assertFalse(baseDeDatos.existeCliente("X1234567S"));
     }
 
     @Test
-    public void testCambiarTarifa() {
-        //comprobamos la tarifa de alberto
+    public void testContratarTarifaEspecial() {
+        //comprobamos que alberto tiene la tarifa basica
         assertEquals(alberto.getTarifa().getPrecio(), 0.05f, 0);
-        //cambiamos la tarifa de alberto y comprobamos el cambio
+        String descripcion = "Tarifa basica";
+        assertEquals(pamesa.getTarifa().descripcion(), descripcion);
+
+        //alberto contrata la tarifa especial por horas
+        baseDeDatos.contratarTarifaEspecial("b", alberto.getNIF());
+        descripcion += ", con tarifa especial por horas";
+        assertEquals(alberto.getTarifa().descripcion(), descripcion);
+
+        //alberto contrata tambien la tarifa especial por dias
         baseDeDatos.contratarTarifaEspecial("a", alberto.getNIF());
-        assertEquals(alberto.getTarifa().getPrecio(), 0.00f, 0); //????????????????????????????????????????????
+        descripcion += ", con tarifa especial por dia";
+        assertEquals(alberto.getTarifa().descripcion(), descripcion);
     }
 
     @Test
@@ -127,7 +137,7 @@ public class GestorClientesTest {
                 "\n\tEmail: albertoprado@gmail.com" +
                 "\n\tFecha de alta: " + LocalDate.now() +
                 "\n\tHora de alta: " + obj.format("%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute()) +
-                "\n\tTarifa: " + alberto.getTarifa());
+                "\n\t" + alberto.getTarifa());
         obj = new Formatter();
         assertEquals(baseDeDatos.listarDatosCliente("63302284"), "\npamesa" +
                 "\n\tNIF: 63302284" +
@@ -136,7 +146,7 @@ public class GestorClientesTest {
                 "\n\tEmail: pamesa@gmail.com" +
                 "\n\tFecha de alta: " + LocalDate.now() +
                 "\n\tHora de alta: " + obj.format("%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute()) +
-                "\n\tTarifa: " + pamesa.getTarifa());
+                "\n\t" + pamesa.getTarifa());
     }
 
     //comprueba darDeAltaLlamada
