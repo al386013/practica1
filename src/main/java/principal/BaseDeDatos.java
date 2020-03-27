@@ -7,7 +7,7 @@ import datos.clientes.Empresa;
 import datos.clientes.Particular;
 import datos.contrato.Factura;
 import datos.contrato.PeriodoFacturacion;
-import datos.contrato.tarifas.Tarifa;
+import datos.contrato.tarifas.TarifaBasica;
 import datos.llamadas.Llamada;
 import interfaces.TieneFecha;
 import java.io.Serializable;
@@ -52,12 +52,12 @@ public class BaseDeDatos implements Serializable {
     }
 
     public void anadirParticular(String nombre, String apellidos, String telf, String nif, Direccion dir, String email) {
-        Cliente nuevoParticular = new Particular(nombre, apellidos, telf, nif, dir, email, new Tarifa());
+        Cliente nuevoParticular = new Particular(nombre, apellidos, telf, nif, dir, email, new TarifaBasica(0.05f));
         gestorClientes.anadirCliente(nuevoParticular);
     }
 
     public void anadirEmpresa(String nombre, String telf, String nif, Direccion dir, String email) {
-        Cliente nuevaEmpresa = new Empresa(nombre, telf, nif, dir, email, new Tarifa());
+        Cliente nuevaEmpresa = new Empresa(nombre, telf, nif, dir, email, new TarifaBasica(0.05f));
         gestorClientes.anadirCliente(nuevaEmpresa);
     }
 
@@ -65,8 +65,8 @@ public class BaseDeDatos implements Serializable {
         gestorClientes.borrarCliente(telf);
     }
 
-    public void cambiarTarifa(float tarifa, String NIF) {
-        gestorClientes.cambioTarifa(tarifa, NIF);
+    public void contratarTarifaEspecial(String opcion, String NIF) {
+        gestorClientes.contratarTarifaEspecial(opcion, NIF);
     }
 
     public void darDeAltaLlamada(String telfOrigen, String telfDestino, int duracion) throws IllegalArgumentException {

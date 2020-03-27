@@ -1,6 +1,9 @@
 package principal;
 
 import datos.clientes.Cliente;
+import datos.contrato.tarifas.Tarifa;
+import datos.contrato.tarifas.TarifaPorDia;
+import datos.contrato.tarifas.TarifaPorHoras;
 import datos.llamadas.Llamada;
 import java.io.Serializable;
 import java.util.HashMap;
@@ -47,8 +50,14 @@ public class GestorClientes implements Serializable {
     }
 
     //Metodo cambioTarifa: cambia la tarifa de un cliente dado su nif
-    public void cambioTarifa(float nuevaTarifa, String NIF) {
-        clientes.get(NIF).cambiarTarifa(nuevaTarifa);
+    public void contratarTarifaEspecial(String opcion, String NIF) {
+        Cliente cliente = clientes.get(NIF);
+        Tarifa tarifa = cliente.getTarifa();
+        if(opcion.equals("a"))
+            tarifa = new TarifaPorDia(tarifa, 0.00f);
+        else
+            tarifa = new TarifaPorHoras(tarifa, 0.03f);
+        cliente.setTarifa(tarifa);
     }
 
     //Metodo listarDatosCliente, recupera todos los datos de un cliente a partir del NIF

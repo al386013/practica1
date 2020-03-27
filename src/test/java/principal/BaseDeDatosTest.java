@@ -122,7 +122,6 @@ public class BaseDeDatosTest {
         hora.format("%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute());
         String res = "\nCodigo de factura: " + codFact + ":" +
                 "\n\tNIF: 63302284" +
-                "\n\tTarifa: 0.05 €/min" +
                 "\n\tFecha de emision: " + LocalDate.now() +
                 "\n\tHora de emision: " + hora +
                 "\n\tPeriodo de facturacion: " + LocalDate.now().minusDays(1) + " - " + LocalDate.now() +

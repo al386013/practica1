@@ -1,12 +1,12 @@
 package datos.contrato.tarifas;
 
 public class TarifaBasica extends Tarifa {
-    public TarifaBasica() {
-        super(0.05f);
+    public TarifaBasica(float precio) {
+        super(precio);
     }
 
     @Override
     public String descripcion() {
-        return "Tarifa básica";
+        return "Tarifa basica";
     }
 }

@@ -13,7 +13,6 @@ import java.util.Formatter;
 import java.util.Set;
 
 public class Factura implements TieneFecha, Serializable {
-    private Tarifa tarifa;
     private LocalDateTime fechaEmision;
     private PeriodoFacturacion periodoFact;
     private float importe;
@@ -23,7 +22,6 @@ public class Factura implements TieneFecha, Serializable {
     //CONSTRUCTORES
 
     public Factura() {
-        this.tarifa = null;
         this.fechaEmision = null;
         this.periodoFact = null;
         this.importe = 0.0f;
@@ -32,7 +30,6 @@ public class Factura implements TieneFecha, Serializable {
     }
 
     public Factura(PeriodoFacturacion periodoFact, String nifCliente, Set<Llamada> llamadas, Tarifa tarifa) {
-        this.tarifa = tarifa;
         this.fechaEmision = LocalDateTime.now();
         this.periodoFact = periodoFact;
         this.importe = calcularImporte(tarifa, llamadas);
@@ -42,10 +39,6 @@ public class Factura implements TieneFecha, Serializable {
 
     public int getCodigo() {
         return this.hashCode();
-    }
-
-    public Tarifa getTarifa() {
-        return this.tarifa;
     }
 
     public float getImporte() {
@@ -84,7 +77,6 @@ public class Factura implements TieneFecha, Serializable {
         StringBuilder sb = new StringBuilder();
         sb.append("\nCodigo de factura: " + this.hashCode() + ":");
         sb.append("\n\tNIF: " + nifCliente);
-        sb.append("\n\tTarifa: " + tarifa);
         sb.append("\n\tFecha de emision: " + getFecha().toString());
         sb.append("\n\tHora de emision: " + obj.format("%02d:%02d", getHora().getHour(), getHora().getMinute()));
         sb.append("\n\tPeriodo de facturacion: " + periodoFact);
