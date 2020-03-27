@@ -14,6 +14,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -45,7 +46,7 @@ public class FacturaTest {
         Llamada llamada = new Llamada("666777888", 120);
         llamada.setFecha(LocalDate.parse("2020-03-23")); //un lunes
         llamada.setHora(LocalTime.parse("10:00:00")); //por la manana
-        Set<Llamada> llamadas = new TreeSet<Llamada>(comparador);
+        Set<Llamada> llamadas = new HashSet<Llamada>();
         llamadas.add(llamada);
         //con tarifa basica
         Factura factura = new Factura(periodoFact, "1234", llamadas, tarifaBasica);

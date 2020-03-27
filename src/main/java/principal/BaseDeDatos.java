@@ -65,8 +65,12 @@ public class BaseDeDatos implements Serializable {
         gestorClientes.borrarCliente(telf);
     }
 
-    public void contratarTarifaEspecial(String opcion, String NIF) {
-        gestorClientes.contratarTarifaEspecial(opcion, NIF);
+    public void contratarTarifaPorDias(String NIF) {
+        gestorClientes.contratarTarifaPorDias(NIF);
+    }
+
+    public void contratarTarifaPorHoras(String NIF) {
+        gestorClientes.contratarTarifaPorHoras(NIF);
     }
 
     public void darDeAltaLlamada(String telfOrigen, String telfDestino, int duracion) throws IllegalArgumentException {
