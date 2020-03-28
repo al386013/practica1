@@ -62,34 +62,16 @@ public class Factura implements TieneFecha, Serializable {
 
     private float calcularImporte(Tarifa tarifa, Set<Llamada> llamadas) {
         float importe = 0.00f;
-        float precioLlamada;
         for (Llamada llamada : llamadas) {
             LocalDate fecha = llamada.getFecha();
-            //si esta dentro del periodo de facturacion
+            //si esta dentro del periodo de facturacion se pasa cada llamada a la tarifa del cliente
             if (fecha.isAfter(periodoFact.getFechaIni()) && fecha.isBefore(periodoFact.getFechaFin()) ||
-                    (fecha.isEqual(periodoFact.getFechaIni()) || fecha.isEqual(periodoFact.getFechaFin()))) {
-                precioLlamada = calcularPrecioLlamada(tarifa, llamada);
-                importe += (llamada.getDuracion() / 60.0f) * precioLlamada;
-            }
+                    (fecha.isEqual(periodoFact.getFechaIni()) || fecha.isEqual(periodoFact.getFechaFin())))
+                importe += tarifa.calcularPrecioLlamada(llamada);
         }
         //codigo para redondear a dos decimales:
         BigDecimal redondeado = new BigDecimal(importe).setScale(2, RoundingMode.HALF_EVEN);
         return redondeado.floatValue();
-    }
-
-    public float calcularPrecioLlamada(Tarifa tarifa, Llamada llamada) {
-        float mejorPrecio = tarifa.getPrecio();
-        Tarifa tarifaSuper = tarifa.getTarifa();
-
-        if(tarifaSuper != null) { //si no es la basica
-            float precioSuper = calcularPrecioLlamada(tarifaSuper, llamada); //llamada recursiva
-            //si tiene la tarifa alguna tarifa especial y la cumple, se compara
-            if( (tarifa instanceof TarifaPorDia && llamada.getFecha().getDayOfWeek() == DayOfWeek.SUNDAY) ||
-                    (tarifa instanceof TarifaPorHoras && (llamada.getHora().getHour() >= 16 || llamada.getHora().getHour() <= 19)) )
-                if(precioSuper < mejorPrecio )
-                    mejorPrecio = precioSuper;
-        }
-        return mejorPrecio;
     }
 
     @Override
