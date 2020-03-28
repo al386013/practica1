@@ -135,7 +135,7 @@ public class GestorClientesTest {
                 "\n\tEmail: albertoprado@gmail.com" +
                 "\n\tFecha de alta: " + LocalDate.now() +
                 "\n\tHora de alta: " + obj.format("%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute()) +
-                "\n\t" + alberto.getTarifa());
+                "\n\t" + alberto.getTarifa().descripcion());
         obj = new Formatter();
         assertEquals(baseDeDatos.listarDatosCliente("63302284"), "\npamesa" +
                 "\n\tNIF: 63302284" +
@@ -144,7 +144,7 @@ public class GestorClientesTest {
                 "\n\tEmail: pamesa@gmail.com" +
                 "\n\tFecha de alta: " + LocalDate.now() +
                 "\n\tHora de alta: " + obj.format("%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute()) +
-                "\n\t" + pamesa.getTarifa());
+                "\n\t" + pamesa.getTarifa().descripcion());
     }
 
     //comprueba darDeAltaLlamada
