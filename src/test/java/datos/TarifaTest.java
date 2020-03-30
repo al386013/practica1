@@ -5,17 +5,13 @@ import datos.contrato.tarifas.TarifaBasica;
 import datos.contrato.tarifas.TarifaPorDia;
 import datos.contrato.tarifas.TarifaPorHoras;
 import org.junit.Test;
-
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
-import static org.hamcrest.Matchers.is;
 
 public class TarifaTest {
     @Test
-    public void testFamiliar() {
+    public void testDescripciones() {
         //se crea una tarifa basica
         Tarifa tarifa = new TarifaBasica(0.05f);
-        assertThat(tarifa.getPrecio(), is(0.05f));
         String salida = "Tarifa basica";
         assertEquals(tarifa.descripcion(), salida);
 

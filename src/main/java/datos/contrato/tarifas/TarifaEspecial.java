@@ -1,5 +1,7 @@
 package datos.contrato.tarifas;
 
+import datos.llamadas.Llamada;
+
 public abstract class TarifaEspecial extends Tarifa {
     private Tarifa tarifa;
 
@@ -9,12 +11,7 @@ public abstract class TarifaEspecial extends Tarifa {
     }
 
     @Override
-    public float getPrecio() {
-        return tarifa.getPrecio();
-    }
-
-    @Override
-    public Tarifa getTarifa() { return tarifa; }
+    public float calcularPrecioLlamada(Llamada llamada) { return tarifa.calcularPrecioLlamada(llamada); }
 
     @Override
     public String descripcion() {

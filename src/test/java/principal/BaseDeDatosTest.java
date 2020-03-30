@@ -5,7 +5,7 @@ import datos.clientes.Direccion;
 import datos.contrato.Factura;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Formatter;
@@ -82,7 +82,7 @@ public class BaseDeDatosTest {
                 "\n\tEmail: pamesa@gmail.com" +
                 "\n\tFecha de alta: " + LocalDate.now() +
                 "\n\tHora de alta: " + obj.format("%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute()) +
-                "\n\tTarifa: " + pamesa.getTarifa() + "\n");
+                "\n\tTarifa basica\n");
     }
 
     //comprueba listarLlamadasCliente() y listarLlamadasEntreFechas(); vemos como se imprimen siempre ordenadas por fecha

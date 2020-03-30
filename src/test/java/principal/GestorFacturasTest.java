@@ -6,7 +6,7 @@ import datos.contrato.Factura;
 import es.uji.www.GeneradorDatosINE;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import datos.clientes.Cliente;
 
 import java.time.LocalDate;

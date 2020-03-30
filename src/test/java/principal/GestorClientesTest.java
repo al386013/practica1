@@ -6,7 +6,7 @@ import datos.llamadas.Llamada;
 import es.uji.www.GeneradorDatosINE;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Formatter;
@@ -81,7 +81,7 @@ public class GestorClientesTest {
         assertEquals(alberto.getTelf(), "692242216");
         assertEquals(alberto.getFecha(), LocalDate.now());
         assertEquals(alberto.getDireccion(), dirAlberto);
-        //la tarifa se comrpueba en testCambiarTarifa
+        assertEquals(pamesa.getTarifa().descripcion(), "Tarifa basica");
     }
 
     @Test
@@ -93,7 +93,6 @@ public class GestorClientesTest {
         assertEquals(pamesa.getTelf(), "964246252");
         assertEquals(pamesa.getFecha(), LocalDate.now());
         assertEquals(pamesa.getDireccion(), dirPamesa);
-        assertEquals(pamesa.getTarifa().getPrecio(), 0.05f, 0);
         assertEquals(pamesa.getTarifa().descripcion(), "Tarifa basica");
     }
 
@@ -112,7 +111,6 @@ public class GestorClientesTest {
     @Test
     public void testContratarTarifaEspecial() {
         //comprobamos que alberto tiene la tarifa basica
-        assertEquals(alberto.getTarifa().getPrecio(), 0.05f, 0);
         String descripcion = "Tarifa basica";
         assertEquals(pamesa.getTarifa().descripcion(), descripcion);
 
@@ -137,7 +135,7 @@ public class GestorClientesTest {
                 "\n\tEmail: albertoprado@gmail.com" +
                 "\n\tFecha de alta: " + LocalDate.now() +
                 "\n\tHora de alta: " + obj.format("%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute()) +
-                "\n\t" + alberto.getTarifa());
+                "\n\t" + alberto.getTarifa().descripcion());
         obj = new Formatter();
         assertEquals(baseDeDatos.listarDatosCliente("63302284"), "\npamesa" +
                 "\n\tNIF: 63302284" +
@@ -146,13 +144,12 @@ public class GestorClientesTest {
                 "\n\tEmail: pamesa@gmail.com" +
                 "\n\tFecha de alta: " + LocalDate.now() +
                 "\n\tHora de alta: " + obj.format("%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute()) +
-                "\n\t" + pamesa.getTarifa());
+                "\n\t" + pamesa.getTarifa().descripcion());
     }
 
     //comprueba darDeAltaLlamada
     @Test
     public void testDarDeAltaLlamada() {
-        baseDeDatos.darDeAltaLlamada("692242216", "000000000", 120);
         baseDeDatos.darDeAltaLlamada("692242216", "000000000", 120);
         Formatter obj = new Formatter();
         assertEquals(baseDeDatos.listarLlamadasCliente("692242216"),

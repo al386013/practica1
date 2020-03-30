@@ -1,9 +1,10 @@
 package datos.contrato.tarifas;
 
+import datos.llamadas.Llamada;
 import java.io.Serializable;
 
 public abstract class Tarifa implements Serializable {
-    private float precio;
+    float precio;
 
     //CONSTRUCTOR
     public Tarifa(float precio) {
@@ -11,13 +12,9 @@ public abstract class Tarifa implements Serializable {
     }
 
     //METODOS
-    public float getPrecio() {
-        return precio;
-    }
+    public abstract float calcularPrecioLlamada(Llamada llamada);
 
     public abstract String descripcion();
-
-    public abstract Tarifa getTarifa();
 
     @Override
     public String toString() {
