@@ -117,12 +117,12 @@ public class GestorClientesTest {
         assertEquals(pamesa.getTarifa().descripcion(), descripcion);
 
         //alberto contrata la tarifa especial por horas
-        baseDeDatos.contratarTarifaEspecial("b", alberto.getNIF());
+        baseDeDatos.contratarTarifaPorHoras(alberto.getNIF());
         descripcion += ", con tarifa especial por horas";
         assertEquals(alberto.getTarifa().descripcion(), descripcion);
 
         //alberto contrata tambien la tarifa especial por dias
-        baseDeDatos.contratarTarifaEspecial("a", alberto.getNIF());
+        baseDeDatos.contratarTarifaPorDias(alberto.getNIF());
         descripcion += ", con tarifa especial por dia";
         assertEquals(alberto.getTarifa().descripcion(), descripcion);
     }

@@ -66,8 +66,9 @@ public class Factura implements TieneFecha, Serializable {
         for (Llamada llamada : llamadas) {
             LocalDate fecha = llamada.getFecha();
             //si esta dentro del periodo de facturacion
+            //toDo Esta linea es  la que da problemas en todos los tests
             if (fecha.isAfter(periodoFact.getFechaIni()) && fecha.isBefore(periodoFact.getFechaFin()) ||
-                    (fecha.isEqual(periodoFact.getFechaIni()) || fecha.isEqual(periodoFact.getFechaFin()))) {
+                    (fecha.isEqual(periodoFact.getFechaIni()) && fecha.isEqual(periodoFact.getFechaFin()))) {
                 precioLlamada = calcularPrecioLlamada(tarifa, llamada);
                 importe += (llamada.getDuracion() / 60.0f) * precioLlamada;
             }
