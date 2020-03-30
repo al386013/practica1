@@ -4,7 +4,7 @@ import datos.llamadas.Llamada;
 import java.io.Serializable;
 
 public abstract class Tarifa implements Serializable {
-    float precio;
+    private float precio;
 
     //CONSTRUCTOR
     public Tarifa(float precio) {
@@ -16,8 +16,5 @@ public abstract class Tarifa implements Serializable {
 
     public abstract String descripcion();
 
-    @Override
-    public String toString() {
-        return precio + " €/min";
-    }
+    public float getPrecio() { return precio; }
 }

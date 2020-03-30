@@ -120,7 +120,7 @@ public class BaseDeDatos implements Serializable {
 
     //Metodo entreFechas: de un conjunto, devuelve un subconjunto con los elementos de fecha entre fechaIni y fechaFin
     private <T extends TieneFecha> Collection<T> entreFechas(Collection<T> conjunto, LocalDate fechaIni, LocalDate fechaFin) {
-        Collection<T> res = new TreeSet(new ComparadorFechaHora());
+        Collection<T> res = new TreeSet<>(new ComparadorFechaHora<>());
         for (T elem : conjunto) {
             LocalDate fecha = elem.getFecha();
             if (fecha.isAfter(fechaIni) && fecha.isBefore(fechaFin) || (fecha.isEqual(fechaIni) || fecha.isEqual(fechaFin)))

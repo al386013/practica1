@@ -31,9 +31,9 @@ public abstract class Cliente implements TieneFecha, Serializable {
         this.email = "";
         this.fechaDeAlta = null;
         this.tarifa = null;
-        ComparadorFechaHora comparador = new ComparadorFechaHora<>();
-        this.facturas = new TreeSet<Factura>(comparador);
-        this.llamadas = new TreeSet<Llamada>(comparador);
+        ComparadorFechaHora<TieneFecha> comparador = new ComparadorFechaHora<>();
+        this.facturas = new TreeSet<>(comparador);
+        this.llamadas = new TreeSet<>(comparador);
     }
 
     public Cliente(final String nombre, final String telefono, final String NIF, final Direccion direccion, final String email, final Tarifa tarifa) {
@@ -44,9 +44,9 @@ public abstract class Cliente implements TieneFecha, Serializable {
         this.email = email;
         this.fechaDeAlta = LocalDateTime.now();
         this.tarifa = tarifa;
-        ComparadorFechaHora comparador = new ComparadorFechaHora<>();
-        this.facturas = new TreeSet<Factura>(comparador);
-        this.llamadas = new TreeSet<Llamada>(comparador);
+        ComparadorFechaHora<TieneFecha> comparador = new ComparadorFechaHora<>();
+        this.facturas = new TreeSet<>(comparador);
+        this.llamadas = new TreeSet<>(comparador);
     }
 
     public String getNombre() {
