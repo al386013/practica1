@@ -50,6 +50,7 @@ public class GestorClientes implements Serializable {
         telfNif.remove(telf); //y del telfNif
     }
 
+    /*
     //Metodo contratarTarifaPorDias: contrata la tarifa por dias de un cliente dado su nif
     public void contratarTarifaDomingos(String NIF) {
         Cliente cliente = clientes.get(NIF);
@@ -63,6 +64,11 @@ public class GestorClientes implements Serializable {
         Cliente cliente = clientes.get(NIF);
         Tarifa tarifa = cliente.getTarifa();
         tarifa = new TarifaTardesReducida(tarifa, 0.03f);
+        cliente.setTarifa(tarifa);
+    } */
+
+    public void contratarTarifaEspecial(Tarifa tarifa, String nif) {
+        Cliente cliente = clientes.get(nif);
         cliente.setTarifa(tarifa);
     }
 

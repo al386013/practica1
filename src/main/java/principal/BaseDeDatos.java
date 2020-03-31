@@ -13,6 +13,8 @@ import datos.llamadas.Llamada;
 import fabricas.FabricaClientes;
 import fabricas.FabricaTarifas;
 import interfaces.TieneFecha;
+import menus.MenuCambiarTarifa;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Collection;
@@ -74,12 +76,19 @@ public class BaseDeDatos implements Serializable {
         gestorClientes.borrarCliente(telf);
     }
 
+    /*
     public void contratarTarifaDomingos(String nif) {
         gestorClientes.contratarTarifaDomingos(nif);
     }
 
     public void contratarTarifaTardes(String nif) {
         gestorClientes.contratarTarifaTardes(nif);
+    }
+    */
+
+    public void contratarTarifaEspecial(MenuCambiarTarifa elemento, String nif) {
+        Cliente cliente = gestorClientes.devuelveCliente(nif);
+        gestorClientes.contratarTarifaEspecial(fabricaTarifas.getOferta(elemento, cliente.getTarifa()), nif);
     }
 
     public void darDeAltaLlamada(String telfOrigen, String telfDestino, int duracion) throws IllegalArgumentException {

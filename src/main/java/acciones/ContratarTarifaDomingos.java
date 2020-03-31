@@ -1,4 +1,4 @@
-package acciones;
+/*package acciones;
 
 import interfaces.Accion;
 import principal.BaseDeDatos;
@@ -17,4 +17,4 @@ public class ContratarTarifaDomingos implements Accion {
             e.printStackTrace();
         }
     }
-}
+}*/
