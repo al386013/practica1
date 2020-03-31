@@ -19,5 +19,4 @@ public class FabricaClientes implements InterfazFabricaClientes {
     public Cliente getEmpresa(String nombre, String telf, String nif, Direccion dir, String email, Tarifa tarifa){
         return new Empresa(nombre, telf, nif, dir, email, tarifa);
     }
-
 }
