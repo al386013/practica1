@@ -2,8 +2,8 @@ package datos.contrato.tarifas;
 
 import datos.llamadas.Llamada;
 
-public class TarifaPorHoras extends TarifaEspecial {
-    public TarifaPorHoras(Tarifa tarifa, float precioEspecial) {
+public class TarifaTardesReducida extends TarifaEspecial {
+    public TarifaTardesReducida(Tarifa tarifa, float precioEspecial) {
         super(tarifa, precioEspecial);
     }
 
@@ -21,6 +21,6 @@ public class TarifaPorHoras extends TarifaEspecial {
 
     @Override
     public String descripcion() {
-        return super.descripcion() + ", con tarifa especial por horas";
+        return super.descripcion() + ", con tarifa especial de tardes reducida";
     }
 }

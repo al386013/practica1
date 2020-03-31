@@ -3,9 +3,9 @@ package datos.contrato.tarifas;
 import datos.llamadas.Llamada;
 import java.time.DayOfWeek;
 
-public class TarifaPorDia extends TarifaEspecial {
+public class TarifaDomingosGratis extends TarifaEspecial {
 
-    public TarifaPorDia(Tarifa tarifa, float precioEspecial) {
+    public TarifaDomingosGratis(Tarifa tarifa, float precioEspecial) {
         super(tarifa, precioEspecial);
     }
 
@@ -18,6 +18,6 @@ public class TarifaPorDia extends TarifaEspecial {
 
     @Override
     public String descripcion() {
-        return super.descripcion() + ", con tarifa especial por dia";
+        return super.descripcion() + ", con tarifa especial de domingos gratis";
     }
 }

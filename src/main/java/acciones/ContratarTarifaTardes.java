@@ -4,7 +4,7 @@ import interfaces.Accion;
 import principal.BaseDeDatos;
 import principal.NifNoExistenteException;
 
-public class ContratarTarifaPorHoras implements Accion {
+public class ContratarTarifaTardes implements Accion {
     @Override
     public void ejecutaAccion(BaseDeDatos baseDeDatos) {
         try {
@@ -12,7 +12,7 @@ public class ContratarTarifaPorHoras implements Accion {
             System.out.print("- Introduce el NIF del cliente: ");
             String nif = sc.next();
             baseDeDatos.compruebaNifExistente(nif);
-            baseDeDatos.contratarTarifaPorHoras(nif);
+            baseDeDatos.contratarTarifaTardes(nif);
         } catch (NifNoExistenteException e) {
             e.printStackTrace();
         }

@@ -2,8 +2,8 @@ package principal;
 
 import datos.clientes.Cliente;
 import datos.contrato.tarifas.Tarifa;
-import datos.contrato.tarifas.TarifaPorDia;
-import datos.contrato.tarifas.TarifaPorHoras;
+import datos.contrato.tarifas.TarifaDomingosGratis;
+import datos.contrato.tarifas.TarifaTardesReducida;
 import datos.llamadas.Llamada;
 import java.io.Serializable;
 import java.util.HashMap;
@@ -51,18 +51,18 @@ public class GestorClientes implements Serializable {
     }
 
     //Metodo contratarTarifaPorDias: contrata la tarifa por dias de un cliente dado su nif
-    public void contratarTarifaPorDias(String NIF) {
+    public void contratarTarifaDomingos(String NIF) {
         Cliente cliente = clientes.get(NIF);
         Tarifa tarifa = cliente.getTarifa();
-        tarifa = new TarifaPorDia(tarifa, 0.00f);
+        tarifa = new TarifaDomingosGratis(tarifa, 0.00f);
         cliente.setTarifa(tarifa);
     }
 
     //Metodo contratarTarifaPorHoras: contrata la tarifa por horas de un cliente dado su nif
-    public void contratarTarifaPorHoras(String NIF) {
+    public void contratarTarifaTardes(String NIF) {
         Cliente cliente = clientes.get(NIF);
         Tarifa tarifa = cliente.getTarifa();
-        tarifa = new TarifaPorHoras(tarifa, 0.03f);
+        tarifa = new TarifaTardesReducida(tarifa, 0.03f);
         cliente.setTarifa(tarifa);
     }
 

@@ -1,10 +1,9 @@
 package datos;
 
-import datos.contrato.Factura;
 import datos.contrato.tarifas.Tarifa;
 import datos.contrato.tarifas.TarifaBasica;
-import datos.contrato.tarifas.TarifaPorDia;
-import datos.contrato.tarifas.TarifaPorHoras;
+import datos.contrato.tarifas.TarifaDomingosGratis;
+import datos.contrato.tarifas.TarifaTardesReducida;
 import datos.llamadas.Llamada;
 import org.junit.jupiter.api.BeforeAll;
 import static org.junit.Assert.assertEquals;
@@ -24,11 +23,11 @@ public class TarifaCalculaPrecioTest {
         //creamos tarifa basica
         tarifaBasica = new TarifaBasica(0.05f);
         //creamos una tarifa basica + tarifa por dias
-        tarifaPorDias = new TarifaPorDia(tarifaBasica, 0.00f);
+        tarifaPorDias = new TarifaDomingosGratis(tarifaBasica, 0.00f);
         //creamos una tarifa basica + tarifa por horas
-        tarifaPorHoras = new TarifaPorHoras(tarifaBasica, 0.03f);
+        tarifaPorHoras = new TarifaTardesReducida(tarifaBasica, 0.03f);
         //creamos una tarifa basica + tarifa por dias + tarifa por horas
-        tarifaTotal = new TarifaPorHoras(tarifaPorDias, 0.03f);
+        tarifaTotal = new TarifaTardesReducida(tarifaPorDias, 0.03f);
     }
 
     @Test

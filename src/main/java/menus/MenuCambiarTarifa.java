@@ -1,14 +1,14 @@
 package menus;
 
-import acciones.ContratarTarifaPorDias;
-import acciones.ContratarTarifaPorHoras;
+import acciones.ContratarTarifaDomingos;
+import acciones.ContratarTarifaTardes;
 import acciones.OpcionIncorrectaException;
 import interfaces.Accion;
 import principal.BaseDeDatos;
 
 public enum MenuCambiarTarifa {
-    TARIFA_POR_DIA("Tarifa por dias: domingos gratis.", new ContratarTarifaPorDias()),
-    TARIFA_POR_HORAS("Tarifa por horas: tardes a 0.03 €/min.", new ContratarTarifaPorHoras());
+    TARIFA_POR_DIA("Tarifa por dias: domingos gratis.", new ContratarTarifaDomingos()),
+    TARIFA_POR_HORAS("Tarifa por horas: tardes a 0.03 €/min.", new ContratarTarifaTardes());
 
     private String textoOpcion;
     private Accion accion;
