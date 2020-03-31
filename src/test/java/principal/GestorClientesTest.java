@@ -4,6 +4,7 @@ import datos.clientes.Cliente;
 import datos.clientes.Direccion;
 import datos.llamadas.Llamada;
 import es.uji.www.GeneradorDatosINE;
+import menus.MenuCambiarTarifa;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -115,13 +116,19 @@ public class GestorClientesTest {
         String descripcion = "Tarifa basica";
         assertEquals(pamesa.getTarifa().descripcion(), descripcion);
 
-        //alberto contrata la tarifa especial por horas
-        baseDeDatos.contratarTarifaTardes(alberto.getNIF());
+        //alberto contrata la tarifa especial de tardes reducida
+
+        //baseDeDatos.contratarTarifaTardes(alberto.getNIF()); //////////////////////////////////////////////////////
+
+        baseDeDatos.contratarTarifaEspecial(MenuCambiarTarifa.TARIFA_TARDES_REDUCIDA, alberto.getNIF());
         descripcion += ", con tarifa especial de tardes reducida";
         assertEquals(alberto.getTarifa().descripcion(), descripcion);
 
-        //alberto contrata tambien la tarifa especial por dias
-        baseDeDatos.contratarTarifaDomingos(alberto.getNIF());
+        //alberto contrata tambien la tarifa especial de domingos gratis
+
+        //baseDeDatos.contratarTarifaDomingos(alberto.getNIF());
+
+        baseDeDatos.contratarTarifaEspecial(MenuCambiarTarifa.TARIFA_DOMINGOS_GRATIS, alberto.getNIF());
         descripcion += ", con tarifa especial de domingos gratis";
         assertEquals(alberto.getTarifa().descripcion(), descripcion);
     }

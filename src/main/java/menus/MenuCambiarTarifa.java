@@ -5,8 +5,8 @@ import interfaces.Accion;
 import principal.BaseDeDatos;
 
 public enum MenuCambiarTarifa {
-    TARIFA_POR_DIA("Tarifa por dias: domingos gratis."), //new ContratarTarifaDomingos()),
-    TARIFA_POR_HORAS("Tarifa por horas: tardes a 0.03 €/min."); //new ContratarTarifaTardes());
+    TARIFA_DOMINGOS_GRATIS("Tarifa por dias: domingos gratis."), //new ContratarTarifaDomingos()),
+    TARIFA_TARDES_REDUCIDA("Tarifa por horas: tardes a 0.03 €/min."); //new ContratarTarifaTardes());
 
     private String textoOpcion;
     //private Accion accion;

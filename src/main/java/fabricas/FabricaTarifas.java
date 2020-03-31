@@ -21,7 +21,7 @@ public class FabricaTarifas implements InterfazFabricaTarifas {
     public Tarifa getOferta(MenuCambiarTarifa elemento, Tarifa tarifa) {
         Tarifa tarifaEspecial = new TarifaTardesReducida(tarifa, 0.03f);
         switch(elemento) {
-            case TARIFA_POR_DIA:
+            case TARIFA_DOMINGOS_GRATIS:
                 tarifaEspecial = new TarifaDomingosGratis(tarifa, 0.00f);
                 break;
         }
