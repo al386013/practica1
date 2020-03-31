@@ -1,6 +1,5 @@
 package acciones;
 
-import interfaces.Accion;
 import menus.MenuCambiarTarifa;
 import principal.BaseDeDatos;
 import principal.NifNoExistenteException;

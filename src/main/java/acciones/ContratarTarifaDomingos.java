@@ -1,6 +1,6 @@
 /*package acciones;
 
-import interfaces.Accion;
+import acciones.Accion;
 import principal.BaseDeDatos;
 import principal.NifNoExistenteException;
 

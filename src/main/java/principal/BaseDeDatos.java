@@ -3,16 +3,12 @@ package principal;
 import datos.ComparadorFechaHora;
 import datos.clientes.Cliente;
 import datos.clientes.Direccion;
-import datos.clientes.Empresa;
-import datos.clientes.Particular;
 import datos.contrato.Factura;
 import datos.contrato.PeriodoFacturacion;
-import datos.contrato.tarifas.Tarifa;
-import datos.contrato.tarifas.TarifaBasica;
 import datos.llamadas.Llamada;
 import fabricas.FabricaClientes;
 import fabricas.FabricaTarifas;
-import interfaces.TieneFecha;
+import datos.TieneFecha;
 import menus.MenuCambiarTarifa;
 
 import java.io.Serializable;

@@ -2,7 +2,7 @@ package datos.contrato;
 
 import datos.contrato.tarifas.Tarifa;
 import datos.llamadas.Llamada;
-import interfaces.TieneFecha;
+import datos.TieneFecha;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;

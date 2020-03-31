@@ -4,7 +4,7 @@ import acciones.DatosFactura;
 import acciones.EmiteFactura;
 import acciones.FacturasCliEntreFechas;
 import acciones.FacturasCliente;
-import interfaces.Accion;
+import acciones.Accion;
 import principal.BaseDeDatos;
 import acciones.ExportarDatosYsalir;
 import acciones.SeleccionaOpcionPrincipal;

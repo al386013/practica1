@@ -5,7 +5,6 @@ import datos.clientes.Direccion;
 import datos.clientes.Empresa;
 import datos.clientes.Particular;
 import datos.contrato.tarifas.Tarifa;
-import interfaces.InterfazFabricaClientes;
 
 import java.io.Serializable;
 

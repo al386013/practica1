@@ -1,4 +1,4 @@
-package interfaces;
+package fabricas;
 
 import datos.contrato.tarifas.Tarifa;
 import menus.MenuCambiarTarifa;

@@ -1,6 +1,6 @@
 package menus;
 
-import interfaces.Accion;
+import acciones.Accion;
 import principal.BaseDeDatos;
 import acciones.ExportarDatosYsalir;
 import acciones.ImportarDatos;

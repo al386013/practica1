@@ -1,6 +1,5 @@
 package acciones;
 
-import interfaces.Accion;
 import principal.BaseDeDatos;
 
 public class DatosFactura implements Accion {

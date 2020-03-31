@@ -1,7 +1,6 @@
 package acciones;
 
 import datos.clientes.Direccion;
-import interfaces.Accion;
 import principal.*;
 
 public class DarAltaCliente implements Accion {

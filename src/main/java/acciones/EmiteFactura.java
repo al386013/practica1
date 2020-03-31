@@ -1,6 +1,5 @@
 package acciones;
 
-import interfaces.Accion;
 import principal.BaseDeDatos;
 import principal.IntervaloFechasIncorrectoException;
 import principal.NifNoExistenteException;

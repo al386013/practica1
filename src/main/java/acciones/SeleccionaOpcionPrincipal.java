@@ -1,6 +1,5 @@
 package acciones;
 
-import interfaces.Accion;
 import menus.MenuPrincipal;
 import principal.BaseDeDatos;
 import java.io.Serializable;

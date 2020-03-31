@@ -1,6 +1,6 @@
 package datos.llamadas;
 
-import interfaces.TieneFecha;
+import datos.TieneFecha;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;

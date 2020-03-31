@@ -1,6 +1,5 @@
 package acciones;
 
-import interfaces.Accion;
 import principal.BaseDeDatos;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

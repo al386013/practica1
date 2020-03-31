@@ -4,7 +4,6 @@ import datos.contrato.tarifas.Tarifa;
 import datos.contrato.tarifas.TarifaBasica;
 import datos.contrato.tarifas.TarifaDomingosGratis;
 import datos.contrato.tarifas.TarifaTardesReducida;
-import interfaces.InterfazFabricaTarifas;
 import menus.MenuCambiarTarifa;
 
 import java.io.Serializable;

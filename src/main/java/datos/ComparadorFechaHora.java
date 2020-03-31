@@ -1,6 +1,5 @@
 package datos;
 
-import interfaces.TieneFecha;
 import java.io.Serializable;
 import java.util.Comparator;
 

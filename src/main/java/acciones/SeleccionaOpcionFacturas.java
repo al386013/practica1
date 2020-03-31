@@ -1,6 +1,5 @@
 package acciones;
 
-import interfaces.Accion;
 import menus.MenuFacturas;
 import principal.BaseDeDatos;
 

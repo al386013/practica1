@@ -1,4 +1,4 @@
-package interfaces;
+package fabricas;
 
 import datos.clientes.Cliente;
 import datos.clientes.Direccion;
