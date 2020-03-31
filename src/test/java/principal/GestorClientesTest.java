@@ -77,6 +77,7 @@ public class GestorClientesTest {
         //Se busca el cliente alberto anadido en el BeforeAll
         assertEquals(alberto.getNIF(), "20925403");
         assertEquals(alberto.getNombre(), "alberto");
+        //assertEquals(alberto.getApellidos(), "prado banarro");
         assertEquals(alberto.getEmail(), "albertoprado@gmail.com");
         assertEquals(alberto.getTelf(), "692242216");
         assertEquals(alberto.getFecha(), LocalDate.now());

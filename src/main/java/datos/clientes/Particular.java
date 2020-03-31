@@ -17,6 +17,11 @@ public class Particular extends Cliente {
         this.apellidos = apellidos;
     }
 
+    /*@Override
+    public String getApellidos() {
+        return apellidos;
+    }*/
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
