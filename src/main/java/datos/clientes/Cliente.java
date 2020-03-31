@@ -24,6 +24,7 @@ public abstract class Cliente implements TieneFecha, Serializable {
 
     //CONSSTRUCTOR POR DEFECTO
     public Cliente() {
+        super();
         this.nombre = "";
         this.telf = "";
         this.NIF = "";
@@ -37,6 +38,7 @@ public abstract class Cliente implements TieneFecha, Serializable {
     }
 
     public Cliente(final String nombre, final String telefono, final String NIF, final Direccion direccion, final String email, final Tarifa tarifa) {
+        super();
         this.nombre = nombre;
         this.telf = telefono;
         this.NIF = NIF;

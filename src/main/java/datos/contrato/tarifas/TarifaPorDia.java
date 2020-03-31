@@ -12,7 +12,7 @@ public class TarifaPorDia extends TarifaEspecial {
     @Override
     public float calcularPrecioLlamada(Llamada llamada) {
         if(llamada.getFecha().getDayOfWeek() == DayOfWeek.SUNDAY)
-            return 0.00f;
+            return 0.00f; //los domingos sale gratis
         return super.calcularPrecioLlamada(llamada); //llamada recursiva
     }
 
