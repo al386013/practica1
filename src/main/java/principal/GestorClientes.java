@@ -17,6 +17,7 @@ public class GestorClientes implements Serializable {
 
     //CONSTRUCTOR
     public GestorClientes() {
+        super();
         clientes = new HashMap<String, Cliente>();
         telfNif = new HashMap<String, String>();
     }

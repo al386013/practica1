@@ -12,6 +12,7 @@ public class GestorFacturas implements Serializable {
 
     //CONSTRUCTOR
     public GestorFacturas() {
+        super();
         totalFacturas = new HashMap<Integer, Factura>();
     }
 

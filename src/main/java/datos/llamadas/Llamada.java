@@ -15,6 +15,7 @@ public class Llamada implements TieneFecha, Serializable {
     //CONSTRUCTORES
 
     public Llamada() {
+        super();
         this.telfDest = "";
         this.fecha = null;
         this.hora = null;
@@ -22,6 +23,7 @@ public class Llamada implements TieneFecha, Serializable {
     }
 
     public Llamada(String telfDest, int duracion) {
+        super();
         this.telfDest = telfDest;
         this.fecha = LocalDate.now();
         this.hora = LocalTime.now();

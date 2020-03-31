@@ -7,8 +7,11 @@ import datos.clientes.Empresa;
 import datos.clientes.Particular;
 import datos.contrato.Factura;
 import datos.contrato.PeriodoFacturacion;
+import datos.contrato.tarifas.Tarifa;
 import datos.contrato.tarifas.TarifaBasica;
 import datos.llamadas.Llamada;
+import fabricas.FabricaClientes;
+import fabricas.FabricaTarifas;
 import interfaces.TieneFecha;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -20,16 +23,24 @@ public class BaseDeDatos implements Serializable {
     //ATRIBUTOS
     private GestorClientes gestorClientes;
     private GestorFacturas gestorFacturas;
+    private FabricaClientes fabricaClientes;
+    private FabricaTarifas fabricaTarifas;
 
     //CONSTRUCTORES
     public BaseDeDatos() {
+        super();
         this.gestorClientes = new GestorClientes();
         this.gestorFacturas = new GestorFacturas();
+        this.fabricaClientes = new FabricaClientes();
+        this.fabricaTarifas = new FabricaTarifas();
     }
 
     public BaseDeDatos(GestorClientes gestorClientes, GestorFacturas gestorFacturas) {
+        super();
         this.gestorClientes = gestorClientes;
         this.gestorFacturas = gestorFacturas;
+        this.fabricaClientes = new FabricaClientes();
+        this.fabricaTarifas = new FabricaTarifas();
     }
 
     // METODOS
@@ -52,13 +63,11 @@ public class BaseDeDatos implements Serializable {
     }
 
     public void anadirParticular(String nombre, String apellidos, String telf, String nif, Direccion dir, String email) {
-        Cliente nuevoParticular = new Particular(nombre, apellidos, telf, nif, dir, email, new TarifaBasica(0.05f));
-        gestorClientes.anadirCliente(nuevoParticular);
+        gestorClientes.anadirCliente(fabricaClientes.getParticular(nombre, apellidos, telf, nif, dir, email, fabricaTarifas.getBasica()));
     }
 
     public void anadirEmpresa(String nombre, String telf, String nif, Direccion dir, String email) {
-        Cliente nuevaEmpresa = new Empresa(nombre, telf, nif, dir, email, new TarifaBasica(0.05f));
-        gestorClientes.anadirCliente(nuevaEmpresa);
+        gestorClientes.anadirCliente(fabricaClientes.getEmpresa(nombre, telf, nif, dir, email, fabricaTarifas.getBasica()));
     }
 
     public void borrarCliente(String telf) {

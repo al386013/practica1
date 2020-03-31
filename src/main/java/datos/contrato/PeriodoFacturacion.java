@@ -8,11 +8,13 @@ public class PeriodoFacturacion implements Serializable {
     private LocalDate fechaFin;
 
     public PeriodoFacturacion() {
+        super();
         this.fechaIni = null;
         this.fechaFin = null;
     }
 
     public PeriodoFacturacion(LocalDate fechaIni, LocalDate fechaFin) {
+        super();
         this.fechaIni = fechaIni;
         this.fechaFin = fechaFin;
     }

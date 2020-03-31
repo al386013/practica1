@@ -24,9 +24,6 @@ public class Particular extends Cliente {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("\n" + apellidos + ", ");
-        sb.append(super.toString());
-        return sb.toString();
+        return "\n" + apellidos + ", " + super.toString();
     }
 }

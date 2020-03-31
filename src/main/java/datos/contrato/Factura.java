@@ -1,14 +1,11 @@
 package datos.contrato;
 
 import datos.contrato.tarifas.Tarifa;
-import datos.contrato.tarifas.TarifaPorDia;
-import datos.contrato.tarifas.TarifaPorHoras;
 import datos.llamadas.Llamada;
 import interfaces.TieneFecha;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -25,6 +22,7 @@ public class Factura implements TieneFecha, Serializable {
     //CONSTRUCTORES
 
     public Factura() {
+        super();
         this.fechaEmision = null;
         this.periodoFact = null;
         this.importe = 0.0f;
@@ -33,6 +31,7 @@ public class Factura implements TieneFecha, Serializable {
     }
 
     public Factura(PeriodoFacturacion periodoFact, String nifCliente, Set<Llamada> llamadas, Tarifa tarifa) {
+        super();
         this.fechaEmision = LocalDateTime.now();
         this.periodoFact = periodoFact;
         this.importe = calcularImporte(tarifa, llamadas);

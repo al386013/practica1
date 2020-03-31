@@ -8,6 +8,7 @@ public abstract class Tarifa implements Serializable {
 
     //CONSTRUCTOR
     public Tarifa(float precio) {
+        super();
         this.precio = precio;
     }
 

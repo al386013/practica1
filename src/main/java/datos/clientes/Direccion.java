@@ -8,12 +8,14 @@ public class Direccion implements Serializable {
     private String poblacion;
 
     public Direccion() {
+        super();
         this.CP = "";
         this.provincia = "";
         this.poblacion = "";
     }
 
     public Direccion(final String CP, final String provincia, final String poblacion) {
+        super();
         this.CP = CP;
         this.provincia = provincia;
         this.poblacion = poblacion;

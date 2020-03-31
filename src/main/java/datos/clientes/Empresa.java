@@ -16,8 +16,6 @@ public class Empresa extends Cliente {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("\n" + super.toString()); //insertamos el salto de linea antes del nombre
-        return sb.toString();
+        return "\n" + super.toString(); //insertamos el salto de linea antes del nombre
     }
 }

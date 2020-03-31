@@ -2,6 +2,8 @@ package fabricas;
 
 import datos.contrato.tarifas.Tarifa;
 import datos.contrato.tarifas.TarifaBasica;
+import datos.contrato.tarifas.TarifaPorDia;
+import datos.contrato.tarifas.TarifaPorHoras;
 import interfaces.InterfazFabricaTarifas;
 import menus.MenuCambiarTarifa;
 
@@ -17,8 +19,12 @@ public class FabricaTarifas implements InterfazFabricaTarifas {
 
     @Override
     public Tarifa getOferta(MenuCambiarTarifa elemento, Tarifa tarifa) {
-        return new TarifaBasica(0.05f); //OBVIAMENTE NO ES ASI, LE HE PREGUNTADO SI HAY QUE PONER UN SWITCH O COMO SE HACE
+        Tarifa tarifaEspecial = new TarifaPorHoras(tarifa, 0.03f);
+        switch(elemento) {
+            case TARIFA_POR_DIA:
+                tarifaEspecial = new TarifaPorDia(tarifa, 0.00f);
+                break;
+        }
+        return tarifaEspecial;
     }
-
-    //en los test tenemos que eliminar los new y crear factorías? en el test de factoriaClientes usamos facturiaTarifas?
 }
