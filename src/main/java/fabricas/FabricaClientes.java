@@ -7,7 +7,9 @@ import datos.clientes.Particular;
 import datos.contrato.tarifas.Tarifa;
 import interfaces.InterfazFabricaClientes;
 
-public class FabricaClientes implements InterfazFabricaClientes {
+import java.io.Serializable;
+
+public class FabricaClientes implements InterfazFabricaClientes, Serializable {
     public FabricaClientes() { super(); }
 
     @Override

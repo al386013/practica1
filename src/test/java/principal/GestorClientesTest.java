@@ -78,7 +78,7 @@ public class GestorClientesTest {
         //Se busca el cliente alberto anadido en el BeforeAll
         assertEquals(alberto.getNIF(), "20925403");
         assertEquals(alberto.getNombre(), "alberto");
-        //assertEquals(alberto.getApellidos(), "prado banarro");
+        //assertEquals(alberto.getApellidos(), "prado banarro"); ??????????????????????????????????
         assertEquals(alberto.getEmail(), "albertoprado@gmail.com");
         assertEquals(alberto.getTelf(), "692242216");
         assertEquals(alberto.getFecha(), LocalDate.now());
@@ -118,7 +118,7 @@ public class GestorClientesTest {
 
         //alberto contrata la tarifa especial de tardes reducida
 
-        //baseDeDatos.contratarTarifaTardes(alberto.getNIF()); //////////////////////////////////////////////////////
+        //baseDeDatos.contratarTarifaTardes(alberto.getNIF()); //////////////////////asi era antes////////////////////////////////
 
         baseDeDatos.contratarTarifaEspecial(MenuCambiarTarifa.TARIFA_TARDES_REDUCIDA, alberto.getNIF());
         descripcion += ", con tarifa especial de tardes reducida";
@@ -126,7 +126,7 @@ public class GestorClientesTest {
 
         //alberto contrata tambien la tarifa especial de domingos gratis
 
-        //baseDeDatos.contratarTarifaDomingos(alberto.getNIF());
+        //baseDeDatos.contratarTarifaDomingos(alberto.getNIF()); ////////////////////antes
 
         baseDeDatos.contratarTarifaEspecial(MenuCambiarTarifa.TARIFA_DOMINGOS_GRATIS, alberto.getNIF());
         descripcion += ", con tarifa especial de domingos gratis";

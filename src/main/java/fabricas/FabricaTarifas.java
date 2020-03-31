@@ -7,7 +7,9 @@ import datos.contrato.tarifas.TarifaTardesReducida;
 import interfaces.InterfazFabricaTarifas;
 import menus.MenuCambiarTarifa;
 
-public class FabricaTarifas implements InterfazFabricaTarifas {
+import java.io.Serializable;
+
+public class FabricaTarifas implements InterfazFabricaTarifas, Serializable {
     public FabricaTarifas() {
         super();
     }
