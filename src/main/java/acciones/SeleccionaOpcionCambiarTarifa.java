@@ -23,7 +23,7 @@ public class SeleccionaOpcionCambiarTarifa implements Accion {
             //opcionCambiarTarifa.ejecutaOpcion(baseDeDatos);
 
             System.out.println("\n\t--> Tarifa especial contratada.\n");
-        } catch (NifNoExistenteException | OpcionIncorrectaException e) {
+        } catch (OpcionIncorrectaException | NifNoExistenteException e) {
             e.printStackTrace();
         }
     }
@@ -31,8 +31,8 @@ public class SeleccionaOpcionCambiarTarifa implements Accion {
     private byte pedirOpcion() throws OpcionIncorrectaException {
         System.out.print("Introduce la tarifa a contratar: ");
         byte opcion = sc.nextByte();
-        if (opcion < 0 || opcion > 2)
-            throw new OpcionIncorrectaException(2);
+        if (opcion < 0 || opcion > 1)
+            throw new OpcionIncorrectaException(1);
         return opcion;
     }
 }
