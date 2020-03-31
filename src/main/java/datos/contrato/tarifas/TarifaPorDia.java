@@ -11,14 +11,8 @@ public class TarifaPorDia extends TarifaEspecial {
 
     @Override
     public float calcularPrecioLlamada(Llamada llamada) {
-        float precioReturn = super.calcularPrecioLlamada(llamada); //llamada recursiva
-        //si la llamada cumple la tarifa por dia, calcula el precio de la llamada y se compara
-        if(llamada.getFecha().getDayOfWeek() == DayOfWeek.SUNDAY) {
-            float precioLlamada = (llamada.getDuracion() / 60.0f) * super.precio;
-            if (precioLlamada < precioReturn)
-                precioReturn = precioLlamada;
-        }
-        return precioReturn;
+        if(llamada.getFecha().getDayOfWeek() == DayOfWeek.SUNDAY) return 0.00f;
+        return super.calcularPrecioLlamada(llamada);
     }
 
     @Override

@@ -9,7 +9,7 @@ public class TarifaBasica extends Tarifa {
 
     @Override
     public float calcularPrecioLlamada(Llamada llamada) {
-        return (llamada.getDuracion() / 60.0f) * super.precio;
+        return (llamada.getDuracion() / 60.0f) * super.getPrecio();
     }
 
     @Override
