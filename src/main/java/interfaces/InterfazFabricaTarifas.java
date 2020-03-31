@@ -1,10 +1,9 @@
 package interfaces;
 
 import datos.contrato.tarifas.Tarifa;
-
-import java.util.Enumeration;
+import menus.MenuCambiarTarifa;
 
 public interface InterfazFabricaTarifas {
     Tarifa getBasica();
-    Tarifa getOferta(Enumeration elemento, Tarifa recubierta);
+    Tarifa getOferta(MenuCambiarTarifa elemento, Tarifa recubierta);
 }
