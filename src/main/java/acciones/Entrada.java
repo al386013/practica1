@@ -48,7 +48,44 @@ public class Entrada implements EntradaInterfaz{
     }
 
     @Override
+    public String pedirPoblacion() {
+        imprimir("Introduce poblacion: ");
+        return sc.next();
+    }
+
+    @Override
+    public String pedirCP() {
+        imprimir("Introduce codigo postal: ");
+        return sc.next();
+    }
+
+    @Override
+    public String pedirEmail() {
+        imprimir("Introduce email: ");
+        return sc.next();
+    }
+
+    @Override
+    public String pedirProvincia() {
+        imprimir("Introduce provincia: ");
+        return sc.next();
+    }
+
+    @Override
+    public String pedirNombre() {
+        imprimir("Introduce nombre: ");
+        return sc.next();
+    }
+    @Override
+    public String pedirApellidos() {
+        imprimir("Introduce apellidos: ");
+        return sc.next();
+    }
+
+    @Override
     public void imprimir(String string) {
         System.out.println(string);
     }
+
+
 }
