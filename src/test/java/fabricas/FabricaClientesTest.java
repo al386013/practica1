@@ -32,6 +32,16 @@ public class FabricaClientesTest {
         assertEquals(empresa.getEmail(), "empresa@gmail.com");
         assertEquals(empresa.getFecha(), LocalDate.now());
         assertEquals(empresa.getTarifa().descripcion(), "Tarifa basica");
+
+        Cliente empresa = fabricaClientes.getEmpresa("Pamesa", "999999999", "56565656", dir,
+                "pamesa@gmail.com", tarifa);
+        assertEquals(empresa.getNombre(), "Pamesa");
+        assertEquals(empresa.getTelf(), "999999999");
+        assertEquals(empresa.getNIF(), "56565656");
+        assertEquals(empresa.getDireccion(), dir);
+        assertEquals(empresa.getEmail(), "pamesa@gmail.com");
+        assertEquals(empresa.getFecha(), LocalDate.now());
+        assertEquals(empresa.getTarifa().descripcion(), "Tarifa basica");
     }
 
     @Test
@@ -46,5 +56,16 @@ public class FabricaClientesTest {
         assertEquals(particular.getEmail(), "mgomez@gmail.com");
         assertEquals(particular.getFecha(), LocalDate.now());
         assertEquals(particular.getTarifa().descripcion(), "Tarifa basica");
+
+        Cliente particular2 = fabricaClientes.getParticular("Andres", "Moreno Igual", "964222222", "25925403",
+                dir, "amorenoigual@gmail.com", tarifa);
+        assertEquals(particular2.getNombre(), "Andres");
+        //assertEquals(particular.getApellidos(), "Moreno Igual"); ?????????????????????????
+        assertEquals(particular2.getTelf(), "964222222");
+        assertEquals(particular2.getNIF(), "25925403");
+        assertEquals(particular2.getDireccion(), dir);
+        assertEquals(particular2.getEmail(), "amorenoigual@gmail.com");
+        assertEquals(particular2.getFecha(), LocalDate.now());
+        assertEquals(particular2.getTarifa().descripcion(), "Tarifa basica");
     }
 }
