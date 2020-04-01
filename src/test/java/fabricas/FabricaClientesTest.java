@@ -33,15 +33,15 @@ public class FabricaClientesTest {
         assertEquals(empresa.getFecha(), LocalDate.now());
         assertEquals(empresa.getTarifa().descripcion(), "Tarifa basica");
 
-        Cliente empresa = fabricaClientes.getEmpresa("Pamesa", "999999999", "56565656", dir,
+        Cliente empresa2 = fabricaClientes.getEmpresa("Pamesa", "999999999", "56565656", dir,
                 "pamesa@gmail.com", tarifa);
-        assertEquals(empresa.getNombre(), "Pamesa");
-        assertEquals(empresa.getTelf(), "999999999");
-        assertEquals(empresa.getNIF(), "56565656");
-        assertEquals(empresa.getDireccion(), dir);
-        assertEquals(empresa.getEmail(), "pamesa@gmail.com");
-        assertEquals(empresa.getFecha(), LocalDate.now());
-        assertEquals(empresa.getTarifa().descripcion(), "Tarifa basica");
+        assertEquals(empresa2.getNombre(), "Pamesa");
+        assertEquals(empresa2.getTelf(), "999999999");
+        assertEquals(empresa2.getNIF(), "56565656");
+        assertEquals(empresa2.getDireccion(), dir);
+        assertEquals(empresa2.getEmail(), "pamesa@gmail.com");
+        assertEquals(empresa2.getFecha(), LocalDate.now());
+        assertEquals(empresa2.getTarifa().descripcion(), "Tarifa basica");
     }
 
     @Test
