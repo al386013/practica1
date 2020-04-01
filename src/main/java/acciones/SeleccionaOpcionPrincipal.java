@@ -20,8 +20,8 @@ public class SeleccionaOpcionPrincipal implements Accion, Serializable {
     @Override
     public void ejecutaAccion(BaseDeDatos bbdd) {
         do {
-            System.out.println("\n* * * * * * * OPCIONES DISPONIBLES * * * * * * *\n");
-            System.out.println(MenuPrincipal.getMenu());
+            entrada.imprimir("\n* * * * * * * OPCIONES DISPONIBLES * * * * * * *\n");
+            entrada.imprimir(MenuPrincipal.getMenu());
             try {
                 byte opcion = pedirOpcion();
                 opcionMenu = MenuPrincipal.getOpcion(opcion);
@@ -34,8 +34,7 @@ public class SeleccionaOpcionPrincipal implements Accion, Serializable {
     }
 
     private byte pedirOpcion() throws OpcionIncorrectaException {
-        System.out.print("Introduce una opción: ");
-        byte opcion = sc.nextByte();
+        byte opcion = entrada.pedirOpcion();
         if (opcion < 0 || opcion > 4)
             throw new OpcionIncorrectaException(4);
         return opcion;
