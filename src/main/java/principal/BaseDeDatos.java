@@ -8,7 +8,6 @@ import datos.contrato.PeriodoFacturacion;
 import datos.llamadas.Llamada;
 import datos.TieneFecha;
 import menus.MenuCambiarTarifa;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Collection;
