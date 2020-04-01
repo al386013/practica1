@@ -7,7 +7,7 @@ public class DarAltaCliente implements Accion {
     @Override
     public void ejecutaAccion(BaseDeDatos baseDeDatos) {
         try {
-            System.out.println("\nDAR DE ALTA UN NUEVO CLIENTE");
+            System.out.print("\nDAR DE ALTA UN NUEVO CLIENTE");
             System.out.print("--> Introduce 'e' para empresa o 'p' para particular: ");
             String letra = sc.next();
             while (!letra.equals("e") && !letra.equals("p")) {

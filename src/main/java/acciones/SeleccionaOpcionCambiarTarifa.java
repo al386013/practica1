@@ -8,28 +8,27 @@ public class SeleccionaOpcionCambiarTarifa implements Accion {
     @Override
     public void ejecutaAccion(BaseDeDatos baseDeDatos) {
         try {
-            System.out.println("\nCONTRATAR UNA TARIFA ESPECIAL");
+            entrada.imprimir("\nCONTRATAR UNA TARIFA ESPECIAL");
 
             //tres lineas anadidas (y el try catch)
-            System.out.print("- Introduce el NIF del cliente: ");
-            String nif = sc.next();
+
+            String nif = entrada.pedirNif();
             baseDeDatos.compruebaNifExistente(nif);
 
-            System.out.println("\n" + MenuCambiarTarifa.getMenu());
+            entrada.imprimir("\n" + MenuCambiarTarifa.getMenu());
             byte opcion = pedirOpcion();
             MenuCambiarTarifa opcionCambiarTarifa = MenuCambiarTarifa.getOpcion(opcion);
             baseDeDatos.contratarTarifaEspecial(opcionCambiarTarifa, nif); //linea nueva
             //opcionCambiarTarifa.ejecutaOpcion(baseDeDatos);
 
-            System.out.println("\n\t--> Tarifa especial contratada.\n");
+            entrada.imprimir("\n\t--> Tarifa especial contratada.\n");
         } catch (OpcionIncorrectaException | NifNoExistenteException e) {
             e.printStackTrace();
         }
     }
 
     private byte pedirOpcion() throws OpcionIncorrectaException {
-        System.out.print("Introduce la tarifa a contratar: ");
-        byte opcion = sc.nextByte();
+        byte opcion = entrada.pedirOpcion();
         if (opcion < 0 || opcion > 1)
             throw new OpcionIncorrectaException(1);
         return opcion;
