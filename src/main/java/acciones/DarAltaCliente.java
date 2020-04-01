@@ -7,43 +7,35 @@ public class DarAltaCliente implements Accion {
     @Override
     public void ejecutaAccion(BaseDeDatos baseDeDatos) {
         try {
-            System.out.print("\nDAR DE ALTA UN NUEVO CLIENTE");
-            System.out.print("--> Introduce 'e' para empresa o 'p' para particular: ");
+            entrada.imprimir("\nDAR DE ALTA UN NUEVO CLIENTE");
+            entrada.imprimir("--> Introduce 'e' para empresa o 'p' para particular: ");
             String letra = sc.next();
             while (!letra.equals("e") && !letra.equals("p")) {
-                System.out.print("* Parametro incorrecto. Vuelve a intentarlo: ");
+                entrada.imprimir("* Parametro incorrecto. Vuelve a intentarlo: ");
                 letra = sc.next();
             }
-            System.out.print("- Introduce nombre: ");
-            sc.nextLine();
-            String nombre = sc.nextLine();
+
+            String nombre = entrada.pedirNombre();
+            
             String apellidos = null;
             if (letra.equals("p")) {
-                System.out.print("- Introduce apellidos: ");
-                apellidos = sc.nextLine();
+                apellidos = entrada.pedirApellidos();
             }
-            System.out.print("- Introduce NIF: ");
-            String nif = sc.next();
-            baseDeDatos.compruebaNifNoExistente(nif);
 
-            System.out.print("- Introduce el telefono del cliente: ");
-            String telf = sc.next();
+            String nif = entrada.pedirNif();
+            String telf = entrada.pedirTelf("- Introduce el telefono del cliente: ");
             baseDeDatos.compruebaTelfNoExistente(telf);
-
-            System.out.print("- Introduce CP: ");
-            String cp = sc.next();
-            System.out.print("- Introduce provincia: ");
-            sc.nextLine();
-            String provincia = sc.nextLine();
-            System.out.print("- Introduce poblacion: ");
-            String poblacion = sc.nextLine();
+            String cp = entrada.pedirCP();
+            String provincia = entrada.pedirProvincia();
+            String poblacion = entrada.pedirPoblacion();
             Direccion direccion = new Direccion(cp, provincia, poblacion);
-            System.out.print("- Introduce email: ");
-            String email = sc.next();
+            String email = entrada.pedirEmail();
+
             if (letra.equals("p"))
                 baseDeDatos.anadirParticular(nombre, apellidos, telf, nif, direccion, email);
             else baseDeDatos.anadirEmpresa(nombre, telf, nif, direccion, email);
-            System.out.println("\n\tCreado cliente " + nombre + " con NIF " + nif + " y telefono " + telf + ".\n");
+
+            entrada.imprimir("\n\tCreado cliente " + nombre + " con NIF " + nif + " y telefono " + telf + ".\n");
         } catch (NifRepetidoException | TelfRepetidoException e) {
             e.printStackTrace();
         }
