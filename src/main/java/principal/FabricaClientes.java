@@ -1,13 +1,12 @@
-package fabricas;
+package principal;
 
 import datos.clientes.Cliente;
 import datos.clientes.Direccion;
 import datos.clientes.Empresa;
 import datos.clientes.Particular;
 import datos.contrato.tarifas.Tarifa;
-import java.io.Serializable;
 
-public class FabricaClientes implements InterfazFabricaClientes, Serializable {
+public class FabricaClientes implements InterfazFabricaClientes{
     public FabricaClientes() { super(); }
 
     @Override

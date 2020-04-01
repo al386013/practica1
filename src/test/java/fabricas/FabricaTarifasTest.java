@@ -7,6 +7,8 @@ import datos.contrato.tarifas.TarifaTardesReducida;
 import menus.MenuCambiarTarifa;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import principal.FabricaTarifas;
+
 import static org.junit.Assert.assertEquals;
 
 public class FabricaTarifasTest {

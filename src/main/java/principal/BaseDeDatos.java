@@ -6,8 +6,6 @@ import datos.clientes.Direccion;
 import datos.contrato.*;
 import datos.contrato.PeriodoFacturacion;
 import datos.llamadas.Llamada;
-import fabricas.*;
-import fabricas.FabricaTarifas;
 import datos.TieneFecha;
 import menus.MenuCambiarTarifa;
 
@@ -21,8 +19,8 @@ public class BaseDeDatos implements Serializable {
     //ATRIBUTOS
     private GestorClientes gestorClientes;
     private GestorFacturas gestorFacturas;
-    private FabricaClientes fabricaClientes;
-    private FabricaTarifas fabricaTarifas;
+    private transient FabricaClientes fabricaClientes;
+    private transient FabricaTarifas fabricaTarifas;
 
     //CONSTRUCTORES
     public BaseDeDatos() {
@@ -72,19 +70,10 @@ public class BaseDeDatos implements Serializable {
         gestorClientes.borrarCliente(telf);
     }
 
-    /*
-    public void contratarTarifaDomingos(String nif) {
-        gestorClientes.contratarTarifaDomingos(nif);
-    }
-
-    public void contratarTarifaTardes(String nif) {
-        gestorClientes.contratarTarifaTardes(nif);
-    }
-    */
 
     public void contratarTarifaEspecial(MenuCambiarTarifa elemento, String nif) {
         Cliente cliente = gestorClientes.devuelveCliente(nif);
-        gestorClientes.contratarTarifaEspecial(fabricaTarifas.getOferta(elemento, cliente.getTarifa()), nif);
+        gestorClientes.contratarTarifaEspecial(fabricaTarifas.getOferta(elemento, cliente.getTarifa()), cliente);
     }
 
     public void darDeAltaLlamada(String telfOrigen, String telfDestino, int duracion) throws IllegalArgumentException {

@@ -56,8 +56,6 @@ public abstract class Cliente implements TieneFecha, Serializable {
         return nombre;
     }
 
-    /*public abstract String getApellidos();*///?????????????????????????????????????????????????????????????????????????????
-
     public String getTelf() {
         return telf;
     }
@@ -115,5 +113,18 @@ public abstract class Cliente implements TieneFecha, Serializable {
         string += "\n\tHora de alta: " + format("%02d:%02d", getHora().getHour(), getHora().getMinute());
         string += "\n\t" + tarifa.descripcion();
         return string;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cliente cliente = (Cliente) o;
+        return Objects.equals(NIF, cliente.NIF);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(NIF);
     }
 }

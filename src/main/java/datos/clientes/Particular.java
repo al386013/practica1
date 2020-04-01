@@ -17,17 +17,9 @@ public class Particular extends Cliente {
         this.apellidos = apellidos;
     }
 
-    /*@Override
-    public String getApellidos() {
-        return apellidos;
-    }*/
-
     @Override
     public String toString() {
         return "\n" + apellidos + ", " + super.toString();
     }
 
-    public String getApellidos() {
-        return apellidos;
-    }
 }

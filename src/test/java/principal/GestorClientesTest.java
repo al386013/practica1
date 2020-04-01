@@ -2,6 +2,8 @@ package principal;
 
 import datos.clientes.Cliente;
 import datos.clientes.Direccion;
+import datos.clientes.Empresa;
+import datos.clientes.Particular;
 import datos.llamadas.Llamada;
 import es.uji.www.GeneradorDatosINE;
 import menus.MenuCambiarTarifa;
@@ -24,12 +26,14 @@ public class GestorClientesTest {
     private static Direccion dirAlberto;
     private static Cliente pamesa;
     private static Direccion dirPamesa;
+    private static FabricaTarifas fabricaTarifas;
 
     @BeforeAll
     public static void inicializa() {
         GestorClientes gestorClientes = new GestorClientes();
         GestorFacturas gestorFacturas = new GestorFacturas();
         baseDeDatos = new BaseDeDatos(gestorClientes, gestorFacturas);
+        fabricaTarifas = new FabricaTarifas();
 
         for (int i = 0; i < 100; i++) {
             GeneradorDatosINE generadorDatosINE = new GeneradorDatosINE();
@@ -76,26 +80,15 @@ public class GestorClientesTest {
     @Test
     public void testAnadirParticular() {
         //Se busca el cliente alberto anadido en el BeforeAll
-        assertEquals(alberto.getNIF(), "20925403");
-        assertEquals(alberto.getNombre(), "alberto");
-        //assertEquals(alberto.getApellidos(), "prado banarro"); ??????????????????????????????????
-        assertEquals(alberto.getEmail(), "albertoprado@gmail.com");
-        assertEquals(alberto.getTelf(), "692242216");
-        assertEquals(alberto.getFecha(), LocalDate.now());
-        assertEquals(alberto.getDireccion(), dirAlberto);
-        assertEquals(pamesa.getTarifa().descripcion(), "Tarifa basica");
+        assertEquals(alberto ,new Particular("alberto", "prado banarro", "692242216", "20925403", dirAlberto, "albertoprado@gmail.com",fabricaTarifas.getBasica()));
+
     }
 
     @Test
     public void testAnadirEmpresa() {
         //Se busca la empresa pamesa anadida en el BeforeAll
-        assertEquals(pamesa.getNIF(), "63302284");
-        assertEquals(pamesa.getNombre(), "pamesa");
-        assertEquals(pamesa.getEmail(), "pamesa@gmail.com");
-        assertEquals(pamesa.getTelf(), "964246252");
-        assertEquals(pamesa.getFecha(), LocalDate.now());
-        assertEquals(pamesa.getDireccion(), dirPamesa);
-        assertEquals(pamesa.getTarifa().descripcion(), "Tarifa basica");
+        assertEquals(pamesa, new Empresa("pamesa", "964246252", "63302284", dirPamesa, "pamesa@gmail.com",fabricaTarifas.getBasica() ));
+
     }
 
     @Test
@@ -118,15 +111,11 @@ public class GestorClientesTest {
 
         //alberto contrata la tarifa especial de tardes reducida
 
-        //baseDeDatos.contratarTarifaTardes(alberto.getNIF()); //////////////////////asi era antes////////////////////////////////
-
         baseDeDatos.contratarTarifaEspecial(MenuCambiarTarifa.TARIFA_TARDES_REDUCIDA, alberto.getNIF());
         descripcion += ", con tarifa especial de tardes reducida";
         assertEquals(alberto.getTarifa().descripcion(), descripcion);
 
         //alberto contrata tambien la tarifa especial de domingos gratis
-
-        //baseDeDatos.contratarTarifaDomingos(alberto.getNIF()); ////////////////////antes
 
         baseDeDatos.contratarTarifaEspecial(MenuCambiarTarifa.TARIFA_DOMINGOS_GRATIS, alberto.getNIF());
         descripcion += ", con tarifa especial de domingos gratis";
