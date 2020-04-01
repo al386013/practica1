@@ -1,6 +1,6 @@
 package datos.clientes;
 
-import datos.contrato.Factura;
+import datos.contrato.*;
 import datos.contrato.tarifas.Tarifa;
 import datos.ComparadorFechaHora;
 import datos.TieneFecha;

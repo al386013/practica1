@@ -1,6 +1,6 @@
 package principal;
 
-import datos.contrato.Factura;
+import datos.contrato.*;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
