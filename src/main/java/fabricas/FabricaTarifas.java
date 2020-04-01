@@ -5,7 +5,6 @@ import datos.contrato.tarifas.TarifaBasica;
 import datos.contrato.tarifas.TarifaDomingosGratis;
 import datos.contrato.tarifas.TarifaTardesReducida;
 import menus.MenuCambiarTarifa;
-
 import java.io.Serializable;
 
 public class FabricaTarifas implements InterfazFabricaTarifas, Serializable {
