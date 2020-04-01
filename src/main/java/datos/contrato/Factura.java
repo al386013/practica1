@@ -9,9 +9,7 @@ import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Formatter;
 import java.util.Set;
-
 import static java.lang.String.format;
 
 public class Factura implements TieneFecha, Serializable {

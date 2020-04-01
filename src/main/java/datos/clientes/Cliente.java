@@ -1,7 +1,5 @@
 package datos.clientes;
 
-
-import acciones.FacturasCliente;
 import datos.contrato.Factura;
 import datos.contrato.tarifas.Tarifa;
 import datos.ComparadorFechaHora;
@@ -12,6 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
+import static java.lang.String.format;
 
 public abstract class Cliente implements TieneFecha, Serializable {
     private String nombre;
@@ -113,7 +112,7 @@ public abstract class Cliente implements TieneFecha, Serializable {
         string += "\n\tDireccion: " + direccion;
         string += "\n\tEmail: " + email;
         string += "\n\tFecha de alta: " + getFecha().toString();
-        string += "\n\tHora de alta: " + obj.format("%02d:%02d", getHora().getHour(), getHora().getMinute());
+        string += "\n\tHora de alta: " + format("%02d:%02d", getHora().getHour(), getHora().getMinute());
         string += "\n\t" + tarifa.descripcion();
         return string;
     }
