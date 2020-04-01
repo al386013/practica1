@@ -77,14 +77,25 @@ public class Factura implements TieneFecha, Serializable {
     public String toString() {
         Formatter obj = new Formatter();
         StringBuilder sb = new StringBuilder();
-        sb.append("\nCodigo de factura: " + this.hashCode() + ":");
-        sb.append("\n\tNIF: " + nifCliente);
-        sb.append("\n\tFecha de emision: " + getFecha().toString());
-        sb.append("\n\tHora de emision: " + obj.format("%02d:%02d", getHora().getHour(), getHora().getMinute()));
-        sb.append("\n\tPeriodo de facturacion: " + periodoFact);
-        sb.append("\n\tImporte: " + importe + "€");
+        sb.append("\nCodigo de factura: ");
+        sb.append(this.hashCode());
+        sb.append(":");
+        sb.append("\n\tNIF: ");
+        sb.append(nifCliente);
+        sb.append("\n\tFecha de emision: ");
+        sb.append(getFecha().toString());
+        sb.append("\n\tHora de emision: ");
+        sb.append( obj.format("%02d:%02d", getHora().getHour(), getHora().getMinute()));
+        sb.append("\n\tPeriodo de facturacion: ");
+        sb.append(periodoFact);
+        sb.append("\n\tImporte: ");
+        sb.append(importe);
+        sb.append("€");
         sb.append("\n\tLista de llamadas de esta factura:\n");
-        for (Llamada llamada : llamadas) sb.append("\n" + llamada.toString());
+        for (Llamada llamada : llamadas){
+            sb.append("\n");
+            sb.append(llamada.toString());
+        }
         return sb.toString();
     }
 }
