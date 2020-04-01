@@ -107,23 +107,14 @@ public abstract class Cliente implements TieneFecha, Serializable {
 
     @Override
     public String toString() {
-        Formatter obj = new Formatter();
-        StringBuilder sb = new StringBuilder();
-        sb.append(nombre);
-        sb.append("\n\tNIF: ");
-        sb.append(NIF);
-        sb.append("\n\tTelefono: ");
-        sb.append(telf);
-        sb.append("\n\tDireccion: ");
-        sb.append(direccion);
-        sb.append("\n\tEmail: ");
-        sb.append(email);
-        sb.append("\n\tFecha de alta: ");
-        sb.append(getFecha().toString());
-        sb.append("\n\tHora de alta: ");
-        sb.append(obj.format("%02d:%02d", getHora().getHour(), getHora().getMinute()));
-        sb.append("\n\t");
-        sb.append(tarifa.descripcion());
-        return sb.toString();
+        String string = nombre;
+        string += "\n\tNIF: " + NIF;
+        string += "\n\tTelefono: " + telf;
+        string += "\n\tDireccion: " + direccion;
+        string += "\n\tEmail: " + email;
+        string += "\n\tFecha de alta: " + getFecha().toString();
+        string += "\n\tHora de alta: " + obj.format("%02d:%02d", getHora().getHour(), getHora().getMinute());
+        string += "\n\t" + tarifa.descripcion();
+        return string;
     }
 }

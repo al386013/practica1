@@ -12,6 +12,8 @@ import java.time.LocalTime;
 import java.util.Formatter;
 import java.util.Set;
 
+import static java.lang.String.format;
+
 public class Factura implements TieneFecha, Serializable {
     private LocalDateTime fechaEmision;
     private PeriodoFacturacion periodoFact;
@@ -20,7 +22,6 @@ public class Factura implements TieneFecha, Serializable {
     private Set<Llamada> llamadas;
 
     //CONSTRUCTORES
-
     public Factura() {
         super();
         this.fechaEmision = null;
@@ -38,6 +39,7 @@ public class Factura implements TieneFecha, Serializable {
         this.nifCliente = nifCliente;
         this.llamadas = llamadas;
     }
+
 
     public int getCodigo() {
         return this.hashCode();
@@ -75,27 +77,17 @@ public class Factura implements TieneFecha, Serializable {
 
     @Override
     public String toString() {
-        Formatter obj = new Formatter();
-        StringBuilder sb = new StringBuilder();
-        sb.append("\nCodigo de factura: ");
-        sb.append(this.hashCode());
-        sb.append(":");
-        sb.append("\n\tNIF: ");
-        sb.append(nifCliente);
-        sb.append("\n\tFecha de emision: ");
-        sb.append(getFecha().toString());
-        sb.append("\n\tHora de emision: ");
-        sb.append( obj.format("%02d:%02d", getHora().getHour(), getHora().getMinute()));
-        sb.append("\n\tPeriodo de facturacion: ");
-        sb.append(periodoFact);
-        sb.append("\n\tImporte: ");
-        sb.append(importe);
-        sb.append("€");
-        sb.append("\n\tLista de llamadas de esta factura:\n");
+        String string = "\nCodigo de factura: " + this.hashCode() + ":";
+        string += "\n\tNIF: " + nifCliente;
+        string += "\n\tFecha de emision: " + getFecha().toString();
+        string += "\n\tHora de emision: " + format("%02d:%02d", getHora().getHour(), getHora().getMinute());
+        string += "\n\tPeriodo de facturacion: " +  periodoFact;
+        string += "\n\tImporte: " + importe + "€";
+        string += "\n\tLista de llamadas de esta factura:\n";
         for (Llamada llamada : llamadas){
-            sb.append("\n");
-            sb.append(llamada.toString());
+            string += "\n" + llamada.toString();
+
         }
-        return sb.toString();
+        return string;
     }
 }
