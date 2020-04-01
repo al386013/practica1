@@ -5,6 +5,6 @@ import principal.BaseDeDatos;
 import java.util.Scanner;
 
 public interface Accion {
-    Scanner sc = new Scanner(System.in);
+    Entrada entrada = new Entrada();
     void ejecutaAccion (BaseDeDatos baseDeDatos) throws OpcionIncorrectaException;
 }

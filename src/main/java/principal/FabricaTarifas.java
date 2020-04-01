@@ -1,13 +1,12 @@
-package fabricas;
+package principal;
 
 import datos.contrato.tarifas.Tarifa;
 import datos.contrato.tarifas.TarifaBasica;
 import datos.contrato.tarifas.TarifaDomingosGratis;
 import datos.contrato.tarifas.TarifaTardesReducida;
 import menus.MenuCambiarTarifa;
-import java.io.Serializable;
 
-public class FabricaTarifas implements InterfazFabricaTarifas, Serializable {
+public class FabricaTarifas implements InterfazFabricaTarifas {
     public FabricaTarifas() {
         super();
     }
