@@ -11,4 +11,10 @@ public interface EntradaInterfaz {
     int pedirCodFactura();
     Byte pedirOpcion();
     void imprimir(String string);
+    String pedirPoblacion();
+    String pedirCP();
+    String pedirEmail();
+    String pedirProvincia();
+    String pedirApellidos();
+    String pedirNombre();
 }
