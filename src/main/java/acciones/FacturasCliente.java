@@ -11,7 +11,7 @@ public class FacturasCliente implements Accion {
             String nif = entrada.pedirNif();
             baseDeDatos.compruebaNifExistente(nif);
             entrada.imprimir(baseDeDatos.listarFacturasCliente(nif));
-        } catch(NifNoExistenteException e) {
+        } catch (NifNoExistenteException e) {
             e.printStackTrace();
         }
     }

@@ -8,7 +8,6 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import datos.clientes.Cliente;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Formatter;
@@ -51,9 +50,9 @@ public class GestorFacturasTest {
     @Test
     public void testEmitirListarFactura() {
         baseDeDatos.darDeAltaLlamada("600600600", "111111111", 40);
-
         //emite una factura para alberto con todas las llamadas desde ayer a hoy (las 50 anadidas)
         baseDeDatos.emitirFactura(LocalDate.now().minusDays(1), LocalDate.now(), "12341234");
+
         //comprobar que los datos de la factura son correctos
         int codFact = 0;
         for (Factura factura : maria.getFacturas()) { //solo hay una
@@ -81,8 +80,7 @@ public class GestorFacturasTest {
     }
 
     @AfterAll
-    public static void borraTodo(){
+    public static void borraTodo() {
         baseDeDatos = null;
     }
-
 }

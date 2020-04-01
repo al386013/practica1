@@ -2,8 +2,6 @@ package principal;
 
 import datos.clientes.Cliente;
 import datos.contrato.tarifas.Tarifa;
-import datos.contrato.tarifas.TarifaDomingosGratis;
-import datos.contrato.tarifas.TarifaTardesReducida;
 import datos.llamadas.Llamada;
 import java.io.Serializable;
 import java.util.HashMap;

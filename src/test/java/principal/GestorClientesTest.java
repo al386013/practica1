@@ -75,26 +75,25 @@ public class GestorClientesTest {
         assertThat(baseDeDatos.existeTelf("00000000"), is(false));
     }
 
-    //comprueba que lanza la excepcion NifRepetidoException si al anadir un particular el nif ya existia
-
     @Test
     public void testAnadirParticular() {
         //Se busca el cliente alberto anadido en el BeforeAll
-        assertEquals(alberto ,new Particular("alberto", "prado banarro", "692242216", "20925403", dirAlberto, "albertoprado@gmail.com",fabricaTarifas.getBasica()));
-
+        assertEquals(alberto, new Particular("alberto", "prado banarro", "692242216",
+                "20925403", dirAlberto, "albertoprado@gmail.com", fabricaTarifas.getBasica()));
     }
 
     @Test
     public void testAnadirEmpresa() {
         //Se busca la empresa pamesa anadida en el BeforeAll
-        assertEquals(pamesa, new Empresa("pamesa", "964246252", "63302284", dirPamesa, "pamesa@gmail.com",fabricaTarifas.getBasica() ));
-
+        assertEquals(pamesa, new Empresa("pamesa", "964246252", "63302284", dirPamesa,
+                "pamesa@gmail.com", fabricaTarifas.getBasica()));
     }
 
     @Test
     public void testBorrarCliente() {
         //creamos un cliente
-        baseDeDatos.anadirParticular("maria", "gracia rubio", "123456789", "X1234567S", dirAlberto, "mariagracia@gmail.com");
+        baseDeDatos.anadirParticular("maria", "gracia rubio", "123456789", "X1234567S",
+                dirAlberto, "mariagracia@gmail.com");
         //vemos que se ha anadido
         assertTrue(baseDeDatos.existeCliente("X1234567S"));
         //lo borramos
@@ -110,13 +109,11 @@ public class GestorClientesTest {
         assertEquals(pamesa.getTarifa().descripcion(), descripcion);
 
         //alberto contrata la tarifa especial de tardes reducida
-
         baseDeDatos.contratarTarifaEspecial(MenuCambiarTarifa.TARIFA_TARDES_REDUCIDA, alberto.getNIF());
         descripcion += ", con tarifa especial de tardes reducida";
         assertEquals(alberto.getTarifa().descripcion(), descripcion);
 
         //alberto contrata tambien la tarifa especial de domingos gratis
-
         baseDeDatos.contratarTarifaEspecial(MenuCambiarTarifa.TARIFA_DOMINGOS_GRATIS, alberto.getNIF());
         descripcion += ", con tarifa especial de domingos gratis";
         assertEquals(alberto.getTarifa().descripcion(), descripcion);
@@ -153,7 +150,7 @@ public class GestorClientesTest {
                 "\t- Llamada realizada el " + LocalDate.now()
                         + " a las " + obj.format("%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute())
                         + " con una duracion de 120 segundos al telefono 000000000\n");
-        for(Llamada llamada : alberto.getLlamadas()) { //solo hay una
+        for (Llamada llamada : alberto.getLlamadas()) { //solo hay una
             assertEquals(llamada.getTelfDest(), "000000000");
             assertEquals(llamada.getDuracion(), 120);
             assertEquals(llamada.getFecha(), LocalDate.now());
@@ -168,7 +165,7 @@ public class GestorClientesTest {
     }
 
     @AfterAll
-    public static void borraTodo(){
+    public static void borraTodo() {
         baseDeDatos = null;
     }
 }

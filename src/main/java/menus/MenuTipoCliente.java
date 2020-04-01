@@ -24,5 +24,4 @@ public enum MenuTipoCliente {
         }
         return sb.toString();
     }
-
 }

@@ -9,7 +9,7 @@ public class SeleccionaOpcionFacturas implements Accion {
         entrada.imprimir("\n* * * * * * * OPCIONES DE FACTURAS * * * * * * *\n");
         entrada.imprimir(MenuFacturas.getMenu());
         byte opcion = entrada.pedirOpcion();
-        if(opcion < 0 || opcion > 5)
+        if (opcion < 0 || opcion > 5)
             throw new OpcionIncorrectaException(5);
         else {
             MenuFacturas opcionFacturas = MenuFacturas.getOpcion(opcion);

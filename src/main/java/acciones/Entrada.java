@@ -3,10 +3,10 @@ package acciones;
 import java.time.LocalDate;
 import java.util.Scanner;
 
-public class Entrada implements EntradaInterfaz{
+public class Entrada implements EntradaInterfaz {
     private Scanner sc;
 
-    public Entrada(){
+    public Entrada() {
         super();
         sc = new Scanner(System.in);
     }
@@ -76,6 +76,7 @@ public class Entrada implements EntradaInterfaz{
         imprimir("Introduce nombre: ");
         return sc.next();
     }
+
     @Override
     public String pedirApellidos() {
         imprimir("Introduce apellidos: ");
@@ -86,6 +87,4 @@ public class Entrada implements EntradaInterfaz{
     public void imprimir(String string) {
         System.out.println(string);
     }
-
-
 }

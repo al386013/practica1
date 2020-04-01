@@ -52,10 +52,6 @@ public abstract class Cliente implements TieneFecha, Serializable {
         this.llamadas = new TreeSet<>(comparador);
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
     public String getTelf() {
         return telf;
     }
@@ -66,10 +62,6 @@ public abstract class Cliente implements TieneFecha, Serializable {
 
     public Direccion getDireccion() {
         return direccion;
-    }
-
-    public String getEmail() {
-        return email;
     }
 
     @Override

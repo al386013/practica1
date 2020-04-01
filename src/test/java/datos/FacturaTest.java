@@ -23,7 +23,7 @@ public class FacturaTest {
 
     @BeforeAll
     public static void inicializa() {
-        periodoFact = new PeriodoFacturacion(LocalDate.parse("2020-01-01"),  LocalDate.parse("2020-03-27"));
+        periodoFact = new PeriodoFacturacion(LocalDate.parse("2020-01-01"), LocalDate.parse("2020-03-27"));
         //creamos tarifa basica
         tarifaBasica = new TarifaBasica(0.05f);
         //creamos una tarifa basica + tarifa de domingos gratis

@@ -31,7 +31,7 @@ public enum MenuClientes {
 
     public static String getMenu() {
         StringBuilder sb = new StringBuilder();
-        for(MenuClientes opcion: MenuClientes.values()) {
+        for (MenuClientes opcion : MenuClientes.values()) {
             sb.append(opcion.ordinal());
             sb.append(".- ");
             sb.append(opcion.textoOpcion);
@@ -43,7 +43,7 @@ public enum MenuClientes {
     public void ejecutaOpcion(BaseDeDatos baseDeDatos) {
         try {
             accion.ejecutaAccion(baseDeDatos);
-        } catch(OpcionIncorrectaException e) {
+        } catch (OpcionIncorrectaException e) {
             e.printStackTrace();
         }
     }

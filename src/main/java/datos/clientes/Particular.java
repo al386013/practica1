@@ -21,5 +21,4 @@ public class Particular extends Cliente {
     public String toString() {
         return "\n" + apellidos + ", " + super.toString();
     }
-
 }

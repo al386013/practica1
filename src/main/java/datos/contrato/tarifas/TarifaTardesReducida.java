@@ -10,8 +10,8 @@ public class TarifaTardesReducida extends TarifaEspecial {
     @Override
     public float calcularPrecioLlamada(Llamada llamada) {
         float precioReturn = super.calcularPrecioLlamada(llamada); //llamada recursiva
-        //si la llamada cumple la tarifa por horas, calcula el precio de la llamada y se compara
-        if(llamada.getHora().getHour() >= 16 && llamada.getHora().getHour() <= 19) {
+        //si la llamada cumple la tarifa de tardes, calcula el precio de la llamada y se compara con la recursiva
+        if (llamada.getHora().getHour() >= 16 && llamada.getHora().getHour() <= 19) {
             float precioLlamada = (llamada.getDuracion() / 60.0f) * super.getPrecio();
             if (precioLlamada < precioReturn)
                 precioReturn = precioLlamada;

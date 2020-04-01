@@ -57,7 +57,9 @@ public class Factura implements TieneFecha, Serializable {
     }
 
     @Override
-    public LocalTime getHora() { return this.fechaEmision.toLocalTime(); }
+    public LocalTime getHora() {
+        return this.fechaEmision.toLocalTime();
+    }
 
     private float calcularImporte(Tarifa tarifa, Set<Llamada> llamadas) {
         float importe = 0.00f;
@@ -79,10 +81,10 @@ public class Factura implements TieneFecha, Serializable {
         string += "\n\tNIF: " + nifCliente;
         string += "\n\tFecha de emision: " + getFecha().toString();
         string += "\n\tHora de emision: " + format("%02d:%02d", getHora().getHour(), getHora().getMinute());
-        string += "\n\tPeriodo de facturacion: " +  periodoFact;
+        string += "\n\tPeriodo de facturacion: " + periodoFact;
         string += "\n\tImporte: " + importe + "€";
         string += "\n\tLista de llamadas de esta factura:\n";
-        for (Llamada llamada : llamadas){
+        for (Llamada llamada : llamadas) {
             string += "\n" + llamada.toString();
 
         }

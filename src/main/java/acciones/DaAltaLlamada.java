@@ -14,7 +14,7 @@ public class DaAltaLlamada implements Accion {
             int duracion = entrada.pedirDuracion();
             baseDeDatos.darDeAltaLlamada(telfOrigen, telfDest, duracion);
             entrada.imprimir("\n\tLlamada del " + telfOrigen + " al " + telfDest + " realizada con exito.\n");
-        } catch (TelfNoExistenteException | IllegalArgumentException e ) {
+        } catch (TelfNoExistenteException | IllegalArgumentException e) {
             e.printStackTrace();
         }
     }

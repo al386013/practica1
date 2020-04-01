@@ -3,7 +3,6 @@ package acciones;
 import principal.BaseDeDatos;
 import principal.IntervaloFechasIncorrectoException;
 import principal.NifNoExistenteException;
-
 import java.time.LocalDate;
 
 public class FacturasCliEntreFechas implements Accion {

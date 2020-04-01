@@ -24,5 +24,4 @@ public enum MenuCambiarTarifa {
         }
         return sb.toString();
     }
-
 }

@@ -85,7 +85,7 @@ public class BaseDeDatosTest {
                 "\n\tTarifa basica\n");
     }
 
-    //comprueba listarLlamadasCliente() y listarLlamadasEntreFechas(); vemos como se imprimen siempre ordenadas por fecha
+    //comprueba listarLlamadasCliente() y listarLlamadasEntreFechas(); vemos que se imprimen siempre ordenadas por fecha
     @Test
     public void testListarLlamadasCliente() {
         //se anade un particular
@@ -136,9 +136,8 @@ public class BaseDeDatosTest {
         assertEquals(baseDeDatos.listarFacturasEntreFechas("63302284", LocalDate.now().minusDays(1), LocalDate.now()), res);
     }
 
-
     @AfterAll
-    public static void borraTodo(){
+    public static void borraTodo() {
         baseDeDatos = null;
     }
 }

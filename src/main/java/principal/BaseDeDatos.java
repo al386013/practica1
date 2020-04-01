@@ -69,7 +69,6 @@ public class BaseDeDatos implements Serializable {
         gestorClientes.borrarCliente(telf);
     }
 
-
     public void contratarTarifaEspecial(MenuCambiarTarifa elemento, String nif) {
         Cliente cliente = gestorClientes.devuelveCliente(nif);
         gestorClientes.contratarTarifaEspecial(fabricaTarifas.getOferta(elemento, cliente.getTarifa()), cliente);

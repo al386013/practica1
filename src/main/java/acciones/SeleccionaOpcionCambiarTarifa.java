@@ -9,18 +9,12 @@ public class SeleccionaOpcionCambiarTarifa implements Accion {
     public void ejecutaAccion(BaseDeDatos baseDeDatos) {
         try {
             entrada.imprimir("\nCONTRATAR UNA TARIFA ESPECIAL");
-
-            //tres lineas anadidas (y el try catch)
-
             String nif = entrada.pedirNif();
             baseDeDatos.compruebaNifExistente(nif);
-
             entrada.imprimir("\n" + MenuCambiarTarifa.getMenu());
             byte opcion = pedirOpcion();
             MenuCambiarTarifa opcionCambiarTarifa = MenuCambiarTarifa.getOpcion(opcion);
-            baseDeDatos.contratarTarifaEspecial(opcionCambiarTarifa, nif); //linea nueva
-            //opcionCambiarTarifa.ejecutaOpcion(baseDeDatos);
-
+            baseDeDatos.contratarTarifaEspecial(opcionCambiarTarifa, nif);
             entrada.imprimir("\n\t--> Tarifa especial contratada.\n");
         } catch (OpcionIncorrectaException | NifNoExistenteException e) {
             e.printStackTrace();

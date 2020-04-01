@@ -11,11 +11,12 @@ public abstract class TarifaEspecial extends Tarifa {
     }
 
     @Override
-    public float calcularPrecioLlamada(Llamada llamada) { return tarifa.calcularPrecioLlamada(llamada); }
+    public float calcularPrecioLlamada(Llamada llamada) {
+        return tarifa.calcularPrecioLlamada(llamada);
+    }
 
     @Override
     public String descripcion() {
         return tarifa.descripcion();
     }
-
 }

@@ -9,7 +9,7 @@ public class SeleccionaOpcionLlamada implements Accion {
         entrada.imprimir("\n* * * * * * * OPCIONES DE LLAMADAS * * * * * * *\n");
         entrada.imprimir(MenuLlamadas.getMenu());
         byte opcion = entrada.pedirOpcion();
-        if(opcion < 0 || opcion > 4)
+        if (opcion < 0 || opcion > 4)
             throw new OpcionIncorrectaException(4);
         else {
             MenuLlamadas opcionLlamadas = MenuLlamadas.getOpcion(opcion);

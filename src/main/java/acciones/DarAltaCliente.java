@@ -9,14 +9,13 @@ public class DarAltaCliente implements Accion {
     public void ejecutaAccion(BaseDeDatos baseDeDatos) throws OpcionIncorrectaException {
         try {
             entrada.imprimir("\nDAR DE ALTA UN NUEVO CLIENTE");
-
             entrada.imprimir("Opciones para tipo de cliente: ");
             entrada.imprimir(MenuTipoCliente.getMenu());
             byte opcion = entrada.pedirOpcion();
-            if(opcion<0 || opcion >1) throw new OpcionIncorrectaException(1);
+            if (opcion < 0 || opcion > 1) throw new OpcionIncorrectaException(1);
             MenuTipoCliente opcionTipoCliente = MenuTipoCliente.getOpcion(opcion);
-            String nombre = entrada.pedirNombre();
 
+            String nombre = entrada.pedirNombre();
             String apellidos = null;
             if (opcionTipoCliente == MenuTipoCliente.PARTICULAR) apellidos = entrada.pedirApellidos();
 
@@ -30,7 +29,8 @@ public class DarAltaCliente implements Accion {
             Direccion direccion = new Direccion(cp, provincia, poblacion);
             String email = entrada.pedirEmail();
 
-            if (opcionTipoCliente == MenuTipoCliente.PARTICULAR) baseDeDatos.anadirParticular(nombre, apellidos, telf, nif, direccion, email);
+            if (opcionTipoCliente == MenuTipoCliente.PARTICULAR)
+                baseDeDatos.anadirParticular(nombre, apellidos, telf, nif, direccion, email);
             else baseDeDatos.anadirEmpresa(nombre, telf, nif, direccion, email);
 
             entrada.imprimir("\n\tCreado cliente " + nombre + " con NIF " + nif + " y telefono " + telf + ".\n");

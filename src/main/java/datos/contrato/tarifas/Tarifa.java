@@ -17,5 +17,7 @@ public abstract class Tarifa implements Serializable {
 
     public abstract String descripcion();
 
-    public float getPrecio() { return precio; }
+    public float getPrecio() {
+        return precio;
+    }
 }

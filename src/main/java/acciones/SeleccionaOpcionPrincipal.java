@@ -3,15 +3,15 @@ package acciones;
 import menus.MenuPrincipal;
 import principal.BaseDeDatos;
 import java.io.Serializable;
-import java.util.Scanner;
 
 public class SeleccionaOpcionPrincipal implements Accion, Serializable {
-    private transient Scanner sc = new Scanner(System.in);
     static transient MenuPrincipal opcionMenu = null;
     static BaseDeDatos baseDeDatos;
 
-    //constructor por defecto
-    public SeleccionaOpcionPrincipal() {}
+    //constructores
+    public SeleccionaOpcionPrincipal() {
+        super();
+    }
 
     public SeleccionaOpcionPrincipal(BaseDeDatos baseDeDatos) {
         SeleccionaOpcionPrincipal.baseDeDatos = baseDeDatos;
@@ -26,7 +26,6 @@ public class SeleccionaOpcionPrincipal implements Accion, Serializable {
                 byte opcion = pedirOpcion();
                 opcionMenu = MenuPrincipal.getOpcion(opcion);
                 opcionMenu.ejecutaOpcion(SeleccionaOpcionPrincipal.baseDeDatos);
-                sc.reset(); //No se si es necesario
             } catch (OpcionIncorrectaException e) {
                 e.printStackTrace();
             }

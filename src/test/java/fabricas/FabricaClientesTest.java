@@ -9,8 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;
 import principal.FabricaClientes;
 import principal.FabricaTarifas;
-
-import java.time.LocalDate;
 import static org.junit.Assert.assertEquals;
 
 public class FabricaClientesTest {
@@ -37,7 +35,6 @@ public class FabricaClientesTest {
                 "pamesa@gmail.com", tarifa);
         assertEquals(empresa2, new Empresa("Pamesa", "999999999", "56565656", dir,
                 "pamesa@gmail.com", tarifa));
-
     }
 
     @Test
@@ -50,6 +47,6 @@ public class FabricaClientesTest {
         Cliente particular2 = fabricaClientes.getParticular("Andres", "Moreno Igual", "964222222", "25925403",
                 dir, "amorenoigual@gmail.com", tarifa);
         assertEquals(particular2, new Particular("Andres", "Moreno Igual", "964222222", "25925403",
-                        dir, "amorenoigual@gmail.com", tarifa));
+                dir, "amorenoigual@gmail.com", tarifa));
     }
 }

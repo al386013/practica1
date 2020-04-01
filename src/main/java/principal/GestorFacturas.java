@@ -19,7 +19,7 @@ public class GestorFacturas implements Serializable {
     //Metodo listarDatosFactura: recupera los datos de la factura a partir de su codigo
     public String listarDatosFactura(int cod) throws IllegalArgumentException {
         Factura factura = totalFacturas.get(cod);
-        if(factura == null) throw new IllegalArgumentException("La factura de codigo " + cod + " no existe. ");
+        if (factura == null) throw new IllegalArgumentException("La factura de codigo " + cod + " no existe. ");
         return factura.toString();
     }
 
