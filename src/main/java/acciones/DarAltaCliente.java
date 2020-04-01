@@ -16,7 +16,7 @@ public class DarAltaCliente implements Accion {
             }
 
             String nombre = entrada.pedirNombre();
-            
+
             String apellidos = null;
             if (letra.equals("p")) {
                 apellidos = entrada.pedirApellidos();
