@@ -24,7 +24,8 @@ public class GestorFacturasTest {
 
         //insertamos un particular
         Direccion dirMaria = new Direccion("12005", "Castellon de la plana", "Castelllon");
-        baseDeDatos.anadirParticular("alberto", "prado banarro", "600600600", "12341234", dirMaria, "mariaprado@gmail.com");
+        baseDeDatos.anadirParticular("alberto", "prado banarro", "600600600", "12341234",
+                dirMaria, "mariaprado@gmail.com");
         maria = gestorClientes.devuelveCliente("12341234");
         //maria hace una llamada
         baseDeDatos.darDeAltaLlamada("600600600", "000000000", 130);
@@ -35,8 +36,7 @@ public class GestorFacturasTest {
             String nombre = generadorDatosINE.getNombre();
             String nif = generadorDatosINE.getNIF();
             String provincia = generadorDatosINE.getProvincia();
-            //String poblacion = generadorDatosINE.getPoblacion(provincia); nos da error el generador
-            String cp = "12005"; //GENERADOR INE NO TIENE CP
+            String cp = "12005";
             Direccion direccion = new Direccion(cp, provincia, "Poblacion");
             //creamos 50 particulares y 50 empresas
             if (i < 50) {
