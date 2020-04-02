@@ -62,7 +62,7 @@ public class Entrada implements EntradaInterfaz {
     @Override
     public String pedirPoblacion() {
         imprimir("Introduce la poblacion: ");
-        return sc.next();
+        return sc.nextLine();
     }
 
     @Override
@@ -80,7 +80,7 @@ public class Entrada implements EntradaInterfaz {
     @Override
     public String pedirProvincia() {
         imprimir("Introduce la provincia: ");
-        return sc.next();
+        return sc.nextLine();
     }
 
     @Override
@@ -92,7 +92,7 @@ public class Entrada implements EntradaInterfaz {
     @Override
     public String pedirApellidos() {
         imprimir("Introduce los apellidos: ");
-        return sc.next();
+        return sc.nextLine();
     }
 
     @Override
