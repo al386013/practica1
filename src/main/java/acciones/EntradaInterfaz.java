@@ -31,5 +31,7 @@ public interface EntradaInterfaz {
 
     String pedirNombre();
 
-    void imprimir(String string);
+    void imprimirConSalto(String string);
+
+    void imprimirSinSalto(String string);
 }

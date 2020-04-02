@@ -20,8 +20,8 @@ public class SeleccionaOpcionPrincipal implements Accion, Serializable {
     @Override
     public void ejecutaAccion(BaseDeDatos bbdd) {
         do {
-            entrada.imprimir("\n* * * * * * * OPCIONES DISPONIBLES * * * * * * *\n");
-            entrada.imprimir(MenuPrincipal.getMenu());
+            entrada.imprimirConSalto("\n* * * * * * * OPCIONES DISPONIBLES * * * * * * *\n");
+            entrada.imprimirConSalto(MenuPrincipal.getMenu());
             try {
                 byte opcion = pedirOpcion();
                 opcionMenu = MenuPrincipal.getOpcion(opcion);
