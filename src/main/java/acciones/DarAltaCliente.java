@@ -9,7 +9,7 @@ public class DarAltaCliente implements Accion {
     public void ejecutaAccion(BaseDeDatos baseDeDatos) throws OpcionIncorrectaException {
         try {
             entrada.imprimir("\nDAR DE ALTA UN NUEVO CLIENTE");
-            entrada.imprimir("Opciones para tipo de cliente: ");
+            entrada.imprimir("\nOpciones para tipo de cliente: \n");
             entrada.imprimir(MenuTipoCliente.getMenu());
             byte opcion = entrada.pedirOpcion();
             if (opcion < 0 || opcion > 1) throw new OpcionIncorrectaException(1);

@@ -25,7 +25,7 @@ public class Entrada implements EntradaInterfaz {
 
     @Override
     public String pedirNif() {
-        imprimir("Introduce el NIF del cliente: ");
+        imprimir("Introduce el NIF: ");
         return sc.next();
     }
 
@@ -55,48 +55,48 @@ public class Entrada implements EntradaInterfaz {
 
     @Override
     public Byte pedirOpcion() {
-        imprimir("Introduce una opcion: ");
+        imprimir("\nIntroduce una opcion: ");
         return sc.nextByte();
     }
 
     @Override
     public String pedirPoblacion() {
-        imprimir("Introduce poblacion: ");
+        imprimir("Introduce la poblacion: ");
         return sc.next();
     }
 
     @Override
     public String pedirCP() {
-        imprimir("Introduce codigo postal: ");
+        imprimir("Introduce el codigo postal: ");
         return sc.next();
     }
 
     @Override
     public String pedirEmail() {
-        imprimir("Introduce email: ");
+        imprimir("Introduce el email: ");
         return sc.next();
     }
 
     @Override
     public String pedirProvincia() {
-        imprimir("Introduce provincia: ");
+        imprimir("Introduce la provincia: ");
         return sc.next();
     }
 
     @Override
     public String pedirNombre() {
-        imprimir("Introduce nombre: ");
+        imprimir("Introduce el nombre: ");
         return sc.next();
     }
 
     @Override
     public String pedirApellidos() {
-        imprimir("Introduce apellidos: ");
+        imprimir("Introduce los apellidos: ");
         return sc.next();
     }
 
     @Override
     public void imprimir(String string) {
-        System.out.println(string);
+        System.out.print(string);
     }
 }
