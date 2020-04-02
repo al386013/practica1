@@ -55,7 +55,7 @@ public class Entrada implements EntradaInterfaz {
 
     @Override
     public Byte pedirOpcion() {
-        imprimirSinSalto("\nIntroduce una opcion: ");
+        imprimirSinSalto("Introduce una opcion: ");
         return sc.nextByte();
     }
 
