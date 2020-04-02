@@ -13,8 +13,8 @@ public class EmiteFactura implements Accion {
             entrada.imprimir("\nEMITIR FACTURA PARA UN CLIENTE");
             String nif = entrada.pedirNif();
             baseDeDatos.compruebaNifExistente(nif);
-            LocalDate fechaIni = entrada.pedirFecha("- Introduce la fecha de inicio de la factura (formato aaaa-mm-dd): ");
-            LocalDate fechaFin = entrada.pedirFecha("- Introduce la fecha de fin de la factura (formato aaaa-mm-dd): ");
+            LocalDate fechaIni = entrada.pedirFechaIni();
+            LocalDate fechaFin = entrada.pedirFechaFin();
             baseDeDatos.compruebaFechas(fechaIni, fechaFin);
             baseDeDatos.emitirFactura(fechaIni, fechaFin, nif);
             entrada.imprimir("\n\tFactura del cliente con NIF " + nif + " emitida con exito.\n");

@@ -8,7 +8,7 @@ public class LlamadasCliente implements Accion {
     public void ejecutaAccion(BaseDeDatos baseDeDatos) {
         try {
             entrada.imprimir("\nLISTAR TODAS LAS LLAMADAS DE UN CLIENTE");
-            String telf = entrada.pedirTelf("- Introduce el telefono del cliente: ");
+            String telf = entrada.pedirTelf();
             baseDeDatos.compruebaTelfExistente(telf);
             entrada.imprimir(baseDeDatos.listarLlamadasCliente(telf));
         } catch (TelfNoExistenteException e) {

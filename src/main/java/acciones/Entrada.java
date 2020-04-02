@@ -12,8 +12,14 @@ public class Entrada implements EntradaInterfaz {
     }
 
     @Override
-    public String pedirTelf(String string) {
-        imprimir(string);
+    public String pedirTelf() {
+        imprimir("Introduce el telefono del cliente: ");
+        return sc.next();
+    }
+
+    @Override
+    public String pedirTelfDestino() {
+        imprimir("Introduce el telefono del destino: ");
         return sc.next();
     }
 
@@ -24,8 +30,14 @@ public class Entrada implements EntradaInterfaz {
     }
 
     @Override
-    public LocalDate pedirFecha(String string) {
-        imprimir(string);
+    public LocalDate pedirFechaIni() {
+        imprimir("Introduce la fecha de inicio (formato aaaa-mm-dd): ");
+        return LocalDate.parse(sc.next());
+    }
+
+    @Override
+    public LocalDate pedirFechaFin() {
+        imprimir("Introduce la fecha de fin (formato aaaa-mm-dd): ");
         return LocalDate.parse(sc.next());
     }
 

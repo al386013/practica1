@@ -12,8 +12,8 @@ public class FacturasCliEntreFechas implements Accion {
             entrada.imprimir("\nMOSTRAR LISTADO DE LAS FACTURAS DE UN CLIENTE DADAS DE ALTA ENTRE DOS FECHAS");
             String nif = entrada.pedirNif();
             baseDeDatos.compruebaNifExistente(nif);
-            LocalDate fechaIni = entrada.pedirFecha("- Introduce la fecha de inicio (formato aaaa-mm-dd): ");
-            LocalDate fechaFin = entrada.pedirFecha("- Introduce la fecha de fin (formato aaaa-mm-dd): ");
+            LocalDate fechaIni = entrada.pedirFechaIni();
+            LocalDate fechaFin = entrada.pedirFechaFin();
             baseDeDatos.compruebaFechas(fechaIni, fechaFin);
             entrada.imprimir(baseDeDatos.listarFacturasEntreFechas(nif, fechaIni, fechaFin));
         } catch (NifNoExistenteException | IntervaloFechasIncorrectoException e) {

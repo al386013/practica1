@@ -21,7 +21,7 @@ public class DarAltaCliente implements Accion {
 
             String nif = entrada.pedirNif();
             baseDeDatos.compruebaNifNoExistente(nif);
-            String telf = entrada.pedirTelf("- Introduce el telefono del cliente: ");
+            String telf = entrada.pedirTelf();
             baseDeDatos.compruebaTelfNoExistente(telf);
             String cp = entrada.pedirCP();
             String provincia = entrada.pedirProvincia();

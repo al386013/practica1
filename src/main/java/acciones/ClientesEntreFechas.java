@@ -10,8 +10,8 @@ public class ClientesEntreFechas implements Accion {
     public void ejecutaAccion(BaseDeDatos baseDeDatos) {
         try {
             entrada.imprimir("\nMOSTRAR LISTADO DE LOS CLIENTES DADOS DE ALTA ENTRE DOS FECHAS");
-            LocalDate fechaIni = entrada.pedirFecha("- Introduce la fecha de inicio (formato aaaa-mm-dd): ");
-            LocalDate fechaFin = entrada.pedirFecha("- Introduce la fecha de fin (formato aaaa-mm-dd): ");
+            LocalDate fechaIni = entrada.pedirFechaIni();
+            LocalDate fechaFin = entrada.pedirFechaFin();
             baseDeDatos.compruebaFechas(fechaIni, fechaFin);
             System.out.println(baseDeDatos.listarClientesEntreFechas(fechaIni, fechaFin));
         } catch (IntervaloFechasIncorrectoException e) {
