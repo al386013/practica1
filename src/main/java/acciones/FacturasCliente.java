@@ -7,10 +7,10 @@ public class FacturasCliente implements Accion {
     @Override
     public void ejecutaAccion(BaseDeDatos baseDeDatos) {
         try {
-            entrada.imprimir("\nLISTAR LAS FACTURAS DE UN CLIENTE");
+            entrada.imprimirConSalto("\nLISTAR LAS FACTURAS DE UN CLIENTE");
             String nif = entrada.pedirNif();
             baseDeDatos.compruebaNifExistente(nif);
-            entrada.imprimir(baseDeDatos.listarFacturasCliente(nif));
+            entrada.imprimirConSalto(baseDeDatos.listarFacturasCliente(nif));
         } catch (NifNoExistenteException e) {
             e.printStackTrace();
         }

@@ -8,9 +8,9 @@ public class DarAltaCliente implements Accion {
     @Override
     public void ejecutaAccion(BaseDeDatos baseDeDatos) throws OpcionIncorrectaException {
         try {
-            entrada.imprimir("\nDAR DE ALTA UN NUEVO CLIENTE");
-            entrada.imprimir("\nOpciones para tipo de cliente: \n");
-            entrada.imprimir(MenuTipoCliente.getMenu());
+            entrada.imprimirConSalto("\nDAR DE ALTA UN NUEVO CLIENTE");
+            entrada.imprimirConSalto("\nOpciones para tipo de cliente: ");
+            entrada.imprimirConSalto(MenuTipoCliente.getMenu());
             byte opcion = entrada.pedirOpcion();
             if (opcion < 0 || opcion > 1) throw new OpcionIncorrectaException(1);
             MenuTipoCliente opcionTipoCliente = MenuTipoCliente.getOpcion(opcion);
@@ -33,7 +33,7 @@ public class DarAltaCliente implements Accion {
                 baseDeDatos.anadirParticular(nombre, apellidos, telf, nif, direccion, email);
             else baseDeDatos.anadirEmpresa(nombre, telf, nif, direccion, email);
 
-            entrada.imprimir("\n\tCreado cliente " + nombre + " con NIF " + nif + " y telefono " + telf + ".\n");
+            entrada.imprimirConSalto("\n\tCreado cliente " + nombre + " con NIF " + nif + " y telefono " + telf + ".\n");
         } catch (NifRepetidoException | TelfRepetidoException e) {
             e.printStackTrace();
         }

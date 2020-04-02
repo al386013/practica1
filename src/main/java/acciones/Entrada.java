@@ -13,91 +13,96 @@ public class Entrada implements EntradaInterfaz {
 
     @Override
     public String pedirTelf() {
-        imprimir("Introduce el telefono del cliente: ");
+        imprimirSinSalto("Introduce el telefono del cliente: ");
         return sc.next();
     }
 
     @Override
     public String pedirTelfDestino() {
-        imprimir("Introduce el telefono del destino: ");
+        imprimirSinSalto("Introduce el telefono del destino: ");
         return sc.next();
     }
 
     @Override
     public String pedirNif() {
-        imprimir("Introduce el NIF: ");
+        imprimirSinSalto("Introduce el NIF: ");
         return sc.next();
     }
 
     @Override
     public LocalDate pedirFechaIni() {
-        imprimir("Introduce la fecha de inicio (formato aaaa-mm-dd): ");
+        imprimirSinSalto("Introduce la fecha de inicio (formato aaaa-mm-dd): ");
         return LocalDate.parse(sc.next());
     }
 
     @Override
     public LocalDate pedirFechaFin() {
-        imprimir("Introduce la fecha de fin (formato aaaa-mm-dd): ");
+        imprimirSinSalto("Introduce la fecha de fin (formato aaaa-mm-dd): ");
         return LocalDate.parse(sc.next());
     }
 
     @Override
     public int pedirDuracion() {
-        imprimir("Introduce la duracion de la llamada (en segundos): ");
+        imprimirSinSalto("Introduce la duracion de la llamada (en segundos): ");
         return sc.nextInt();
     }
 
     @Override
     public int pedirCodFactura() {
-        imprimir("Introduce el codigo de la factura: ");
+        imprimirSinSalto("Introduce el codigo de la factura: ");
         return sc.nextInt();
     }
 
     @Override
     public Byte pedirOpcion() {
-        imprimir("\nIntroduce una opcion: ");
+        imprimirSinSalto("\nIntroduce una opcion: ");
         return sc.nextByte();
     }
 
     @Override
     public String pedirCP() {
-        imprimir("Introduce el codigo postal: ");
+        imprimirSinSalto("Introduce el codigo postal: ");
         return sc.next();
     }
 
     @Override
     public String pedirEmail() {
-        imprimir("Introduce el email: ");
+        imprimirSinSalto("Introduce el email: ");
         return sc.next();
     }
 
     @Override
     public String pedirProvincia() {
-        imprimir("Introduce la provincia: ");
+        imprimirSinSalto("Introduce la provincia: ");
         sc.nextLine();
         return sc.nextLine();
     }
 
     @Override
     public String pedirPoblacion() {
-        imprimir("Introduce la poblacion: ");
+        imprimirSinSalto("Introduce la poblacion: ");
         return sc.nextLine();
     }
 
     @Override
     public String pedirNombre() {
-        imprimir("Introduce el nombre: ");
+        imprimirSinSalto("Introduce el nombre: ");
         return sc.next();
     }
 
     @Override
     public String pedirApellidos() {
-        imprimir("Introduce los apellidos: ");
+        imprimirSinSalto("Introduce los apellidos: ");
         return sc.next();
     }
 
     @Override
-    public void imprimir(String string) {
+    public void imprimirConSalto(String string) {
+        System.out.println(string);
+    }
+
+    @Override
+    public void imprimirSinSalto(String string) {
         System.out.print(string);
     }
 }

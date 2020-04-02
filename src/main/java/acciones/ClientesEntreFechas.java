@@ -9,7 +9,7 @@ public class ClientesEntreFechas implements Accion {
     @Override
     public void ejecutaAccion(BaseDeDatos baseDeDatos) {
         try {
-            entrada.imprimir("\nMOSTRAR LISTADO DE LOS CLIENTES DADOS DE ALTA ENTRE DOS FECHAS");
+            entrada.imprimirConSalto("\nMOSTRAR LISTADO DE LOS CLIENTES DADOS DE ALTA ENTRE DOS FECHAS");
             LocalDate fechaIni = entrada.pedirFechaIni();
             LocalDate fechaFin = entrada.pedirFechaFin();
             baseDeDatos.compruebaFechas(fechaIni, fechaFin);

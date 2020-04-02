@@ -7,10 +7,10 @@ public class DatosCliente implements Accion {
     @Override
     public void ejecutaAccion(BaseDeDatos baseDeDatos) {
         try {
-            entrada.imprimir("\nRECUPERAR LOS DATOS DE UN CLIENTE");
+            entrada.imprimirConSalto("\nRECUPERAR LOS DATOS DE UN CLIENTE");
             String nif = entrada.pedirNif();
             baseDeDatos.compruebaNifExistente(nif);
-            entrada.imprimir(baseDeDatos.listarDatosCliente(nif) + "\n");
+            entrada.imprimirConSalto(baseDeDatos.listarDatosCliente(nif) + "\n");
         } catch (NifNoExistenteException e) {
             e.printStackTrace();
         }

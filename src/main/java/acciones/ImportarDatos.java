@@ -15,12 +15,12 @@ public class ImportarDatos implements Accion {
                 FileInputStream fis = new FileInputStream("baseDeDatos.bin");
                 ois = new ObjectInputStream(fis);
                 SeleccionaOpcionPrincipal.baseDeDatos = (BaseDeDatos) ois.readObject();
-                entrada.imprimir("\n-------> DATOS IMPORTADOS CORRECTAMENTE <-------\n");
+                entrada.imprimirConSalto("\n-------> DATOS IMPORTADOS CORRECTAMENTE <-------");
             } finally {
                 if (ois != null) ois.close();
             }
         } catch (FileNotFoundException e) {
-            entrada.imprimir("\n-----> ERROR: NO SE HA PODIDO ENCONTRAR EL FICHERO <-----\n");
+            entrada.imprimirConSalto("\n-----> ERROR: NO SE HA PODIDO ENCONTRAR EL FICHERO <-----");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
