@@ -5,6 +5,7 @@ import datos.clientes.Cliente;
 import datos.clientes.Direccion;
 import datos.contrato.*;
 import datos.contrato.PeriodoFacturacion;
+import datos.contrato.tarifas.Tarifa;
 import datos.llamadas.Llamada;
 import datos.TieneFecha;
 import menus.MenuCambiarTarifa;
@@ -18,24 +19,24 @@ public class BaseDeDatos implements Serializable {
     //ATRIBUTOS
     private GestorClientes gestorClientes;
     private GestorFacturas gestorFacturas;
-    private transient FabricaClientes fabricaClientes;
-    private transient FabricaTarifas fabricaTarifas;
+    private static FabricaClientes fabricaClientes;
+    private static FabricaTarifas fabricaTarifas;
 
     //CONSTRUCTORES
     public BaseDeDatos() {
         super();
         this.gestorClientes = new GestorClientes();
         this.gestorFacturas = new GestorFacturas();
-        this.fabricaClientes = new FabricaClientes();
-        this.fabricaTarifas = new FabricaTarifas();
+        fabricaClientes = new FabricaClientes();
+        fabricaTarifas = new FabricaTarifas();
     }
 
     public BaseDeDatos(GestorClientes gestorClientes, GestorFacturas gestorFacturas) {
         super();
         this.gestorClientes = gestorClientes;
         this.gestorFacturas = gestorFacturas;
-        this.fabricaClientes = new FabricaClientes();
-        this.fabricaTarifas = new FabricaTarifas();
+        fabricaClientes = new FabricaClientes();
+        fabricaTarifas = new FabricaTarifas();
     }
 
     // METODOS
