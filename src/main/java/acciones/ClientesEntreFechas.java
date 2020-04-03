@@ -2,7 +2,6 @@ package acciones;
 
 import principal.BaseDeDatos;
 import principal.IntervaloFechasIncorrectoException;
-
 import java.time.LocalDate;
 
 public class ClientesEntreFechas implements Accion {

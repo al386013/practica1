@@ -65,7 +65,7 @@ public class Factura implements TieneFecha, Serializable {
         float importe = 0.00f;
         for (Llamada llamada : llamadas) {
             LocalDate fecha = llamada.getFecha();
-            //si esta dentro del periodo de facturacion se pasa cada llamada a la tarifa del cliente
+            //si esta dentro del periodo de facturacion se pasa cada llamada a la tarifa del cliente y devuelve su importe
             if (fecha.isAfter(periodoFact.getFechaIni()) && fecha.isBefore(periodoFact.getFechaFin()) ||
                     (fecha.isEqual(periodoFact.getFechaIni()) || fecha.isEqual(periodoFact.getFechaFin())))
                 importe += tarifa.calcularPrecioLlamada(llamada);

@@ -50,7 +50,8 @@ public class GestorClientesTest {
         }
 
         dirAlberto = new Direccion("12005", "Castellon de la plana", "Castelllon");
-        baseDeDatos.anadirParticular("alberto", "prado banarro", "692242216", "20925403", dirAlberto, "albertoprado@gmail.com");
+        baseDeDatos.anadirParticular("alberto", "prado banarro", "692242216", "20925403",
+                dirAlberto, "albertoprado@gmail.com");
         alberto = gestorClientes.devuelveCliente("20925403");
 
         dirPamesa = new Direccion("12006", "VillaReal", "Castelllon");

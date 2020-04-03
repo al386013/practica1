@@ -5,6 +5,7 @@ import menus.MenuCambiarTarifa;
 
 public interface InterfazFabricaTarifas {
     Tarifa getBasica();
+
     Tarifa getOferta(MenuCambiarTarifa elemento, Tarifa recubierta);
 }
 

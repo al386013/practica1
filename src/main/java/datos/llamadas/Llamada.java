@@ -30,9 +30,13 @@ public class Llamada implements TieneFecha, Serializable {
         this.duracion = duracion;
     }
 
-    public void setFecha(LocalDate fecha) { this.fecha = fecha; }
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
+    }
 
-    public void setHora(LocalTime hora) { this.hora = hora; }
+    public void setHora(LocalTime hora) {
+        this.hora = hora;
+    }
 
     @Override
     public LocalDate getFecha() {
@@ -40,7 +44,9 @@ public class Llamada implements TieneFecha, Serializable {
     }
 
     @Override
-    public LocalTime getHora() { return hora; }
+    public LocalTime getHora() {
+        return hora;
+    }
 
     public int getDuracion() {
         return duracion;

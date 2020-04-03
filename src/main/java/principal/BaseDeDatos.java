@@ -5,7 +5,6 @@ import datos.clientes.Cliente;
 import datos.clientes.Direccion;
 import datos.contrato.*;
 import datos.contrato.PeriodoFacturacion;
-import datos.contrato.tarifas.Tarifa;
 import datos.llamadas.Llamada;
 import datos.TieneFecha;
 import menus.MenuCambiarTarifa;

@@ -5,5 +5,6 @@ import java.time.LocalTime;
 
 public interface TieneFecha {
     LocalDate getFecha();
+
     LocalTime getHora();
 }
