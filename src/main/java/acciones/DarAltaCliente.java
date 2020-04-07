@@ -8,32 +8,32 @@ public class DarAltaCliente implements Accion {
     @Override
     public void ejecutaAccion(BaseDeDatos baseDeDatos) throws OpcionIncorrectaException {
         try {
-            entrada.imprimirConSalto("\nDAR DE ALTA UN NUEVO CLIENTE");
-            entrada.imprimirConSalto("\nOpciones para tipo de cliente: ");
-            entrada.imprimirConSalto(MenuTipoCliente.getMenu());
-            byte opcion = entrada.pedirOpcion();
+            entradaSalida.imprimirConSalto("\nDAR DE ALTA UN NUEVO CLIENTE");
+            entradaSalida.imprimirConSalto("\nOpciones para tipo de cliente: ");
+            entradaSalida.imprimirConSalto(MenuTipoCliente.getMenu());
+            byte opcion = entradaSalida.pedirOpcion();
             if (opcion < 0 || opcion > 1) throw new OpcionIncorrectaException(1);
             MenuTipoCliente opcionTipoCliente = MenuTipoCliente.getOpcion(opcion);
 
-            String nombre = entrada.pedirNombre();
+            String nombre = entradaSalida.pedirNombre();
             String apellidos = null;
-            if (opcionTipoCliente == MenuTipoCliente.PARTICULAR) apellidos = entrada.pedirApellidos();
+            if (opcionTipoCliente == MenuTipoCliente.PARTICULAR) apellidos = entradaSalida.pedirApellidos();
 
-            String nif = entrada.pedirNif();
+            String nif = entradaSalida.pedirNif();
             baseDeDatos.compruebaNifNoExistente(nif);
-            String telf = entrada.pedirTelf();
+            String telf = entradaSalida.pedirTelf();
             baseDeDatos.compruebaTelfNoExistente(telf);
-            String cp = entrada.pedirCP();
-            String provincia = entrada.pedirProvincia();
-            String poblacion = entrada.pedirPoblacion();
+            String cp = entradaSalida.pedirCP();
+            String provincia = entradaSalida.pedirProvincia();
+            String poblacion = entradaSalida.pedirPoblacion();
             Direccion direccion = new Direccion(cp, provincia, poblacion);
-            String email = entrada.pedirEmail();
+            String email = entradaSalida.pedirEmail();
 
             if (opcionTipoCliente == MenuTipoCliente.PARTICULAR)
                 baseDeDatos.anadirParticular(nombre, apellidos, telf, nif, direccion, email);
             else baseDeDatos.anadirEmpresa(nombre, telf, nif, direccion, email);
 
-            entrada.imprimirConSalto("\n\tCreado cliente " + nombre + " con NIF " + nif + " y telefono " + telf + ".\n");
+            entradaSalida.imprimirConSalto("\n\tCreado cliente " + nombre + " con NIF " + nif + " y telefono " + telf + ".\n");
         } catch (NifRepetidoException | TelfRepetidoException e) {
             e.printStackTrace();
         }

@@ -9,13 +9,13 @@ public class FacturasCliEntreFechas implements Accion {
     @Override
     public void ejecutaAccion(BaseDeDatos baseDeDatos) {
         try {
-            entrada.imprimirConSalto("\nMOSTRAR LISTADO DE LAS FACTURAS DE UN CLIENTE DADAS DE ALTA ENTRE DOS FECHAS");
-            String nif = entrada.pedirNif();
+            entradaSalida.imprimirConSalto("\nMOSTRAR LISTADO DE LAS FACTURAS DE UN CLIENTE DADAS DE ALTA ENTRE DOS FECHAS");
+            String nif = entradaSalida.pedirNif();
             baseDeDatos.compruebaNifExistente(nif);
-            LocalDate fechaIni = entrada.pedirFechaIni();
-            LocalDate fechaFin = entrada.pedirFechaFin();
+            LocalDate fechaIni = entradaSalida.pedirFechaIni();
+            LocalDate fechaFin = entradaSalida.pedirFechaFin();
             baseDeDatos.compruebaFechas(fechaIni, fechaFin);
-            entrada.imprimirConSalto(baseDeDatos.listarFacturasEntreFechas(nif, fechaIni, fechaFin));
+            entradaSalida.imprimirConSalto(baseDeDatos.listarFacturasEntreFechas(nif, fechaIni, fechaFin));
         } catch (NifNoExistenteException | IntervaloFechasIncorrectoException e) {
             e.printStackTrace();
         }

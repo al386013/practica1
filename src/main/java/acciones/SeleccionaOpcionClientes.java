@@ -6,9 +6,9 @@ import principal.BaseDeDatos;
 public class SeleccionaOpcionClientes implements Accion {
     @Override
     public void ejecutaAccion(BaseDeDatos baseDeDatos) throws OpcionIncorrectaException {
-        entrada.imprimirConSalto("\n* * * * * * * OPCIONES DE CLIENTES * * * * * * *\n");
-        entrada.imprimirConSalto(MenuClientes.getMenu());
-        byte opcion = entrada.pedirOpcion();
+        entradaSalida.imprimirConSalto("\n* * * * * * * OPCIONES DE CLIENTES * * * * * * *\n");
+        entradaSalida.imprimirConSalto(MenuClientes.getMenu());
+        byte opcion = entradaSalida.pedirOpcion();
         if (opcion < 0 || opcion > 7)
             throw new OpcionIncorrectaException(7);
         else {

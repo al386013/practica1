@@ -7,13 +7,13 @@ public class DaAltaLlamada implements Accion {
     @Override
     public void ejecutaAccion(BaseDeDatos baseDeDatos) {
         try {
-            entrada.imprimirConSalto("\nDAR DE ALTA UNA LLAMADA");
-            String telfOrigen = entrada.pedirTelf();
+            entradaSalida.imprimirConSalto("\nDAR DE ALTA UNA LLAMADA");
+            String telfOrigen = entradaSalida.pedirTelf();
             baseDeDatos.compruebaTelfExistente(telfOrigen);
-            String telfDest = entrada.pedirTelfDestino();
-            int duracion = entrada.pedirDuracion();
+            String telfDest = entradaSalida.pedirTelfDestino();
+            int duracion = entradaSalida.pedirDuracion();
             baseDeDatos.darDeAltaLlamada(telfOrigen, telfDest, duracion);
-            entrada.imprimirConSalto("\n\tLlamada del " + telfOrigen + " al " + telfDest + " realizada con exito.\n");
+            entradaSalida.imprimirConSalto("\n\tLlamada del " + telfOrigen + " al " + telfDest + " realizada con exito.\n");
         } catch (TelfNoExistenteException | IllegalArgumentException e) {
             e.printStackTrace();
         }

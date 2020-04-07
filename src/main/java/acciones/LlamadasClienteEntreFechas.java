@@ -9,13 +9,13 @@ public class LlamadasClienteEntreFechas implements Accion {
     @Override
     public void ejecutaAccion(BaseDeDatos baseDeDatos) {
         try {
-            entrada.imprimirConSalto("\nMOSTRAR LISTADO DE LAS LLAMADAS REALIZADAS ENTRE DOS FECHAS");
-            String telf = entrada.pedirTelf();
+            entradaSalida.imprimirConSalto("\nMOSTRAR LISTADO DE LAS LLAMADAS REALIZADAS ENTRE DOS FECHAS");
+            String telf = entradaSalida.pedirTelf();
             baseDeDatos.compruebaTelfExistente(telf);
-            LocalDate fechaIni = entrada.pedirFechaIni();
-            LocalDate fechaFin = entrada.pedirFechaFin();
+            LocalDate fechaIni = entradaSalida.pedirFechaIni();
+            LocalDate fechaFin = entradaSalida.pedirFechaFin();
             baseDeDatos.compruebaFechas(fechaIni, fechaFin);
-            entrada.imprimirConSalto(baseDeDatos.listarLlamadasEntreFechas(telf, fechaIni, fechaFin));
+            entradaSalida.imprimirConSalto(baseDeDatos.listarLlamadasEntreFechas(telf, fechaIni, fechaFin));
         } catch (TelfNoExistenteException | IntervaloFechasIncorrectoException e) {
             e.printStackTrace();
         }

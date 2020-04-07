@@ -8,9 +8,9 @@ public class ClientesEntreFechas implements Accion {
     @Override
     public void ejecutaAccion(BaseDeDatos baseDeDatos) {
         try {
-            entrada.imprimirConSalto("\nMOSTRAR LISTADO DE LOS CLIENTES DADOS DE ALTA ENTRE DOS FECHAS");
-            LocalDate fechaIni = entrada.pedirFechaIni();
-            LocalDate fechaFin = entrada.pedirFechaFin();
+            entradaSalida.imprimirConSalto("\nMOSTRAR LISTADO DE LOS CLIENTES DADOS DE ALTA ENTRE DOS FECHAS");
+            LocalDate fechaIni = entradaSalida.pedirFechaIni();
+            LocalDate fechaFin = entradaSalida.pedirFechaFin();
             baseDeDatos.compruebaFechas(fechaIni, fechaFin);
             System.out.println(baseDeDatos.listarClientesEntreFechas(fechaIni, fechaFin));
         } catch (IntervaloFechasIncorrectoException e) {

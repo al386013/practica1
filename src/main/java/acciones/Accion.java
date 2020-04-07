@@ -3,7 +3,7 @@ package acciones;
 import principal.BaseDeDatos;
 
 public interface Accion {
-    Entrada entrada = new Entrada();
+    EntradaSalida entradaSalida = new EntradaSalida();
 
     void ejecutaAccion(BaseDeDatos baseDeDatos) throws OpcionIncorrectaException;
 }

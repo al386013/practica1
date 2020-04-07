@@ -7,10 +7,10 @@ public class LlamadasCliente implements Accion {
     @Override
     public void ejecutaAccion(BaseDeDatos baseDeDatos) {
         try {
-            entrada.imprimirConSalto("\nLISTAR TODAS LAS LLAMADAS DE UN CLIENTE");
-            String telf = entrada.pedirTelf();
+            entradaSalida.imprimirConSalto("\nLISTAR TODAS LAS LLAMADAS DE UN CLIENTE");
+            String telf = entradaSalida.pedirTelf();
             baseDeDatos.compruebaTelfExistente(telf);
-            entrada.imprimirConSalto(baseDeDatos.listarLlamadasCliente(telf));
+            entradaSalida.imprimirConSalto(baseDeDatos.listarLlamadasCliente(telf));
         } catch (TelfNoExistenteException e) {
             e.printStackTrace();
         }

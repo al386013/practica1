@@ -3,10 +3,10 @@ package acciones;
 import java.time.LocalDate;
 import java.util.Scanner;
 
-public class Entrada implements EntradaInterfaz {
+public class EntradaSalida implements EntradaInterfaz {
     private Scanner sc;
 
-    public Entrada() {
+    public EntradaSalida() {
         super();
         sc = new Scanner(System.in);
     }
