@@ -16,6 +16,7 @@ public class TarifaCalculaPrecioTest {
     private static Tarifa tarifaPorDias;
     private static Tarifa tarifaPorHoras;
     private static Tarifa tarifaTotal;
+    private static Tarifa tarifaTotal2;
 
     @BeforeAll
     public static void inicializa() {
@@ -27,6 +28,8 @@ public class TarifaCalculaPrecioTest {
         tarifaPorHoras = new TarifaTardesReducida(tarifaBasica, 0.03f);
         //creamos una tarifa basica + tarifa por dias + tarifa por horas
         tarifaTotal = new TarifaTardesReducida(tarifaPorDias, 0.03f);
+        //creamos una tarifa basica + tarifa por horas + tarifa por dias
+        tarifaTotal2 = new TarifaDomingosGratis(tarifaPorHoras, 0.00f);
     }
 
     @Test
@@ -43,6 +46,9 @@ public class TarifaCalculaPrecioTest {
         assertEquals(tarifaPorHoras.calcularPrecioLlamada(llamada), importe, 0.005f);
         //con tarifa basica + tarifa por dias + tarifa por horas
         assertEquals(tarifaTotal.calcularPrecioLlamada(llamada), importe, 0.005f);
+        //con tarifa basica + tarifa por horas + tarifa por dias
+        assertEquals(tarifaTotal2.calcularPrecioLlamada(llamada), importe, 0.005f);
+
     }
 
     @Test
@@ -60,6 +66,8 @@ public class TarifaCalculaPrecioTest {
         assertEquals(tarifaPorHoras.calcularPrecioLlamada(llamada), importe, 0.005f);
         //con tarifa basica + tarifa por dias + tarifa por horas
         assertEquals(tarifaTotal.calcularPrecioLlamada(llamada), importe, 0.005f);
+        //con tarifa basica + tarifa por horas + tarifa por dias
+        assertEquals(tarifaTotal2.calcularPrecioLlamada(llamada), importe, 0.005f);
     }
 
     @Test
@@ -76,6 +84,8 @@ public class TarifaCalculaPrecioTest {
         assertEquals(tarifaPorHoras.calcularPrecioLlamada(llamada), importe, 0.005f);
         //con tarifa basica + tarifa por dias + tarifa por horas
         assertEquals(tarifaTotal.calcularPrecioLlamada(llamada), 0.00f, 0.005f);
+        //con tarifa basica + tarifa por horas + tarifa por dias
+        assertEquals(tarifaTotal2.calcularPrecioLlamada(llamada), 0.00f, 0.005f);
     }
 
     @Test
@@ -93,5 +103,7 @@ public class TarifaCalculaPrecioTest {
         assertEquals(tarifaPorHoras.calcularPrecioLlamada(llamada), importe, 0.005f);
         //con tarifa basica + tarifa por dias + tarifa por horas
         assertEquals(tarifaTotal.calcularPrecioLlamada(llamada), 0.00f, 0.005f);
+        //con tarifa basica + tarifa por horas + tarifa por dias
+        assertEquals(tarifaTotal2.calcularPrecioLlamada(llamada), 0.00f, 0.005f);
     }
 }
