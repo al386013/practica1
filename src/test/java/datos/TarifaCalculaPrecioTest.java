@@ -13,23 +13,23 @@ import java.time.LocalTime;
 
 public class TarifaCalculaPrecioTest {
     private static Tarifa tarifaBasica;
-    private static Tarifa tarifaPorDias;
-    private static Tarifa tarifaPorHoras;
+    private static Tarifa tarifaDomingos;
+    private static Tarifa tarifaTardes;
     private static Tarifa tarifaTotal;
     private static Tarifa tarifaTotal2;
 
     @BeforeAll
     public static void inicializa() {
-        //creamos tarifa basica
+        //creamos una tarifa basica
         tarifaBasica = new TarifaBasica(0.05f);
-        //creamos una tarifa basica + tarifa por dias
-        tarifaPorDias = new TarifaDomingosGratis(tarifaBasica, 0.00f);
-        //creamos una tarifa basica + tarifa por horas
-        tarifaPorHoras = new TarifaTardesReducida(tarifaBasica, 0.03f);
-        //creamos una tarifa basica + tarifa por dias + tarifa por horas
-        tarifaTotal = new TarifaTardesReducida(tarifaPorDias, 0.03f);
-        //creamos una tarifa basica + tarifa por horas + tarifa por dias
-        tarifaTotal2 = new TarifaDomingosGratis(tarifaPorHoras, 0.00f);
+        //creamos una tarifa basica + tarifa de domingos gratis
+        tarifaDomingos = new TarifaDomingosGratis(tarifaBasica, 0.00f);
+        //creamos una tarifa basica + tarifa de tardes reducida
+        tarifaTardes = new TarifaTardesReducida(tarifaBasica, 0.03f);
+        //creamos una tarifa basica + tarifa de domingos gratis + tarifa de tardes reducida
+        tarifaTotal = new TarifaTardesReducida(tarifaDomingos, 0.03f);
+        //creamos una tarifa basica + tarifa de tardes reducida + tarifa de domingos gratis
+        tarifaTotal2 = new TarifaDomingosGratis(tarifaTardes, 0.00f);
     }
 
     @Test
@@ -40,13 +40,13 @@ public class TarifaCalculaPrecioTest {
         float importe = (llamada.getDuracion() / 60.0f) * 0.05f;
         //con tarifa basica
         assertEquals(tarifaBasica.calcularPrecioLlamada(llamada), importe, 0.005f);
-        //con tarifa basica + tarifa por dias
-        assertEquals(tarifaPorDias.calcularPrecioLlamada(llamada), importe, 0.005f);
-        //con tarifa basica + tarifa por horas
-        assertEquals(tarifaPorHoras.calcularPrecioLlamada(llamada), importe, 0.005f);
-        //con tarifa basica + tarifa por dias + tarifa por horas
+        //con tarifa basica + tarifa de domingos gratis
+        assertEquals(tarifaDomingos.calcularPrecioLlamada(llamada), importe, 0.005f);
+        //con tarifa basica + tarifa de tardes reducida
+        assertEquals(tarifaTardes.calcularPrecioLlamada(llamada), importe, 0.005f);
+        //con tarifa basica + tarifa de domingos gratis + tarifa de tardes reducida
         assertEquals(tarifaTotal.calcularPrecioLlamada(llamada), importe, 0.005f);
-        //con tarifa basica + tarifa por horas + tarifa por dias
+        //con tarifa basica + tarifa de tardes reducida + tarifa de domingos gratis
         assertEquals(tarifaTotal2.calcularPrecioLlamada(llamada), importe, 0.005f);
 
     }
@@ -59,14 +59,14 @@ public class TarifaCalculaPrecioTest {
         float importe = (llamada.getDuracion() / 60.0f) * 0.05f;
         //con tarifa basica
         assertEquals(tarifaBasica.calcularPrecioLlamada(llamada), importe, 0.005f);
-        //con tarifa basica + tarifa por dias
-        assertEquals(tarifaPorDias.calcularPrecioLlamada(llamada), importe, 0.005f);
-        //con tarifa basica + tarifa por horas
+        //con tarifa basica + tarifa de domingos gratis
+        assertEquals(tarifaDomingos.calcularPrecioLlamada(llamada), importe, 0.005f);
+        //con tarifa basica + tarifa de tardes reducida
         importe = (llamada.getDuracion() / 60.0f) * 0.03f;
-        assertEquals(tarifaPorHoras.calcularPrecioLlamada(llamada), importe, 0.005f);
-        //con tarifa basica + tarifa por dias + tarifa por horas
+        assertEquals(tarifaTardes.calcularPrecioLlamada(llamada), importe, 0.005f);
+        //con tarifa basica + tarifa de domingos gratis + tarifa de tardes reducida
         assertEquals(tarifaTotal.calcularPrecioLlamada(llamada), importe, 0.005f);
-        //con tarifa basica + tarifa por horas + tarifa por dias
+        //con tarifa basica + tarifa de tardes reducida + tarifa de domingos gratis
         assertEquals(tarifaTotal2.calcularPrecioLlamada(llamada), importe, 0.005f);
     }
 
@@ -78,13 +78,13 @@ public class TarifaCalculaPrecioTest {
         float importe = (llamada.getDuracion() / 60.0f) * 0.05f;
         //con tarifa basica
         assertEquals(tarifaBasica.calcularPrecioLlamada(llamada), importe, 0.005f);
-        //con tarifa basica + tarifa por dias
-        assertEquals(tarifaPorDias.calcularPrecioLlamada(llamada), 0.00f, 0.005f);
-        //con tarifa basica + tarifa por horas
-        assertEquals(tarifaPorHoras.calcularPrecioLlamada(llamada), importe, 0.005f);
-        //con tarifa basica + tarifa por dias + tarifa por horas
+        //con tarifa basica + tarifa de domingos gratis
+        assertEquals(tarifaDomingos.calcularPrecioLlamada(llamada), 0.00f, 0.005f);
+        //con tarifa basica + tarifa de tardes reducida
+        assertEquals(tarifaTardes.calcularPrecioLlamada(llamada), importe, 0.005f);
+        //con tarifa basica + tarifa de domingos gratis + tarifa de tardes reducida
         assertEquals(tarifaTotal.calcularPrecioLlamada(llamada), 0.00f, 0.005f);
-        //con tarifa basica + tarifa por horas + tarifa por dias
+        //con tarifa basica + tarifa de tardes reducida + tarifa de domingos gratis
         assertEquals(tarifaTotal2.calcularPrecioLlamada(llamada), 0.00f, 0.005f);
     }
 
@@ -96,14 +96,14 @@ public class TarifaCalculaPrecioTest {
         float importe = (llamada.getDuracion() / 60.0f) * 0.05f;
         //con tarifa basica
         assertEquals(tarifaBasica.calcularPrecioLlamada(llamada), importe, 0.005f);
-        //con tarifa basica + tarifa por dias
-        assertEquals(tarifaPorDias.calcularPrecioLlamada(llamada), 0.00f, 0.005f);
-        //con tarifa basica + tarifa por horas
+        //con tarifa basica + tarifa de domingos gratis
+        assertEquals(tarifaDomingos.calcularPrecioLlamada(llamada), 0.00f, 0.005f);
+        //con tarifa basica + tarifa de tardes reducida
         importe = (llamada.getDuracion() / 60.0f) * 0.03f;
-        assertEquals(tarifaPorHoras.calcularPrecioLlamada(llamada), importe, 0.005f);
-        //con tarifa basica + tarifa por dias + tarifa por horas
+        assertEquals(tarifaTardes.calcularPrecioLlamada(llamada), importe, 0.005f);
+        //con tarifa basica + tarifa de domingos gratis + tarifa de tardes reducida
         assertEquals(tarifaTotal.calcularPrecioLlamada(llamada), 0.00f, 0.005f);
-        //con tarifa basica + tarifa por horas + tarifa por dias
+        //con tarifa basica + tarifa de tardes reducida + tarifa de domingos gratis
         assertEquals(tarifaTotal2.calcularPrecioLlamada(llamada), 0.00f, 0.005f);
     }
 }

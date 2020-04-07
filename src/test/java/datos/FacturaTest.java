@@ -19,12 +19,13 @@ public class FacturaTest {
     private static Tarifa tarifaDomingos;
     private static Tarifa tarifaTardes;
     private static Tarifa tarifaTotal;
+    private static Tarifa tarifaTotal2;
     private static PeriodoFacturacion periodoFact;
 
     @BeforeAll
     public static void inicializa() {
         periodoFact = new PeriodoFacturacion(LocalDate.parse("2020-01-01"), LocalDate.parse("2020-03-27"));
-        //creamos tarifa basica
+        //creamos una tarifa basica
         tarifaBasica = new TarifaBasica(0.05f);
         //creamos una tarifa basica + tarifa de domingos gratis
         tarifaDomingos = new TarifaDomingosGratis(tarifaBasica, 0.00f);
@@ -32,6 +33,8 @@ public class FacturaTest {
         tarifaTardes = new TarifaTardesReducida(tarifaBasica, 0.03f);
         //creamos una tarifa basica + tarifa de domingos gratis + tarifa de tardes reducida
         tarifaTotal = new TarifaTardesReducida(tarifaDomingos, 0.03f);
+        //creamos una tarifa basica + tarifa de tardes reducida + tarifa de domingos gratis
+        tarifaTotal2 = new TarifaDomingosGratis(tarifaTardes, 0.00f);
     }
 
     @Test
@@ -53,6 +56,9 @@ public class FacturaTest {
         assertEquals(factura.getImporte(), importe, 0.005f);
         //con tarifa basica + tarifa de domingos gratis + tarifa de tardes reducida
         factura = new Factura(periodoFact, "1234", llamadas, tarifaTotal);
+        assertEquals(factura.getImporte(), importe, 0.005f);
+        //con tarifa basica + tarifa de tardes reducida + tarifa de domingos gratis
+        factura = new Factura(periodoFact, "1234", llamadas, tarifaTotal2);
         assertEquals(factura.getImporte(), importe, 0.005f);
     }
 
@@ -77,6 +83,9 @@ public class FacturaTest {
         //con tarifa basica + tarifa de domingos gratis + tarifa de tardes reducida
         factura = new Factura(periodoFact, "1234", llamadas, tarifaTotal);
         assertEquals(factura.getImporte(), importe, 0.005f);
+        //con tarifa basica + tarifa de tardes reducida + tarifa de domingos gratis
+        factura = new Factura(periodoFact, "1234", llamadas, tarifaTotal2);
+        assertEquals(factura.getImporte(), importe, 0.005f);
     }
 
     @Test
@@ -98,6 +107,9 @@ public class FacturaTest {
         assertEquals(factura.getImporte(), 0.00f, 0.005f);
         //con tarifa basica + tarifa de domingos gratis + tarifa de tardes reducida
         factura = new Factura(periodoFact, "1234", llamadas, tarifaTotal);
+        assertEquals(factura.getImporte(), 0.00f, 0.005f);
+        //con tarifa basica + tarifa de tardes reducida + tarifa de domingos gratis
+        factura = new Factura(periodoFact, "1234", llamadas, tarifaTotal2);
         assertEquals(factura.getImporte(), 0.00f, 0.005f);
     }
 
@@ -121,6 +133,9 @@ public class FacturaTest {
         assertEquals(factura.getImporte(), importe, 0.005f);
         //con tarifa basica + tarifa de domingos gratis + tarifa de tardes reducida
         factura = new Factura(periodoFact, "1234", llamadas, tarifaTotal);
+        assertEquals(factura.getImporte(), 0.00f, 0.005f);
+        //con tarifa basica + tarifa de tardes reducida + tarifa de domingos gratis
+        factura = new Factura(periodoFact, "1234", llamadas, tarifaTotal2);
         assertEquals(factura.getImporte(), 0.00f, 0.005f);
     }
 }
