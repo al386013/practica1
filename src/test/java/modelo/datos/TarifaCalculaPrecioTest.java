@@ -1,20 +1,17 @@
-package fabricas;
+package modelo.datos;
 
+import modelo.datos.contrato.tarifas.TarifaDomingosGratis;
 import modelo.datos.contrato.tarifas.Tarifa;
 import modelo.datos.contrato.tarifas.TarifaBasica;
-import modelo.datos.contrato.tarifas.TarifaDomingosGratis;
 import modelo.datos.contrato.tarifas.TarifaTardesReducida;
 import modelo.datos.llamadas.Llamada;
-import controlador.menus.MenuCambiarTarifa;
 import org.junit.jupiter.api.BeforeAll;
+import static org.junit.Assert.assertEquals;
 import org.junit.jupiter.api.Test;
-import modelo.principal.FabricaTarifas;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import static org.junit.Assert.assertEquals;
 
-public class FabricaTarifasTest {
-    private static FabricaTarifas fabricaTarifas;
+public class TarifaCalculaPrecioTest {
     private static Tarifa tarifaBasica;
     private static Tarifa tarifaDomingos;
     private static Tarifa tarifaTardes;
@@ -23,8 +20,7 @@ public class FabricaTarifasTest {
 
     @BeforeAll
     public static void inicializa() {
-        fabricaTarifas = new FabricaTarifas();
-        //creamos tarifa basica
+        //creamos una tarifa basica
         tarifaBasica = new TarifaBasica(0.05f);
         //creamos una tarifa basica + tarifa de domingos gratis
         tarifaDomingos = new TarifaDomingosGratis(tarifaBasica, 0.00f);
@@ -34,35 +30,6 @@ public class FabricaTarifasTest {
         tarifaTotal = new TarifaTardesReducida(tarifaDomingos, 0.03f);
         //creamos una tarifa basica + tarifa de tardes reducida + tarifa de domingos gratis
         tarifaTotal2 = new TarifaDomingosGratis(tarifaTardes, 0.00f);
-    }
-
-    @Test
-    public void getTarifaBasicaTest() {
-        //tarifa basica
-        assertEquals(fabricaTarifas.getBasica().descripcion(), tarifaBasica.descripcion());
-    }
-
-    @Test
-    public void getTarifaTardesTest() {
-        //tarifa basica + tarifa de tardes reducida
-        assertEquals(fabricaTarifas.getOferta(MenuCambiarTarifa.TARIFA_TARDES_REDUCIDA, tarifaBasica).descripcion(),
-                tarifaTardes.descripcion());
-        //tarifa basica + tarifa de domingos gratis + tarifa de tardes reducida
-        assertEquals(fabricaTarifas.getOferta(MenuCambiarTarifa.TARIFA_TARDES_REDUCIDA, tarifaDomingos).descripcion(),
-                tarifaTotal.descripcion());
-        //tarifa basica + tarifa de tardes reducida + tarifa de domingos gratis
-        assertEquals(fabricaTarifas.getOferta(MenuCambiarTarifa.TARIFA_DOMINGOS_GRATIS, tarifaTardes).descripcion(),
-                tarifaTotal2.descripcion());
-    }
-
-    @Test
-    public void getTarifaDomingosTest() {
-        //tarifa basica + tarifa de domingos gratis
-        assertEquals(fabricaTarifas.getOferta(MenuCambiarTarifa.TARIFA_DOMINGOS_GRATIS, tarifaBasica).descripcion(),
-                tarifaDomingos.descripcion());
-        //tarifa basica + tarifa de tardes reducida + tarifa de domingos gratis
-        assertEquals(fabricaTarifas.getOferta(MenuCambiarTarifa.TARIFA_DOMINGOS_GRATIS, tarifaTardes).descripcion(),
-                tarifaTardes.descripcion() + ", con tarifa especial de domingos gratis"); //pq se imprimen en otro orden
     }
 
     @Test

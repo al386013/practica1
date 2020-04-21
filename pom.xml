@@ -103,7 +103,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!--Biblioteca para generar datos aleatorios-->
+        <!--Biblioteca para generar modelo.principal.datos aleatorios-->
         <dependency>
             <groupId>com.github.TallerIngenieriaDelSoftware</groupId>
             <artifactId>GeneradorDatosINE</artifactId>

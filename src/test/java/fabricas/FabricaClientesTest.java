@@ -1,14 +1,14 @@
 package fabricas;
 
-import datos.clientes.Cliente;
-import datos.clientes.Direccion;
-import datos.clientes.Empresa;
-import datos.clientes.Particular;
-import datos.contrato.tarifas.Tarifa;
+import modelo.datos.clientes.Cliente;
+import modelo.datos.clientes.Direccion;
+import modelo.datos.clientes.Empresa;
+import modelo.datos.clientes.Particular;
+import modelo.datos.contrato.tarifas.Tarifa;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;
-import principal.FabricaClientes;
-import principal.FabricaTarifas;
+import modelo.principal.FabricaClientes;
+import modelo.principal.FabricaTarifas;
 import static org.junit.Assert.assertEquals;
 
 public class FabricaClientesTest {

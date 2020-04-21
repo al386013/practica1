@@ -1,0 +1,29 @@
+package modelo.principal;
+
+import modelo.datos.contrato.tarifas.TarifaDomingosGratis;
+import modelo.datos.contrato.tarifas.Tarifa;
+import modelo.datos.contrato.tarifas.TarifaBasica;
+import modelo.datos.contrato.tarifas.TarifaTardesReducida;
+import controlador.menus.MenuCambiarTarifa;
+
+public class FabricaTarifas implements InterfazFabricaTarifas {
+    public FabricaTarifas() {
+        super();
+    }
+
+    @Override
+    public Tarifa getBasica() {
+        return new TarifaBasica(0.05f);
+    }
+
+    @Override
+    public Tarifa getOferta(MenuCambiarTarifa elemento, Tarifa tarifa) {
+        Tarifa tarifaEspecial = new TarifaTardesReducida(tarifa, 0.03f);
+        switch (elemento) {
+            case TARIFA_DOMINGOS_GRATIS:
+                tarifaEspecial = new TarifaDomingosGratis(tarifa, 0.00f);
+                break;
+        }
+        return tarifaEspecial;
+    }
+}

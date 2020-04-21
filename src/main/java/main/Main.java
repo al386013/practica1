@@ -1,7 +1,9 @@
 package main;
 
-import principal.*;
-import acciones.SeleccionaOpcionPrincipal;
+import modelo.principal.BaseDeDatos;
+import modelo.principal.GestorClientes;
+import modelo.principal.GestorFacturas;
+import controlador.acciones.SeleccionaOpcionPrincipal;
 import java.io.Serializable;
 
 public class Main implements Serializable {
