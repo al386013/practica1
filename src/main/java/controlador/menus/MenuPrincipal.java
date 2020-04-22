@@ -4,11 +4,11 @@ import controlador.acciones.*;
 import modelo.principal.BaseDeDatos;
 
 public enum MenuPrincipal {
-    CARGAR_DATOS("Importar los modelo.principal.datos.", new ImportarDatos()),
+    CARGAR_DATOS("Importar los datos.", new ImportarDatos()),
     CLIENTES("Operacion clientes.", new SeleccionaOpcionClientes()),
     LLAMADAS("Operacion llamadas.", new SeleccionaOpcionLlamada()),
     FACTURAS("Operacion facturas.", new SeleccionaOpcionFacturas()),
-    SALIR_GUARDAR("Salir y guardar modelo.principal.datos.", new ExportarDatosYsalir());
+    SALIR_GUARDAR("Salir y guardar datos.", new ExportarDatosYsalir());
 
     private String textoOpcion;
     private Accion accion;

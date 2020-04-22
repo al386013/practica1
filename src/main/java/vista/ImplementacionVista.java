@@ -1,13 +1,15 @@
 package vista;
 
-import com.sun.org.apache.xalan.internal.xsltc.compiler.util.StringStack;
+
 import controlador.Controlador;
 import modelo.InterrogaModelo;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class ImplementacionVista {
+public class ImplementacionVista implements InformaVista, InterrogaVista {
     private Controlador controlador;
     private InterrogaModelo modelo;
     private JTextField jtfNombre;
@@ -23,12 +25,32 @@ public class ImplementacionVista {
         this.controlador = controlador;
     }
 
-    private void MenuPrincipal() {
+
+    public void creaGUI() {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                menuPrincipal();
+            }
+        });
+    }
+
+    private void menuPrincipal() {
         JFrame ventana = new JFrame("Programa");
         Container contenedor = ventana.getContentPane();
+        JList opciones = new JList(new String[]{
+                "Importar los datos.",
+                "Operacion clientes.",
+                "Operacion llamadas.",
+                "Operacion facturas.",
+                "Salir y guardar datos."
+        });
+        opciones.setVisibleRowCount(5);
+        opciones.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        JScrollPane scroll = new JScrollPane(opciones);
+        contenedor.add(scroll);
         JPanel jpEntrada = new JPanel();
         JPanel jpContador = new JPanel();
-        JList opciones = new JList(new String[]{"Importar los datos",})
         jtfNombre = new JTextField(20);
         Escuchador escuchador = new Escuchador();
         JButton jbNuevo = new JButton("Nuevo");
@@ -37,7 +59,7 @@ public class ImplementacionVista {
         jbAtras.addActionListener(escuchador);
         JButton jbAdelante = new JButton("Adelante");
         jbAdelante.addActionListener(escuchador);
-        jlContador = new JLabel(infoEstadoEntradas());
+        //jlContador = new JLabel(infoEstadoEntradas());
         jpEntrada.add(jtfNombre);
         jpEntrada.add(jbNuevo);
         jpEntrada.add(jbAtras);
@@ -49,16 +71,17 @@ public class ImplementacionVista {
         ventana.pack();
         ventana.setVisible(true);
     }
-    public void creaGUI() {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                GUI();
-            }
-        });
-    }
 
-    public void cambiaNombre(String nombre) {
-        jtfNombre.setText(nombre);
+    private class Escuchador implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            JButton boton = (JButton)e.getSource();
+            String texto = boton.getText();
+            /*if(texto.equals("Nuevo"))
+                //controlador.anyadeEntrada();
+            else if(texto.equals("Atras"))
+                //controlador.atras();
+            else if(texto.equals("Adelante"))
+                //controlador.adelante();*/
+        }
     }
 }
