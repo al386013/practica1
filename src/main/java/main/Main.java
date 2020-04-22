@@ -1,9 +1,13 @@
 package main;
 
+import controlador.ImplementacionControloador;
+import modelo.ImplementacionModelo;
 import modelo.principal.BaseDeDatos;
 import modelo.principal.GestorClientes;
 import modelo.principal.GestorFacturas;
 import controlador.acciones.SeleccionaOpcionPrincipal;
+import vista.ImplementacionVista;
+
 import java.io.Serializable;
 
 public class Main implements Serializable {
@@ -16,5 +20,16 @@ public class Main implements Serializable {
         //mostramos el menu de opciones, leemos la opcion y lanzamos el metodo correspondiente
         SeleccionaOpcionPrincipal seleccionaOpcionPrincipal = new SeleccionaOpcionPrincipal(baseDeDatos);
         seleccionaOpcionPrincipal.ejecutaAccion(baseDeDatos);
+
+        //Parte del gui
+        ImplementacionControloador controlador = new ImplementacionControloador();
+        ImplementacionVista vista = new ImplementacionVista();
+        ImplementacionModelo modelo = new ImplementacionModelo();
+        modelo.setVista(vista);
+        controlador.setVista(vista);
+        controlador.setModelo(modelo);
+        vista.setModelo(modelo);
+        vista.setControlador(controlador);
+        vista.creaGUI();
     }
 }
