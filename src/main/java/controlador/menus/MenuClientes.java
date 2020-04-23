@@ -7,11 +7,11 @@ public enum MenuClientes {
     DAR_ALTA_CLIENTE("Dar de alta un nuevo cliente.", new DarAltaCliente()),
     BORRAR_CLIENTE("Borrar un cliente.", new BorrarCliente()),
     CAMBIAR_TARIFA("Contratar tarifa especial para un cliente.", new SeleccionaOpcionCambiarTarifa()),
-    DATOS_CLIENTE("Recuperar los modelo.principal.datos de un cliente a partir de su NIF.", new DatosCliente()),
+    DATOS_CLIENTE("Recuperar los datos de un cliente a partir de su NIF.", new DatosCliente()),
     LISTAR_CLIENTES("Recuperar el listado de todos los clientes.", new ListadoClientes()),
     CLIENTES_ENTRE_FECHAS("Mostrar listado de clientes dados de alta entre dos fechas.", new ClientesEntreFechas()),
-    VOLVER_MENU_PRINCIPAL("Volver al menu modelo.principal.", new SeleccionaOpcionPrincipal()),
-    SALIR_GUARDAR("Salir y guardar modelo.principal.datos.", new ExportarDatosYsalir());
+    VOLVER_MENU_PRINCIPAL("Volver al menu principal.", new SeleccionaOpcionPrincipal()),
+    SALIR_GUARDAR("Salir y guardar datos.", new ExportarDatosYsalir());
 
     private String textoOpcion;
     private Accion accion;
