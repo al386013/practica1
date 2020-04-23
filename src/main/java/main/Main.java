@@ -17,10 +17,12 @@ public class Main implements Serializable {
         GestorFacturas gestorFacturas = new GestorFacturas();
         BaseDeDatos baseDeDatos = new BaseDeDatos(gestorClientes, gestorFacturas);
 
+        //Parte del gui
         ImplementacionControlador controlador = new ImplementacionControlador();
         ImplementacionVista vista = new ImplementacionVista();
         ImplementacionModelo modelo = new ImplementacionModelo();
         modelo.setVista(vista);
+        modelo.setBaseDeDatos(baseDeDatos);
         controlador.setVista(vista);
         controlador.setModelo(modelo);
         vista.setModelo(modelo);
