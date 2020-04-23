@@ -82,7 +82,7 @@ public class ImplementacionVista implements InformaVista, InterrogaVista {
 //        jpContador.add(jlContador);
 //        contenedor.add(jpEntrada, BorderLayout.NORTH);
 //        contenedor.add(jpContador, BorderLayout.SOUTH);
-        
+
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventana.pack();
         ventana.setVisible(true);

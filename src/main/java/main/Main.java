@@ -7,6 +7,7 @@ import modelo.principal.GestorClientes;
 import modelo.principal.GestorFacturas;
 import controlador.acciones.SeleccionaOpcionPrincipal;
 import vista.ImplementacionVista;
+import vista.VistaClientes;
 
 import java.io.Serializable;
 
@@ -20,14 +21,18 @@ public class Main implements Serializable {
         //Parte del gui
         ImplementacionControlador controlador = new ImplementacionControlador();
         ImplementacionVista vista = new ImplementacionVista();
+        VistaClientes vistaClientes = new VistaClientes();
         ImplementacionModelo modelo = new ImplementacionModelo();
         modelo.setVista(vista);
         modelo.setBaseDeDatos(baseDeDatos);
         controlador.setVista(vista);
         controlador.setModelo(modelo);
+        controlador.importarDatos();
         vista.setModelo(modelo);
         vista.setControlador(controlador);
-        vista.creaGUI();
+        vistaClientes.setModelo(modelo);
+        vistaClientes.setControlador(controlador);
+        vistaClientes.creaGUI();
 
         //mostramos el menu de opciones, leemos la opcion y lanzamos el metodo correspondiente
         SeleccionaOpcionPrincipal seleccionaOpcionPrincipal = new SeleccionaOpcionPrincipal(baseDeDatos);

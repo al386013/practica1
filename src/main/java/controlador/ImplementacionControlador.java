@@ -1,5 +1,7 @@
 package controlador;
 
+import controlador.acciones.ExportarDatosYsalir;
+import controlador.acciones.ImportarDatos;
 import modelo.CambioModelo;
 import vista.InterrogaVista;
 
@@ -15,5 +17,15 @@ public class ImplementacionControlador implements Controlador {
 
     public void setVista(InterrogaVista vista) {
         this.vista = vista;
+    }
+
+    @Override
+    public void importarDatos() {
+        new ImportarDatos().ejecutaAccion(modelo.getBaseDeDatos());
+    }
+
+    @Override
+    public void exportarDatosYSalir() {
+        new ExportarDatosYsalir().ejecutaAccion(modelo.getBaseDeDatos());
     }
 }
