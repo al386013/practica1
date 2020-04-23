@@ -46,10 +46,15 @@ public class ImplementacionVista implements InformaVista, InterrogaVista {
                 "Operacion facturas.",
                 "Salir y guardar datos."
         });
+        opciones.setVisibleRowCount(5);
+        opciones.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        JScrollPane scroll = new JScrollPane(opciones);
+        contenedor.add(scroll);
+        Escuchador escuchador = new Escuchador();
         JPanel jpEntrada = new JPanel();
         JPanel jpContador = new JPanel();
         jtfNombre = new JTextField(20);
-        Escuchador escuchador = new Escuchador();
+        /*
         JButton jbNuevo = new JButton("Nuevo");
         jbNuevo.addActionListener(escuchador);
         JButton jbAtras = new JButton("Atras");
@@ -63,7 +68,7 @@ public class ImplementacionVista implements InformaVista, InterrogaVista {
         jpEntrada.add(jbAdelante);
         jpContador.add(jlContador);
         contenedor.add(jpEntrada, BorderLayout.NORTH);
-        contenedor.add(jpContador, BorderLayout.SOUTH);
+        contenedor.add(jpContador, BorderLayout.SOUTH);*/
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventana.pack();
         ventana.setVisible(true);

@@ -17,10 +17,6 @@ public class Main implements Serializable {
         GestorFacturas gestorFacturas = new GestorFacturas();
         BaseDeDatos baseDeDatos = new BaseDeDatos(gestorClientes, gestorFacturas);
 
-        //mostramos el menu de opciones, leemos la opcion y lanzamos el metodo correspondiente
-        SeleccionaOpcionPrincipal seleccionaOpcionPrincipal = new SeleccionaOpcionPrincipal(baseDeDatos);
-        seleccionaOpcionPrincipal.ejecutaAccion(baseDeDatos);
-
         ImplementacionControlador controlador = new ImplementacionControlador();
         ImplementacionVista vista = new ImplementacionVista();
         ImplementacionModelo modelo = new ImplementacionModelo();
@@ -30,5 +26,11 @@ public class Main implements Serializable {
         vista.setModelo(modelo);
         vista.setControlador(controlador);
         vista.creaGUI();
+
+        //mostramos el menu de opciones, leemos la opcion y lanzamos el metodo correspondiente
+        SeleccionaOpcionPrincipal seleccionaOpcionPrincipal = new SeleccionaOpcionPrincipal(baseDeDatos);
+        seleccionaOpcionPrincipal.ejecutaAccion(baseDeDatos);
+
+
     }
 }
