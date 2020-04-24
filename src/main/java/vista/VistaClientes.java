@@ -141,10 +141,14 @@ public class VistaClientes implements InformaVista, InterrogaVista {
         JPanel borrarIzq = new JPanel();
         JPanel borrarDer = new JPanel();
 
-        borrarIzq.setLayout(new GridLayout(2,1));
-        borrarDer.setLayout(new GridLayout(2,1));
-        borrarIzq.add(telfLabel);
-        borrarDer.add(telf);
+        JLabel telfLabel2 = new JLabel("Teléfono: ");
+        JTextField telf2 = new JTextField(16);
+        telf2.setText("Escribe teléfono");
+
+        borrarIzq.setLayout(new GridLayout(1,1));
+        borrarDer.setLayout(new GridLayout(1,1));
+        borrarIzq.add(telfLabel2);
+        borrarDer.add(telf2);
 
         borrarCampos.setLayout(new BoxLayout(borrarCampos, BoxLayout.X_AXIS));
         borrarCampos.add(borrarIzq);
@@ -153,13 +157,12 @@ public class VistaClientes implements InformaVista, InterrogaVista {
         JButton botonBorrar = new JButton("Borrar");
         botonBorrar.setActionCommand("borrar");
         botonBorrar.addActionListener(escuchadorBoton);
-        botonBorrar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        borrarCampos.add(botonBorrar);
 
         borrarCliente.setLayout(new BoxLayout(borrarCliente, BoxLayout.PAGE_AXIS));
         borrarTitulo.add(new JLabel( "<html>" + "<b><i>BORRAR CLIENTE</i></b><br/>" + "</html>"));
         borrarCliente.add(borrarTitulo);
         borrarCliente.add(borrarCampos);
-        borrarCliente.add(botonBorrar);
 
 
         //CAMBIAR TARIFA
@@ -171,10 +174,14 @@ public class VistaClientes implements InformaVista, InterrogaVista {
         JPanel cambiarTarifaIzq = new JPanel();
         JPanel cambiarTarifaDer = new JPanel();
 
-        cambiarTarifaIzq.setLayout(new GridLayout(2,1));
-        cambiarTarifaDer.setLayout(new GridLayout(2,1));
-        cambiarTarifaIzq.add(nifLabel);
-        cambiarTarifaDer.add(nif);
+        JLabel nifLabel2 = new JLabel("NIF: ");
+        JTextField nif2 = new JTextField(11);
+        nif2.setText("Escribe NIF");
+
+        cambiarTarifaIzq.setLayout(new GridLayout(1,1));
+        cambiarTarifaDer.setLayout(new GridLayout(1,1));
+        cambiarTarifaIzq.add(nifLabel2);
+        cambiarTarifaDer.add(nif2);
 
         cambiarTarifaCampos.setLayout(new BoxLayout(cambiarTarifaCampos, BoxLayout.X_AXIS));
         cambiarTarifaCampos.add(cambiarTarifaIzq);
@@ -195,7 +202,12 @@ public class VistaClientes implements InformaVista, InterrogaVista {
         grupoTipoTarifas.add(tardes);
         grupoTipoTarifas.add(domingo);
 
-        cambiarTarifa.setLayout(new BoxLayout(cambiarTarifa, BoxLayout.Y_AXIS));
+        JButton botonTarifa = new JButton("Contratar");
+        botonTarifa.setActionCommand("tarifa");
+        botonTarifa.addActionListener(escuchadorBoton);
+        cambiarTarifaCampos.add(botonTarifa);
+
+        cambiarTarifa.setLayout(new BoxLayout(cambiarTarifa, BoxLayout.PAGE_AXIS));
         cambiarTarifaTitulo.add(new JLabel( "<html>" + "<b><i>CONTRATAR TARIFA ESPECIAL</i></b><br/>" + "</html>"));
         cambiarTarifa.add(cambiarTarifaTitulo);
         cambiarTarifa.add(tipoTarifa);
@@ -205,19 +217,43 @@ public class VistaClientes implements InformaVista, InterrogaVista {
 
         JPanel datosCliTitulo = new JPanel();
         JPanel datosCliente = new JPanel();
+        JPanel datosCliCampos = new JPanel();
+        JPanel datosCliIzq = new JPanel();
+        JPanel datosCliDer = new JPanel();
 
-        datosCliente.setLayout(new BoxLayout(datosCliente, BoxLayout.Y_AXIS));
+        JLabel nifLabel3 = new JLabel("NIF: ");
+        JTextField nif3 = new JTextField(12);
+        nif3.setText("Escribe NIF");
+
+        datosCliIzq.setLayout(new GridLayout(1,1));
+        datosCliDer.setLayout(new GridLayout(1,1));
+        datosCliIzq.add(nifLabel3);
+        datosCliDer.add(nif3);
+
+        datosCliCampos.setLayout(new BoxLayout(datosCliCampos, BoxLayout.X_AXIS));
+        datosCliCampos.add(datosCliIzq);
+        datosCliCampos.add(datosCliDer);
+
+        JButton botonDatosCli = new JButton("Mostrar");
+        botonDatosCli.setActionCommand("datosCli");
+        botonDatosCli.addActionListener(escuchadorBoton);
+        datosCliCampos.add(botonDatosCli);
+
+        datosCliente.setLayout(new BoxLayout(datosCliente, BoxLayout.PAGE_AXIS));
         datosCliTitulo.add(new JLabel( "<html>" + "<b><i>MOSTRAR DATOS CLIENTE</i></b><br/>" + "</html>"));
         datosCliente.add(datosCliTitulo);
-        datosCliente.add(cambiarTarifaCampos);
+        datosCliente.add(datosCliCampos);
 
         //LISTADO CLIENTES
 
         JPanel listadoClientes = new JPanel();
-        JPanel listadoCliTitulo = new JPanel();
-        listadoClientes.setLayout(new BoxLayout(listadoClientes, BoxLayout.Y_AXIS));
-        listadoCliTitulo.add(new JLabel( "<html>" + "<b><i>LISTAR CLIENTES</i></b><br/>" + "</html>"));
-        listadoClientes.add(listadoCliTitulo);
+        JButton botonListarCli = new JButton("Listar");
+        botonListarCli.setActionCommand("listarCli");
+        botonListarCli.addActionListener(escuchadorBoton);
+
+        listadoClientes.add(new JLabel( "<html>" + "<b><i>LISTAR CLIENTES</i></b><br/>" + "</html>"));
+        listadoClientes.add(botonListarCli);
+
 
         //LISTADO CLIENTES ENTRE FECHAS
 
@@ -227,8 +263,8 @@ public class VistaClientes implements InformaVista, InterrogaVista {
         JPanel listadoCliFechasIzq = new JPanel();
         JPanel listadoCliFechasDer = new JPanel();
 
-        JLabel fechaIniLabel = new JLabel("Fecha inicio (aaaa-mm-dd): ");
-        JLabel fechaFinLabel = new JLabel("Fecha fin (aaaa-mm-dd):  ");
+        JLabel fechaIniLabel = new JLabel("Fecha inicio: ");
+        JLabel fechaFinLabel = new JLabel("Fecha fin:  ");
 
         JTextField fechaIni = new JTextField(25);
         JTextField fechaFin = new JTextField(25);
@@ -246,10 +282,16 @@ public class VistaClientes implements InformaVista, InterrogaVista {
         listadoCliFechasCampos.add(listadoCliFechasIzq);
         listadoCliFechasCampos.add(listadoCliFechasDer);
 
-        listadoCliEntreFechas.setLayout(new BoxLayout(listadoCliEntreFechas, BoxLayout.Y_AXIS));
+        JButton botonListarCliFechas = new JButton("Listar");
+        botonListarCliFechas.setActionCommand("listarCliFechas");
+        botonListarCliFechas.addActionListener(escuchadorBoton);
+        botonListarCliFechas.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        listadoCliEntreFechas.setLayout(new BoxLayout(listadoCliEntreFechas, BoxLayout.PAGE_AXIS));
         listadoCliFechasTitulo.add(new JLabel( "<html>" + "<b><i>LISTAR CLIENTES ENTRE FECHAS</i></b><br/>" + "</html>"));
         listadoCliEntreFechas.add(listadoCliFechasTitulo);
         listadoCliEntreFechas.add(listadoCliFechasCampos);
+        listadoCliEntreFechas.add(botonListarCliFechas);
 
 
         contenedor.setLayout(new BoxLayout(contenedor, BoxLayout.PAGE_AXIS));
