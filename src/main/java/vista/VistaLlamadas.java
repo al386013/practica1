@@ -44,12 +44,12 @@ public class VistaLlamadas implements InformaVista, InterrogaVista {
         JPanel darAltaLlamadaDer = new JPanel();
 
         JLabel telfOrigenLabel = new JLabel("Teléfono origen: ");
-        JLabel telfDestLabel = new JLabel("Teléfono destino: ");
+        JLabel telfDestLabel = new JLabel("Teléfono destino:    ");
         JLabel duracionLabel = new JLabel("Duración: ");
 
-        JTextField telfOrigen = new JTextField(16);
-        JTextField telfDestino = new JTextField(16);
-        JTextField duracion = new JTextField(16);
+        JTextField telfOrigen = new JTextField(17);
+        JTextField telfDestino = new JTextField(17);
+        JTextField duracion = new JTextField(17);
         telfOrigen.setText("Teléfono origen");
         telfDestino.setText("Teléfono destino");
         duracion.setText("Duración en segundos");

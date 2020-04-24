@@ -124,14 +124,13 @@ public class VistaClientes implements InformaVista, InterrogaVista {
         JButton botonAnadir = new JButton("Añadir");
         botonAnadir.setActionCommand("anadir");
         botonAnadir.addActionListener(escuchadorBoton);
-        botonAnadir.setAlignmentX(Component.CENTER_ALIGNMENT);
+        tipoCli.add(botonAnadir);
 
         anadirCliente.setLayout(new BoxLayout(anadirCliente, BoxLayout.PAGE_AXIS));
         anadirTitulo.add(new JLabel( "<html>" + "<b><i>AÑADIR CLIENTE</i></b><br/>" + "</html>"));
         anadirCliente.add(anadirTitulo);
         anadirCliente.add(tipoCli);
         anadirCliente.add(anadirCampos);
-        anadirCliente.add(botonAnadir);
 
         //BORRAR CLIENTE
 

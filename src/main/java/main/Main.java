@@ -39,10 +39,10 @@ public class Main implements Serializable {
 
         vistaClientes.setModelo(modelo); //lo hace el main o implementacion vista??
         vistaClientes.setControlador(controlador);
-        //vistaClientes.creaGUI();
+        vistaClientes.creaGUI();
         vistaLlamadas.setModelo(modelo);
         vistaLlamadas.setControlador(controlador);
-        vistaLlamadas.creaGUI();
+        //vistaLlamadas.creaGUI();
         vistaFacturas.setModelo(modelo);
         vistaFacturas.setControlador(controlador);
         //vistaFacturas.creaGUI();
