@@ -1,4 +1,4 @@
-package controlador.menus;
+/*package controlador.menus;
 
 import controlador.acciones.*;
 import modelo.principal.BaseDeDatos;
@@ -6,7 +6,7 @@ import modelo.principal.BaseDeDatos;
 public enum MenuClientes {
     DAR_ALTA_CLIENTE("Dar de alta un nuevo cliente.", new DarAltaCliente()),
     BORRAR_CLIENTE("Borrar un cliente.", new BorrarCliente()),
-    CAMBIAR_TARIFA("Contratar tarifa especial para un cliente.", new SeleccionaOpcionCambiarTarifa()),
+    CAMBIAR_TARIFA("Contratar tarifa especial para un cliente.", new ContratarTarifa()),
     DATOS_CLIENTE("Recuperar los datos de un cliente a partir de su NIF.", new DatosCliente()),
     LISTAR_CLIENTES("Recuperar el listado de todos los clientes.", new ListadoClientes()),
     CLIENTES_ENTRE_FECHAS("Mostrar listado de clientes dados de alta entre dos fechas.", new ClientesEntreFechas()),
@@ -43,4 +43,4 @@ public enum MenuClientes {
             e.printStackTrace();
         }
     }
-}
+}*/

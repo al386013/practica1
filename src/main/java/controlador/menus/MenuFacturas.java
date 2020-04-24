@@ -1,4 +1,4 @@
-package controlador.menus;
+/*package controlador.menus;
 
 import controlador.acciones.DatosFactura;
 import controlador.acciones.EmiteFactura;
@@ -48,4 +48,4 @@ public enum MenuFacturas {
             e.printStackTrace();
         }
     }
-}
+}*/

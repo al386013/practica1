@@ -1,15 +1,71 @@
 package vista;
 
+import controlador.Controlador;
+import modelo.InterrogaModelo;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 
-public class VistaClientes {
+public class VistaClientes implements InterrogaVistaClientes {
+    private Controlador controlador;
+    private InterrogaModelo modelo;
+    private JTextField nifAnadir;
+    private JTextField nombre;
+    private JTextField apellido;
+    private JTextField telfAnadir;
+    private JTextField email;
+    private JTextField provincia;
+    private JTextField poblacion;
+    private JTextField cp;
+    private JTextField telfBorrar;
+    private JTextField nifTarifa;
+    private JTextField nifCli;
+    private JTextField fechaIni;
+    private JTextField fechaFin;
+    private String tipoClienteOpcion;
+    private String tipoTarifaOpcion;
 
     public VistaClientes() { super(); } //?????????????????
 
+    public void setModelo(InterrogaModelo modelo) {
+        this.modelo = modelo;
+    }
+
+    public void setControlador(Controlador controlador) {
+        this.controlador = controlador;
+    }
+
     public JPanel panel() {
+
+        ActionListener escuchadorBoton = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Botón " + e.getActionCommand() + " pulsado.");
+                String comando = e.getActionCommand();
+                if(comando.equals("importar"))
+                    controlador.importarDatos();
+                else if(comando.equals("anadir"))
+                    controlador.anadirCliente();
+                else if(comando.equals("borrar"))
+                    controlador.borrarCliente();
+                else if(comando.equals("tarifa"))
+                    controlador.contratarTarifa();
+                else if(comando.equals("datosCli"))
+                    controlador.datosCliente();
+                else if(comando.equals("listarCli"))
+                    controlador.listarClientes();
+                else
+                    controlador.listarCliFechas();
+            }
+        };
+
+        JPanel importarPanel = new JPanel();
+        JButton importarBoton = new JButton("Importar datos");
+        importarBoton.setActionCommand("importar");
+        importarBoton.addActionListener(escuchadorBoton);
+        importarPanel.add(importarBoton);
 
         //ANADIR CLIENTE
 
@@ -24,14 +80,16 @@ public class VistaClientes {
         JRadioButton empresa = new JRadioButton("Empresa");
         particular.setActionCommand("particular");
         empresa.setActionCommand("empresa");
-        ActionListener escuchadorRadio = new ActionListener() {
+        ActionListener escuchadorClientes = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Botón " + e.getActionCommand() + " pulsado.");
+                tipoClienteOpcion = e.getActionCommand();
             }
         };
-        particular.addActionListener(escuchadorRadio);
-        empresa.addActionListener(escuchadorRadio);
+
+        particular.addActionListener(escuchadorClientes);
+        empresa.addActionListener(escuchadorClientes);
         tipoCli.add(new JLabel("Elije el tipo de cliente:"));
         tipoCli.add(particular);
         tipoCli.add(empresa);
@@ -47,23 +105,23 @@ public class VistaClientes {
         JLabel emailLabel = new JLabel("Email: ");
         JLabel provinciaLabel = new JLabel("Provincia: ");
         JLabel poblacionLabel = new JLabel("Población: ");
-        JLabel cpLabel = new JLabel("Código Postal:  ");
+        JLabel cpLabel = new JLabel("Código Postal: ");
 
-        JTextField nif = new JTextField(25);
-        nif.setText("Escribe NIF");
-        JTextField nombre = new JTextField(25);
+        nifAnadir = new JTextField(25);
+        nifAnadir.setText("Escribe NIF");
+        nombre = new JTextField(25);
         nombre.setText("Escribe nombre");
-        JTextField apellido = new JTextField(25);
+        apellido = new JTextField(25);
         apellido.setText("Escribe apellido si particular");
-        JTextField telf = new JTextField(25);
-        telf.setText("Escribe teléfono");
-        JTextField email = new JTextField(25);
+        telfAnadir = new JTextField(25);
+        telfAnadir.setText("Escribe teléfono");
+        email = new JTextField(25);
         email.setText("Escribe email");
-        JTextField provincia = new JTextField(25);
+        provincia = new JTextField(25);
         provincia.setText("Escribe provincia");
-        JTextField poblacion = new JTextField(25);
+        poblacion = new JTextField(25);
         poblacion.setText("Escribe población");
-        JTextField cp = new JTextField(25);
+        cp = new JTextField(25);
         cp.setText("Escribe CP");
 
         anadirIzq.setLayout(new GridLayout(8,1));
@@ -78,8 +136,8 @@ public class VistaClientes {
         anadirIzq.add(poblacionLabel);
         anadirIzq.add(cpLabel);
 
-        anadirDer.add(nif);
-        anadirDer.add(telf);
+        anadirDer.add(nifAnadir);
+        anadirDer.add(telfAnadir);
         anadirDer.add(nombre);
         anadirDer.add(apellido);
         anadirDer.add(email);
@@ -91,13 +149,6 @@ public class VistaClientes {
         anadirCampos.add(anadirIzq);
         anadirCampos.add(anadirDer);
 
-
-        ActionListener escuchadorBoton = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Botón " + e.getActionCommand() + " pulsado.");
-            }
-        };
         JButton botonAnadir = new JButton("Añadir");
         botonAnadir.setActionCommand("anadir");
         botonAnadir.addActionListener(escuchadorBoton);
@@ -118,13 +169,13 @@ public class VistaClientes {
         JPanel borrarDer = new JPanel();
 
         JLabel telfLabel2 = new JLabel("Teléfono: ");
-        JTextField telf2 = new JTextField(16);
-        telf2.setText("Escribe teléfono");
+        telfBorrar = new JTextField(16);
+        telfBorrar.setText("Escribe teléfono");
 
         borrarIzq.setLayout(new GridLayout(1,1));
         borrarDer.setLayout(new GridLayout(1,1));
         borrarIzq.add(telfLabel2);
-        borrarDer.add(telf2);
+        borrarDer.add(telfBorrar);
 
         borrarCampos.setLayout(new BoxLayout(borrarCampos, BoxLayout.X_AXIS));
         borrarCampos.add(borrarIzq);
@@ -151,24 +202,32 @@ public class VistaClientes {
         JPanel cambiarTarifaDer = new JPanel();
 
         JLabel nifLabel2 = new JLabel("NIF: ");
-        JTextField nif2 = new JTextField(11);
-        nif2.setText("Escribe NIF");
+        nifTarifa = new JTextField(11);
+        nifTarifa.setText("Escribe NIF");
 
         cambiarTarifaIzq.setLayout(new GridLayout(1,1));
         cambiarTarifaDer.setLayout(new GridLayout(1,1));
         cambiarTarifaIzq.add(nifLabel2);
-        cambiarTarifaDer.add(nif2);
+        cambiarTarifaDer.add(nifTarifa);
 
         cambiarTarifaCampos.setLayout(new BoxLayout(cambiarTarifaCampos, BoxLayout.X_AXIS));
         cambiarTarifaCampos.add(cambiarTarifaIzq);
         cambiarTarifaCampos.add(cambiarTarifaDer);
 
+        ActionListener escuchadorTarifas = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Botón " + e.getActionCommand() + " pulsado.");
+                tipoTarifaOpcion = e.getActionCommand();
+            }
+        };
+
         JRadioButton tardes = new JRadioButton("Tarifa tardes reducida");
         JRadioButton domingo = new JRadioButton("Tarifa domingos gratis");
         tardes.setActionCommand("tardes");
         domingo.setActionCommand("domingo");
-        tardes.addActionListener(escuchadorRadio);
-        domingo.addActionListener(escuchadorRadio);
+        tardes.addActionListener(escuchadorTarifas);
+        domingo.addActionListener(escuchadorTarifas);
 
         tipoTarifa.add(new JLabel("Elije el tipo de tarifa:"));
         tipoTarifa.add(tardes);
@@ -198,13 +257,13 @@ public class VistaClientes {
         JPanel datosCliDer = new JPanel();
 
         JLabel nifLabel3 = new JLabel("NIF: ");
-        JTextField nif3 = new JTextField(12);
-        nif3.setText("Escribe NIF");
+        nifCli = new JTextField(12);
+        nifCli.setText("Escribe NIF");
 
         datosCliIzq.setLayout(new GridLayout(1,1));
         datosCliDer.setLayout(new GridLayout(1,1));
         datosCliIzq.add(nifLabel3);
-        datosCliDer.add(nif3);
+        datosCliDer.add(nifCli);
 
         datosCliCampos.setLayout(new BoxLayout(datosCliCampos, BoxLayout.X_AXIS));
         datosCliCampos.add(datosCliIzq);
@@ -240,10 +299,10 @@ public class VistaClientes {
         JPanel listadoCliFechasDer = new JPanel();
 
         JLabel fechaIniLabel = new JLabel("Fecha inicio: ");
-        JLabel fechaFinLabel = new JLabel("Fecha fin:  ");
+        JLabel fechaFinLabel = new JLabel("Fecha fin: ");
 
-        JTextField fechaIni = new JTextField(18);
-        JTextField fechaFin = new JTextField(18);
+        fechaIni = new JTextField(18);
+        fechaFin = new JTextField(18);
         fechaIni.setText("aaaa-mm-dd");
         fechaFin.setText("aaaa-mm-dd");
 
@@ -271,6 +330,7 @@ public class VistaClientes {
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+        panel.add(importarPanel);
         panel.add(anadirCliente);
         panel.add(borrarCliente);
         panel.add(cambiarTarifa);
@@ -278,5 +338,80 @@ public class VistaClientes {
         panel.add(listadoClientes);
         panel.add(listadoCliEntreFechas);
         return panel;
+    }
+
+    @Override
+    public String getTipoCliente() {
+        return tipoClienteOpcion;
+    }
+
+    @Override
+    public String getNifAnadir() {
+        return nifAnadir.getText();
+    }
+
+    @Override
+    public String getNombre() {
+        return nombre.getText();
+    }
+
+    @Override
+    public String getApellido() {
+        return apellido.getText();
+    }
+
+    @Override
+    public String getTelfAnadir() {
+        return telfAnadir.getText();
+    }
+
+    @Override
+    public String getEmail() {
+        return email.getText();
+    }
+
+    @Override
+    public String getProvincia() {
+        return provincia.getText();
+    }
+
+    @Override
+    public String getPoblacion() {
+        return poblacion.getText();
+    }
+
+    @Override
+    public String getCP() {
+        return cp.getText();
+    }
+
+    @Override
+    public String getTelfBorrar() {
+        return telfBorrar.getText();
+    }
+
+    @Override
+    public String getNifTarifa() {
+        return nifTarifa.getText();
+    }
+
+    @Override
+    public String getTipoTarifa() {
+        return tipoTarifaOpcion;
+    }
+
+    @Override
+    public String getNifCli() {
+        return nifCli.getText();
+    }
+
+    @Override
+    public LocalDate getFechaIni() {
+        return LocalDate.parse(fechaIni.getText());
+    }
+
+    @Override
+    public LocalDate getFechaFin() {
+        return LocalDate.parse(fechaFin.getText());
     }
 }

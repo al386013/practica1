@@ -1,15 +1,60 @@
 package vista;
 
+import controlador.Controlador;
+import modelo.InterrogaModelo;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 
-public class VistaFacturas {
+public class VistaFacturas implements InterrogaVistaFacturas {
+    private Controlador controlador;
+    private InterrogaModelo modelo;
+    private JTextField nifFac;
+    private JTextField fechaIniFac;
+    private JTextField fechaFinFac;
+    private JTextField codFac;
+    private JTextField nifFacCli;
+    private JTextField nifFechas;
+    private JTextField fechaIniFechas;
+    private JTextField fechaFinFechas;
 
     public VistaFacturas() { super(); }
 
+    public void setModelo(InterrogaModelo modelo) {
+        this.modelo = modelo;
+    }
+
+    public void setControlador(Controlador controlador) {
+        this.controlador = controlador;
+    }
+
     public JPanel panel() {
+
+        ActionListener escuchadorBoton = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Botón " + e.getActionCommand() + " pulsado.");
+                String comando = e.getActionCommand();
+                if(comando.equals("importar"))
+                    controlador.importarDatos();
+                else if(comando.equals("guardarFactura"))
+                    controlador.emitirFactura();
+                else if(comando.equals("datosFac"))
+                    controlador.datosFactura();
+                else if(comando.equals("facturasCli"))
+                    controlador.listarFacCli();
+                else
+                    controlador.listarFacCliFechas();
+            }
+        };
+
+        JPanel importarPanel = new JPanel();
+        JButton importarBoton = new JButton("Importar datos");
+        importarBoton.setActionCommand("importar");
+        importarBoton.addActionListener(escuchadorBoton);
+        importarPanel.add(importarBoton);
 
         //EMITIR FACTURA
 
@@ -20,13 +65,13 @@ public class VistaFacturas {
         JPanel emitirFacturaDer = new JPanel();
 
         JLabel nifLabel = new JLabel("NIF cliente: ");
-        JLabel fechaIniFacLabel = new JLabel("Fecha inicio:     ");
+        JLabel fechaIniFacLabel = new JLabel("Fecha inicio: ");
         JLabel fechaFinFacLabel = new JLabel("Fecha fin: ");
 
-        JTextField nif = new JTextField(14);
-        JTextField fechaIniFac = new JTextField(14);
-        JTextField fechaFinFac = new JTextField(14);
-        nif.setText("NIF");
+        nifFac = new JTextField(14);
+        fechaIniFac = new JTextField(14);
+        fechaFinFac = new JTextField(14);
+        nifFac.setText("NIF");
         fechaIniFac.setText("aaaa-mm-dd");
         fechaFinFac.setText("aaaa-mm-dd");
 
@@ -35,7 +80,7 @@ public class VistaFacturas {
         emitirFacturaIzq.add(nifLabel);
         emitirFacturaIzq.add(fechaIniFacLabel);
         emitirFacturaIzq.add(fechaFinFacLabel);
-        emitirFacturaDer.add(nif);
+        emitirFacturaDer.add(nifFac);
         emitirFacturaDer.add(fechaIniFac);
         emitirFacturaDer.add(fechaFinFac);
 
@@ -43,15 +88,8 @@ public class VistaFacturas {
         emitirFacturaCampos.add(emitirFacturaIzq);
         emitirFacturaCampos.add(emitirFacturaDer);
 
-        ActionListener escuchadorBoton = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Botón " + e.getActionCommand() + " pulsado.");
-            }
-        };
-
         JButton botonFactura = new JButton("Guardar");
-        botonFactura.setActionCommand("factura");
+        botonFactura.setActionCommand("guardarFactura");
         botonFactura.addActionListener(escuchadorBoton);
         botonFactura.setAlignmentX(Component.CENTER_ALIGNMENT);
         emitirFacturaCampos.add(botonFactura);
@@ -70,7 +108,7 @@ public class VistaFacturas {
         JPanel datosFacturaDer = new JPanel();
 
         JLabel codFacLabel = new JLabel("Código factura:     ");
-        JTextField codFac = new JTextField(16);
+        codFac = new JTextField(16);
         codFac.setText("Código");
 
         datosFacturaIzq.setLayout(new GridLayout(1,1));
@@ -83,7 +121,7 @@ public class VistaFacturas {
         datosFacturaCampos.add(datosFacturaDer);
 
         JButton botonMostrarFac = new JButton("Mostrar");
-        botonMostrarFac.setActionCommand("llamadasCli");
+        botonMostrarFac.setActionCommand("datosFac");
         botonMostrarFac.addActionListener(escuchadorBoton);
         botonMostrarFac.setAlignmentX(Component.CENTER_ALIGNMENT);
         datosFacturaCampos.add(botonMostrarFac);
@@ -102,20 +140,20 @@ public class VistaFacturas {
         JPanel facturasCliDer = new JPanel();
 
         JLabel nifLabel2 = new JLabel("NIF cliente: ");
-        JTextField nif2 = new JTextField(14);
-        nif2.setText("NIF");
+        nifFacCli = new JTextField(14);
+        nifFacCli.setText("NIF");
 
         facturasCliIzq.setLayout(new GridLayout(1,1));
         facturasCliDer.setLayout(new GridLayout(1,1));
         facturasCliIzq.add(nifLabel2);
-        facturasCliDer.add(nif2);
+        facturasCliDer.add(nifFacCli);
 
         facturasCliCampos.setLayout(new BoxLayout(facturasCliCampos, BoxLayout.X_AXIS));
         facturasCliCampos.add(facturasCliIzq);
         facturasCliCampos.add(facturasCliDer);
 
         JButton botonFacturasCli = new JButton("Listar");
-        botonFacturasCli.setActionCommand("llamadasCli");
+        botonFacturasCli.setActionCommand("facturasCliFechas");
         botonFacturasCli.addActionListener(escuchadorBoton);
         botonFacturasCli.setAlignmentX(Component.CENTER_ALIGNMENT);
         facturasCliCampos.add(botonFacturasCli);
@@ -138,21 +176,21 @@ public class VistaFacturas {
         JLabel fechaIniLabel = new JLabel("Fecha inicio: ");
         JLabel fechaFinLabel = new JLabel("Fecha fin:  ");
 
-        JTextField nif3 = new JTextField(15);
-        JTextField fechaIni = new JTextField(15);
-        JTextField fechaFin = new JTextField(15);
-        nif3.setText("NIF");
-        fechaIni.setText("aaaa-mm-dd");
-        fechaFin.setText("aaaa-mm-dd");
+        nifFechas = new JTextField(15);
+        fechaIniFechas = new JTextField(15);
+        fechaFinFechas = new JTextField(15);
+        nifFechas.setText("NIF");
+        fechaIniFechas.setText("aaaa-mm-dd");
+        fechaFinFechas.setText("aaaa-mm-dd");
 
         facturasCliFechasIzq.setLayout(new GridLayout(3,1));
         facturasCliFechasDer.setLayout(new GridLayout(3,1));
         facturasCliFechasIzq.add(nifLabel3);
         facturasCliFechasIzq.add(fechaIniLabel);
         facturasCliFechasIzq.add(fechaFinLabel);
-        facturasCliFechasDer.add(nif3);
-        facturasCliFechasDer.add(fechaIni);
-        facturasCliFechasDer.add(fechaFin);
+        facturasCliFechasDer.add(nifFechas);
+        facturasCliFechasDer.add(fechaIniFechas);
+        facturasCliFechasDer.add(fechaFinFechas);
 
         facturasCliFechasCampos.setLayout(new BoxLayout(facturasCliFechasCampos, BoxLayout.X_AXIS));
         facturasCliFechasCampos.add(facturasCliFechasIzq);
@@ -171,10 +209,51 @@ public class VistaFacturas {
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+        panel.add(importarPanel);
         panel.add(emitirFactura);
         panel.add(datosFactura);
         panel.add(facturasCli);
         panel.add(facturasCliEntreFechas);
         return panel;
+    }
+
+    @Override
+    public String getNifFac() {
+        return nifFac.getText();
+    }
+
+    @Override
+    public LocalDate getFechaIniFac() {
+        return LocalDate.parse(fechaIniFac.getText());
+    }
+
+    @Override
+    public LocalDate getFechaFinFac() {
+        return LocalDate.parse(fechaFinFac.getText());
+    }
+
+    @Override
+    public int getCodFac() {
+        return Integer.parseInt(codFac.getText());
+    }
+
+    @Override
+    public String getNifFacCli() {
+        return nifFacCli.getText();
+    }
+
+    @Override
+    public String getNifFechas() {
+        return nifFechas.getText();
+    }
+
+    @Override
+    public LocalDate getFechaIniFechas() {
+        return LocalDate.parse(fechaIniFechas.getText());
+    }
+
+    @Override
+    public LocalDate getFechasFinFechas() {
+        return LocalDate.parse(fechaFinFechas.getText());
     }
 }

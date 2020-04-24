@@ -13,10 +13,12 @@ public class ImplementacionModelo implements CambioModelo, InterrogaModelo {
         this.vista = vista;
     }
 
+    @Override
     public void setBaseDeDatos(BaseDeDatos baseDeDatos){
         this.baseDeDatos = baseDeDatos;
     }
 
+    @Override
     public BaseDeDatos getBaseDeDatos() {
         return baseDeDatos;
     }

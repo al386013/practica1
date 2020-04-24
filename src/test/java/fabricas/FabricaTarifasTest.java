@@ -5,7 +5,6 @@ import modelo.datos.contrato.tarifas.TarifaBasica;
 import modelo.datos.contrato.tarifas.TarifaDomingosGratis;
 import modelo.datos.contrato.tarifas.TarifaTardesReducida;
 import modelo.datos.llamadas.Llamada;
-import controlador.menus.MenuCambiarTarifa;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import modelo.principal.FabricaTarifas;
@@ -45,23 +44,23 @@ public class FabricaTarifasTest {
     @Test
     public void getTarifaTardesTest() {
         //tarifa basica + tarifa de tardes reducida
-        assertEquals(fabricaTarifas.getOferta(MenuCambiarTarifa.TARIFA_TARDES_REDUCIDA, tarifaBasica).descripcion(),
+        assertEquals(fabricaTarifas.getOferta("tardes", tarifaBasica).descripcion(),
                 tarifaTardes.descripcion());
         //tarifa basica + tarifa de domingos gratis + tarifa de tardes reducida
-        assertEquals(fabricaTarifas.getOferta(MenuCambiarTarifa.TARIFA_TARDES_REDUCIDA, tarifaDomingos).descripcion(),
+        assertEquals(fabricaTarifas.getOferta("tardes", tarifaDomingos).descripcion(),
                 tarifaTotal.descripcion());
         //tarifa basica + tarifa de tardes reducida + tarifa de domingos gratis
-        assertEquals(fabricaTarifas.getOferta(MenuCambiarTarifa.TARIFA_DOMINGOS_GRATIS, tarifaTardes).descripcion(),
+        assertEquals(fabricaTarifas.getOferta("domingo", tarifaTardes).descripcion(),
                 tarifaTotal2.descripcion());
     }
 
     @Test
     public void getTarifaDomingosTest() {
         //tarifa basica + tarifa de domingos gratis
-        assertEquals(fabricaTarifas.getOferta(MenuCambiarTarifa.TARIFA_DOMINGOS_GRATIS, tarifaBasica).descripcion(),
+        assertEquals(fabricaTarifas.getOferta("domingo", tarifaBasica).descripcion(),
                 tarifaDomingos.descripcion());
         //tarifa basica + tarifa de tardes reducida + tarifa de domingos gratis
-        assertEquals(fabricaTarifas.getOferta(MenuCambiarTarifa.TARIFA_DOMINGOS_GRATIS, tarifaTardes).descripcion(),
+        assertEquals(fabricaTarifas.getOferta("domingo", tarifaTardes).descripcion(),
                 tarifaTardes.descripcion() + ", con tarifa especial de domingos gratis"); //pq se imprimen en otro orden
     }
 

@@ -1,4 +1,4 @@
-package controlador.menus;
+/*package controlador.menus;
 
 import controlador.acciones.*;
 import modelo.principal.BaseDeDatos;
@@ -40,4 +40,4 @@ public enum MenuPrincipal {
             e.printStackTrace();
         }
     }
-}
+}*/

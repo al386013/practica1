@@ -1,7 +1,8 @@
-package controlador.acciones;
+/*package controlador.acciones;
 
 import controlador.menus.MenuPrincipal;
 import modelo.principal.BaseDeDatos;
+import vista.InterrogaVista;
 import java.io.Serializable;
 
 public class SeleccionaOpcionPrincipal implements Accion, Serializable {
@@ -13,7 +14,7 @@ public class SeleccionaOpcionPrincipal implements Accion, Serializable {
         super();
     }
 
-    public SeleccionaOpcionPrincipal(BaseDeDatos baseDeDatos) {
+    public SeleccionaOpcionPrincipal(BaseDeDatos baseDeDatos, InterrogaVista vista) {
         SeleccionaOpcionPrincipal.baseDeDatos = baseDeDatos;
     }
 
@@ -38,4 +39,4 @@ public class SeleccionaOpcionPrincipal implements Accion, Serializable {
             throw new OpcionIncorrectaException(4);
         return opcion;
     }
-}
+}*/

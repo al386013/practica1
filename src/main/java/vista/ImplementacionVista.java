@@ -1,26 +1,28 @@
 package vista;
 
-
 import controlador.Controlador;
-import controlador.acciones.*;
 import modelo.InterrogaModelo;
-import modelo.principal.BaseDeDatos;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class ImplementacionVista implements InformaVista, InterrogaVista {
-    private Accion accion;
     private Controlador controlador;
     private InterrogaModelo modelo;
-    private JLabel boton;
-    private JList lista;
-    private int indice;
-    private BaseDeDatos baseDeDatos;
+    private VistaClientes vistaClientes;
+    private VistaLlamadas vistaLlamadas;
+    private VistaFacturas vistaFacturas;
 
-    public ImplementacionVista() {}
+    public ImplementacionVista() {
+        vistaClientes = new VistaClientes();
+        vistaLlamadas = new VistaLlamadas();
+        vistaFacturas = new VistaFacturas();
+        vistaClientes.setControlador(controlador);
+        vistaLlamadas.setControlador(controlador);
+        vistaFacturas.setControlador(controlador);
+        vistaClientes.setModelo(modelo);
+        vistaLlamadas.setModelo(modelo);
+        vistaFacturas.setModelo(modelo);
+    }
 
     public void setModelo(InterrogaModelo modelo) {
         this.modelo = modelo;
@@ -30,12 +32,16 @@ public class ImplementacionVista implements InformaVista, InterrogaVista {
         this.controlador = controlador;
     }
 
+    public VistaClientes getVistaClientes() { return vistaClientes; }
+
+    public VistaLlamadas getVistaLlamadas() { return vistaLlamadas; }
+
+    public VistaFacturas getVistaFacturas() { return vistaFacturas; }
 
     public void creaGUI() {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                baseDeDatos = modelo.getBaseDeDatos();
                 ventana();
             }
         });
@@ -47,9 +53,9 @@ public class ImplementacionVista implements InformaVista, InterrogaVista {
 
         JTabbedPane pestanyas = new JTabbedPane();
         contenedor.add(pestanyas);
-        pestanyas.add("Clientes", new VistaClientes().panel());
-        pestanyas.add("Llamadas", new VistaLlamadas().panel());
-        pestanyas.add("Facturas", new VistaFacturas().panel());
+        pestanyas.add("Clientes", vistaClientes.panel());
+        pestanyas.add("Llamadas", vistaLlamadas.panel());
+        pestanyas.add("Facturas", vistaFacturas.panel());
 
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventana.pack();

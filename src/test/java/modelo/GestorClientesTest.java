@@ -6,7 +6,6 @@ import modelo.datos.clientes.Empresa;
 import modelo.datos.clientes.Particular;
 import modelo.datos.llamadas.Llamada;
 import es.uji.www.GeneradorDatosINE;
-import controlador.menus.MenuCambiarTarifa;
 import modelo.principal.BaseDeDatos;
 import modelo.principal.FabricaTarifas;
 import modelo.principal.GestorClientes;
@@ -114,12 +113,12 @@ public class GestorClientesTest {
         assertEquals(pamesa.getTarifa().descripcion(), descripcion);
 
         //alberto contrata la tarifa especial de tardes reducida
-        baseDeDatos.contratarTarifaEspecial(MenuCambiarTarifa.TARIFA_TARDES_REDUCIDA, alberto.getNIF());
+        baseDeDatos.contratarTarifaEspecial("tardes", alberto.getNIF());
         descripcion += ", con tarifa especial de tardes reducida";
         assertEquals(alberto.getTarifa().descripcion(), descripcion);
 
         //alberto contrata tambien la tarifa especial de domingos gratis
-        baseDeDatos.contratarTarifaEspecial(MenuCambiarTarifa.TARIFA_DOMINGOS_GRATIS, alberto.getNIF());
+        baseDeDatos.contratarTarifaEspecial("domingo", alberto.getNIF());
         descripcion += ", con tarifa especial de domingos gratis";
         assertEquals(alberto.getTarifa().descripcion(), descripcion);
     }

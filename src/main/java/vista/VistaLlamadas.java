@@ -1,15 +1,57 @@
 package vista;
 
+import controlador.Controlador;
+import modelo.InterrogaModelo;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 
-public class VistaLlamadas {
+public class VistaLlamadas implements InterrogaVistaLlamadas {
+    private Controlador controlador;
+    private InterrogaModelo modelo;
+    private JTextField telfOrigen;
+    private JTextField telfDestino;
+    private JTextField duracion;
+    private JTextField telfListado;
+    private JTextField telfListadoFechas;
+    private JTextField fechaIniListado;
+    private JTextField fechaFinListado;
 
     public VistaLlamadas() { super(); } //?????????????????
 
+    public void setModelo(InterrogaModelo modelo) {
+        this.modelo = modelo;
+    }
+
+    public void setControlador(Controlador controlador) {
+        this.controlador = controlador;
+    }
+
     public JPanel panel() {
+
+        ActionListener escuchadorBoton = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Botón " + e.getActionCommand() + " pulsado.");
+                String comando = e.getActionCommand();
+                if(comando.equals("importar"))
+                    controlador.importarDatos();
+                else if(comando.equals("llamada"))
+                    controlador.darAltaLlamada();
+                else if(comando.equals("llamadasCli"))
+                    controlador.llamadasCli();
+                else if(comando.equals("llamadasCliFechas"))
+                    controlador.llamadasCliFechas();
+            }
+        };
+
+        JPanel importarPanel = new JPanel();
+        JButton importarBoton = new JButton("Importar datos");
+        importarBoton.setActionCommand("importar");
+        importarBoton.addActionListener(escuchadorBoton);
+        importarPanel.add(importarBoton);
 
         //DAR DE ALTA LLAMADA
 
@@ -20,12 +62,12 @@ public class VistaLlamadas {
         JPanel darAltaLlamadaDer = new JPanel();
 
         JLabel telfOrigenLabel = new JLabel("Teléfono origen: ");
-        JLabel telfDestLabel = new JLabel("Teléfono destino:    ");
+        JLabel telfDestLabel = new JLabel("Teléfono destino: ");
         JLabel duracionLabel = new JLabel("Duración: ");
 
-        JTextField telfOrigen = new JTextField(17);
-        JTextField telfDestino = new JTextField(17);
-        JTextField duracion = new JTextField(17);
+        telfOrigen = new JTextField(17);
+        telfDestino = new JTextField(17);
+        duracion = new JTextField(17);
         telfOrigen.setText("Teléfono origen");
         telfDestino.setText("Teléfono destino");
         duracion.setText("Duración en segundos");
@@ -42,13 +84,6 @@ public class VistaLlamadas {
         darAltaLlamadaCampos.setLayout(new BoxLayout(darAltaLlamadaCampos, BoxLayout.X_AXIS));
         darAltaLlamadaCampos.add(darAltaLlamadaIzq);
         darAltaLlamadaCampos.add(darAltaLlamadaDer);
-
-        ActionListener escuchadorBoton = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Botón " + e.getActionCommand() + " pulsado.");
-            }
-        };
 
         JButton botonLlamada = new JButton("Guardar");
         botonLlamada.setActionCommand("llamada");
@@ -70,13 +105,13 @@ public class VistaLlamadas {
         JPanel llamadasCliDer = new JPanel();
 
         JLabel telfLabel = new JLabel("Teléfono: ");
-        JTextField telf = new JTextField(13);
-        telf.setText("Teléfono");
+        telfListado = new JTextField(13);
+        telfListado.setText("Teléfono");
 
         llamadasCliIzq.setLayout(new GridLayout(1,1));
         llamadasCliDer.setLayout(new GridLayout(1,1));
         llamadasCliIzq.add(telfLabel);
-        llamadasCliDer.add(telf);
+        llamadasCliDer.add(telfListado);
 
         llamadasCliCampos.setLayout(new BoxLayout(llamadasCliCampos, BoxLayout.X_AXIS));
         llamadasCliCampos.add(llamadasCliIzq);
@@ -105,21 +140,21 @@ public class VistaLlamadas {
         JLabel fechaIniLabel = new JLabel("Fecha inicio: ");
         JLabel fechaFinLabel = new JLabel("Fecha fin:  ");
 
-        JTextField telf2 = new JTextField(15);
-        JTextField fechaIni = new JTextField(15);
-        JTextField fechaFin = new JTextField(15);
-        telf2.setText("Teléfono");
-        fechaIni.setText("aaaa-mm-dd");
-        fechaFin.setText("aaaa-mm-dd");
+        telfListadoFechas = new JTextField(15);
+        fechaIniListado = new JTextField(15);
+        fechaFinListado = new JTextField(15);
+        telfListadoFechas.setText("Teléfono");
+        fechaIniListado.setText("aaaa-mm-dd");
+        fechaFinListado.setText("aaaa-mm-dd");
 
         llamadasCliFechasIzq.setLayout(new GridLayout(3,1));
         llamadasCliFechasDer.setLayout(new GridLayout(3,1));
         llamadasCliFechasIzq.add(telfLabel2);
         llamadasCliFechasIzq.add(fechaIniLabel);
         llamadasCliFechasIzq.add(fechaFinLabel);
-        llamadasCliFechasDer.add(telf2);
-        llamadasCliFechasDer.add(fechaIni);
-        llamadasCliFechasDer.add(fechaFin);
+        llamadasCliFechasDer.add(telfListadoFechas);
+        llamadasCliFechasDer.add(fechaIniListado);
+        llamadasCliFechasDer.add(fechaFinListado);
 
         llamadasCliFechasCampos.setLayout(new BoxLayout(llamadasCliFechasCampos, BoxLayout.X_AXIS));
         llamadasCliFechasCampos.add(llamadasCliFechasIzq);
@@ -138,9 +173,45 @@ public class VistaLlamadas {
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+        panel.add(importarPanel);
         panel.add(darAltaLlamada);
         panel.add(llamadasCli);
         panel.add(llamadasCliEntreFechas);
         return panel;
+    }
+
+    @Override
+    public String getTelfOrigen() {
+        return telfOrigen.getText();
+    }
+
+    @Override
+    public String getTelfDestino() {
+        return telfDestino.getText();
+    }
+
+    @Override
+    public int getDuracion() {
+        return Integer.parseInt(duracion.getText());
+    }
+
+    @Override
+    public String getTelfListado() {
+        return telfListado.getText();
+    }
+
+    @Override
+    public String getTelfListadoFechas() {
+        return telfListadoFechas.getText();
+    }
+
+    @Override
+    public LocalDate getFechaIniListado() {
+        return LocalDate.parse(fechaIniListado.getText());
+    }
+
+    @Override
+    public LocalDate getFechaFinListado() {
+        return LocalDate.parse(fechaFinListado.getText());
     }
 }
