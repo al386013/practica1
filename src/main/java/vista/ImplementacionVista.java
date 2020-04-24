@@ -4,6 +4,8 @@ import controlador.Controlador;
 import modelo.InterrogaModelo;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class ImplementacionVista implements InformaVista, InterrogaVista {
     private Controlador controlador;
@@ -57,6 +59,14 @@ public class ImplementacionVista implements InformaVista, InterrogaVista {
         pestanyas.add("Clientes", vistaClientes.panel());
         pestanyas.add("Llamadas", vistaLlamadas.panel());
         pestanyas.add("Facturas", vistaFacturas.panel());
+
+        ventana.addWindowListener(new WindowAdapter() { //clase interna anonima
+            @Override
+            public void windowClosing(WindowEvent e) {
+                controlador.exportarDatosYSalir();
+                System.exit(0);
+            }
+        });
 
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventana.pack();

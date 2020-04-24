@@ -153,7 +153,7 @@ public class VistaFacturas implements InterrogaVistaFacturas {
         facturasCliCampos.add(facturasCliDer);
 
         JButton botonFacturasCli = new JButton("Listar");
-        botonFacturasCli.setActionCommand("facturasCliFechas");
+        botonFacturasCli.setActionCommand("facturasCli");
         botonFacturasCli.addActionListener(escuchadorBoton);
         botonFacturasCli.setAlignmentX(Component.CENTER_ALIGNMENT);
         facturasCliCampos.add(botonFacturasCli);
