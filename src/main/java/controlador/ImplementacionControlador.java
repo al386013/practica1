@@ -8,7 +8,7 @@ public class ImplementacionControlador implements Controlador {
     private InterrogaVista vista;
     private CambioModelo modelo;
 
-    public ImplementacionControlador() {}
+    public ImplementacionControlador() { super(); }
 
     public void setModelo(CambioModelo modelo) {
         this.modelo = modelo;
