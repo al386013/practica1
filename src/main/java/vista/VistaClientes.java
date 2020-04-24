@@ -25,12 +25,12 @@ public class VistaClientes implements InformaVista, InterrogaVista {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                ventanaClientes();
+                ventana();
             }
         });
     }
 
-    public void ventanaClientes() {
+    public void ventana() {
         JFrame ventana = new JFrame("Gestión Clientes");
         Container contenedor = ventana.getContentPane();
 
@@ -266,8 +266,8 @@ public class VistaClientes implements InformaVista, InterrogaVista {
         JLabel fechaIniLabel = new JLabel("Fecha inicio: ");
         JLabel fechaFinLabel = new JLabel("Fecha fin:  ");
 
-        JTextField fechaIni = new JTextField(25);
-        JTextField fechaFin = new JTextField(25);
+        JTextField fechaIni = new JTextField(18);
+        JTextField fechaFin = new JTextField(18);
         fechaIni.setText("aaaa-mm-dd");
         fechaFin.setText("aaaa-mm-dd");
 
@@ -286,12 +286,12 @@ public class VistaClientes implements InformaVista, InterrogaVista {
         botonListarCliFechas.setActionCommand("listarCliFechas");
         botonListarCliFechas.addActionListener(escuchadorBoton);
         botonListarCliFechas.setAlignmentX(Component.CENTER_ALIGNMENT);
+        listadoCliFechasCampos.add(botonListarCliFechas);
 
         listadoCliEntreFechas.setLayout(new BoxLayout(listadoCliEntreFechas, BoxLayout.PAGE_AXIS));
         listadoCliFechasTitulo.add(new JLabel( "<html>" + "<b><i>LISTAR CLIENTES ENTRE FECHAS</i></b><br/>" + "</html>"));
         listadoCliEntreFechas.add(listadoCliFechasTitulo);
         listadoCliEntreFechas.add(listadoCliFechasCampos);
-        listadoCliEntreFechas.add(botonListarCliFechas);
 
 
         contenedor.setLayout(new BoxLayout(contenedor, BoxLayout.PAGE_AXIS));
