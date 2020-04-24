@@ -13,23 +13,24 @@ public class ImplementacionVista implements InformaVista, InterrogaVista {
     private VistaFacturas vistaFacturas;
 
     public ImplementacionVista() {
+        super();
         vistaClientes = new VistaClientes();
         vistaLlamadas = new VistaLlamadas();
         vistaFacturas = new VistaFacturas();
-        vistaClientes.setControlador(controlador);
-        vistaLlamadas.setControlador(controlador);
-        vistaFacturas.setControlador(controlador);
+    }
+
+    public void setModelo(InterrogaModelo modelo) {
+        this.modelo = modelo;
         vistaClientes.setModelo(modelo);
         vistaLlamadas.setModelo(modelo);
         vistaFacturas.setModelo(modelo);
     }
 
-    public void setModelo(InterrogaModelo modelo) {
-        this.modelo = modelo;
-    }
-
     public void setControlador(Controlador controlador) {
         this.controlador = controlador;
+        vistaClientes.setControlador(controlador);
+        vistaLlamadas.setControlador(controlador);
+        vistaFacturas.setControlador(controlador);
     }
 
     public VistaClientes getVistaClientes() { return vistaClientes; }
