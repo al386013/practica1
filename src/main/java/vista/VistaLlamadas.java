@@ -1,39 +1,15 @@
 package vista;
 
-import controlador.Controlador;
-import modelo.InterrogaModelo;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class VistaLlamadas implements InformaVista, InterrogaVista {
-    private Controlador controlador;
-    private InterrogaModelo modelo;
+public class VistaLlamadas {
 
-    public VistaLlamadas() {}
+    public VistaLlamadas() { super(); } //?????????????????
 
-    public void setModelo(InterrogaModelo modelo) {
-        this.modelo = modelo;
-    }
-
-    public void setControlador(Controlador controlador) {
-        this.controlador = controlador;
-    }
-
-    public void creaGUI() {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                ventana();
-            }
-        });
-    }
-
-    public void ventana() {
-        JFrame ventana = new JFrame("Gestión Clientes");
-        Container contenedor = ventana.getContentPane();
+    public JPanel panel() {
 
         //DAR DE ALTA LLAMADA
 
@@ -160,14 +136,11 @@ public class VistaLlamadas implements InformaVista, InterrogaVista {
         llamadasCliEntreFechas.add(llamadasCliFechasTitulo);
         llamadasCliEntreFechas.add(llamadasCliFechasCampos);
 
-
-        contenedor.setLayout(new BoxLayout(contenedor, BoxLayout.PAGE_AXIS));
-        contenedor.add(darAltaLlamada);
-        contenedor.add(llamadasCli);
-        contenedor.add(llamadasCliEntreFechas);
-
-        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ventana.pack();
-        ventana.setVisible(true);
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+        panel.add(darAltaLlamada);
+        panel.add(llamadasCli);
+        panel.add(llamadasCliEntreFechas);
+        return panel;
     }
 }

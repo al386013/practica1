@@ -1,38 +1,15 @@
 package vista;
 
-import controlador.Controlador;
-import modelo.InterrogaModelo;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class VistaClientes implements InformaVista, InterrogaVista {
-    private Controlador controlador;
-    private InterrogaModelo modelo;
+public class VistaClientes {
 
-    public VistaClientes() {}
+    public VistaClientes() { super(); } //?????????????????
 
-    public void setModelo(InterrogaModelo modelo) {
-        this.modelo = modelo;
-    }
-
-    public void setControlador(Controlador controlador) {
-        this.controlador = controlador;
-    }
-
-    public void creaGUI() {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                ventana();
-            }
-        });
-    }
-
-    public void ventana() {
-        JFrame ventana = new JFrame("Gestión Clientes");
-        Container contenedor = ventana.getContentPane();
+    public JPanel panel() {
 
         //ANADIR CLIENTE
 
@@ -292,17 +269,14 @@ public class VistaClientes implements InformaVista, InterrogaVista {
         listadoCliEntreFechas.add(listadoCliFechasTitulo);
         listadoCliEntreFechas.add(listadoCliFechasCampos);
 
-
-        contenedor.setLayout(new BoxLayout(contenedor, BoxLayout.PAGE_AXIS));
-        contenedor.add(anadirCliente);
-        contenedor.add(borrarCliente);
-        contenedor.add(cambiarTarifa);
-        contenedor.add(datosCliente);
-        contenedor.add(listadoClientes);
-        contenedor.add(listadoCliEntreFechas);
-
-        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ventana.pack();
-        ventana.setVisible(true);
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+        panel.add(anadirCliente);
+        panel.add(borrarCliente);
+        panel.add(cambiarTarifa);
+        panel.add(datosCliente);
+        panel.add(listadoClientes);
+        panel.add(listadoCliEntreFechas);
+        return panel;
     }
 }

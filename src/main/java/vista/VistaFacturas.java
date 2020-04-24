@@ -1,39 +1,15 @@
 package vista;
 
-import controlador.Controlador;
-import modelo.InterrogaModelo;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class VistaFacturas implements InformaVista, InterrogaVista {
-    private Controlador controlador;
-    private InterrogaModelo modelo;
+public class VistaFacturas {
 
-    public VistaFacturas() {}
+    public VistaFacturas() { super(); }
 
-    public void setModelo(InterrogaModelo modelo) {
-        this.modelo = modelo;
-    }
-
-    public void setControlador(Controlador controlador) {
-        this.controlador = controlador;
-    }
-
-    public void creaGUI() {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                ventana();
-            }
-        });
-    }
-
-    public void ventana() {
-        JFrame ventana = new JFrame("Gestión Clientes");
-        Container contenedor = ventana.getContentPane();
+    public JPanel panel() {
 
         //EMITIR FACTURA
 
@@ -193,16 +169,12 @@ public class VistaFacturas implements InformaVista, InterrogaVista {
         facturasCliEntreFechas.add(facturasCliFechasTitulo);
         facturasCliEntreFechas.add(facturasCliFechasCampos);
 
-
-
-        contenedor.setLayout(new BoxLayout(contenedor, BoxLayout.PAGE_AXIS));
-        contenedor.add(emitirFactura);
-        contenedor.add(datosFactura);
-        contenedor.add(facturasCli);
-        contenedor.add(facturasCliEntreFechas);
-
-        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ventana.pack();
-        ventana.setVisible(true);
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+        panel.add(emitirFactura);
+        panel.add(datosFactura);
+        panel.add(facturasCli);
+        panel.add(facturasCliEntreFechas);
+        return panel;
     }
 }
