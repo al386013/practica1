@@ -5,7 +5,6 @@ import modelo.principal.IntervaloFechasIncorrectoException;
 import modelo.principal.NifNoExistenteException;
 import vista.InterrogaVista;
 import vista.InterrogaVistaFacturas;
-
 import java.time.LocalDate;
 
 public class FacturasCliEntreFechas implements Accion {

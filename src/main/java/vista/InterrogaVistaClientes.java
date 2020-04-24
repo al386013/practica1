@@ -32,4 +32,6 @@ public interface InterrogaVistaClientes {
     LocalDate getFechaIni();
 
     LocalDate getFechaFin();
+
+    void clienteAnadido(String nombre, String nif, String telf);
 }

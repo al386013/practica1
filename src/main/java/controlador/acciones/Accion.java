@@ -6,5 +6,6 @@ import vista.InterrogaVista;
 
 public interface Accion {
     EntradaSalida entradaSalida = new EntradaSalida();
+
     void ejecutaAccion(BaseDeDatos baseDeDatos, InterrogaVista interrogaVista);
 }

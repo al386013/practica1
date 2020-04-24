@@ -4,7 +4,6 @@ import modelo.principal.BaseDeDatos;
 import modelo.principal.IntervaloFechasIncorrectoException;
 import vista.InterrogaVista;
 import vista.InterrogaVistaClientes;
-
 import java.time.LocalDate;
 
 public class ClientesEntreFechas implements Accion {

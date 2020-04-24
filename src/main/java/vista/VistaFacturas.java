@@ -20,7 +20,9 @@ public class VistaFacturas implements InterrogaVistaFacturas {
     private JTextField fechaIniFechas;
     private JTextField fechaFinFechas;
 
-    public VistaFacturas() { super(); }
+    public VistaFacturas() {
+        super();
+    }
 
     public void setModelo(InterrogaModelo modelo) {
         this.modelo = modelo;
@@ -37,13 +39,13 @@ public class VistaFacturas implements InterrogaVistaFacturas {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Botón " + e.getActionCommand() + " pulsado.");
                 String comando = e.getActionCommand();
-                if(comando.equals("importar"))
+                if (comando.equals("importar"))
                     controlador.importarDatos();
-                else if(comando.equals("guardarFactura"))
+                else if (comando.equals("guardarFactura"))
                     controlador.emitirFactura();
-                else if(comando.equals("datosFac"))
+                else if (comando.equals("datosFac"))
                     controlador.datosFactura();
-                else if(comando.equals("facturasCli"))
+                else if (comando.equals("facturasCli"))
                     controlador.listarFacCli();
                 else
                     controlador.listarFacCliFechas();
@@ -75,8 +77,8 @@ public class VistaFacturas implements InterrogaVistaFacturas {
         fechaIniFac.setText("aaaa-mm-dd");
         fechaFinFac.setText("aaaa-mm-dd");
 
-        emitirFacturaIzq.setLayout(new GridLayout(3,1));
-        emitirFacturaDer.setLayout(new GridLayout(3,1));
+        emitirFacturaIzq.setLayout(new GridLayout(3, 1));
+        emitirFacturaDer.setLayout(new GridLayout(3, 1));
         emitirFacturaIzq.add(nifLabel);
         emitirFacturaIzq.add(fechaIniFacLabel);
         emitirFacturaIzq.add(fechaFinFacLabel);
@@ -95,7 +97,7 @@ public class VistaFacturas implements InterrogaVistaFacturas {
         emitirFacturaCampos.add(botonFactura);
 
         emitirFactura.setLayout(new BoxLayout(emitirFactura, BoxLayout.PAGE_AXIS));
-        emitirFacturaTitulo.add(new JLabel( "<html>" + "<b><i>EMITIR FACTURA</i></b><br/>" + "</html>"));
+        emitirFacturaTitulo.add(new JLabel("<html>" + "<b><i>EMITIR FACTURA</i></b><br/>" + "</html>"));
         emitirFactura.add(emitirFacturaTitulo);
         emitirFactura.add(emitirFacturaCampos);
 
@@ -111,8 +113,8 @@ public class VistaFacturas implements InterrogaVistaFacturas {
         codFac = new JTextField(16);
         codFac.setText("Código");
 
-        datosFacturaIzq.setLayout(new GridLayout(1,1));
-        datosFacturaDer.setLayout(new GridLayout(1,1));
+        datosFacturaIzq.setLayout(new GridLayout(1, 1));
+        datosFacturaDer.setLayout(new GridLayout(1, 1));
         datosFacturaIzq.add(codFacLabel);
         datosFacturaDer.add(codFac);
 
@@ -127,7 +129,7 @@ public class VistaFacturas implements InterrogaVistaFacturas {
         datosFacturaCampos.add(botonMostrarFac);
 
         datosFactura.setLayout(new BoxLayout(datosFactura, BoxLayout.PAGE_AXIS));
-        datosFacturaTitulo.add(new JLabel( "<html>" + "<b><i>MOSTRAR DATOS FACTURA</i></b><br/>" + "</html>"));
+        datosFacturaTitulo.add(new JLabel("<html>" + "<b><i>MOSTRAR DATOS FACTURA</i></b><br/>" + "</html>"));
         datosFactura.add(datosFacturaTitulo);
         datosFactura.add(datosFacturaCampos);
 
@@ -143,8 +145,8 @@ public class VistaFacturas implements InterrogaVistaFacturas {
         nifFacCli = new JTextField(14);
         nifFacCli.setText("NIF");
 
-        facturasCliIzq.setLayout(new GridLayout(1,1));
-        facturasCliDer.setLayout(new GridLayout(1,1));
+        facturasCliIzq.setLayout(new GridLayout(1, 1));
+        facturasCliDer.setLayout(new GridLayout(1, 1));
         facturasCliIzq.add(nifLabel2);
         facturasCliDer.add(nifFacCli);
 
@@ -159,7 +161,7 @@ public class VistaFacturas implements InterrogaVistaFacturas {
         facturasCliCampos.add(botonFacturasCli);
 
         facturasCli.setLayout(new BoxLayout(facturasCli, BoxLayout.PAGE_AXIS));
-        facturasCliTitulo.add(new JLabel( "<html>" + "<b><i>LISTAR FACTURAS DE UN CLIENTE</i></b><br/>" + "</html>"));
+        facturasCliTitulo.add(new JLabel("<html>" + "<b><i>LISTAR FACTURAS DE UN CLIENTE</i></b><br/>" + "</html>"));
         facturasCli.add(facturasCliTitulo);
         facturasCli.add(facturasCliCampos);
 
@@ -183,8 +185,8 @@ public class VistaFacturas implements InterrogaVistaFacturas {
         fechaIniFechas.setText("aaaa-mm-dd");
         fechaFinFechas.setText("aaaa-mm-dd");
 
-        facturasCliFechasIzq.setLayout(new GridLayout(3,1));
-        facturasCliFechasDer.setLayout(new GridLayout(3,1));
+        facturasCliFechasIzq.setLayout(new GridLayout(3, 1));
+        facturasCliFechasDer.setLayout(new GridLayout(3, 1));
         facturasCliFechasIzq.add(nifLabel3);
         facturasCliFechasIzq.add(fechaIniLabel);
         facturasCliFechasIzq.add(fechaFinLabel);
@@ -203,7 +205,7 @@ public class VistaFacturas implements InterrogaVistaFacturas {
         facturasCliFechasCampos.add(botonFacturasCliFechas);
 
         facturasCliEntreFechas.setLayout(new BoxLayout(facturasCliEntreFechas, BoxLayout.PAGE_AXIS));
-        facturasCliFechasTitulo.add(new JLabel( "<html>" + "<b><i>LISTAR LLAMADAS DE UN CLIENTE ENTRE FECHAS</i></b><br/>" + "</html>"));
+        facturasCliFechasTitulo.add(new JLabel("<html>" + "<b><i>LISTAR LLAMADAS DE UN CLIENTE ENTRE FECHAS</i></b><br/>" + "</html>"));
         facturasCliEntreFechas.add(facturasCliFechasTitulo);
         facturasCliEntreFechas.add(facturasCliFechasCampos);
 

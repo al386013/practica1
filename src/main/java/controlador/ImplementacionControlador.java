@@ -8,7 +8,9 @@ public class ImplementacionControlador implements Controlador {
     private InterrogaVista vista;
     private CambioModelo modelo;
 
-    public ImplementacionControlador() { super(); }
+    public ImplementacionControlador() {
+        super();
+    }
 
     public void setModelo(CambioModelo modelo) {
         this.modelo = modelo;
@@ -18,12 +20,13 @@ public class ImplementacionControlador implements Controlador {
         this.vista = vista;
     }
 
-    public InterrogaVista getVista() { return vista; }
+    public InterrogaVista getVista() {
+        return vista;
+    }
 
-    //OJO IMPORTAR Y EXPORTAR NO NECESITAN VISTA, ESTO ESTA FATAL!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     @Override
     public void importarDatos() {
-        new ImportarDatos().cargarDatos(modelo);
+        new ImportarDatos().cargarDatos(modelo, vista);
         //new ImportarDatos().ejecutaAccion(modelo.getBaseDeDatos(), vista);
     }
 

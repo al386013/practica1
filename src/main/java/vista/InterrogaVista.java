@@ -6,4 +6,8 @@ public interface InterrogaVista {
     VistaLlamadas getVistaLlamadas();
 
     VistaFacturas getVistaFacturas();
+
+    void importadoCorrectamente();
+
+    void guardadoCorrectamente();
 }

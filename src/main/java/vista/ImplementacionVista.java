@@ -35,11 +35,30 @@ public class ImplementacionVista implements InformaVista, InterrogaVista {
         vistaFacturas.setControlador(controlador);
     }
 
-    public VistaClientes getVistaClientes() { return vistaClientes; }
+    @Override
+    public VistaClientes getVistaClientes() {
+        return vistaClientes;
+    }
 
-    public VistaLlamadas getVistaLlamadas() { return vistaLlamadas; }
+    @Override
+    public VistaLlamadas getVistaLlamadas() {
+        return vistaLlamadas;
+    }
 
-    public VistaFacturas getVistaFacturas() { return vistaFacturas; }
+    @Override
+    public VistaFacturas getVistaFacturas() {
+        return vistaFacturas;
+    }
+
+    @Override
+    public void importadoCorrectamente() {
+        JOptionPane.showMessageDialog(null, "Datos importados correctamente");
+    }
+
+    @Override
+    public void guardadoCorrectamente() {
+        JOptionPane.showMessageDialog(null, "Datos guardados en la base de datos");
+    }
 
     public void creaGUI() {
         SwingUtilities.invokeLater(new Runnable() {

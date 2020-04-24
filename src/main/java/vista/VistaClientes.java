@@ -27,7 +27,9 @@ public class VistaClientes implements InterrogaVistaClientes {
     private String tipoClienteOpcion;
     private String tipoTarifaOpcion;
 
-    public VistaClientes() { super(); } //?????????????????
+    public VistaClientes() {
+        super();
+    } //?????????????????
 
     public void setModelo(InterrogaModelo modelo) {
         this.modelo = modelo;
@@ -44,17 +46,17 @@ public class VistaClientes implements InterrogaVistaClientes {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Botón " + e.getActionCommand() + " pulsado.");
                 String comando = e.getActionCommand();
-                if(comando.equals("importar"))
+                if (comando.equals("importar"))
                     controlador.importarDatos();
-                else if(comando.equals("anadir"))
+                else if (comando.equals("anadir"))
                     controlador.anadirCliente();
-                else if(comando.equals("borrar"))
+                else if (comando.equals("borrar"))
                     controlador.borrarCliente();
-                else if(comando.equals("tarifa"))
+                else if (comando.equals("tarifa"))
                     controlador.contratarTarifa();
-                else if(comando.equals("datosCli"))
+                else if (comando.equals("datosCli"))
                     controlador.datosCliente();
-                else if(comando.equals("listarCli"))
+                else if (comando.equals("listarCli"))
                     controlador.listarClientes();
                 else
                     controlador.listarCliFechas();
@@ -124,8 +126,8 @@ public class VistaClientes implements InterrogaVistaClientes {
         cp = new JTextField(25);
         cp.setText("Escribe CP");
 
-        anadirIzq.setLayout(new GridLayout(8,1));
-        anadirDer.setLayout(new GridLayout(8,1));
+        anadirIzq.setLayout(new GridLayout(8, 1));
+        anadirDer.setLayout(new GridLayout(8, 1));
 
         anadirIzq.add(nifLabel);
         anadirIzq.add(telfLabel);
@@ -155,7 +157,7 @@ public class VistaClientes implements InterrogaVistaClientes {
         tipoCli.add(botonAnadir);
 
         anadirCliente.setLayout(new BoxLayout(anadirCliente, BoxLayout.PAGE_AXIS));
-        anadirTitulo.add(new JLabel( "<html>" + "<b><i>AÑADIR CLIENTE</i></b><br/>" + "</html>"));
+        anadirTitulo.add(new JLabel("<html>" + "<b><i>AÑADIR CLIENTE</i></b><br/>" + "</html>"));
         anadirCliente.add(anadirTitulo);
         anadirCliente.add(tipoCli);
         anadirCliente.add(anadirCampos);
@@ -172,8 +174,8 @@ public class VistaClientes implements InterrogaVistaClientes {
         telfBorrar = new JTextField(16);
         telfBorrar.setText("Escribe teléfono");
 
-        borrarIzq.setLayout(new GridLayout(1,1));
-        borrarDer.setLayout(new GridLayout(1,1));
+        borrarIzq.setLayout(new GridLayout(1, 1));
+        borrarDer.setLayout(new GridLayout(1, 1));
         borrarIzq.add(telfLabel2);
         borrarDer.add(telfBorrar);
 
@@ -187,7 +189,7 @@ public class VistaClientes implements InterrogaVistaClientes {
         borrarCampos.add(botonBorrar);
 
         borrarCliente.setLayout(new BoxLayout(borrarCliente, BoxLayout.PAGE_AXIS));
-        borrarTitulo.add(new JLabel( "<html>" + "<b><i>BORRAR CLIENTE</i></b><br/>" + "</html>"));
+        borrarTitulo.add(new JLabel("<html>" + "<b><i>BORRAR CLIENTE</i></b><br/>" + "</html>"));
         borrarCliente.add(borrarTitulo);
         borrarCliente.add(borrarCampos);
 
@@ -205,8 +207,8 @@ public class VistaClientes implements InterrogaVistaClientes {
         nifTarifa = new JTextField(11);
         nifTarifa.setText("Escribe NIF");
 
-        cambiarTarifaIzq.setLayout(new GridLayout(1,1));
-        cambiarTarifaDer.setLayout(new GridLayout(1,1));
+        cambiarTarifaIzq.setLayout(new GridLayout(1, 1));
+        cambiarTarifaDer.setLayout(new GridLayout(1, 1));
         cambiarTarifaIzq.add(nifLabel2);
         cambiarTarifaDer.add(nifTarifa);
 
@@ -243,7 +245,7 @@ public class VistaClientes implements InterrogaVistaClientes {
         cambiarTarifaCampos.add(botonTarifa);
 
         cambiarTarifa.setLayout(new BoxLayout(cambiarTarifa, BoxLayout.PAGE_AXIS));
-        cambiarTarifaTitulo.add(new JLabel( "<html>" + "<b><i>CONTRATAR TARIFA ESPECIAL</i></b><br/>" + "</html>"));
+        cambiarTarifaTitulo.add(new JLabel("<html>" + "<b><i>CONTRATAR TARIFA ESPECIAL</i></b><br/>" + "</html>"));
         cambiarTarifa.add(cambiarTarifaTitulo);
         cambiarTarifa.add(tipoTarifa);
         cambiarTarifa.add(cambiarTarifaCampos);
@@ -260,8 +262,8 @@ public class VistaClientes implements InterrogaVistaClientes {
         nifCli = new JTextField(12);
         nifCli.setText("Escribe NIF");
 
-        datosCliIzq.setLayout(new GridLayout(1,1));
-        datosCliDer.setLayout(new GridLayout(1,1));
+        datosCliIzq.setLayout(new GridLayout(1, 1));
+        datosCliDer.setLayout(new GridLayout(1, 1));
         datosCliIzq.add(nifLabel3);
         datosCliDer.add(nifCli);
 
@@ -275,7 +277,7 @@ public class VistaClientes implements InterrogaVistaClientes {
         datosCliCampos.add(botonDatosCli);
 
         datosCliente.setLayout(new BoxLayout(datosCliente, BoxLayout.PAGE_AXIS));
-        datosCliTitulo.add(new JLabel( "<html>" + "<b><i>MOSTRAR DATOS CLIENTE</i></b><br/>" + "</html>"));
+        datosCliTitulo.add(new JLabel("<html>" + "<b><i>MOSTRAR DATOS CLIENTE</i></b><br/>" + "</html>"));
         datosCliente.add(datosCliTitulo);
         datosCliente.add(datosCliCampos);
 
@@ -286,7 +288,7 @@ public class VistaClientes implements InterrogaVistaClientes {
         botonListarCli.setActionCommand("listarCli");
         botonListarCli.addActionListener(escuchadorBoton);
 
-        listadoClientes.add(new JLabel( "<html>" + "<b><i>LISTAR CLIENTES</i></b><br/>" + "</html>"));
+        listadoClientes.add(new JLabel("<html>" + "<b><i>LISTAR CLIENTES</i></b><br/>" + "</html>"));
         listadoClientes.add(botonListarCli);
 
 
@@ -306,8 +308,8 @@ public class VistaClientes implements InterrogaVistaClientes {
         fechaIni.setText("aaaa-mm-dd");
         fechaFin.setText("aaaa-mm-dd");
 
-        listadoCliFechasIzq.setLayout(new GridLayout(2,1));
-        listadoCliFechasDer.setLayout(new GridLayout(2,1));
+        listadoCliFechasIzq.setLayout(new GridLayout(2, 1));
+        listadoCliFechasDer.setLayout(new GridLayout(2, 1));
         listadoCliFechasIzq.add(fechaIniLabel);
         listadoCliFechasIzq.add(fechaFinLabel);
         listadoCliFechasDer.add(fechaIni);
@@ -324,7 +326,7 @@ public class VistaClientes implements InterrogaVistaClientes {
         listadoCliFechasCampos.add(botonListarCliFechas);
 
         listadoCliEntreFechas.setLayout(new BoxLayout(listadoCliEntreFechas, BoxLayout.PAGE_AXIS));
-        listadoCliFechasTitulo.add(new JLabel( "<html>" + "<b><i>LISTAR CLIENTES ENTRE FECHAS</i></b><br/>" + "</html>"));
+        listadoCliFechasTitulo.add(new JLabel("<html>" + "<b><i>LISTAR CLIENTES ENTRE FECHAS</i></b><br/>" + "</html>"));
         listadoCliEntreFechas.add(listadoCliFechasTitulo);
         listadoCliEntreFechas.add(listadoCliFechasCampos);
 
@@ -413,5 +415,11 @@ public class VistaClientes implements InterrogaVistaClientes {
     @Override
     public LocalDate getFechaFin() {
         return LocalDate.parse(fechaFin.getText());
+    }
+
+    @Override
+    public void clienteAnadido(String nombre, String nif, String telf) {
+        JOptionPane.showMessageDialog(null, "Creado cliente "
+                + nombre + " con NIF " + nif + " y telefono " + telf + ".");
     }
 }

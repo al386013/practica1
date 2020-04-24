@@ -2,7 +2,6 @@ package controlador.acciones;
 
 import modelo.principal.BaseDeDatos;
 import vista.InterrogaVista;
-
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -18,6 +17,7 @@ public class ExportarDatosYsalir implements Accion {
                 oos = new ObjectOutputStream(fos);
                 oos.writeObject(baseDeDatos);
                 entradaSalida.imprimirConSalto("\n -----> Datos guardados y programa cerrado <----- ");
+                vista.guardadoCorrectamente();
             } finally {
                 oos.close();
             }

@@ -19,7 +19,9 @@ public class VistaLlamadas implements InterrogaVistaLlamadas {
     private JTextField fechaIniListado;
     private JTextField fechaFinListado;
 
-    public VistaLlamadas() { super(); } //?????????????????
+    public VistaLlamadas() {
+        super();
+    }
 
     public void setModelo(InterrogaModelo modelo) {
         this.modelo = modelo;
@@ -36,13 +38,13 @@ public class VistaLlamadas implements InterrogaVistaLlamadas {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Botón " + e.getActionCommand() + " pulsado.");
                 String comando = e.getActionCommand();
-                if(comando.equals("importar"))
+                if (comando.equals("importar"))
                     controlador.importarDatos();
-                else if(comando.equals("llamada"))
+                else if (comando.equals("llamada"))
                     controlador.darAltaLlamada();
-                else if(comando.equals("llamadasCli"))
+                else if (comando.equals("llamadasCli"))
                     controlador.llamadasCli();
-                else if(comando.equals("llamadasCliFechas"))
+                else if (comando.equals("llamadasCliFechas"))
                     controlador.llamadasCliFechas();
             }
         };
@@ -72,8 +74,8 @@ public class VistaLlamadas implements InterrogaVistaLlamadas {
         telfDestino.setText("Teléfono destino");
         duracion.setText("Duración en segundos");
 
-        darAltaLlamadaIzq.setLayout(new GridLayout(3,1));
-        darAltaLlamadaDer.setLayout(new GridLayout(3,1));
+        darAltaLlamadaIzq.setLayout(new GridLayout(3, 1));
+        darAltaLlamadaDer.setLayout(new GridLayout(3, 1));
         darAltaLlamadaIzq.add(telfOrigenLabel);
         darAltaLlamadaIzq.add(telfDestLabel);
         darAltaLlamadaIzq.add(duracionLabel);
@@ -92,7 +94,7 @@ public class VistaLlamadas implements InterrogaVistaLlamadas {
         darAltaLlamadaCampos.add(botonLlamada);
 
         darAltaLlamada.setLayout(new BoxLayout(darAltaLlamada, BoxLayout.PAGE_AXIS));
-        darAltaLlamadaTitulo.add(new JLabel( "<html>" + "<b><i>DAR DE ALTA LLAMADA</i></b><br/>" + "</html>"));
+        darAltaLlamadaTitulo.add(new JLabel("<html>" + "<b><i>DAR DE ALTA LLAMADA</i></b><br/>" + "</html>"));
         darAltaLlamada.add(darAltaLlamadaTitulo);
         darAltaLlamada.add(darAltaLlamadaCampos);
 
@@ -108,8 +110,8 @@ public class VistaLlamadas implements InterrogaVistaLlamadas {
         telfListado = new JTextField(13);
         telfListado.setText("Teléfono");
 
-        llamadasCliIzq.setLayout(new GridLayout(1,1));
-        llamadasCliDer.setLayout(new GridLayout(1,1));
+        llamadasCliIzq.setLayout(new GridLayout(1, 1));
+        llamadasCliDer.setLayout(new GridLayout(1, 1));
         llamadasCliIzq.add(telfLabel);
         llamadasCliDer.add(telfListado);
 
@@ -124,7 +126,7 @@ public class VistaLlamadas implements InterrogaVistaLlamadas {
         llamadasCliCampos.add(botonLlamadasCli);
 
         llamadasCli.setLayout(new BoxLayout(llamadasCli, BoxLayout.PAGE_AXIS));
-        llamadasCliTitulo.add(new JLabel( "<html>" + "<b><i>LISTAR LLAMADAS DE UN CLIENTE</i></b><br/>" + "</html>"));
+        llamadasCliTitulo.add(new JLabel("<html>" + "<b><i>LISTAR LLAMADAS DE UN CLIENTE</i></b><br/>" + "</html>"));
         llamadasCli.add(llamadasCliTitulo);
         llamadasCli.add(llamadasCliCampos);
 
@@ -147,8 +149,8 @@ public class VistaLlamadas implements InterrogaVistaLlamadas {
         fechaIniListado.setText("aaaa-mm-dd");
         fechaFinListado.setText("aaaa-mm-dd");
 
-        llamadasCliFechasIzq.setLayout(new GridLayout(3,1));
-        llamadasCliFechasDer.setLayout(new GridLayout(3,1));
+        llamadasCliFechasIzq.setLayout(new GridLayout(3, 1));
+        llamadasCliFechasDer.setLayout(new GridLayout(3, 1));
         llamadasCliFechasIzq.add(telfLabel2);
         llamadasCliFechasIzq.add(fechaIniLabel);
         llamadasCliFechasIzq.add(fechaFinLabel);
@@ -167,7 +169,7 @@ public class VistaLlamadas implements InterrogaVistaLlamadas {
         llamadasCliFechasCampos.add(botonLlamadasCliFechas);
 
         llamadasCliEntreFechas.setLayout(new BoxLayout(llamadasCliEntreFechas, BoxLayout.PAGE_AXIS));
-        llamadasCliFechasTitulo.add(new JLabel( "<html>" + "<b><i>LISTAR LLAMADAS DE UN CLIENTE ENTRE FECHAS</i></b><br/>" + "</html>"));
+        llamadasCliFechasTitulo.add(new JLabel("<html>" + "<b><i>LISTAR LLAMADAS DE UN CLIENTE ENTRE FECHAS</i></b><br/>" + "</html>"));
         llamadasCliEntreFechas.add(llamadasCliFechasTitulo);
         llamadasCliEntreFechas.add(llamadasCliFechasCampos);
 
