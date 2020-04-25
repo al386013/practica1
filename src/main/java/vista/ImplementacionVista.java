@@ -3,6 +3,7 @@ package vista;
 
 import controlador.Controlador;
 import controlador.acciones.*;
+import modelo.CambioModelo;
 import modelo.InterrogaModelo;
 import modelo.principal.BaseDeDatos;
 
@@ -228,7 +229,6 @@ public class ImplementacionVista implements InformaVista, InterrogaVista {
         }
     }
     private void menuTipoCliente(){}
-
 
 
 
