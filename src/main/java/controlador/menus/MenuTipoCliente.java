@@ -1,4 +1,4 @@
-package controlador.menus;
+/*package controlador.menus;
 
 public enum MenuTipoCliente {
     PARTICULAR("Anadir un particular"),
@@ -24,4 +24,4 @@ public enum MenuTipoCliente {
         }
         return sb.toString();
     }
-}
+}*/

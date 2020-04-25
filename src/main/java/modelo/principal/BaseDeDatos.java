@@ -7,7 +7,6 @@ import modelo.datos.clientes.Direccion;
 import modelo.datos.contrato.Factura;
 import modelo.datos.contrato.PeriodoFacturacion;
 import modelo.datos.llamadas.Llamada;
-import controlador.menus.MenuCambiarTarifa;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Collection;
@@ -69,9 +68,9 @@ public class BaseDeDatos implements Serializable {
         gestorClientes.borrarCliente(telf);
     }
 
-    public void contratarTarifaEspecial(MenuCambiarTarifa elemento, String nif) {
+    public void contratarTarifaEspecial(String tipoTarifa, String nif) {
         Cliente cliente = gestorClientes.devuelveCliente(nif);
-        gestorClientes.contratarTarifaEspecial(fabricaTarifas.getOferta(elemento, cliente.getTarifa()), cliente);
+        gestorClientes.contratarTarifaEspecial(fabricaTarifas.getOferta(tipoTarifa, cliente.getTarifa()), cliente);
     }
 
     public void darDeAltaLlamada(String telfOrigen, String telfDestino, int duracion) throws IllegalArgumentException {

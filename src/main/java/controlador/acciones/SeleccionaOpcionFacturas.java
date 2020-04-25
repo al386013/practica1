@@ -1,11 +1,12 @@
-package controlador.acciones;
+/*package controlador.acciones;
 
 import controlador.menus.MenuFacturas;
 import modelo.principal.BaseDeDatos;
+import vista.InterrogaVista;
 
 public class SeleccionaOpcionFacturas implements Accion {
     @Override
-    public void ejecutaAccion(BaseDeDatos baseDeDatos) throws OpcionIncorrectaException {
+    public void ejecutaAccion(BaseDeDatos baseDeDatos, InterrogaVista vista) throws OpcionIncorrectaException {
         entradaSalida.imprimirConSalto("\n* * * * * * * OPCIONES DE FACTURAS * * * * * * *\n");
         entradaSalida.imprimirConSalto(MenuFacturas.getMenu());
         byte opcion = entradaSalida.pedirOpcion();
@@ -16,4 +17,4 @@ public class SeleccionaOpcionFacturas implements Accion {
             opcionFacturas.ejecutaOpcion(baseDeDatos);
         }
     }
-}
+}*/

@@ -1,4 +1,4 @@
-package controlador.menus;
+/*package controlador.menus;
 
 public enum MenuCambiarTarifa {
     TARIFA_DOMINGOS_GRATIS("Tarifa por dias: domingos gratis."),
@@ -24,4 +24,4 @@ public enum MenuCambiarTarifa {
         }
         return sb.toString();
     }
-}
+}*/

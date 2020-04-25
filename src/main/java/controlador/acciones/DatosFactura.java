@@ -1,13 +1,15 @@
 package controlador.acciones;
 
 import modelo.principal.BaseDeDatos;
+import vista.InterrogaVista;
+import vista.InterrogaVistaFacturas;
 
 public class DatosFactura implements Accion {
     @Override
-    public void ejecutaAccion(BaseDeDatos baseDeDatos) {
+    public void ejecutaAccion(BaseDeDatos baseDeDatos, InterrogaVista vista) {
         try {
-            entradaSalida.imprimirConSalto("\nRECUPERAR DATOS DE UNA FACTURA");
-            int cod = entradaSalida.pedirCodFactura();
+            InterrogaVistaFacturas vistaFacturas = vista.getVistaFacturas();
+            int cod = vistaFacturas.getCodFac();
             entradaSalida.imprimirConSalto(baseDeDatos.listarDatosFactura(cod) + "\n");
         } catch (IllegalArgumentException e) {
             e.printStackTrace();

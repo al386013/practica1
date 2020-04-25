@@ -7,16 +7,19 @@ public class ImplementacionModelo implements CambioModelo, InterrogaModelo {
     private InformaVista vista;
     private BaseDeDatos baseDeDatos;
 
-    public ImplementacionModelo(){}
+    public ImplementacionModelo() {
+    }
 
     public void setVista(InformaVista vista) {
         this.vista = vista;
     }
 
-    public void setBaseDeDatos(BaseDeDatos baseDeDatos){
+    @Override
+    public void setBaseDeDatos(BaseDeDatos baseDeDatos) {
         this.baseDeDatos = baseDeDatos;
     }
 
+    @Override
     public BaseDeDatos getBaseDeDatos() {
         return baseDeDatos;
     }
