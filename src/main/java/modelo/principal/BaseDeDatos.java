@@ -173,4 +173,9 @@ public class BaseDeDatos implements Serializable {
     public String listarFacturasCliente(String nif) {
         return listar(devolverFacturas(nif));
     }
+
+    //TODO Revisar este metodo, he tendido que crearlo para la tabla:
+    public Collection<Cliente> devolverClientes(){
+        return gestorClientes.clientes.values();
+    }
 }

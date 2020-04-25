@@ -11,12 +11,14 @@ import java.awt.event.WindowEvent;
 public class ImplementacionVista implements InformaVista, InterrogaVista {
     private Controlador controlador;
     private InterrogaModelo modelo;
+    private VistaListadoClientes vistaListadoClientes;
     private VistaClientes vistaClientes;
     private VistaLlamadas vistaLlamadas;
     private VistaFacturas vistaFacturas;
 
     public ImplementacionVista() {
         super();
+        vistaListadoClientes = new VistaListadoClientes();
         vistaClientes = new VistaClientes();
         vistaLlamadas = new VistaLlamadas();
         vistaFacturas = new VistaFacturas();
@@ -24,6 +26,7 @@ public class ImplementacionVista implements InformaVista, InterrogaVista {
 
     public void setModelo(InterrogaModelo modelo) {
         this.modelo = modelo;
+        vistaListadoClientes.setModelo(modelo);
         vistaClientes.setModelo(modelo);
         vistaLlamadas.setModelo(modelo);
         vistaFacturas.setModelo(modelo);
@@ -31,10 +34,17 @@ public class ImplementacionVista implements InformaVista, InterrogaVista {
 
     public void setControlador(Controlador controlador) {
         this.controlador = controlador;
+        vistaListadoClientes.setControlador(controlador);
         vistaClientes.setControlador(controlador);
         vistaLlamadas.setControlador(controlador);
         vistaFacturas.setControlador(controlador);
     }
+
+    //todo Faltará modificar la interface y poner:
+//    @Override
+//    public  getVistaListadoClientes() {
+//        return vistaListadoClientes;
+//    }
 
     @Override
     public VistaClientes getVistaClientes() {
@@ -76,6 +86,7 @@ public class ImplementacionVista implements InformaVista, InterrogaVista {
 
         JTabbedPane pestanyas = new JTabbedPane();
         contenedor.add(pestanyas);
+        pestanyas.add("Listado Clientes", vistaListadoClientes.panel());
         pestanyas.add("Clientes", vistaClientes.panel());
         pestanyas.add("Llamadas", vistaLlamadas.panel());
         pestanyas.add("Facturas", vistaFacturas.panel());
