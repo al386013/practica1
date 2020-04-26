@@ -5,7 +5,6 @@ import modelo.datos.clientes.Particular;
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.Collection;
-
 import static java.lang.String.format;
 
 public class ModeloTabla extends AbstractTableModel {
