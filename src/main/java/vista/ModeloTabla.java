@@ -14,7 +14,7 @@ public class ModeloTabla extends AbstractTableModel {
     //private Object datos[][];
     private ArrayList<Cliente> datos;
 
-    public ModeloTabla(Collection<Cliente> clientes) {
+    public <T extends Cliente> ModeloTabla(Collection<T> clientes) {
         super();
         //PREGUNTARLE ESTO NO CREO QUE SEA LO MÁS CORRECTO!!!!
         this.datos = new ArrayList<>();
@@ -59,13 +59,4 @@ public class ModeloTabla extends AbstractTableModel {
     public String getColumnName(int column) {
         return nombreColumnas[column];
     }
-
-    /*public Class getColumnClass(int col) {
-        if (col == 4)
-            return Direccion.class;
-        else if (col == 6)
-            return Tarifa.class;
-        else
-            return String.class;
-    }*/
 }

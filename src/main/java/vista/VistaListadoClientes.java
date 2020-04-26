@@ -1,4 +1,4 @@
-package vista;
+/*package vista;
 
 import controlador.Controlador;
 import modelo.InterrogaModelo;
@@ -19,7 +19,7 @@ public class VistaListadoClientes extends JFrame  {
         this.controlador = controlador;
     }
 
-    /*private JTable construirTabla(){
+    private JTable construirTabla(){
         //Creamos el modelo de la tabla
         //todo ¿Porque no puedo usar el modeloTabla definido por nosotros?
         //todo ¿Esto deberia ir en la clase modeloTabla?
@@ -47,7 +47,7 @@ public class VistaListadoClientes extends JFrame  {
         JTable tabla = new JTable();
         tabla.setModel(modeloTabla);
         return tabla;
-    }*/
+    }
 
     class CustomJTable extends JFrame {
         JScrollPane scrollPane;
@@ -69,7 +69,7 @@ public class VistaListadoClientes extends JFrame  {
     }
 
     public JPanel panel() {
-        /*ActionListener escuchadorBoton = new ActionListener() {
+        ActionListener escuchadorBoton = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Botón " + e.getActionCommand() + " pulsado.");
@@ -81,7 +81,7 @@ public class VistaListadoClientes extends JFrame  {
         JButton importarBoton = new JButton("Importar datos");
         importarBoton.setActionCommand("importar");
         importarBoton.addActionListener(escuchadorBoton);
-        importarPanel.add(importarBoton);*/
+        importarPanel.add(importarBoton);
 
         CustomJTable customJTable = new CustomJTable("clientes");
         JPanel panel = new JPanel();
@@ -90,4 +90,4 @@ public class VistaListadoClientes extends JFrame  {
         panel.add(customJTable.panelTabla);
         return panel;
     }
-}
+}*/
