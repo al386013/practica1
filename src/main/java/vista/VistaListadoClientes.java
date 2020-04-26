@@ -56,7 +56,7 @@ public class VistaListadoClientes extends JFrame  {
         JPanel panelTabla;
         public CustomJTable(String title) {
             super(title);
-            setBounds(10,10,400,300);
+            setBounds(20,20,800,600);
             ModeloTabla modeloTabla = new ModeloTabla(modelo.getBaseDeDatos().devolverClientes());
             JTable tabla = new JTable(modeloTabla);
             tabla.setAutoCreateRowSorter(true);
