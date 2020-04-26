@@ -438,7 +438,12 @@ public class VistaClientes implements InterrogaVistaClientes {
         VistaListadoClientes vistaListadoClientes = new VistaListadoClientes();
         vistaListadoClientes.setControlador(controlador);
         vistaListadoClientes.setModelo(modelo);
-        JOptionPane.showMessageDialog(null, vistaListadoClientes.panel());
+        Frame ventana = new JFrame("Listado clientes");
+        ventana.add(vistaListadoClientes.panel());
+        //JOptionPane.showMessageDialog(null, vistaListadoClientes.panel());
+        ventana.setSize(700,700);
+        //ventana.pack();
+        ventana.setVisible(true);
     }
 
 }

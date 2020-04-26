@@ -16,6 +16,7 @@ public class ModeloTabla extends AbstractTableModel {
 
     public ModeloTabla(Collection<Cliente> clientes) {
         super();
+        //PREGUNTARLE ESTO NO CREO QUE SEA LO MÁS CORRECTO!!!!
         this.datos = new ArrayList<>();
         this.datos.addAll(clientes);
     }

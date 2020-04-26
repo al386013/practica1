@@ -4,8 +4,6 @@ import controlador.Controlador;
 import modelo.InterrogaModelo;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class VistaListadoClientes extends JFrame  {
     private Controlador controlador;
@@ -56,13 +54,14 @@ public class VistaListadoClientes extends JFrame  {
         JPanel panelTabla;
         public CustomJTable(String title) {
             super(title);
-            setBounds(20,20,800,600);
+            setBounds(10,10,800,600);
             ModeloTabla modeloTabla = new ModeloTabla(modelo.getBaseDeDatos().devolverClientes());
             JTable tabla = new JTable(modeloTabla);
-            tabla.setAutoCreateRowSorter(true);
+            tabla.setAutoCreateRowSorter(true); //??????????????????????
+            for(int i = 0; i < tabla.getColumnCount(); i++)
+                tabla.getColumnModel().getColumn(i).setPreferredWidth(100);
             scrollPane = new JScrollPane(tabla);
             scrollPane.setPreferredSize(new Dimension(380,280));
-
             panelTabla = new JPanel();
             panelTabla.add(scrollPane);
             add(panelTabla,BorderLayout.CENTER);
