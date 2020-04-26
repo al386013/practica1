@@ -8,15 +8,19 @@ import java.util.Collection;
 public class CustomJTable extends JFrame {
     JScrollPane scrollPane;
     JPanel panelTabla;
+    JTable tabla;
+
     public CustomJTable(String title) {
         super(title);
         setBounds(10,10,800,600);
-
     }
 
-    public JPanel getPanelTablaClientes(Collection<Cliente> clientes) {
+    public void cargarTablaClientes(Collection<Cliente> clientes) {
         ModeloTabla modeloTabla = new ModeloTabla(clientes);
-        JTable tabla = new JTable(modeloTabla);
+        tabla = new JTable(modeloTabla);
+    }
+
+    public JPanel getPanelTabla() {
         tabla.setAutoCreateRowSorter(true); //??????????????????????
         for(int i = 0; i < tabla.getColumnCount(); i++)
             tabla.getColumnModel().getColumn(i).setPreferredWidth(100);
