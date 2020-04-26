@@ -435,8 +435,10 @@ public class VistaClientes implements InterrogaVistaClientes {
 
     @Override
     public void listadoClientes() {
-        JPanel panel = new VistaListadoClientes().panel();
-        JOptionPane.showMessageDialog(null, panel);
+        VistaListadoClientes vistaListadoClientes = new VistaListadoClientes();
+        vistaListadoClientes.setControlador(controlador);
+        vistaListadoClientes.setModelo(modelo);
+        JOptionPane.showMessageDialog(null, vistaListadoClientes.panel());
     }
 
 }

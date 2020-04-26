@@ -70,7 +70,7 @@ public class VistaListadoClientes extends JFrame  {
     }
 
     public JPanel panel() {
-        ActionListener escuchadorBoton = new ActionListener() {
+        /*ActionListener escuchadorBoton = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Botón " + e.getActionCommand() + " pulsado.");
@@ -82,12 +82,12 @@ public class VistaListadoClientes extends JFrame  {
         JButton importarBoton = new JButton("Importar datos");
         importarBoton.setActionCommand("importar");
         importarBoton.addActionListener(escuchadorBoton);
-        importarPanel.add(importarBoton);
+        importarPanel.add(importarBoton);*/
 
         CustomJTable customJTable = new CustomJTable("clientes");
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-        panel.add(importarPanel);
+        //panel.add(importarPanel);
         panel.add(customJTable.panelTabla);
         return panel;
     }
