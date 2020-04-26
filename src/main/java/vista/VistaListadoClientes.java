@@ -2,24 +2,16 @@ package vista;
 
 import controlador.Controlador;
 import modelo.InterrogaModelo;
-import modelo.datos.clientes.Cliente;
-import modelo.datos.clientes.Particular;
-
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Collection;
 
 public class VistaListadoClientes extends JFrame  {
     private Controlador controlador;
     private InterrogaModelo modelo;
 
-
-
-    public VistaListadoClientes() { super(); } //?????????????????
+    public VistaListadoClientes() { super(); }
 
     public void setModelo(InterrogaModelo modelo) {
         this.modelo = modelo;
@@ -29,11 +21,11 @@ public class VistaListadoClientes extends JFrame  {
         this.controlador = controlador;
     }
 
-    private JTable construirTabla(){
+    /*private JTable construirTabla(){
         //Creamos el modelo de la tabla
         //todo ¿Porque no puedo usar el modeloTabla definido por nosotros?
         //todo ¿Esto deberia ir en la clase modeloTabla?
-        //ModeloTabla modeloTabla = new ModeloTabla();
+        ModeloTabla modeloTabla = new ModeloTabla(modelo.getBaseDeDatos().devolverClientes());
 
         DefaultTableModel modeloTabla = new DefaultTableModel();
         modeloTabla.addColumn("DNI");
@@ -49,44 +41,54 @@ public class VistaListadoClientes extends JFrame  {
         Collection<Cliente> clientes = modelo.getBaseDeDatos().devolverClientes();
         for(Cliente cliente : clientes){
             String apellidos = "";
-            if(cliente instanceof Particular){
+            if(cliente instanceof Particular)
                 apellidos = ((Particular) cliente).getApellidos();
-            }
             modeloTabla.addRow(new String[]{cliente.getNIF(), cliente.getTelf(),cliente.getNombre(), apellidos,
             cliente.getDireccion().toString(), cliente.getEmail(), cliente.getTarifa().toString()});
         }
         JTable tabla = new JTable();
         tabla.setModel(modeloTabla);
         return tabla;
-    }
+    }*/
 
+    class CustomJTable extends JFrame {
+        JScrollPane scrollPane;
+        JPanel panelTabla;
+        public CustomJTable(String title) {
+            super(title);
+            setBounds(10,10,400,300);
+            ModeloTabla modeloTabla = new ModeloTabla(modelo.getBaseDeDatos().devolverClientes());
+            JTable tabla = new JTable(modeloTabla);
+            tabla.setAutoCreateRowSorter(true);
+            scrollPane = new JScrollPane(tabla);
+            scrollPane.setPreferredSize(new Dimension(380,280));
+
+            panelTabla = new JPanel();
+            panelTabla.add(scrollPane);
+            add(panelTabla,BorderLayout.CENTER);
+        }
+    }
 
     public JPanel panel() {
         ActionListener escuchadorBoton = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Botón " + e.getActionCommand() + " pulsado.");
-                String comando = e.getActionCommand();
-                if (comando.equals("importar"))
-                    controlador.importarDatos();
+                controlador.importarDatos();
             }
         };
+
         JPanel importarPanel = new JPanel();
         JButton importarBoton = new JButton("Importar datos");
         importarBoton.setActionCommand("importar");
         importarBoton.addActionListener(escuchadorBoton);
         importarPanel.add(importarBoton);
 
-        //LISTADO CLIENTES
-        JTable listadoClientes = construirTabla();
-
+        CustomJTable customJTable = new CustomJTable("clientes");
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
         panel.add(importarPanel);
-        panel.add(listadoClientes);
+        panel.add(customJTable.panelTabla);
         return panel;
-
     }
-
-
 }

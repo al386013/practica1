@@ -16,4 +16,6 @@ public interface InterrogaVistaLlamadas {
     LocalDate getFechaIniListado();
 
     LocalDate getFechaFinListado();
+
+    void llamadaHecha(String telfOrigen, String telfDest);
 }

@@ -258,4 +258,9 @@ public class VistaFacturas implements InterrogaVistaFacturas {
     public LocalDate getFechasFinFechas() {
         return LocalDate.parse(fechaFinFechas.getText());
     }
+
+    @Override
+    public void facturaHecha(String nif) {
+        JOptionPane.showMessageDialog(null, "Factura del cliente con NIF " + nif + " emitida con exito.");
+    }
 }

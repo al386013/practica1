@@ -29,7 +29,7 @@ public class VistaClientes implements InterrogaVistaClientes {
 
     public VistaClientes() {
         super();
-    } //?????????????????
+    }
 
     public void setModelo(InterrogaModelo modelo) {
         this.modelo = modelo;
@@ -422,4 +422,21 @@ public class VistaClientes implements InterrogaVistaClientes {
         JOptionPane.showMessageDialog(null, "Creado cliente "
                 + nombre + " con NIF " + nif + " y telefono " + telf + ".");
     }
+
+    @Override
+    public void clienteBorrado(String telf) {
+        JOptionPane.showMessageDialog(null, ("Cliente con numero " + telf + " borrado con exito."));
+    }
+
+    @Override
+    public void tarifaContratada(String nif) {
+        JOptionPane.showMessageDialog(null, "Tarifa especial contratada para el cliente con nif" + nif);
+    }
+
+    @Override
+    public void listadoClientes() {
+        JPanel panel = new VistaListadoClientes().panel();
+        JOptionPane.showMessageDialog(null, panel);
+    }
+
 }

@@ -15,7 +15,7 @@ public class DaAltaLlamada implements Accion {
             String telfDest = vistaLlamadas.getTelfDestino();
             int duracion = vistaLlamadas.getDuracion();
             baseDeDatos.darDeAltaLlamada(telfOrigen, telfDest, duracion);
-            entradaSalida.imprimirConSalto("\n\tLlamada del " + telfOrigen + " al " + telfDest + " realizada con exito.\n");
+            vistaLlamadas.llamadaHecha(telfOrigen, telfDest);
         } catch (TelfNoExistenteException | IllegalArgumentException e) {
             e.printStackTrace();
         }

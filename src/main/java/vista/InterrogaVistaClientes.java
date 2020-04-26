@@ -34,4 +34,10 @@ public interface InterrogaVistaClientes {
     LocalDate getFechaFin();
 
     void clienteAnadido(String nombre, String nif, String telf);
+
+    void clienteBorrado(String telf);
+
+    void tarifaContratada(String nif);
+
+    void listadoClientes();
 }
