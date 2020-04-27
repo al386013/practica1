@@ -13,7 +13,7 @@ public class BorrarCliente implements Accion {
             String telf = vistaClientes.getTelfBorrar();
             baseDeDatos.compruebaTelfExistente(telf);
             baseDeDatos.borrarCliente(telf);
-            vistaClientes.clienteBorrado(telf);
+            vista.accionCorrecta("Cliente con numero " + telf + " borrado con exito.");
         } catch (TelfNoExistenteException e) {
             e.printStackTrace();
         }

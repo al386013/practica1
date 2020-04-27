@@ -18,6 +18,4 @@ public interface InterrogaVistaFacturas {
     LocalDate getFechaIniFechas();
 
     LocalDate getFechasFinFechas();
-
-    void facturaHecha(String nif);
 }

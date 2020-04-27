@@ -61,13 +61,13 @@ public class ImplementacionVista implements InformaVista, InterrogaVista {
     }
 
     @Override
-    public void importadoCorrectamente() {
-        JOptionPane.showMessageDialog(null, "Datos importados correctamente");
+    public void accionCorrecta(String cadena) {
+        JOptionPane.showMessageDialog(null, cadena);
     }
 
     @Override
-    public void guardadoCorrectamente() {
-        JOptionPane.showMessageDialog(null, "Datos guardados en la base de datos");
+    public void accionDenegada(String cadena) {
+        JOptionPane.showMessageDialog(null, cadena, "Error", JOptionPane.WARNING_MESSAGE);
     }
 
     public void creaGUI() {

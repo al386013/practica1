@@ -207,10 +207,4 @@ public class VistaLlamadas implements InterrogaVistaLlamadas {
     public LocalDate getFechaFinListado() {
         return LocalDate.parse(fechaFinListado.getText());
     }
-
-    @Override
-    public void llamadaHecha(String telfOrigen, String telfDest) {
-        JOptionPane.showMessageDialog(null, "Llamada del " + telfOrigen +
-                " al " + telfDest + " realizada con exito.");
-    }
 }

@@ -18,12 +18,13 @@ public class ImportarDatos {
                 ois = new ObjectInputStream(fis);
                 modelo.setBaseDeDatos((BaseDeDatos) ois.readObject());
                 entradaSalida.imprimirConSalto("\n-------> DATOS IMPORTADOS CORRECTAMENTE <-------");
-                vista.importadoCorrectamente();
+                vista.accionCorrecta("Datos importados correctamente");
             } finally {
                 if (ois != null) ois.close();
             }
         } catch (FileNotFoundException e) {
             entradaSalida.imprimirConSalto("\n-----> ERROR: NO SE HA PODIDO ENCONTRAR EL FICHERO <-----");
+            vista.accionDenegada("No se ha encontrado el fichero");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

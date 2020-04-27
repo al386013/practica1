@@ -18,7 +18,7 @@ public class EmiteFactura implements Accion {
             LocalDate fechaFin = vistaFacturas.getFechaFinFac();
             baseDeDatos.compruebaFechas(fechaIni, fechaFin);
             baseDeDatos.emitirFactura(fechaIni, fechaFin, nif);
-            vistaFacturas.facturaHecha(nif);
+            vista.accionCorrecta("Factura del cliente con NIF " + nif + " emitida con exito.");
         } catch (NifNoExistenteException | IntervaloFechasIncorrectoException e) {
             e.printStackTrace();
         }

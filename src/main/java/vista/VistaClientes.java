@@ -409,22 +409,6 @@ public class VistaClientes implements InterrogaVistaClientes {
     }
 
     @Override
-    public void clienteAnadido(String nombre, String nif, String telf) {
-        JOptionPane.showMessageDialog(null, "Creado cliente "
-                + nombre + " con NIF " + nif + " y telefono " + telf + ".");
-    }
-
-    @Override
-    public void clienteBorrado(String telf) {
-        JOptionPane.showMessageDialog(null, ("Cliente con numero " + telf + " borrado con exito."));
-    }
-
-    @Override
-    public void tarifaContratada(String nif) {
-        JOptionPane.showMessageDialog(null, "Tarifa especial contratada para el cliente con nif" + nif);
-    }
-
-    @Override
     public void listadoClientes() {
         JFrame ventana = new JFrame("Listado clientes");
         //JOptionPane.showMessageDialog(null, vistaListadoClientes.panel());
