@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 
 public class ImportarDatos {
-    public BaseDeDatos cargarDatos(9InterrogaVista vista) {
+    public BaseDeDatos cargarDatos(InterrogaVista vista) {
         ObjectInputStream ois = null;
         try {
             try {
