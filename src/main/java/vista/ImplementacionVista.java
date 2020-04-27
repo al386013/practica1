@@ -100,9 +100,6 @@ public class ImplementacionVista implements InformaVista, InterrogaVista {
                 controlador.exportarDatosYSalir();
                 System.exit(0);
             }
-            public void windowOpened(WindowEvent e) {
-                controlador.importarDatos();
-            }
         });
 
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
