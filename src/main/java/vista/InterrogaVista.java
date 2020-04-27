@@ -7,7 +7,7 @@ public interface InterrogaVista {
 
     VistaFacturas getVistaFacturas();
 
-    void importadoCorrectamente();
+    void accionCorrecta(String cadena);
 
-    void guardadoCorrectamente();
+    void accionDenegada(String cadena);
 }
