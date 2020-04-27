@@ -2,8 +2,7 @@ package vista;
 
 import controlador.Controlador;
 import modelo.InterrogaModelo;
-import modelo.principal.NifRepetidoException;
-import modelo.principal.TelfRepetidoException;
+import modelo.principal.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -54,19 +53,22 @@ public class VistaClientes implements InterrogaVistaClientes {
                 String comando= evento.getActionCommand();
                 try {
                     if (comando.equals("anadir")) {
-                            controlador.anadirCliente();
+                        if(tipoClienteOpcion == null) vista.accionDenegada("No se ha seleccionado un tipo de cliente");
+                        else controlador.anadirCliente();
                     } else if (comando.equals("borrar")) {
                         controlador.borrarCliente();
                     }
                     else if (comando.equals("tarifa"))
-                        controlador.contratarTarifa();
+                        if(tipoTarifaOpcion == null) vista.accionDenegada("No se ha seleccionado un tipo de tarifa");
+                        else controlador.contratarTarifa();
                     else if (comando.equals("datosCli"))
                         controlador.datosCliente();
                     else if (comando.equals("listarCli"))
                         controlador.listarClientes();
                     else
                         controlador.listarCliFechas();
-                } catch (NifRepetidoException | TelfRepetidoException e) {
+                } catch (NifRepetidoException | TelfRepetidoException | TelfNoExistenteException | NifNoExistenteException |
+                        IntervaloFechasIncorrectoException | IllegalArgumentException e) {
                     vista.accionDenegada(e.getMessage());
                 }
             }
@@ -88,7 +90,6 @@ public class VistaClientes implements InterrogaVistaClientes {
         ActionListener escuchadorClientes = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Botón " + e.getActionCommand() + " pulsado.");
                 tipoClienteOpcion = e.getActionCommand();
             }
         };
@@ -222,7 +223,6 @@ public class VistaClientes implements InterrogaVistaClientes {
         ActionListener escuchadorTarifas = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Botón " + e.getActionCommand() + " pulsado.");
                 tipoTarifaOpcion = e.getActionCommand();
             }
         };
@@ -422,7 +422,6 @@ public class VistaClientes implements InterrogaVistaClientes {
     @Override
     public void listadoClientes() {
         JFrame ventana = new JFrame("Listado clientes");
-        //JOptionPane.showMessageDialog(null, vistaListadoClientes.panel());
         CustomJTable customJTable = new CustomJTable("clientes");
         customJTable.cargarTablaClientes(modelo.getBaseDeDatos().devolverClientes());
         ventana.add(customJTable.getPanelTabla());
@@ -436,4 +435,12 @@ public class VistaClientes implements InterrogaVistaClientes {
         ventana.setVisible(true);
     }
 
+    @Override
+    public void datosCliente(String nif) {
+        JFrame ventana = new JFrame("Datos del cliente");
+        JLabel texto = new JLabel("<html><h1>" + modelo.getBaseDeDatos().listarDatosCliente(nif) + "</h1></html>");
+        ventana.getContentPane().add(texto);
+        ventana.pack();
+        ventana.setVisible(true);
+    }
 }

@@ -6,16 +6,10 @@ import vista.InterrogaVista;
 import vista.InterrogaVistaClientes;
 
 public class BorrarCliente implements Accion {
-    @Override
-    public void ejecutaAccion(BaseDeDatos baseDeDatos, InterrogaVista vista) {
-        try {
-            InterrogaVistaClientes vistaClientes = vista.getVistaClientes();
-            String telf = vistaClientes.getTelfBorrar();
-            baseDeDatos.compruebaTelfExistente(telf);
-            baseDeDatos.borrarCliente(telf);
-            vista.accionCorrecta("Cliente con numero " + telf + " borrado con exito.");
-        } catch (TelfNoExistenteException e) {
-            e.printStackTrace();
-        }
+    public void ejecutaAccion(BaseDeDatos baseDeDatos, InterrogaVista vista) throws TelfNoExistenteException {
+        InterrogaVistaClientes vistaClientes = vista.getVistaClientes();
+        String telf = vistaClientes.getTelfBorrar();
+        baseDeDatos.compruebaTelfExistente(telf);
+        baseDeDatos.borrarCliente(telf);
     }
 }

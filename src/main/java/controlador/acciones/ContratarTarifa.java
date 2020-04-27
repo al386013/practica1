@@ -6,18 +6,11 @@ import vista.InterrogaVista;
 import vista.InterrogaVistaClientes;
 
 public class ContratarTarifa implements Accion {
-    @Override
-    public void ejecutaAccion(BaseDeDatos baseDeDatos, InterrogaVista vista) {
-        try {
-            InterrogaVistaClientes vistaClientes = vista.getVistaClientes();
-            String nif = vistaClientes.getNifTarifa();
-            baseDeDatos.compruebaNifExistente(nif);
-            String opcionCambiarTarifa = vistaClientes.getTipoTarifa();
-
-            baseDeDatos.contratarTarifaEspecial(opcionCambiarTarifa, nif);
-            vista.accionCorrecta("Tarifa especial contratada para el cliente con nif" + nif);
-        } catch (NifNoExistenteException e) {
-            e.printStackTrace();
-        }
+    public void ejecutaAccion(BaseDeDatos baseDeDatos, InterrogaVista vista) throws NifNoExistenteException {
+        InterrogaVistaClientes vistaClientes = vista.getVistaClientes();
+        String nif = vistaClientes.getNifTarifa();
+        baseDeDatos.compruebaNifExistente(nif);
+        String opcionCambiarTarifa = vistaClientes.getTipoTarifa();
+        baseDeDatos.contratarTarifaEspecial(opcionCambiarTarifa, nif);
     }
 }

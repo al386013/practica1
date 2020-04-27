@@ -9,13 +9,14 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 
 public class ImportarDatos {
-    public BaseDeDatos cargarDatos(InterrogaVista vista) {
+    public void cargarDatos(InterrogaVista vista, CambioModelo modelo) {
         ObjectInputStream ois = null;
         try {
             try {
                 FileInputStream fis = new FileInputStream("baseDeDatos.bin");
                 ois = new ObjectInputStream(fis);
-                return (BaseDeDatos) ois.readObject();
+                modelo.setBaseDeDatos((BaseDeDatos) ois.readObject());
+                vista.accionCorrecta("Datos importados correctamente");
             } finally {
                 if (ois != null) ois.close();
             }
@@ -26,6 +27,5 @@ public class ImportarDatos {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
     }
 }

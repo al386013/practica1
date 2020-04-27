@@ -2,6 +2,9 @@ package vista;
 
 import controlador.Controlador;
 import modelo.InterrogaModelo;
+import modelo.principal.IntervaloFechasIncorrectoException;
+import modelo.principal.TelfNoExistenteException;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -40,15 +43,18 @@ public class VistaLlamadas implements InterrogaVistaLlamadas {
 
         ActionListener escuchadorBoton = new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Botón " + e.getActionCommand() + " pulsado.");
-                String comando = e.getActionCommand();
-                if (comando.equals("llamada"))
-                    controlador.darAltaLlamada();
-                else if (comando.equals("llamadasCli"))
-                    controlador.llamadasCli();
-                else if (comando.equals("llamadasCliFechas"))
-                    controlador.llamadasCliFechas();
+            public void actionPerformed(ActionEvent evento) {
+                String comando = evento.getActionCommand();
+                try {
+                    if (comando.equals("llamada"))
+                        controlador.darAltaLlamada();
+                    else if (comando.equals("llamadasCli"))
+                        controlador.llamadasCli();
+                    else if (comando.equals("llamadasCliFechas"))
+                        controlador.llamadasCliFechas();
+                } catch(TelfNoExistenteException | IllegalArgumentException | IntervaloFechasIncorrectoException e) {
+                    vista.accionDenegada(e.getMessage());
+                }
             }
         };
 

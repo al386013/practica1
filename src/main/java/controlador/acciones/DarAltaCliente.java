@@ -8,7 +8,6 @@ import vista.InterrogaVista;
 import vista.InterrogaVistaClientes;
 
 public class DarAltaCliente implements Accion {
-    @Override
     public void ejecutaAccion(BaseDeDatos baseDeDatos, InterrogaVista vista) throws NifRepetidoException, TelfRepetidoException{
         InterrogaVistaClientes vistaClientes = vista.getVistaClientes();
         String opcionTipoCliente = vistaClientes.getTipoCliente();
@@ -29,6 +28,5 @@ public class DarAltaCliente implements Accion {
         if (opcionTipoCliente.equals("particular"))
             baseDeDatos.anadirParticular(nombre, apellidos, telf, nif, direccion, email);
         else baseDeDatos.anadirEmpresa(nombre, telf, nif, direccion, email);
-        vista.accionCorrecta("Creado cliente " + nombre + " con NIF " + nif + " y telefono " + telf + ".");
     }
 }
