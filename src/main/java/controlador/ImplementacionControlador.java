@@ -2,6 +2,9 @@ package controlador;
 
 import controlador.acciones.*;
 import modelo.CambioModelo;
+import modelo.principal.BaseDeDatos;
+import modelo.principal.NifRepetidoException;
+import modelo.principal.TelfRepetidoException;
 import vista.InterrogaVista;
 
 public class ImplementacionControlador implements Controlador {
@@ -26,23 +29,26 @@ public class ImplementacionControlador implements Controlador {
 
     @Override
     public void importarDatos() {
-        new ImportarDatos().cargarDatos(modelo, vista);
-        //new ImportarDatos().ejecutaAccion(modelo.getBaseDeDatos(), vista);
+        BaseDeDatos baseDeDatos = new ImportarDatos().cargarDatos(vista);
+        modelo.setBaseDeDatos(baseDeDatos);
+        vista.accionCorrecta("Datos importados correctamente");
     }
 
     @Override
     public void exportarDatosYSalir() {
         new ExportarDatosYsalir().ejecutaAccion(modelo.getBaseDeDatos(), vista);
+        vista.accionCorrecta("Datos guardados correctamente");
     }
 
     @Override
-    public void anadirCliente() {
+    public void anadirCliente() throws NifRepetidoException, TelfRepetidoException {
         new DarAltaCliente().ejecutaAccion(modelo.getBaseDeDatos(), vista);
     }
 
     @Override
     public void borrarCliente() {
         new BorrarCliente().ejecutaAccion(modelo.getBaseDeDatos(), vista);
+        //vista.accionCorrecta("Cliente con numero " + telf + " borrado con exito.");
     }
 
     @Override

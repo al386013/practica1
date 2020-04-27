@@ -10,7 +10,7 @@ public class DatosFactura implements Accion {
         try {
             InterrogaVistaFacturas vistaFacturas = vista.getVistaFacturas();
             int cod = vistaFacturas.getCodFac();
-            entradaSalida.imprimirConSalto(baseDeDatos.listarDatosFactura(cod) + "\n");
+            //entradaSalida.imprimirConSalto(baseDeDatos.listarDatosFactura(cod) + "\n");
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }

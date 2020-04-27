@@ -1,11 +1,10 @@
 package controlador.acciones;
 
 import modelo.principal.BaseDeDatos;
-import vista.EntradaSalida;
+import modelo.principal.NifRepetidoException;
+import modelo.principal.TelfRepetidoException;
 import vista.InterrogaVista;
 
 public interface Accion {
-    EntradaSalida entradaSalida = new EntradaSalida();
-
-    void ejecutaAccion(BaseDeDatos baseDeDatos, InterrogaVista interrogaVista);
+    void ejecutaAccion(BaseDeDatos baseDeDatos, InterrogaVista interrogaVista) throws NifRepetidoException, TelfRepetidoException;
 }

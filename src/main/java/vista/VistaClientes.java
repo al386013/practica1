@@ -2,6 +2,8 @@ package vista;
 
 import controlador.Controlador;
 import modelo.InterrogaModelo;
+import modelo.principal.NifRepetidoException;
+import modelo.principal.TelfRepetidoException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,6 +13,7 @@ import java.time.LocalDate;
 public class VistaClientes implements InterrogaVistaClientes {
     private Controlador controlador;
     private InterrogaModelo modelo;
+    private InterrogaVista vista;
     private JTextField nifAnadir;
     private JTextField nombre;
     private JTextField apellido;
@@ -39,25 +42,33 @@ public class VistaClientes implements InterrogaVistaClientes {
         this.controlador = controlador;
     }
 
+    public void setVista(InterrogaVista vista) {
+        this.vista = vista;
+    }
+
     public JPanel panel() {
 
         ActionListener escuchadorBoton = new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Botón " + e.getActionCommand() + " pulsado.");
-                String comando = e.getActionCommand();
-                if (comando.equals("anadir"))
-                    controlador.anadirCliente();
-                else if (comando.equals("borrar"))
-                    controlador.borrarCliente();
-                else if (comando.equals("tarifa"))
-                    controlador.contratarTarifa();
-                else if (comando.equals("datosCli"))
-                    controlador.datosCliente();
-                else if (comando.equals("listarCli"))
-                    controlador.listarClientes();
-                else
-                    controlador.listarCliFechas();
+            public void actionPerformed(ActionEvent evento) {
+                String comando= evento.getActionCommand();
+                try {
+                    if (comando.equals("anadir")) {
+                            controlador.anadirCliente();
+                    } else if (comando.equals("borrar")) {
+                        controlador.borrarCliente();
+                    }
+                    else if (comando.equals("tarifa"))
+                        controlador.contratarTarifa();
+                    else if (comando.equals("datosCli"))
+                        controlador.datosCliente();
+                    else if (comando.equals("listarCli"))
+                        controlador.listarClientes();
+                    else
+                        controlador.listarCliFechas();
+                } catch (NifRepetidoException | TelfRepetidoException e) {
+                    vista.accionDenegada(e.getMessage());
+                }
             }
         };
 

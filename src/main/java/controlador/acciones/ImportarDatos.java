@@ -7,51 +7,25 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import static controlador.acciones.Accion.entradaSalida;
 
 public class ImportarDatos {
-    public void cargarDatos(CambioModelo modelo, InterrogaVista vista) {
+    public BaseDeDatos cargarDatos(9InterrogaVista vista) {
         ObjectInputStream ois = null;
         try {
             try {
                 FileInputStream fis = new FileInputStream("baseDeDatos.bin");
                 ois = new ObjectInputStream(fis);
-                modelo.setBaseDeDatos((BaseDeDatos) ois.readObject());
-                entradaSalida.imprimirConSalto("\n-------> DATOS IMPORTADOS CORRECTAMENTE <-------");
-                vista.accionCorrecta("Datos importados correctamente");
+                return (BaseDeDatos) ois.readObject();
             } finally {
                 if (ois != null) ois.close();
             }
         } catch (FileNotFoundException e) {
-            entradaSalida.imprimirConSalto("\n-----> ERROR: NO SE HA PODIDO ENCONTRAR EL FICHERO <-----");
             vista.accionDenegada("No se ha encontrado el fichero");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 }
-
-/*public class ImportarDatos implements Accion {
-    @Override
-    public void ejecutaAccion(BaseDeDatos baseDeDatos, InterrogaVista vista) {
-        ObjectInputStream ois = null;
-        try {
-            try {
-                FileInputStream fis = new FileInputStream("baseDeDatos.bin");
-                ois = new ObjectInputStream(fis);
-                SeleccionaOpcionPrincipal.baseDeDatos = (BaseDeDatos) ois.readObject();
-                entradaSalida.imprimirConSalto("\n-------> DATOS IMPORTADOS CORRECTAMENTE <-------");
-            } finally {
-                if (ois != null) ois.close();
-            }
-        } catch (FileNotFoundException e) {
-            entradaSalida.imprimirConSalto("\n-----> ERROR: NO SE HA PODIDO ENCONTRAR EL FICHERO <-----");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-}*/

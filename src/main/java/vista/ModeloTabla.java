@@ -10,12 +10,10 @@ import static java.lang.String.format;
 public class ModeloTabla extends AbstractTableModel {
     private final String nombreColumnas[] = {"DNI", "Telefono", "Nombre", "Apellidos",
             "Direccion", "E-mail", "Fecha de Alta", "Hora de alta", "Tarifa"};
-    //private Object datos[][];
     private ArrayList<Cliente> datos;
 
     public <T extends Cliente> ModeloTabla(Collection<T> clientes) {
         super();
-        //PREGUNTARLE ESTO NO CREO QUE SEA LO MÁS CORRECTO!!!!
         this.datos = new ArrayList<>();
         this.datos.addAll(clientes);
     }

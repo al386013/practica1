@@ -16,8 +16,6 @@ public class ExportarDatosYsalir implements Accion {
                 FileOutputStream fos = new FileOutputStream("baseDeDatos.bin");
                 oos = new ObjectOutputStream(fos);
                 oos.writeObject(baseDeDatos);
-                entradaSalida.imprimirConSalto("\n -----> Datos guardados y programa cerrado <----- ");
-                vista.accionCorrecta("Datos guardados correctamente");
             } finally {
                 oos.close();
             }

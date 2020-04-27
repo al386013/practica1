@@ -11,6 +11,7 @@ import java.time.LocalDate;
 public class VistaLlamadas implements InterrogaVistaLlamadas {
     private Controlador controlador;
     private InterrogaModelo modelo;
+    private InterrogaVista vista;
     private JTextField telfOrigen;
     private JTextField telfDestino;
     private JTextField duracion;
@@ -29,6 +30,10 @@ public class VistaLlamadas implements InterrogaVistaLlamadas {
 
     public void setControlador(Controlador controlador) {
         this.controlador = controlador;
+    }
+
+    public void setVista(InterrogaVista vista) {
+        this.vista = vista;
     }
 
     public JPanel panel() {

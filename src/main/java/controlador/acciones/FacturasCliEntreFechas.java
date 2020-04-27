@@ -17,9 +17,9 @@ public class FacturasCliEntreFechas implements Accion {
             LocalDate fechaIni = vistaFacturas.getFechaIniFechas();
             LocalDate fechaFin = vistaFacturas.getFechasFinFechas();
             baseDeDatos.compruebaFechas(fechaIni, fechaFin);
-            entradaSalida.imprimirConSalto("\nLISTADO DE FACTURAS DEL CLIENTE CON NIF " + nif + " ENTRE " +
-                    fechaIni + " Y " + fechaFin);
-            entradaSalida.imprimirConSalto(baseDeDatos.listarFacturasEntreFechas(nif, fechaIni, fechaFin));
+            //entradaSalida.imprimirConSalto("\nLISTADO DE FACTURAS DEL CLIENTE CON NIF " + nif + " ENTRE " +
+             //       fechaIni + " Y " + fechaFin);
+            //entradaSalida.imprimirConSalto(baseDeDatos.listarFacturasEntreFechas(nif, fechaIni, fechaFin));
         } catch (NifNoExistenteException | IntervaloFechasIncorrectoException e) {
             e.printStackTrace();
         }

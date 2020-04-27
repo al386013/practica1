@@ -12,7 +12,7 @@ public class DatosCliente implements Accion {
             InterrogaVistaClientes vistaClientes = vista.getVistaClientes();
             String nif = vistaClientes.getNifCli();
             baseDeDatos.compruebaNifExistente(nif);
-            entradaSalida.imprimirConSalto(baseDeDatos.listarDatosCliente(nif) + "\n");
+            //entradaSalida.imprimirConSalto(baseDeDatos.listarDatosCliente(nif) + "\n");
         } catch (NifNoExistenteException e) {
             e.printStackTrace();
         }

@@ -10,22 +10,22 @@ import java.awt.event.WindowEvent;
 public class ImplementacionVista implements InformaVista, InterrogaVista {
     private Controlador controlador;
     private InterrogaModelo modelo;
-    //private VistaListadoClientes vistaListadoClientes;
     private VistaClientes vistaClientes;
     private VistaLlamadas vistaLlamadas;
     private VistaFacturas vistaFacturas;
 
     public ImplementacionVista() {
         super();
-        //vistaListadoClientes = new VistaListadoClientes();
         vistaClientes = new VistaClientes();
+        vistaClientes.setVista(this);
         vistaLlamadas = new VistaLlamadas();
+        vistaLlamadas.setVista(this);
         vistaFacturas = new VistaFacturas();
+        vistaFacturas.setVista(this);
     }
 
     public void setModelo(InterrogaModelo modelo) {
         this.modelo = modelo;
-        //vistaListadoClientes.setModelo(modelo);
         vistaClientes.setModelo(modelo);
         vistaLlamadas.setModelo(modelo);
         vistaFacturas.setModelo(modelo);
@@ -33,17 +33,10 @@ public class ImplementacionVista implements InformaVista, InterrogaVista {
 
     public void setControlador(Controlador controlador) {
         this.controlador = controlador;
-        //vistaListadoClientes.setControlador(controlador);
         vistaClientes.setControlador(controlador);
         vistaLlamadas.setControlador(controlador);
         vistaFacturas.setControlador(controlador);
     }
-
-    //todo Faltará modificar la interface y poner:
-//    @Override
-//    public  getVistaListadoClientes() {
-//        return vistaListadoClientes;
-//    }
 
     @Override
     public VistaClientes getVistaClientes() {

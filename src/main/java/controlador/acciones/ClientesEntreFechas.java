@@ -14,8 +14,7 @@ public class ClientesEntreFechas implements Accion {
             LocalDate fechaIni = vistaClientes.getFechaIni();
             LocalDate fechaFin = vistaClientes.getFechaFin();
             baseDeDatos.compruebaFechas(fechaIni, fechaFin);
-            entradaSalida.imprimirConSalto("\nLISTADO DE CLIENTES ENTRE " + fechaIni + " y " + fechaFin);
-            System.out.println(baseDeDatos.listarClientesEntreFechas(fechaIni, fechaFin));
+            //System.out.println(baseDeDatos.listarClientesEntreFechas(fechaIni, fechaFin));
         } catch (IntervaloFechasIncorrectoException e) {
             e.printStackTrace();
         }

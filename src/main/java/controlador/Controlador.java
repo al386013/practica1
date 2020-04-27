@@ -1,11 +1,14 @@
 package controlador;
 
+import modelo.principal.NifRepetidoException;
+import modelo.principal.TelfRepetidoException;
+
 public interface Controlador {
     void importarDatos();
 
     void exportarDatosYSalir();
 
-    void anadirCliente();
+    void anadirCliente() throws NifRepetidoException, TelfRepetidoException;
 
     void borrarCliente();
 

@@ -12,8 +12,7 @@ public class FacturasCliente implements Accion {
             InterrogaVistaFacturas vistaFacturas = vista.getVistaFacturas();
             String nif = vistaFacturas.getNifFacCli();
             baseDeDatos.compruebaNifExistente(nif);
-            entradaSalida.imprimirConSalto("\nLISTADO DE FACTURAS DEL CLIENTE CON NIF " + nif);
-            entradaSalida.imprimirConSalto(baseDeDatos.listarFacturasCliente(nif));
+            //entradaSalida.imprimirConSalto(baseDeDatos.listarFacturasCliente(nif));
         } catch (NifNoExistenteException e) {
             e.printStackTrace();
         }

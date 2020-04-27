@@ -11,6 +11,7 @@ import java.time.LocalDate;
 public class VistaFacturas implements InterrogaVistaFacturas {
     private Controlador controlador;
     private InterrogaModelo modelo;
+    private InterrogaVista vista;
     private JTextField nifFac;
     private JTextField fechaIniFac;
     private JTextField fechaFinFac;
@@ -30,6 +31,10 @@ public class VistaFacturas implements InterrogaVistaFacturas {
 
     public void setControlador(Controlador controlador) {
         this.controlador = controlador;
+    }
+
+    public void setVista(InterrogaVista vista) {
+        this.vista = vista;
     }
 
     public JPanel panel() {

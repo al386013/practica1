@@ -15,7 +15,6 @@ public class ContratarTarifa implements Accion {
             String opcionCambiarTarifa = vistaClientes.getTipoTarifa();
 
             baseDeDatos.contratarTarifaEspecial(opcionCambiarTarifa, nif);
-            entradaSalida.imprimirConSalto("\n\t--> Tarifa especial contratada para el cliente con nif" + nif);
             vista.accionCorrecta("Tarifa especial contratada para el cliente con nif" + nif);
         } catch (NifNoExistenteException e) {
             e.printStackTrace();
