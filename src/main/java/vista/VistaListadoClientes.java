@@ -1,11 +1,9 @@
-package vista;
+/*package vista;
 
 import controlador.Controlador;
 import modelo.InterrogaModelo;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class VistaListadoClientes extends JFrame  {
     private Controlador controlador;
@@ -21,7 +19,7 @@ public class VistaListadoClientes extends JFrame  {
         this.controlador = controlador;
     }
 
-    /*private JTable construirTabla(){
+    private JTable construirTabla(){
         //Creamos el modelo de la tabla
         //todo ¿Porque no puedo usar el modeloTabla definido por nosotros?
         //todo ¿Esto deberia ir en la clase modeloTabla?
@@ -49,20 +47,21 @@ public class VistaListadoClientes extends JFrame  {
         JTable tabla = new JTable();
         tabla.setModel(modeloTabla);
         return tabla;
-    }*/
+    }
 
     class CustomJTable extends JFrame {
         JScrollPane scrollPane;
         JPanel panelTabla;
         public CustomJTable(String title) {
             super(title);
-            setBounds(10,10,400,300);
+            setBounds(10,10,800,600);
             ModeloTabla modeloTabla = new ModeloTabla(modelo.getBaseDeDatos().devolverClientes());
             JTable tabla = new JTable(modeloTabla);
-            tabla.setAutoCreateRowSorter(true);
+            tabla.setAutoCreateRowSorter(true); //??????????????????????
+            for(int i = 0; i < tabla.getColumnCount(); i++)
+                tabla.getColumnModel().getColumn(i).setPreferredWidth(100);
             scrollPane = new JScrollPane(tabla);
             scrollPane.setPreferredSize(new Dimension(380,280));
-
             panelTabla = new JPanel();
             panelTabla.add(scrollPane);
             add(panelTabla,BorderLayout.CENTER);
@@ -70,7 +69,7 @@ public class VistaListadoClientes extends JFrame  {
     }
 
     public JPanel panel() {
-        /*ActionListener escuchadorBoton = new ActionListener() {
+        ActionListener escuchadorBoton = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Botón " + e.getActionCommand() + " pulsado.");
@@ -82,7 +81,7 @@ public class VistaListadoClientes extends JFrame  {
         JButton importarBoton = new JButton("Importar datos");
         importarBoton.setActionCommand("importar");
         importarBoton.addActionListener(escuchadorBoton);
-        importarPanel.add(importarBoton);*/
+        importarPanel.add(importarBoton);
 
         CustomJTable customJTable = new CustomJTable("clientes");
         JPanel panel = new JPanel();
@@ -91,4 +90,4 @@ public class VistaListadoClientes extends JFrame  {
         panel.add(customJTable.panelTabla);
         return panel;
     }
-}
+}*/

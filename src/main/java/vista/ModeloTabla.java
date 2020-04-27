@@ -1,21 +1,21 @@
 package vista;
 
 import modelo.datos.clientes.Cliente;
-import modelo.datos.clientes.Direccion;
 import modelo.datos.clientes.Particular;
-import modelo.datos.contrato.tarifas.Tarifa;
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.Collection;
+import static java.lang.String.format;
 
 public class ModeloTabla extends AbstractTableModel {
     private final String nombreColumnas[] = {"DNI", "Telefono", "Nombre", "Apellidos",
-            "Direccion", "E-mail", "Fecha de Alta", "Tarifa"};
+            "Direccion", "E-mail", "Fecha de Alta", "Hora de alta", "Tarifa"};
     //private Object datos[][];
     private ArrayList<Cliente> datos;
 
-    public ModeloTabla(Collection<Cliente> clientes) {
+    public <T extends Cliente> ModeloTabla(Collection<T> clientes) {
         super();
+        //PREGUNTARLE ESTO NO CREO QUE SEA LO MÁS CORRECTO!!!!
         this.datos = new ArrayList<>();
         this.datos.addAll(clientes);
     }
@@ -45,7 +45,11 @@ public class ModeloTabla extends AbstractTableModel {
             case 5:
                 return cliente.getEmail();
             case 6:
-                return cliente.getTarifa().toString();
+                return cliente.getFecha().toString();
+            case 7:
+                return format("%02d:%02d", cliente.getHora().getHour(), cliente.getHora().getMinute());
+            case 8:
+                return cliente.getTarifa().descripcion();
         }
         return null;
     }
@@ -53,14 +57,5 @@ public class ModeloTabla extends AbstractTableModel {
     @Override
     public String getColumnName(int column) {
         return nombreColumnas[column];
-    }
-
-    public Class getColumnClass(int col) {
-        if (col == 4)
-            return Direccion.class;
-        else if (col == 6)
-            return Tarifa.class;
-        else
-            return String.class;
     }
 }
