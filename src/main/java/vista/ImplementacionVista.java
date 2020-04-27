@@ -92,6 +92,10 @@ public class ImplementacionVista implements InformaVista, InterrogaVista {
 
         ventana.addWindowListener(new WindowAdapter() { //clase interna anonima
             @Override
+            public void windowOpened(WindowEvent e) {
+                controlador.importarDatos();
+            }
+            @Override
             public void windowClosing(WindowEvent e) {
                 controlador.exportarDatosYSalir();
                 System.exit(0);

@@ -38,9 +38,7 @@ public class VistaLlamadas implements InterrogaVistaLlamadas {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Botón " + e.getActionCommand() + " pulsado.");
                 String comando = e.getActionCommand();
-                if (comando.equals("importar"))
-                    controlador.importarDatos();
-                else if (comando.equals("llamada"))
+                if (comando.equals("llamada"))
                     controlador.darAltaLlamada();
                 else if (comando.equals("llamadasCli"))
                     controlador.llamadasCli();
@@ -48,12 +46,6 @@ public class VistaLlamadas implements InterrogaVistaLlamadas {
                     controlador.llamadasCliFechas();
             }
         };
-
-        JPanel importarPanel = new JPanel();
-        JButton importarBoton = new JButton("Importar datos");
-        importarBoton.setActionCommand("importar");
-        importarBoton.addActionListener(escuchadorBoton);
-        importarPanel.add(importarBoton);
 
         //DAR DE ALTA LLAMADA
 
@@ -175,7 +167,6 @@ public class VistaLlamadas implements InterrogaVistaLlamadas {
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-        panel.add(importarPanel);
         panel.add(darAltaLlamada);
         panel.add(llamadasCli);
         panel.add(llamadasCliEntreFechas);

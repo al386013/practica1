@@ -39,9 +39,7 @@ public class VistaFacturas implements InterrogaVistaFacturas {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Botón " + e.getActionCommand() + " pulsado.");
                 String comando = e.getActionCommand();
-                if (comando.equals("importar"))
-                    controlador.importarDatos();
-                else if (comando.equals("guardarFactura"))
+                if (comando.equals("guardarFactura"))
                     controlador.emitirFactura();
                 else if (comando.equals("datosFac"))
                     controlador.datosFactura();
@@ -51,12 +49,6 @@ public class VistaFacturas implements InterrogaVistaFacturas {
                     controlador.listarFacCliFechas();
             }
         };
-
-        JPanel importarPanel = new JPanel();
-        JButton importarBoton = new JButton("Importar datos");
-        importarBoton.setActionCommand("importar");
-        importarBoton.addActionListener(escuchadorBoton);
-        importarPanel.add(importarBoton);
 
         //EMITIR FACTURA
 
@@ -211,7 +203,6 @@ public class VistaFacturas implements InterrogaVistaFacturas {
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-        panel.add(importarPanel);
         panel.add(emitirFactura);
         panel.add(datosFactura);
         panel.add(facturasCli);
