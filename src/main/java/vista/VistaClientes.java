@@ -46,9 +46,7 @@ public class VistaClientes implements InterrogaVistaClientes {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Botón " + e.getActionCommand() + " pulsado.");
                 String comando = e.getActionCommand();
-                if (comando.equals("importar"))
-                    controlador.importarDatos();
-                else if (comando.equals("anadir"))
+                if (comando.equals("anadir"))
                     controlador.anadirCliente();
                 else if (comando.equals("borrar"))
                     controlador.borrarCliente();
@@ -62,12 +60,6 @@ public class VistaClientes implements InterrogaVistaClientes {
                     controlador.listarCliFechas();
             }
         };
-
-        JPanel importarPanel = new JPanel();
-        JButton importarBoton = new JButton("Importar datos");
-        importarBoton.setActionCommand("importar");
-        importarBoton.addActionListener(escuchadorBoton);
-        importarPanel.add(importarBoton);
 
         //ANADIR CLIENTE
 
@@ -332,7 +324,6 @@ public class VistaClientes implements InterrogaVistaClientes {
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-        panel.add(importarPanel);
         panel.add(anadirCliente);
         panel.add(borrarCliente);
         panel.add(cambiarTarifa);
