@@ -23,16 +23,6 @@ public class ModeloTablaLlamadas extends AbstractTableModel {
         this.datos.addAll(llamadas);
     }
 
-//
-//    public <T extends TieneFecha> ModeloTabla(String[] nombreColumnas, ArrayList<T> elementos) {
-//        super();
-//        this.nombreColumnas = nombreColumnas;
-//        this.datos = new ArrayList<>();
-//        for(T elemento: elementos){
-//            this.datos.add(elemento);
-//        }
-//    }
-
     public int getColumnCount() {
         return nombreColumnas.length;
     }

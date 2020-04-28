@@ -40,8 +40,8 @@ public class CustomJTable extends JFrame {
 
     //Todo: Mirar como unificar este metodo para que sea generico
     public void cargarClientes(Collection<Cliente> clientes) {
-        String[] columnas = {"DNI", "Telefono", "Nombre", "Apellidos",
-                "Direccion", "E-mail", "Fecha de Alta", "Hora", "Tarifa"};
+        String[] columnas = {"DNI", "Telefono", "Nombre", "Apellidos", "Codigo Postal",
+                "Poblacion", "Provincia", "E-mail", "Fecha de Alta", "Hora", "Tarifa"};
         ModeloTablaClientes modeloTabla = new ModeloTablaClientes(columnas, clientes);
         tabla = new JTable(modeloTabla);
         anchoColumnas();
@@ -56,13 +56,13 @@ public class CustomJTable extends JFrame {
     }
 
     public void cargarFacturas(Collection<Factura> facturas){
-        String[] columnas = {"Codigo", "Fecha", "Hora", "Importe",
-                "Periodo", "Llamadas"};
+        String[] columnas = {"Codigo", "Fecha factura", "Hora", "Importe",
+                "Fecha inicio", "Fecha fin", "Llamadas"};
         ModeloTablaFacturas modeloTabla = new ModeloTablaFacturas(columnas, facturas);
         tabla = new JTable(modeloTabla);
         //definir ancho columnas
         anchoColumnas();
-        tabla.setRowHeight(100);
+        tabla.setRowHeight(30);
     }
 
     public JScrollPane getScrollPane() {

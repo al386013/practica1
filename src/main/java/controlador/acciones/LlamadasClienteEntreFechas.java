@@ -8,7 +8,8 @@ import vista.InterrogaVistaLlamadas;
 import java.time.LocalDate;
 
 public class LlamadasClienteEntreFechas implements Accion {
-    public void ejecutaAccion(BaseDeDatos baseDeDatos, InterrogaVista vista) throws TelfNoExistenteException, IntervaloFechasIncorrectoException {
+    public void ejecutaAccion(BaseDeDatos baseDeDatos, InterrogaVista vista)
+            throws TelfNoExistenteException, IntervaloFechasIncorrectoException {
         InterrogaVistaLlamadas vistaLlamadas = vista.getVistaLlamadas();
         String telf = vistaLlamadas.getTelfListadoFechas();
         baseDeDatos.compruebaTelfExistente(telf);

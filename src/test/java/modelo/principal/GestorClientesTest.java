@@ -1,4 +1,4 @@
-package modelo;
+package modelo.principal;
 
 import modelo.datos.clientes.Cliente;
 import modelo.datos.clientes.Direccion;
@@ -114,35 +114,37 @@ public class GestorClientesTest {
 
         //alberto contrata la tarifa especial de tardes reducida
         baseDeDatos.contratarTarifaEspecial("tardes", alberto.getNIF());
-        descripcion += ", con tarifa especial de tardes reducida";
+        descripcion += " + tardes reducida";
         assertEquals(alberto.getTarifa().descripcion(), descripcion);
 
         //alberto contrata tambien la tarifa especial de domingos gratis
         baseDeDatos.contratarTarifaEspecial("domingo", alberto.getNIF());
-        descripcion += ", con tarifa especial de domingos gratis";
+        descripcion += " + domingos gratis";
         assertEquals(alberto.getTarifa().descripcion(), descripcion);
     }
 
     @Test
     public void testListarDatosCliente() {
         Formatter obj = new Formatter();
-        assertEquals(baseDeDatos.listarDatosCliente("20925403"), "\nprado banarro, alberto" +
-                "\n\tNIF: 20925403" +
-                "\n\tTelefono: 692242216" +
-                "\n\tDireccion: Castelllon - Castellon de la plana - 12005" +
-                "\n\tEmail: albertoprado@gmail.com" +
-                "\n\tFecha de alta: " + LocalDate.now() +
-                "\n\tHora de alta: " + obj.format("%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute()) +
-                "\n\t" + alberto.getTarifa().descripcion());
+        assertEquals(baseDeDatos.listarDatosCliente("20925403"),
+                "prado banarro, alberto<br/>" +
+                "<ul><li> NIF: 20925403</li>" +
+                "<li> Telefono: 692242216</li>" +
+                "<li> Direccion: Castelllon - Castellon de la plana - 12005</li>" +
+                "<li> Email: albertoprado@gmail.com</li>" +
+                "<li> Fecha de alta: " + LocalDate.now() + "</li>" +
+                "<li> Hora de alta: " + obj.format("%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute()) + "</li>" +
+                "<li>" + alberto.getTarifa().descripcion() + "</li></ul>");
         obj = new Formatter();
-        assertEquals(baseDeDatos.listarDatosCliente("63302284"), "\npamesa" +
-                "\n\tNIF: 63302284" +
-                "\n\tTelefono: 964246252" +
-                "\n\tDireccion: Castelllon - VillaReal - 12006" +
-                "\n\tEmail: pamesa@gmail.com" +
-                "\n\tFecha de alta: " + LocalDate.now() +
-                "\n\tHora de alta: " + obj.format("%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute()) +
-                "\n\t" + pamesa.getTarifa().descripcion());
+        assertEquals(baseDeDatos.listarDatosCliente("63302284"),
+        "pamesa<br/>" +
+                "<ul><li> NIF: 63302284</li>" +
+                "<li> Telefono: 964246252</li>" +
+                "<li> Direccion: Castelllon - VillaReal - 12006</li>" +
+                "<li> Email: pamesa@gmail.com</li>" +
+                "<li> Fecha de alta: " + LocalDate.now() + "</li>" +
+                "<li> Hora de alta: " + obj.format("%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute()) + "</li>" +
+                "<li>" + pamesa.getTarifa().descripcion() + "</li></ul>");
     }
 
     //comprueba darDeAltaLlamada

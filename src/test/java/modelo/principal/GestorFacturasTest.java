@@ -1,4 +1,4 @@
-package modelo;
+package modelo.principal;
 
 import static org.junit.Assert.assertEquals;
 
@@ -68,20 +68,22 @@ public class GestorFacturasTest {
             assertEquals(factura.getNifCliente(), "12341234");
             assertEquals(factura.getImporte(), (170 / 60.0) * 0.05f, 0.005);
         }
+
         //listar los modelo.principal.datos de la factura
         Formatter hora = new Formatter();
         hora.format("%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute());
-        assertEquals(baseDeDatos.listarDatosFactura(codFact), "\nCodigo de factura: " + codFact + ":" +
-                "\n\tNIF: 12341234" +
-                "\n\tFecha de emision: " + LocalDate.now() +
-                "\n\tHora de emision: " + hora +
-                "\n\tPeriodo de facturacion: " + LocalDate.now().minusDays(1) + " - " + LocalDate.now() +
-                "\n\tImporte: 0.14€" +
-                "\n\tLista de llamadas de esta factura:\n" +
-                "\n\t- Llamada realizada el " + LocalDate.now() +
-                " a las " + hora + " con una duracion de 130 segundos al telefono 000000000" +
-                "\n\t- Llamada realizada el " + LocalDate.now() +
-                " a las " + hora + " con una duracion de 40 segundos al telefono 111111111");
+        assertEquals(baseDeDatos.listarDatosFactura(codFact),
+                "<html><h1> Codigo de factura: " + codFact + ": <br/>" +
+                "<ul><li> NIF: " + maria.getNIF() + "</li>" +
+                "<li> Fecha de emision: " + LocalDate.now() + "</li>" +
+                "<li> Hora de emision: " + hora + "</li>" +
+                "<li> Periodo de facturacion: " + LocalDate.now().minusDays(1) + " - " + LocalDate.now() + "</li>" +
+                "<li> Importe: 0.14€ </li>" +
+                "<li> Lista de llamadas de esta factura: </li><br/>" +
+                        "- Llamada realizada el " + LocalDate.now() +
+                        " a las " + hora + " con una duracion de 130 segundos al telefono 000000000<br/>" +
+                        "- Llamada realizada el " + LocalDate.now() +
+                        " a las " + hora + " con una duracion de 40 segundos al telefono 111111111</h1></html>");
     }
 
     @AfterAll

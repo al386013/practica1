@@ -91,11 +91,12 @@ public class BaseDeDatos implements Serializable {
         gestorFacturas.emitirFactura(nuevaFactura, cliente.getFacturas());
     }
 
-    public String convertirTelfNif(String telf){
+    public String convertirTelfNif(String telf) {
         return gestorClientes.telfNif.get(telf);
     }
+
     //TODO: Estos tres métodos devolverXXX son usados en la vista para generar datos en las tablas
-    public Collection<Cliente> devolverClientes(){
+    public Collection<Cliente> devolverClientes() {
         return gestorClientes.clientes.values();
     }
 
@@ -128,7 +129,7 @@ public class BaseDeDatos implements Serializable {
     }
 
     //Metodo entreFechas: de un conjunto, devuelve un subconjunto con los elementos de fecha entre fechaIni y fechaFin
-    public  <T extends TieneFecha> Collection<T> entreFechas(Collection<T> conjunto, LocalDate fechaIni, LocalDate fechaFin) {
+    public <T extends TieneFecha> Collection<T> entreFechas(Collection<T> conjunto, LocalDate fechaIni, LocalDate fechaFin) {
         Collection<T> res = new TreeSet<>(new ComparadorFechaHora<>());
         for (T elem : conjunto) {
             LocalDate fecha = elem.getFecha();
@@ -141,7 +142,7 @@ public class BaseDeDatos implements Serializable {
     //Metodo listar: devuelve una cadena para imprimir los elementos de un conjunto
     private <T extends TieneFecha> String listar(Collection<T> conjunto) {
         String string = "<html>";
-        for (T elem : conjunto) string  += elem.toString() + "<br/>" ;
+        for (T elem : conjunto) string += elem.toString() + "<br/>";
         return string + "</html>";
     }
 
@@ -179,6 +180,4 @@ public class BaseDeDatos implements Serializable {
     public String listarFacturasCliente(String nif) {
         return listar(devolverFacturas(nif));
     }
-
-
 }

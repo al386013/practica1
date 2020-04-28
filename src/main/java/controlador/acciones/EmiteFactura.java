@@ -8,7 +8,8 @@ import vista.InterrogaVistaFacturas;
 import java.time.LocalDate;
 
 public class EmiteFactura implements Accion {
-    public void ejecutaAccion(BaseDeDatos baseDeDatos, InterrogaVista vista) throws NifNoExistenteException, IntervaloFechasIncorrectoException {
+    public void ejecutaAccion(BaseDeDatos baseDeDatos, InterrogaVista vista)
+            throws NifNoExistenteException, IntervaloFechasIncorrectoException {
         InterrogaVistaFacturas vistaFacturas = vista.getVistaFacturas();
         String nif = vistaFacturas.getNifFac();
         baseDeDatos.compruebaNifExistente(nif);

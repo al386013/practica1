@@ -11,6 +11,5 @@ public class LlamadasCliente implements Accion {
         String telf = vistaLlamadas.getTelfListado();
         baseDeDatos.compruebaTelfExistente(telf);
         vista.getVistaLlamadas().listadoLlamadas(telf);
-
     }
 }

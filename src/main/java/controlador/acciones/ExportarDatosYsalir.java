@@ -2,7 +2,6 @@ package controlador.acciones;
 
 import modelo.principal.BaseDeDatos;
 import vista.InterrogaVista;
-
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;

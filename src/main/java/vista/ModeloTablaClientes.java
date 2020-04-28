@@ -2,6 +2,7 @@ package vista;
 
 
 import modelo.datos.clientes.Cliente;
+import modelo.datos.clientes.Direccion;
 import modelo.datos.clientes.Particular;
 
 import javax.swing.table.AbstractTableModel;
@@ -41,6 +42,7 @@ public class ModeloTablaClientes extends AbstractTableModel {
     }
     public Object getValueAt(int row, int col) {
         Cliente cliente = datos.get(row);
+        Direccion direccion = cliente.getDireccion();
         switch(col) {
             case 0:
                 return cliente.getNIF();
@@ -54,14 +56,18 @@ public class ModeloTablaClientes extends AbstractTableModel {
                     apellidos = ((Particular) cliente).getApellidos();
                 return apellidos;
             case 4:
-                return cliente.getDireccion();
+                return direccion.getCP();
             case 5:
-                return cliente.getEmail();
+                return direccion.getPoblacion();
             case 6:
-                return cliente.getFecha();
+                return direccion.getProvincia();
             case 7:
-                return format("%02d:%02d", cliente.getHora().getHour(), cliente.getHora().getMinute());
+                return cliente.getEmail();
             case 8:
+                return cliente.getFecha();
+            case 9:
+                return format("%02d:%02d", cliente.getHora().getHour(), cliente.getHora().getMinute());
+            case 10:
                 return cliente.getTarifa().descripcion();
         }
         return null;

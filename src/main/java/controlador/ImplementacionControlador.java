@@ -4,7 +4,6 @@ import controlador.acciones.*;
 import modelo.CambioModelo;
 import modelo.principal.*;
 import vista.InterrogaVista;
-
 import java.time.format.DateTimeParseException;
 
 public class ImplementacionControlador implements Controlador {

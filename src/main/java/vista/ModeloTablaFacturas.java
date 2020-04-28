@@ -25,16 +25,6 @@ public class ModeloTablaFacturas extends AbstractTableModel {
         this.datos.addAll(facturas);
     }
 
-//
-//    public <T extends TieneFecha> ModeloTabla(String[] nombreColumnas, ArrayList<T> elementos) {
-//        super();
-//        this.nombreColumnas = nombreColumnas;
-//        this.datos = new ArrayList<>();
-//        for(T elemento: elementos){
-//            this.datos.add(elemento);
-//        }
-//    }
-
     public int getColumnCount() {
         return nombreColumnas.length;
     }
@@ -54,8 +44,10 @@ public class ModeloTablaFacturas extends AbstractTableModel {
             case 3:
                 return factura.getImporte();
             case 4:
-                return factura.getPeriodoFact();
+                return factura.getPeriodoFact().getFechaIni();
             case 5:
+                return factura.getPeriodoFact().getFechaFin();
+            case 6:
                 String string = "<html>";
                 for (Llamada llamada : factura.getLlamadas())
                 string += "<br/>" + llamada;
