@@ -38,7 +38,6 @@ public class Factura implements TieneFecha, Serializable {
         this.llamadas = llamadas;
     }
 
-
     public int getCodigo() {
         return this.hashCode();
     }

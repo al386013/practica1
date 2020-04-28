@@ -39,11 +39,11 @@ public class ModeloTabla extends AbstractTableModel {
                     apellidos = ((Particular) cliente).getApellidos();
                 return apellidos;
             case 4:
-                return cliente.getDireccion().toString();
+                return cliente.getDireccion();
             case 5:
                 return cliente.getEmail();
             case 6:
-                return cliente.getFecha().toString();
+                return cliente.getFecha();
             case 7:
                 return format("%02d:%02d", cliente.getHora().getHour(), cliente.getHora().getMinute());
             case 8:
