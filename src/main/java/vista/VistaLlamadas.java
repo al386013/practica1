@@ -2,6 +2,9 @@ package vista;
 
 import controlador.Controlador;
 import modelo.InterrogaModelo;
+import modelo.principal.IntervaloFechasIncorrectoException;
+import modelo.principal.TelfNoExistenteException;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,6 +14,7 @@ import java.time.LocalDate;
 public class VistaLlamadas implements InterrogaVistaLlamadas {
     private Controlador controlador;
     private InterrogaModelo modelo;
+    private InterrogaVista vista;
     private JTextField telfOrigen;
     private JTextField telfDestino;
     private JTextField duracion;
@@ -31,19 +35,26 @@ public class VistaLlamadas implements InterrogaVistaLlamadas {
         this.controlador = controlador;
     }
 
+    public void setVista(InterrogaVista vista) {
+        this.vista = vista;
+    }
+
     public JPanel panel() {
 
         ActionListener escuchadorBoton = new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Botón " + e.getActionCommand() + " pulsado.");
-                String comando = e.getActionCommand();
-                if (comando.equals("llamada"))
-                    controlador.darAltaLlamada();
-                else if (comando.equals("llamadasCli"))
-                    controlador.llamadasCli();
-                else if (comando.equals("llamadasCliFechas"))
-                    controlador.llamadasCliFechas();
+            public void actionPerformed(ActionEvent evento) {
+                String comando = evento.getActionCommand();
+                try {
+                    if (comando.equals("llamada"))
+                        controlador.darAltaLlamada();
+                    else if (comando.equals("llamadasCli"))
+                        controlador.llamadasCli();
+                    else if (comando.equals("llamadasCliFechas"))
+                        controlador.llamadasCliFechas();
+                } catch(TelfNoExistenteException | IllegalArgumentException | IntervaloFechasIncorrectoException e) {
+                    vista.accionDenegada(e.getMessage());
+                }
             }
         };
 

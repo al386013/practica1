@@ -34,4 +34,6 @@ public interface InterrogaVistaClientes {
     LocalDate getFechaFin();
 
     void listadoClientes();
+
+    void datosCliente(String nif);
 }

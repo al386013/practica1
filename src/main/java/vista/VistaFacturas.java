@@ -2,6 +2,7 @@ package vista;
 
 import controlador.Controlador;
 import modelo.InterrogaModelo;
+import modelo.principal.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 public class VistaFacturas implements InterrogaVistaFacturas {
     private Controlador controlador;
     private InterrogaModelo modelo;
+    private InterrogaVista vista;
     private JTextField nifFac;
     private JTextField fechaIniFac;
     private JTextField fechaFinFac;
@@ -32,21 +34,27 @@ public class VistaFacturas implements InterrogaVistaFacturas {
         this.controlador = controlador;
     }
 
-    public JPanel panel() {
+    public void setVista(InterrogaVista vista) {
+        this.vista = vista;
+    }
 
+    public JPanel panel() {
         ActionListener escuchadorBoton = new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Botón " + e.getActionCommand() + " pulsado.");
-                String comando = e.getActionCommand();
-                if (comando.equals("guardarFactura"))
-                    controlador.emitirFactura();
-                else if (comando.equals("datosFac"))
-                    controlador.datosFactura();
-                else if (comando.equals("facturasCli"))
-                    controlador.listarFacCli();
-                else
-                    controlador.listarFacCliFechas();
+            public void actionPerformed(ActionEvent evento) {
+                String comando = evento.getActionCommand();
+                try {
+                    if (comando.equals("guardarFactura"))
+                        controlador.emitirFactura();
+                    else if (comando.equals("datosFac"))
+                        controlador.datosFactura();
+                    else if (comando.equals("facturasCli"))
+                        controlador.listarFacCli();
+                    else
+                        controlador.listarFacCliFechas();
+                } catch (NifNoExistenteException | IllegalArgumentException | IntervaloFechasIncorrectoException e) {
+                    vista.accionDenegada(e.getMessage());
+                }
             }
         };
 
@@ -264,6 +272,12 @@ public class VistaFacturas implements InterrogaVistaFacturas {
         ventana.getContentPane().add(panel);
         ventana.setSize(700,700);
         //ventana.pack();
+    @Override
+    public void datosFactura(int cod) {
+        JFrame ventana = new JFrame("Datos de la factura");
+        JLabel texto = new JLabel(modelo.getBaseDeDatos().listarDatosFactura(cod));
+        ventana.getContentPane().add(texto);
+        ventana.pack();
         ventana.setVisible(true);
     }
 }

@@ -2,6 +2,7 @@ package vista;
 
 import controlador.Controlador;
 import modelo.InterrogaModelo;
+import modelo.principal.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 public class VistaClientes implements InterrogaVistaClientes {
     private Controlador controlador;
     private InterrogaModelo modelo;
+    private InterrogaVista vista;
     private JTextField nifAnadir;
     private JTextField nombre;
     private JTextField apellido;
@@ -39,25 +41,36 @@ public class VistaClientes implements InterrogaVistaClientes {
         this.controlador = controlador;
     }
 
+    public void setVista(InterrogaVista vista) {
+        this.vista = vista;
+    }
+
     public JPanel panel() {
 
         ActionListener escuchadorBoton = new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Botón " + e.getActionCommand() + " pulsado.");
-                String comando = e.getActionCommand();
-                if (comando.equals("anadir"))
-                    controlador.anadirCliente();
-                else if (comando.equals("borrar"))
-                    controlador.borrarCliente();
-                else if (comando.equals("tarifa"))
-                    controlador.contratarTarifa();
-                else if (comando.equals("datosCli"))
-                    controlador.datosCliente();
-                else if (comando.equals("listarCli"))
-                    controlador.listarClientes();
-                else
-                    controlador.listarCliFechas();
+            public void actionPerformed(ActionEvent evento) {
+                String comando= evento.getActionCommand();
+                try {
+                    if (comando.equals("anadir")) {
+                        if(tipoClienteOpcion == null) vista.accionDenegada("No se ha seleccionado un tipo de cliente");
+                        else controlador.anadirCliente();
+                    } else if (comando.equals("borrar")) {
+                        controlador.borrarCliente();
+                    }
+                    else if (comando.equals("tarifa"))
+                        if(tipoTarifaOpcion == null) vista.accionDenegada("No se ha seleccionado un tipo de tarifa");
+                        else controlador.contratarTarifa();
+                    else if (comando.equals("datosCli"))
+                        controlador.datosCliente();
+                    else if (comando.equals("listarCli"))
+                        controlador.listarClientes();
+                    else
+                        controlador.listarCliFechas();
+                } catch (NifRepetidoException | TelfRepetidoException | TelfNoExistenteException | NifNoExistenteException |
+                        IntervaloFechasIncorrectoException | IllegalArgumentException e) {
+                    vista.accionDenegada(e.getMessage());
+                }
             }
         };
 
@@ -77,7 +90,6 @@ public class VistaClientes implements InterrogaVistaClientes {
         ActionListener escuchadorClientes = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Botón " + e.getActionCommand() + " pulsado.");
                 tipoClienteOpcion = e.getActionCommand();
             }
         };
@@ -211,7 +223,6 @@ public class VistaClientes implements InterrogaVistaClientes {
         ActionListener escuchadorTarifas = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Botón " + e.getActionCommand() + " pulsado.");
                 tipoTarifaOpcion = e.getActionCommand();
             }
         };
@@ -411,7 +422,6 @@ public class VistaClientes implements InterrogaVistaClientes {
     @Override
     public void listadoClientes() {
         JFrame ventana = new JFrame("Listado clientes");
-        //JOptionPane.showMessageDialog(null, vistaListadoClientes.panel());
         CustomJTable customJTable = new CustomJTable("clientes");
         customJTable.cargarClientes(modelo.getBaseDeDatos().devolverClientes());
         ventana.add(customJTable.getPanelTabla());
@@ -425,4 +435,12 @@ public class VistaClientes implements InterrogaVistaClientes {
         ventana.setVisible(true);
     }
 
+    @Override
+    public void datosCliente(String nif) {
+        JFrame ventana = new JFrame("Datos del cliente");
+        JLabel texto = new JLabel("<html><h1>" + modelo.getBaseDeDatos().listarDatosCliente(nif) + "</h1></html>");
+        ventana.getContentPane().add(texto);
+        ventana.pack();
+        ventana.setVisible(true);
+    }
 }

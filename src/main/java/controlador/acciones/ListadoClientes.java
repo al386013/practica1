@@ -4,7 +4,6 @@ import modelo.principal.BaseDeDatos;
 import vista.InterrogaVista;
 
 public class ListadoClientes implements Accion {
-    @Override
     public void ejecutaAccion(BaseDeDatos baseDeDatos, InterrogaVista vista) {
         vista.getVistaClientes().listadoClientes();
     }

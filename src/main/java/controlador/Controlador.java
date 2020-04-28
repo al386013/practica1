@@ -1,33 +1,35 @@
 package controlador;
 
+import modelo.principal.*;
+
 public interface Controlador {
     void importarDatos();
 
     void exportarDatosYSalir();
 
-    void anadirCliente();
+    void anadirCliente() throws NifRepetidoException, TelfRepetidoException;
 
-    void borrarCliente();
+    void borrarCliente() throws TelfNoExistenteException;
 
-    void contratarTarifa();
+    void contratarTarifa() throws NifNoExistenteException;
 
-    void datosCliente();
+    void datosCliente() throws NifNoExistenteException;
 
     void listarClientes();
 
-    void listarCliFechas();
+    void listarCliFechas() throws IntervaloFechasIncorrectoException;
 
-    void darAltaLlamada();
+    void darAltaLlamada() throws TelfNoExistenteException, IllegalArgumentException;
 
-    void llamadasCli();
+    void llamadasCli() throws TelfNoExistenteException;
 
-    void llamadasCliFechas();
+    void llamadasCliFechas() throws TelfNoExistenteException, IntervaloFechasIncorrectoException;
 
-    void emitirFactura();
+    void emitirFactura() throws NifNoExistenteException, IntervaloFechasIncorrectoException;
 
-    void datosFactura();
+    void datosFactura() throws IllegalArgumentException;
 
-    void listarFacCli();
+    void listarFacCli() throws NifNoExistenteException;
 
-    void listarFacCliFechas();
+    void listarFacCliFechas() throws NifNoExistenteException, IntervaloFechasIncorrectoException ;
 }

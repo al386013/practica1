@@ -1,11 +1,9 @@
 package controlador.acciones;
 
-import modelo.principal.BaseDeDatos;
-import vista.EntradaSalida;
+import modelo.principal.*;
 import vista.InterrogaVista;
 
 public interface Accion {
-    EntradaSalida entradaSalida = new EntradaSalida();
-
-    void ejecutaAccion(BaseDeDatos baseDeDatos, InterrogaVista interrogaVista);
+    void ejecutaAccion(BaseDeDatos baseDeDatos, InterrogaVista vista) throws TelfRepetidoException, TelfNoExistenteException,
+            NifNoExistenteException, NifRepetidoException, IntervaloFechasIncorrectoException, IllegalArgumentException;
 }

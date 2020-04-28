@@ -5,14 +5,9 @@ import vista.InterrogaVista;
 import vista.InterrogaVistaFacturas;
 
 public class DatosFactura implements Accion {
-    @Override
-    public void ejecutaAccion(BaseDeDatos baseDeDatos, InterrogaVista vista) {
-        try {
-            InterrogaVistaFacturas vistaFacturas = vista.getVistaFacturas();
-            int cod = vistaFacturas.getCodFac();
-            entradaSalida.imprimirConSalto(baseDeDatos.listarDatosFactura(cod) + "\n");
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        }
+    public void ejecutaAccion(BaseDeDatos baseDeDatos, InterrogaVista vista) throws IllegalArgumentException {
+        InterrogaVistaFacturas vistaFacturas = vista.getVistaFacturas();
+        int cod = vistaFacturas.getCodFac();
+        vistaFacturas.datosFactura(cod);
     }
 }

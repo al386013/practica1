@@ -77,17 +77,15 @@ public class Factura implements TieneFecha, Serializable {
 
     @Override
     public String toString() {
-        String string = "\nCodigo de factura: " + this.hashCode() + ":";
-        string += "\n\tNIF: " + nifCliente;
-        string += "\n\tFecha de emision: " + getFecha().toString();
-        string += "\n\tHora de emision: " + format("%02d:%02d", getHora().getHour(), getHora().getMinute());
-        string += "\n\tPeriodo de facturacion: " + periodoFact;
-        string += "\n\tImporte: " + importe + "€";
-        string += "\n\tLista de llamadas de esta factura:\n";
-        for (Llamada llamada : llamadas) {
-            string += "\n" + llamada.toString();
-
-        }
-        return string;
+        String string = "<html><h1> Codigo de factura: " + this.hashCode() + ": <br/>";
+        string += "<ul><li> NIF: " + nifCliente + "</li>";
+        string += "<li> Fecha de emision: " + getFecha().toString() + "</li>";
+        string += "<li> Hora de emision: " + format("%02d:%02d", getHora().getHour(), getHora().getMinute()) + "</li>";
+        string += "<li> Periodo de facturacion: " + periodoFact + "</li>";
+        string += "<li> Importe: " + importe + "€ </li>";
+        string += "<li> Lista de llamadas de esta factura </li>";
+        for (Llamada llamada : llamadas)
+            string += "<br/>" + llamada.toString();
+        return string + "</h1></html>";
     }
 }

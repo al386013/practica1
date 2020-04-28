@@ -6,15 +6,10 @@ import vista.InterrogaVista;
 import vista.InterrogaVistaClientes;
 
 public class DatosCliente implements Accion {
-    @Override
-    public void ejecutaAccion(BaseDeDatos baseDeDatos, InterrogaVista vista) {
-        try {
-            InterrogaVistaClientes vistaClientes = vista.getVistaClientes();
-            String nif = vistaClientes.getNifCli();
-            baseDeDatos.compruebaNifExistente(nif);
-            entradaSalida.imprimirConSalto(baseDeDatos.listarDatosCliente(nif) + "\n");
-        } catch (NifNoExistenteException e) {
-            e.printStackTrace();
-        }
+    public void ejecutaAccion(BaseDeDatos baseDeDatos, InterrogaVista vista) throws NifNoExistenteException {
+        InterrogaVistaClientes vistaClientes = vista.getVistaClientes();
+        String nif = vistaClientes.getNifCli();
+        baseDeDatos.compruebaNifExistente(nif);
+        vistaClientes.datosCliente(nif);
     }
 }
