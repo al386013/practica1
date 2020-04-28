@@ -7,7 +7,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.Date;
 
 public class VistaClientes implements InterrogaVistaClientes {
     private Controlador controlador;
@@ -65,10 +68,16 @@ public class VistaClientes implements InterrogaVistaClientes {
                         controlador.datosCliente();
                     else if (comando.equals("listarCli"))
                         controlador.listarClientes();
-                    else
-                        controlador.listarCliFechas();
+                    else{
+                        try{
+                            controlador.listarCliFechas();
+                        }
+                        catch (DateTimeParseException e){
+                            vista.accionDenegada("Fecha incorrecta");
+                        }
+                    }
                 } catch (NifRepetidoException | TelfRepetidoException | TelfNoExistenteException | NifNoExistenteException |
-                        IntervaloFechasIncorrectoException | IllegalArgumentException e) {
+                        IntervaloFechasIncorrectoException | IllegalArgumentException  e) {
                     vista.accionDenegada(e.getMessage());
                 }
             }
@@ -410,13 +419,16 @@ public class VistaClientes implements InterrogaVistaClientes {
     }
 
     @Override
-    public LocalDate getFechaIni() {
+    public LocalDate getFechaIni() throws DateTimeParseException {
         return LocalDate.parse(fechaIni.getText());
+
     }
 
     @Override
-    public LocalDate getFechaFin() {
+    public LocalDate getFechaFin() throws DateTimeParseException{
         return LocalDate.parse(fechaFin.getText());
+
+
     }
 
     @Override

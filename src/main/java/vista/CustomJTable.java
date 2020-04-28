@@ -5,33 +5,48 @@ import modelo.datos.contrato.Factura;
 import modelo.datos.llamadas.Llamada;
 
 import javax.swing.*;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import java.awt.*;
 import java.util.Collection;
 
 public class CustomJTable extends JFrame {
     JScrollPane scrollPane;
     JTable tabla;
-    int anchoCol;
 
     public CustomJTable(String title) {
         super(title);
         setBounds(10,10,800,600);
     }
+
+    public void anchoColumnas(){
+        for (int column = 0; column < tabla.getColumnCount(); column++){
+            TableColumn tableColumn = tabla.getColumnModel().getColumn(column);
+            int preferredWidth = tableColumn.getMinWidth();
+            int maxWidth = tableColumn.getMaxWidth();
+            for (int row = 0; row < tabla.getRowCount(); row++) {
+                TableCellRenderer cellRenderer = tabla.getCellRenderer(row, column);
+                Component c = tabla.prepareRenderer(cellRenderer, row, column);
+                int width = c.getPreferredSize().width + tabla.getIntercellSpacing().width;
+                preferredWidth = Math.max(preferredWidth, width);
+                if (preferredWidth >= maxWidth){
+                    preferredWidth = maxWidth;
+                    break;
+                }
+            }
+            tableColumn.setPreferredWidth( preferredWidth );
+        }
+
+    }
+
+
     //Todo: Mirar como unificar este metodo para que sea generico
     public void cargarClientes(Collection<Cliente> clientes) {
         String[] columnas = {"DNI", "Telefono", "Nombre", "Apellidos",
-                "Direccion", "E-mail", "Fecha de Alta", "Hora de alta", "Tarifa"};
+                "Direccion", "E-mail", "Fecha de Alta", "Hora", "Tarifa"};
         ModeloTablaClientes modeloTabla = new ModeloTablaClientes(columnas, clientes);
         tabla = new JTable(modeloTabla);
-        //definir ancho columnas
-        for(int i = 0; i < tabla.getColumnCount(); i++) {
-            if(i == 4 || i == 8)
-                anchoCol = 310;
-            else if(i == 2 || i == 3 || i == 5)
-                anchoCol = 160;
-            else
-                anchoCol = 100;
-            tabla.getColumnModel().getColumn(i).setPreferredWidth(anchoCol);
-        }
+        anchoColumnas();
     }
 
     public void cargarLlamadas(Collection<Llamada> llamadas) {
@@ -39,9 +54,7 @@ public class CustomJTable extends JFrame {
         ModeloTablaLlamadas modeloTabla = new ModeloTablaLlamadas(columnas, llamadas);
         tabla = new JTable(modeloTabla);
         //definir ancho columnas
-        for(int i = 0; i < tabla.getColumnCount(); i++) {
-            tabla.getColumnModel().getColumn(i).setPreferredWidth(50);
-        }
+        anchoColumnas();
     }
 
     public void cargarFacturas(Collection<Factura> facturas){
@@ -50,17 +63,8 @@ public class CustomJTable extends JFrame {
         ModeloTablaFacturas modeloTabla = new ModeloTablaFacturas(columnas, facturas);
         tabla = new JTable(modeloTabla);
         //definir ancho columnas
-        for(int i = 0; i < tabla.getColumnCount(); i++) {
-            if(i == 5 )
-                anchoCol = 500;
-            else if(i == 4)
-                anchoCol = 70;
-            else
-                anchoCol = 50;
-            tabla.getColumnModel().getColumn(i).setPreferredWidth(anchoCol);
-            //TODO: buscar como ajustar el tamaño de la fila
-            tabla.setRowHeight(200);
-        }
+        anchoColumnas();
+        tabla.setRowHeight(100);
     }
 
     public JScrollPane getScrollPane() {
