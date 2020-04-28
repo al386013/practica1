@@ -1,6 +1,9 @@
 package vista;
 
 import modelo.datos.clientes.Cliente;
+import modelo.datos.contrato.Factura;
+import modelo.datos.llamadas.Llamada;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.Collection;
@@ -14,11 +17,26 @@ public class CustomJTable extends JFrame {
         super(title);
         setBounds(10,10,800,600);
     }
-
-    public void cargarTablaClientes(Collection<Cliente> clientes) {
-        ModeloTabla modeloTabla = new ModeloTabla(clientes);
+    //Todo: Mirar como unificar este metodo para que sea generico
+    public void cargarClientes(Collection<Cliente> clientes) {
+        String[] columnas = {"DNI", "Telefono", "Nombre", "Apellidos",
+                "Direccion", "E-mail", "Fecha de Alta", "Hora de alta", "Tarifa"};
+        ModeloTabla modeloTabla = new ModeloTabla(columnas, clientes);
         tabla = new JTable(modeloTabla);
     }
+
+    public void cargarLlamadas(Collection<Llamada> llamadas) {
+        ModeloTabla modeloTabla = new ModeloTabla(llamadas);
+        tabla = new JTable(modeloTabla);
+    }
+
+    public void cargarFacturas(Collection<Factura> facturas){
+        ModeloTabla modeloTabla= new ModeloTabla(facturas);
+        tabla = new JTable(modeloTabla);
+    }
+
+
+
 
     public JPanel getPanelTabla() {
         tabla.setAutoCreateRowSorter(true); //??????????????????????

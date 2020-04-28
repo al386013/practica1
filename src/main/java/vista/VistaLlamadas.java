@@ -207,4 +207,21 @@ public class VistaLlamadas implements InterrogaVistaLlamadas {
     public LocalDate getFechaFinListado() {
         return LocalDate.parse(fechaFinListado.getText());
     }
+
+    public void listadoLlamadas(String nif){
+        JFrame ventana = new JFrame("Listado llamadas");
+        //JOptionPane.showMessageDialog(null, vistaListadoClientes.panel());
+        CustomJTable customJTable = new CustomJTable("llamadas");
+        //TODO: basededatos.listarLlamadasCliente necesita un nif (para ello llamamos al ...controlador ?)
+        customJTable.cargarLlamadas(modelo.getBaseDeDatos().devolverLlamadas(nif));
+        ventana.add(customJTable.getPanelTabla());
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+        panel.add(customJTable.panelTabla);
+
+        ventana.getContentPane().add(panel);
+        ventana.setSize(700,700);
+        //ventana.pack();
+        ventana.setVisible(true);
+    }
 }

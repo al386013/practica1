@@ -1,22 +1,26 @@
 package vista;
 
+import modelo.datos.ComparadorFechaHora;
+import modelo.datos.TieneFecha;
 import modelo.datos.clientes.Cliente;
 import modelo.datos.clientes.Particular;
+
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.Collection;
+
+
 import static java.lang.String.format;
 
 public class ModeloTabla extends AbstractTableModel {
-    private final String nombreColumnas[] = {"DNI", "Telefono", "Nombre", "Apellidos",
-            "Direccion", "E-mail", "Fecha de Alta", "Hora de alta", "Tarifa"};
-    //private Object datos[][];
-    private ArrayList<Cliente> datos;
+    private String nombreColumnas[];
+    private ArrayList<T> datos;
 
-    public <T extends Cliente> ModeloTabla(Collection<T> clientes) {
+
+    public <T extends TieneFecha> ModeloTabla(String[]  nombreColumnas, Collection<T> clientes) {
         super();
-        //PREGUNTARLE ESTO NO CREO QUE SEA LO MÁS CORRECTO!!!!
-        this.datos = new ArrayList<>();
+        this.nombreColumnas = nombreColumnas;
+        this.datos = new ArrayList<>(new ComparadorFechaHora<>());
         this.datos.addAll(clientes);
     }
 

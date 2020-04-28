@@ -249,4 +249,21 @@ public class VistaFacturas implements InterrogaVistaFacturas {
     public LocalDate getFechasFinFechas() {
         return LocalDate.parse(fechaFinFechas.getText());
     }
+
+    public void listadoFacturas(String nif){
+        JFrame ventana = new JFrame("Listado facturas");
+        //JOptionPane.showMessageDialog(null, vistaListadoClientes.panel());
+        CustomJTable customJTable = new CustomJTable("facturas");
+        //TODO: basededatos.listarFacturasCliente necesita un nif (para ello llamamos al controlador?)
+        customJTable.cargarFacturas(modelo.getBaseDeDatos().devolverFacturas(nif));
+        ventana.add(customJTable.getPanelTabla());
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+        panel.add(customJTable.panelTabla);
+
+        ventana.getContentPane().add(panel);
+        ventana.setSize(700,700);
+        //ventana.pack();
+        ventana.setVisible(true);
+    }
 }

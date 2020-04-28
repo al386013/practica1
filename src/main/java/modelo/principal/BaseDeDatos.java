@@ -90,13 +90,17 @@ public class BaseDeDatos implements Serializable {
         Factura nuevaFactura = new Factura(periodoFact, nif, cliente.getLlamadas(), cliente.getTarifa());
         gestorFacturas.emitirFactura(nuevaFactura, cliente.getFacturas());
     }
+    //TODO: Estos tres métodos devolverXXX son usados en la vista para generar datos en las tablas
+    public Collection<Cliente> devolverClientes(){
+        return gestorClientes.clientes.values();
+    }
 
-    private Set<Llamada> devolverLlamadas(String nif) {
+    public Set<Llamada> devolverLlamadas(String nif) {
         Cliente cliente = gestorClientes.devuelveCliente(nif);
         return cliente.getLlamadas();
     }
 
-    private Set<Factura> devolverFacturas(String nif) {
+    public Set<Factura> devolverFacturas(String nif) {
         Cliente cliente = gestorClientes.devuelveCliente(nif);
         return cliente.getFacturas();
     }
@@ -174,8 +178,5 @@ public class BaseDeDatos implements Serializable {
         return listar(devolverFacturas(nif));
     }
 
-    //TODO Revisar este metodo, he tendido que crearlo para la tabla:
-    public Collection<Cliente> devolverClientes(){
-        return gestorClientes.clientes.values();
-    }
+
 }
