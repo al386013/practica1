@@ -267,6 +267,17 @@ public class VistaFacturas implements InterrogaVistaFacturas {
         ventana.setSize(1200,300);
         ventana.setVisible(true);
     }
+
+    @Override
+    public void listadoFacturasEntreFechas(String nif, LocalDate fechaIni, LocalDate fechaFin){
+        JFrame ventana = new JFrame("Listado facturas entre fechas");
+        CustomJTable customJTable = new CustomJTable("facturas entre fechas");
+        BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
+        customJTable.cargarFacturas(baseDeDatos.entreFechas(baseDeDatos.devolverFacturas(nif), fechaIni, fechaFin));
+        ventana.getContentPane().add(customJTable.getScrollPane());
+        ventana.setSize(1200,300);
+        ventana.setVisible(true);
+    }
     @Override
     public void datosFactura(int cod) {
         JFrame ventana = new JFrame("Datos de la factura");
@@ -275,4 +286,6 @@ public class VistaFacturas implements InterrogaVistaFacturas {
         ventana.pack();
         ventana.setVisible(true);
     }
+
+
 }

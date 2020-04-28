@@ -109,7 +109,7 @@ public abstract class Cliente implements TieneFecha, Serializable {
         string += "<li> Telefono: " + telf + "</li>";
         string += "<li> Direccion: " + direccion + "</li>";
         string += "<li> Email: " + email + "</li>";
-        string += "<li> Fecha de alta: " + getFecha().toString() + "</li>";
+        string += "<li> Fecha de alta: " + getFecha() + "</li>";
         string += "<li> Hora de alta: " + format("%02d:%02d", getHora().getHour(), getHora().getMinute()) + "</li>";
         string += "<li>" + tarifa.descripcion() + "</li></ul>";
         return string;

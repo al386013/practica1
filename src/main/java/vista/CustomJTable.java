@@ -20,12 +20,7 @@ public class CustomJTable extends JFrame {
     public void cargarClientes(Collection<Cliente> clientes) {
         String[] columnas = {"DNI", "Telefono", "Nombre", "Apellidos",
                 "Direccion", "E-mail", "Fecha de Alta", "Hora de alta", "Tarifa"};
-        ModeloTabla modeloTabla = new ModeloTabla(columnas, clientes);
-        tabla = new JTable(modeloTabla);
-    }
-
-    public void cargarLlamadas(Collection<Llamada> llamadas) {
-        ModeloTabla modeloTabla = new ModeloTabla(llamadas);
+        ModeloTablaClientes modeloTabla = new ModeloTablaClientes(columnas, clientes);
         tabla = new JTable(modeloTabla);
         //definir ancho columnas
         for(int i = 0; i < tabla.getColumnCount(); i++) {
@@ -39,9 +34,37 @@ public class CustomJTable extends JFrame {
         }
     }
 
-    public void cargarFacturas(Collection<Factura> facturas){
-        ModeloTabla modeloTabla= new ModeloTabla(facturas);
+    public void cargarLlamadas(Collection<Llamada> llamadas) {
+        String[] columnas = {"Destino", "Fecha", "Hora", "Duracion"};
+        ModeloTablaLlamadas modeloTabla = new ModeloTablaLlamadas(columnas, llamadas);
         tabla = new JTable(modeloTabla);
+        //definir ancho columnas
+        for(int i = 0; i < tabla.getColumnCount(); i++) {
+//            if(i == 4 || i == 8)
+//                anchoCol = 310;
+//            else if(i == 2 || i == 3 || i == 5)
+//                anchoCol = 160;
+//            else
+//                anchoCol = 100;
+            tabla.getColumnModel().getColumn(i).setPreferredWidth(100);
+        }
+    }
+
+    public void cargarFacturas(Collection<Factura> facturas){
+        String[] columnas = {"Codigo", "Fecha", "Hora", "Importe",
+                "Periodo", "Llamadas"};
+        ModeloTablaFacturas modeloTabla = new ModeloTablaFacturas(columnas, facturas);
+        tabla = new JTable(modeloTabla);
+        //definir ancho columnas
+        for(int i = 0; i < tabla.getColumnCount(); i++) {
+//            if(i == 4 || i == 8)
+//                anchoCol = 310;
+//            else if(i == 2 || i == 3 || i == 5)
+//                anchoCol = 160;
+//            else
+//                anchoCol = 100;
+            tabla.getColumnModel().getColumn(i).setPreferredWidth(100);
+        }
     }
 
     public JScrollPane getScrollPane() {

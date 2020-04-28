@@ -10,6 +10,6 @@ public class FacturasCliente implements Accion {
         InterrogaVistaFacturas vistaFacturas = vista.getVistaFacturas();
         String nif = vistaFacturas.getNifFacCli();
         baseDeDatos.compruebaNifExistente(nif);
-        //entradaSalida.imprimirConSalto(baseDeDatos.listarFacturasCliente(nif));
+        vista.getVistaFacturas().listadoFacturas(nif);
     }
 }

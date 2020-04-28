@@ -12,6 +12,6 @@ public class ClientesEntreFechas implements Accion {
         LocalDate fechaIni = vistaClientes.getFechaIni();
         LocalDate fechaFin = vistaClientes.getFechaFin();
         baseDeDatos.compruebaFechas(fechaIni, fechaFin);
-        //System.out.println(baseDeDatos.listarClientesEntreFechas(fechaIni, fechaFin));
+        vista.getVistaClientes().listadoClientesEntreFechas(fechaIni, fechaFin);
     }
 }

@@ -23,5 +23,7 @@ public interface InterrogaVistaFacturas {
 
     void listadoFacturas(String nif);
 
+    void listadoFacturasEntreFechas(String nif, LocalDate fechaIni, LocalDate fechaFin);
+
 
 }
