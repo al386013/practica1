@@ -18,13 +18,7 @@ public interface InterrogaVistaLlamadas {
 
     LocalDate getFechaFinListado();
 
-<<<<<<< HEAD
     void listadoLlamadasEntreFechas(String telf, LocalDate fechaIni, LocalDate fechaFin)
             throws DateTimeParseException;
 
-=======
-    void listadoLlamadas(String telf);
-
-    void listadoLlamadasEntreFechas(String telf, LocalDate fechaIni, LocalDate fechaFin);
->>>>>>> 219729386696027208545c6e03775cc956955ff3
 }

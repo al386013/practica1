@@ -425,30 +425,11 @@ public class VistaClientes implements InterrogaVistaClientes {
         return LocalDate.parse(fechaFin.getText());
     }
 
-<<<<<<< HEAD
-
     @Override
     public void listadoClientesEntreFechas(LocalDate fechaIni, LocalDate fechaFin)
             throws DateTimeParseException {
         JFrame ventana = new JFrame("Listado clientes entre fechas");
         CustomJTable customJTable = new CustomJTable("clientes entre fechas");
-=======
-    @Override
-    public void listadoClientes() {
-        listadoClientesEntreFechas(LocalDate.parse("1999-01-01"), LocalDate.now());
-        /*JFrame ventana = new JFrame("Listado clientes");
-        CustomJTable customJTable = new CustomJTable("clientes");
-        customJTable.cargarClientes(modelo.getBaseDeDatos().devolverClientes());
-        ventana.getContentPane().add(customJTable.getScrollPane());
-        ventana.setSize(1200, 300);
-        ventana.setVisible(true);*/
-    }
-
-    @Override
-    public void listadoClientesEntreFechas(LocalDate fechaIni, LocalDate fechaFin) {
-        JFrame ventana = new JFrame("Listado clientes");
-        CustomJTable customJTable = new CustomJTable("clientes");
->>>>>>> 219729386696027208545c6e03775cc956955ff3
         BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
         String[] columnas = {"DNI", "Telefono", "Nombre", "Apellidos", "Codigo Postal",
                 "Poblacion", "Provincia", "E-mail", "Fecha de Alta", "Hora", "Tarifa"};

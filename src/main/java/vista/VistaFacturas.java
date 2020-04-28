@@ -270,19 +270,6 @@ public class VistaFacturas implements InterrogaVistaFacturas {
         return LocalDate.parse(fechaFinFechas.getText());
     }
 
-<<<<<<< HEAD
-=======
-    @Override
-    public void listadoFacturas(String nif) {
-        listadoFacturasEntreFechas(nif, LocalDate.parse("1999-01-01"), LocalDate.now());
-        /*JFrame ventana = new JFrame("Listado facturas");
-        CustomJTable customJTable = new CustomJTable("facturas");
-        customJTable.cargarFacturas(modelo.getBaseDeDatos().devolverFacturas(nif));
-        ventana.getContentPane().add(customJTable.getScrollPane());
-        ventana.setSize(1200,300);
-        ventana.setVisible(true);*/
-    }
->>>>>>> 219729386696027208545c6e03775cc956955ff3
 
     @Override
     public void listadoFacturasEntreFechas(String nif, LocalDate fechaIni, LocalDate fechaFin) {
