@@ -431,18 +431,10 @@ public class VistaClientes implements InterrogaVistaClientes {
 
     }
 
-    @Override
-    public void listadoClientes() {
-        JFrame ventana = new JFrame("Listado clientes");
-        CustomJTable customJTable = new CustomJTable("clientes");
-        customJTable.cargarClientes(modelo.getBaseDeDatos().devolverClientes());
-        ventana.getContentPane().add(customJTable.getScrollPane());
-        ventana.setSize(1200,300);
-        ventana.setVisible(true);
-    }
 
     @Override
-    public void listadoClientesEntreFechas(LocalDate fechaIni, LocalDate fechaFin) {
+    public void listadoClientesEntreFechas(LocalDate fechaIni, LocalDate fechaFin)
+            throws DateTimeParseException {
         JFrame ventana = new JFrame("Listado clientes entre fechas");
         CustomJTable customJTable = new CustomJTable("clientes entre fechas");
         BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();

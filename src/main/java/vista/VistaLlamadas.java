@@ -221,16 +221,6 @@ public class VistaLlamadas implements InterrogaVistaLlamadas {
     }
 
     @Override
-    public void listadoLlamadas(String telf){
-        JFrame ventana = new JFrame("Listado llamadas");
-        CustomJTable customJTable = new CustomJTable("llamadas");
-        customJTable.cargarLlamadas(modelo.getBaseDeDatos().devolverLlamadas(telf));
-        ventana.getContentPane().add(customJTable.getScrollPane());
-        ventana.setSize(600,200);
-        ventana.setVisible(true);
-    }
-
-    @Override
     public void listadoLlamadasEntreFechas(String telf, LocalDate fechaIni, LocalDate fechaFin){
         JFrame ventana = new JFrame("Listado llamadas entre fechas");
         CustomJTable customJTable = new CustomJTable("llamadas entre fechas");

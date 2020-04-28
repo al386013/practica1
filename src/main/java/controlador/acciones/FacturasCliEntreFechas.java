@@ -6,9 +6,11 @@ import modelo.principal.NifNoExistenteException;
 import vista.InterrogaVista;
 import vista.InterrogaVistaFacturas;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class FacturasCliEntreFechas implements Accion {
-    public void ejecutaAccion(BaseDeDatos baseDeDatos, InterrogaVista vista) throws NifNoExistenteException, IntervaloFechasIncorrectoException {
+    public void ejecutaAccion(BaseDeDatos baseDeDatos, InterrogaVista vista)
+            throws NifNoExistenteException, IntervaloFechasIncorrectoException, DateTimeParseException {
         InterrogaVistaFacturas vistaFacturas = vista.getVistaFacturas();
         String nif = vistaFacturas.getNifFechas();
         baseDeDatos.compruebaNifExistente(nif);

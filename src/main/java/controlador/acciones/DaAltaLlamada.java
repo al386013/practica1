@@ -6,7 +6,8 @@ import vista.InterrogaVista;
 import vista.InterrogaVistaLlamadas;
 
 public class DaAltaLlamada implements Accion {
-    public void ejecutaAccion(BaseDeDatos baseDeDatos, InterrogaVista vista) throws TelfNoExistenteException, IllegalArgumentException {
+    public void ejecutaAccion(BaseDeDatos baseDeDatos, InterrogaVista vista)
+            throws TelfNoExistenteException {
         InterrogaVistaLlamadas vistaLlamadas = vista.getVistaLlamadas();
         String telfOrigen = vistaLlamadas.getTelfOrigen();
         baseDeDatos.compruebaTelfExistente(telfOrigen);

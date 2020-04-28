@@ -1,6 +1,7 @@
 package vista;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public interface InterrogaVistaLlamadas {
     String getTelfOrigen();
@@ -11,14 +12,13 @@ public interface InterrogaVistaLlamadas {
 
     String getTelfListado();
 
-    String getTelfListadoFechas();
+    String getTelfListadoFechas()throws DateTimeParseException;
 
     LocalDate getFechaIniListado();
 
     LocalDate getFechaFinListado();
 
-    void listadoLlamadas(String telf);
-
-    void listadoLlamadasEntreFechas(String telf, LocalDate fechaIni, LocalDate fechaFin);
+    void listadoLlamadasEntreFechas(String telf, LocalDate fechaIni, LocalDate fechaFin)
+            throws DateTimeParseException;
 
 }
