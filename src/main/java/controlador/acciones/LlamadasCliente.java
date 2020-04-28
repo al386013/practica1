@@ -15,7 +15,5 @@ public class LlamadasCliente implements Accion {
         LocalDate fechaIni = LocalDate.parse("1999-01-01");
         LocalDate hoy = LocalDate.now();
         vista.getVistaLlamadas().listadoLlamadasEntreFechas(telf,fechaIni, hoy);
-
-
     }
 }

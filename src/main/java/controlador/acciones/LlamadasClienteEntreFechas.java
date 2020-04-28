@@ -10,7 +10,7 @@ import java.time.format.DateTimeParseException;
 
 public class LlamadasClienteEntreFechas implements Accion {
     public void ejecutaAccion(BaseDeDatos baseDeDatos, InterrogaVista vista)
-            throws TelfNoExistenteException, IntervaloFechasIncorrectoException, DateTimeParseException {
+            throws TelfNoExistenteException, IntervaloFechasIncorrectoException {
         InterrogaVistaLlamadas vistaLlamadas = vista.getVistaLlamadas();
         String telf = vistaLlamadas.getTelfListadoFechas();
         baseDeDatos.compruebaTelfExistente(telf);

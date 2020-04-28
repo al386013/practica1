@@ -1,4 +1,4 @@
-package fabricas;
+package modelo.principal;
 
 import modelo.datos.contrato.tarifas.Tarifa;
 import modelo.datos.contrato.tarifas.TarifaBasica;

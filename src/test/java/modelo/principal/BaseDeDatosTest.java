@@ -1,4 +1,4 @@
-package modelo;
+package modelo.principal;
 
 import modelo.datos.clientes.Cliente;
 import modelo.datos.clientes.Direccion;
@@ -72,18 +72,27 @@ public class BaseDeDatosTest {
 
     //COMPROBACION METODOS LISTAR
 
-    //comprueba metodo listarClientes()
+    //comprueba metodo listarClientes() y listarClientesEntreFechas()
     @Test
     public void testListarClientes() {
         Formatter obj = new Formatter();
-        assertEquals(baseDeDatos.listarClientes(), "\npamesa" +
-                "\n\tNIF: 63302284" +
-                "\n\tTelefono: 964246252" +
-                "\n\tDireccion: Castelllon - VillaReal - 12006" +
-                "\n\tEmail: pamesa@gmail.com" +
-                "\n\tFecha de alta: " + LocalDate.now() +
-                "\n\tHora de alta: " + obj.format("%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute()) +
-                "\n\tTarifa basica\n");
+        assertEquals(baseDeDatos.listarClientes(), "<html>pamesa<br/>" +
+                "<ul><li> NIF: 63302284</li>" +
+                        "<li> Telefono: 964246252</li>" +
+                        "<li> Direccion: Castelllon - VillaReal - 12006</li>" +
+                        "<li> Email: pamesa@gmail.com</li>" +
+                        "<li> Fecha de alta: " + LocalDate.now() + "</li>" +
+                        "<li> Hora de alta: " + obj.format("%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute()) + "</li>" +
+                        "<li>Tarifa basica</li></ul><br/></html>");
+        obj = new Formatter();
+        assertEquals(baseDeDatos.listarClientesEntreFechas(LocalDate.now(), LocalDate.now()), "<html>pamesa<br/>" +
+                "<ul><li> NIF: 63302284</li>" +
+                "<li> Telefono: 964246252</li>" +
+                "<li> Direccion: Castelllon - VillaReal - 12006</li>" +
+                "<li> Email: pamesa@gmail.com</li>" +
+                "<li> Fecha de alta: " + LocalDate.now() + "</li>" +
+                "<li> Hora de alta: " + obj.format("%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute()) + "</li>" +
+                "<li>Tarifa basica</li></ul><br/></html>");
     }
 
     //comprueba listarLlamadasCliente() y listarLlamadasEntreFechas(); vemos que se imprimen siempre ordenadas por fecha
@@ -97,8 +106,8 @@ public class BaseDeDatosTest {
         baseDeDatos.darDeAltaLlamada("692242216", "000000000", 120);
         Formatter hora = new Formatter();
         hora.format("%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute());
-        String res = "\t- Llamada realizada el " + LocalDate.now() + " a las " + hora +
-                " con una duracion de 120 segundos al telefono 000000000\n";
+        String res = "<html>- Llamada realizada el " + LocalDate.now() + " a las " + hora +
+                " con una duracion de 120 segundos al telefono 000000000<br/></html>";
 
         //tests metodos listar llamadas: se imprimen siempre ordenadas por fecha y hora
         assertEquals(baseDeDatos.listarLlamadasCliente("692242216"), res);
@@ -121,17 +130,17 @@ public class BaseDeDatosTest {
 
         Formatter hora = new Formatter();
         hora.format("%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute());
-        String res = "\nCodigo de factura: " + codFact + ":" +
-                "\n\tNIF: 63302284" +
-                "\n\tFecha de emision: " + LocalDate.now() +
-                "\n\tHora de emision: " + hora +
-                "\n\tPeriodo de facturacion: " + LocalDate.now().minusDays(1) + " - " + LocalDate.now() +
-                "\n\tImporte: 0.14€" +
-                "\n\tLista de llamadas de esta factura:\n\n" +
-                "\t- Llamada realizada el " + LocalDate.now() + " a las " + hora +
-                " con una duracion de 130 segundos al telefono 666666666\n" +
-                "\t- Llamada realizada el " + LocalDate.now() + " a las " + hora +
-                " con una duracion de 40 segundos al telefono 123412341\n";
+        String res = "<html><h1> Codigo de factura: " + codFact + ": <br/>" +
+                "<ul><li> NIF: 63302284</li>" +
+                "<li> Fecha de emision: " + LocalDate.now() + "</li>" +
+                "<li> Hora de emision: " + hora + "</li>" +
+                "<li> Periodo de facturacion: " + LocalDate.now().minusDays(1) + " - " + LocalDate.now() + "</li>" +
+                "<li> Importe: 0.14€ </li>" +
+                "<li> Lista de llamadas de esta factura: </li>" +
+                "<br/>- Llamada realizada el " + LocalDate.now() + " a las " + hora +
+                " con una duracion de 130 segundos al telefono 666666666<br/>" +
+                "- Llamada realizada el " + LocalDate.now() + " a las " + hora +
+                " con una duracion de 40 segundos al telefono 123412341</h1><br/></html>";
 
         //tests metodos listar facturas: se imprimen siempre ordenadas por fecha y hora
         assertEquals(baseDeDatos.listarFacturasCliente("63302284"), res);

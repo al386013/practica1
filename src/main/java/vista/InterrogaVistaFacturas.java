@@ -22,8 +22,14 @@ public interface InterrogaVistaFacturas {
 
     void datosFactura(int cod);
 
+<<<<<<< HEAD
     void listadoFacturasEntreFechas(String nif, LocalDate fechaIni, LocalDate fechaFin)
             throws DateTimeParseException;
 
 
+=======
+    void listadoFacturas(String nif);
+
+    void listadoFacturasEntreFechas(String nif, LocalDate fechaIni, LocalDate fechaFin);
+>>>>>>> 219729386696027208545c6e03775cc956955ff3
 }

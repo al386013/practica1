@@ -1,4 +1,4 @@
-package fabricas;
+package modelo.principal;
 
 import modelo.datos.clientes.Cliente;
 import modelo.datos.clientes.Direccion;

@@ -88,6 +88,7 @@ public class ImplementacionVista implements InformaVista, InterrogaVista {
             public void windowOpened(WindowEvent e) {
                 controlador.importarDatos();
             }
+
             @Override
             public void windowClosing(WindowEvent e) {
                 controlador.exportarDatosYSalir();
@@ -99,5 +100,4 @@ public class ImplementacionVista implements InformaVista, InterrogaVista {
         ventana.pack();
         ventana.setVisible(true);
     }
-
 }

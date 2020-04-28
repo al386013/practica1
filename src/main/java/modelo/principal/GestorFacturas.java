@@ -1,7 +1,6 @@
 package modelo.principal;
 
 import modelo.datos.contrato.Factura;
-
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +20,7 @@ public class GestorFacturas implements Serializable {
     public String listarDatosFactura(int cod) throws IllegalArgumentException {
         Factura factura = totalFacturas.get(cod);
         if (factura == null) throw new IllegalArgumentException("La factura de codigo " + cod + " no existe. ");
-        return factura.toString();
+        return "<html>" + factura.toString() + "</html>";
     }
 
     //Metodo emitirFactura: anade una factura a totalFacturas

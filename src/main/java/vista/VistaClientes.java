@@ -2,15 +2,16 @@ package vista;
 
 import controlador.Controlador;
 import modelo.InterrogaModelo;
+import modelo.datos.clientes.Cliente;
+import modelo.datos.llamadas.Llamada;
 import modelo.principal.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.Date;
+import java.util.Collection;
 
 public class VistaClientes implements InterrogaVistaClientes {
     private Controlador controlador;
@@ -53,31 +54,29 @@ public class VistaClientes implements InterrogaVistaClientes {
         ActionListener escuchadorBoton = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evento) {
-                String comando= evento.getActionCommand();
+                String comando = evento.getActionCommand();
                 try {
                     if (comando.equals("anadir")) {
-                        if(tipoClienteOpcion == null) vista.accionDenegada("No se ha seleccionado un tipo de cliente");
+                        if (tipoClienteOpcion == null) vista.accionDenegada("No se ha seleccionado un tipo de cliente");
                         else controlador.anadirCliente();
                     } else if (comando.equals("borrar")) {
                         controlador.borrarCliente();
-                    }
-                    else if (comando.equals("tarifa"))
-                        if(tipoTarifaOpcion == null) vista.accionDenegada("No se ha seleccionado un tipo de tarifa");
+                    } else if (comando.equals("tarifa"))
+                        if (tipoTarifaOpcion == null) vista.accionDenegada("No se ha seleccionado un tipo de tarifa");
                         else controlador.contratarTarifa();
                     else if (comando.equals("datosCli"))
                         controlador.datosCliente();
                     else if (comando.equals("listarCli"))
                         controlador.listarClientes();
-                    else{
-                        try{
+                    else {
+                        try {
                             controlador.listarCliFechas();
-                        }
-                        catch (DateTimeParseException e){
+                        } catch (DateTimeParseException e) {
                             vista.accionDenegada("Fecha incorrecta");
                         }
                     }
                 } catch (NifRepetidoException | TelfRepetidoException | TelfNoExistenteException | NifNoExistenteException |
-                        IntervaloFechasIncorrectoException | IllegalArgumentException  e) {
+                        IntervaloFechasIncorrectoException e) {
                     vista.accionDenegada(e.getMessage());
                 }
             }
@@ -206,7 +205,6 @@ public class VistaClientes implements InterrogaVistaClientes {
         borrarCliente.add(borrarTitulo);
         borrarCliente.add(borrarCampos);
 
-
         //CAMBIAR TARIFA
 
         JPanel cambiarTarifaTitulo = new JPanel();
@@ -302,7 +300,6 @@ public class VistaClientes implements InterrogaVistaClientes {
 
         listadoClientes.add(new JLabel("<html>" + "<b><i>LISTAR CLIENTES</i></b><br/>" + "</html>"));
         listadoClientes.add(botonListarCli);
-
 
         //LISTADO CLIENTES ENTRE FECHAS
 
@@ -421,28 +418,47 @@ public class VistaClientes implements InterrogaVistaClientes {
     @Override
     public LocalDate getFechaIni() throws DateTimeParseException {
         return LocalDate.parse(fechaIni.getText());
-
     }
 
     @Override
-    public LocalDate getFechaFin() throws DateTimeParseException{
+    public LocalDate getFechaFin() throws DateTimeParseException {
         return LocalDate.parse(fechaFin.getText());
-
-
     }
 
+<<<<<<< HEAD
 
     @Override
     public void listadoClientesEntreFechas(LocalDate fechaIni, LocalDate fechaFin)
             throws DateTimeParseException {
         JFrame ventana = new JFrame("Listado clientes entre fechas");
         CustomJTable customJTable = new CustomJTable("clientes entre fechas");
-        BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
-        customJTable.cargarClientes(baseDeDatos.entreFechas(baseDeDatos.devolverClientes(), fechaIni, fechaFin));
+=======
+    @Override
+    public void listadoClientes() {
+        listadoClientesEntreFechas(LocalDate.parse("1999-01-01"), LocalDate.now());
+        /*JFrame ventana = new JFrame("Listado clientes");
+        CustomJTable customJTable = new CustomJTable("clientes");
+        customJTable.cargarClientes(modelo.getBaseDeDatos().devolverClientes());
         ventana.getContentPane().add(customJTable.getScrollPane());
-        ventana.setSize(1200,300);
+        ventana.setSize(1200, 300);
+        ventana.setVisible(true);*/
+    }
+
+    @Override
+    public void listadoClientesEntreFechas(LocalDate fechaIni, LocalDate fechaFin) {
+        JFrame ventana = new JFrame("Listado clientes");
+        CustomJTable customJTable = new CustomJTable("clientes");
+>>>>>>> 219729386696027208545c6e03775cc956955ff3
+        BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
+        String[] columnas = {"DNI", "Telefono", "Nombre", "Apellidos", "Codigo Postal",
+                "Poblacion", "Provincia", "E-mail", "Fecha de Alta", "Hora", "Tarifa"};
+        Collection<Cliente> clientes = baseDeDatos.devolverClientes();
+        Container contenedor = ventana.getContentPane();
+        contenedor.add(customJTable.getScrollPane(columnas, baseDeDatos.entreFechas(clientes, fechaIni, fechaFin)));
+        ventana.setSize(1200, 300);
         ventana.setVisible(true);
     }
+
     @Override
     public void datosCliente(String nif) {
         JFrame ventana = new JFrame("Datos del cliente");

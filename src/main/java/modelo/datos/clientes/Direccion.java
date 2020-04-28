@@ -1,5 +1,4 @@
 package modelo.datos.clientes;
-
 import java.io.Serializable;
 
 public class Direccion implements Serializable {
@@ -19,6 +18,18 @@ public class Direccion implements Serializable {
         this.CP = CP;
         this.provincia = provincia;
         this.poblacion = poblacion;
+    }
+
+    public String getCP() {
+        return CP;
+    }
+
+    public String getProvincia() {
+        return provincia;
+    }
+
+    public String getPoblacion() {
+        return poblacion;
     }
 
     @Override

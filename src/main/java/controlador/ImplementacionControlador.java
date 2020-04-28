@@ -5,8 +5,6 @@ import modelo.CambioModelo;
 import modelo.principal.*;
 import vista.InterrogaVista;
 
-import java.time.format.DateTimeParseException;
-
 public class ImplementacionControlador implements Controlador {
     private InterrogaVista vista;
     private CambioModelo modelo;
@@ -83,7 +81,7 @@ public class ImplementacionControlador implements Controlador {
     }
 
     @Override
-    public void llamadasCliFechas() throws TelfNoExistenteException, IntervaloFechasIncorrectoException, DateTimeParseException {
+    public void llamadasCliFechas() throws TelfNoExistenteException, IntervaloFechasIncorrectoException {
         new LlamadasClienteEntreFechas().ejecutaAccion(modelo.getBaseDeDatos(), vista);
     }
 
@@ -94,7 +92,7 @@ public class ImplementacionControlador implements Controlador {
     }
 
     @Override
-    public void datosFactura()throws IllegalArgumentException {
+    public void datosFactura() {
         new DatosFactura().ejecutaAccion(modelo.getBaseDeDatos(), vista);
     }
 

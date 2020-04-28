@@ -38,6 +38,4 @@ public interface InterrogaVistaClientes {
     void listadoClientesEntreFechas(LocalDate fechaIni, LocalDate fechaFin) throws DateTimeParseException;
 
     void datosCliente(String nif);
-
-
 }

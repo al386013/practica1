@@ -1,9 +1,6 @@
 package vista;
 
-import modelo.datos.clientes.Cliente;
-import modelo.datos.contrato.Factura;
-import modelo.datos.llamadas.Llamada;
-
+import modelo.datos.TieneFecha;
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
@@ -11,7 +8,7 @@ import java.awt.*;
 import java.util.Collection;
 
 public class CustomJTable extends JFrame {
-    JScrollPane scrollPane;
+    //JScrollPane scrollPane;
     JTable tabla;
 
     public CustomJTable(String title) {
@@ -36,35 +33,48 @@ public class CustomJTable extends JFrame {
             }
             tableColumn.setPreferredWidth( preferredWidth );
         }
-
     }
 
+    public <T extends TieneFecha> JScrollPane getScrollPane(String[] columnas, Collection<T> elementos) {
+        tabla = new JTable(new ModeloTabla<T>(columnas, elementos));
+        anchoColumnas(); //ajustar ancho columnas al texto
 
-    //Todo: Mirar como unificar este metodo para que sea generico
-    public void cargarClientes(Collection<Cliente> clientes) {
-        String[] columnas = {"DNI", "Telefono", "Nombre", "Apellidos",
-                "Direccion", "E-mail", "Fecha de Alta", "Hora", "Tarifa"};
-        ModeloTablaClientes modeloTabla = new ModeloTablaClientes(columnas, clientes);
+
+        //todo ESTO ESTA MUY FEO PERO SINO NO SE COMO HACERLO!!!!!
+        if(columnas[0].equals("Codigo")) //si es la tabla de facturas
+            tabla.setRowHeight(100);
+
+        tabla.setAutoCreateRowSorter(true);
+        JScrollPane scrollPane = new JScrollPane(tabla);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        return scrollPane;
+    }
+
+    /*public void cargarClientes(Collection<Cliente> clientes) {
+        String[] columnas = {"DNI", "Telefono", "Nombre", "Apellidos", "Codigo Postal",
+                "Poblacion", "Provincia", "E-mail", "Fecha de Alta", "Hora", "Tarifa"};
+        //ModeloTablaClientes modeloTabla = new ModeloTablaClientes(columnas, clientes);
+        ModeloTabla modeloTabla = new ModeloTabla(columnas, clientes);
         tabla = new JTable(modeloTabla);
         anchoColumnas();
     }
 
     public void cargarLlamadas(Collection<Llamada> llamadas) {
         String[] columnas = {"Destino", "Fecha", "Hora", "Duracion"};
-        ModeloTablaLlamadas modeloTabla = new ModeloTablaLlamadas(columnas, llamadas);
+        ModeloTabla modeloTabla = new ModeloTabla(columnas, llamadas);
         tabla = new JTable(modeloTabla);
         //definir ancho columnas
         anchoColumnas();
     }
 
     public void cargarFacturas(Collection<Factura> facturas){
-        String[] columnas = {"Codigo", "Fecha", "Hora", "Importe",
-                "Periodo", "Llamadas"};
-        ModeloTablaFacturas modeloTabla = new ModeloTablaFacturas(columnas, facturas);
+        String[] columnas = {"Codigo", "Fecha factura", "Hora", "Importe",
+                "Fecha inicio", "Fecha fin", "Llamadas"};
+        ModeloTabla modeloTabla = new ModeloTabla(columnas, facturas);
         tabla = new JTable(modeloTabla);
         //definir ancho columnas
         anchoColumnas();
-        tabla.setRowHeight(100);
+        tabla.setRowHeight(30);
     }
 
     public JScrollPane getScrollPane() {
@@ -72,5 +82,5 @@ public class CustomJTable extends JFrame {
         scrollPane = new JScrollPane(tabla);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         return scrollPane;
-    }
+    }*/
 }

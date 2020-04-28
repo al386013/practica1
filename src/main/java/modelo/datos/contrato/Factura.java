@@ -38,7 +38,6 @@ public class Factura implements TieneFecha, Serializable {
         this.llamadas = llamadas;
     }
 
-
     public int getCodigo() {
         return this.hashCode();
     }
@@ -85,15 +84,15 @@ public class Factura implements TieneFecha, Serializable {
 
     @Override
     public String toString() {
-        String string = "<html><h1> Codigo de factura: " + this.hashCode() + ": <br/>";
+        String string = "<h1> Codigo de factura: " + this.hashCode() + ": <br/>";
         string += "<ul><li> NIF: " + nifCliente + "</li>";
         string += "<li> Fecha de emision: " + getFecha().toString() + "</li>";
         string += "<li> Hora de emision: " + format("%02d:%02d", getHora().getHour(), getHora().getMinute()) + "</li>";
         string += "<li> Periodo de facturacion: " + periodoFact + "</li>";
         string += "<li> Importe: " + importe + "€ </li>";
-        string += "<li> Lista de llamadas de esta factura </li>";
+        string += "<li> Lista de llamadas de esta factura: </li>";
         for (Llamada llamada : llamadas)
             string += "<br/>" + llamada;
-        return string + "</h1></html>";
+        return string + "</h1>";
     }
 }
