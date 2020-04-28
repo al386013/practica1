@@ -21,6 +21,6 @@ public class TarifaTardesReducida extends TarifaEspecial {
 
     @Override
     public String descripcion() {
-        return super.descripcion() + ", con tarifa especial de tardes reducida";
+        return super.descripcion() + " + tardes reducida";
     }
 }

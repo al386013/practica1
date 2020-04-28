@@ -18,6 +18,6 @@ public class TarifaDomingosGratis extends TarifaEspecial {
 
     @Override
     public String descripcion() {
-        return super.descripcion() + ", con tarifa especial de domingos gratis";
+        return super.descripcion() + " + domingos gratis";
     }
 }
