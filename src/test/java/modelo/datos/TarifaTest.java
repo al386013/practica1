@@ -17,12 +17,12 @@ public class TarifaTest {
 
         //se contrata la tarifa especial de domingos gratis
         tarifa = new TarifaDomingosGratis(tarifa, 0.00f);
-        salida += ", con tarifa especial de domingos gratis";
+        salida += " + domingos gratis";
         assertEquals(tarifa.descripcion(), salida);
 
         //tambien se contrata la tarifa especial de tardes reducida
         tarifa = new TarifaTardesReducida(tarifa, 0.03f);
-        salida += ", con tarifa especial de tardes reducida";
+        salida += " + tardes reducida";
         assertEquals(tarifa.descripcion(), salida);
     }
 
@@ -35,12 +35,12 @@ public class TarifaTest {
 
         //se contrata la tarifa especial de tardes reducida
         tarifa = new TarifaTardesReducida(tarifa, 0.03f);
-        salida2 += ", con tarifa especial de tardes reducida";
+        salida2 += " + tardes reducida";
         assertEquals(tarifa.descripcion(), salida2);
 
         //tambien se contrata la tarifa especial de domingos gratis
         tarifa = new TarifaDomingosGratis(tarifa, 0.00f);
-        salida2 += ", con tarifa especial de domingos gratis";
+        salida2 += " + domingos gratis";
         assertEquals(tarifa.descripcion(), salida2);
     }
 }

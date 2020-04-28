@@ -61,7 +61,7 @@ public class FabricaTarifasTest {
                 tarifaDomingos.descripcion());
         //tarifa basica + tarifa de tardes reducida + tarifa de domingos gratis
         assertEquals(fabricaTarifas.getOferta("domingo", tarifaTardes).descripcion(),
-                tarifaTardes.descripcion() + ", con tarifa especial de domingos gratis"); //pq se imprimen en otro orden
+                tarifaTardes.descripcion() + " + domingos gratis"); //pq se imprimen en otro orden
     }
 
     @Test

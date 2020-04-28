@@ -2,13 +2,12 @@ package vista;
 
 import modelo.datos.clientes.Cliente;
 import javax.swing.*;
-import java.awt.*;
 import java.util.Collection;
 
 public class CustomJTable extends JFrame {
     JScrollPane scrollPane;
-    JPanel panelTabla;
     JTable tabla;
+    int anchoCol;
 
     public CustomJTable(String title) {
         super(title);
@@ -18,17 +17,22 @@ public class CustomJTable extends JFrame {
     public void cargarTablaClientes(Collection<Cliente> clientes) {
         ModeloTabla modeloTabla = new ModeloTabla(clientes);
         tabla = new JTable(modeloTabla);
+        //definir ancho columnas
+        for(int i = 0; i < tabla.getColumnCount(); i++) {
+            if(i == 4 || i == 8)
+                anchoCol = 310;
+            else if(i == 2 || i == 3 || i == 5)
+                anchoCol = 160;
+            else
+                anchoCol = 100;
+            tabla.getColumnModel().getColumn(i).setPreferredWidth(anchoCol);
+        }
     }
 
-    public JPanel getPanelTabla() {
-        tabla.setAutoCreateRowSorter(true); //??????????????????????
-        for(int i = 0; i < tabla.getColumnCount(); i++)
-            tabla.getColumnModel().getColumn(i).setPreferredWidth(100);
+    public JScrollPane getScrollPane() {
+        tabla.setAutoCreateRowSorter(true);
         scrollPane = new JScrollPane(tabla);
-        scrollPane.setPreferredSize(new Dimension(380,280));
-        panelTabla = new JPanel();
-        panelTabla.add(scrollPane);
-        add(panelTabla,BorderLayout.CENTER);
-        return panelTabla;
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        return scrollPane;
     }
 }

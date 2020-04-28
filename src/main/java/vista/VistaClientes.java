@@ -424,14 +424,8 @@ public class VistaClientes implements InterrogaVistaClientes {
         JFrame ventana = new JFrame("Listado clientes");
         CustomJTable customJTable = new CustomJTable("clientes");
         customJTable.cargarTablaClientes(modelo.getBaseDeDatos().devolverClientes());
-        ventana.add(customJTable.getPanelTabla());
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-        panel.add(customJTable.panelTabla);
-
-        ventana.getContentPane().add(panel);
-        ventana.setSize(700,700);
-        //ventana.pack();
+        ventana.getContentPane().add(customJTable.getScrollPane());
+        ventana.setSize(1200,300);
         ventana.setVisible(true);
     }
 
