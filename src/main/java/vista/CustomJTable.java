@@ -40,13 +40,7 @@ public class CustomJTable extends JFrame {
         tabla = new JTable(modeloTabla);
         //definir ancho columnas
         for(int i = 0; i < tabla.getColumnCount(); i++) {
-//            if(i == 4 || i == 8)
-//                anchoCol = 310;
-//            else if(i == 2 || i == 3 || i == 5)
-//                anchoCol = 160;
-//            else
-//                anchoCol = 100;
-            tabla.getColumnModel().getColumn(i).setPreferredWidth(100);
+            tabla.getColumnModel().getColumn(i).setPreferredWidth(50);
         }
     }
 
@@ -57,13 +51,15 @@ public class CustomJTable extends JFrame {
         tabla = new JTable(modeloTabla);
         //definir ancho columnas
         for(int i = 0; i < tabla.getColumnCount(); i++) {
-//            if(i == 4 || i == 8)
-//                anchoCol = 310;
-//            else if(i == 2 || i == 3 || i == 5)
-//                anchoCol = 160;
-//            else
-//                anchoCol = 100;
-            tabla.getColumnModel().getColumn(i).setPreferredWidth(100);
+            if(i == 5 )
+                anchoCol = 500;
+            else if(i == 4)
+                anchoCol = 70;
+            else
+                anchoCol = 50;
+            tabla.getColumnModel().getColumn(i).setPreferredWidth(anchoCol);
+            //TODO: buscar como ajustar el tamaño de la fila
+            tabla.setRowHeight(200);
         }
     }
 

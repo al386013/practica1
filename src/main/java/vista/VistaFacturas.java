@@ -205,7 +205,7 @@ public class VistaFacturas implements InterrogaVistaFacturas {
         facturasCliFechasCampos.add(botonFacturasCliFechas);
 
         facturasCliEntreFechas.setLayout(new BoxLayout(facturasCliEntreFechas, BoxLayout.PAGE_AXIS));
-        facturasCliFechasTitulo.add(new JLabel("<html>" + "<b><i>LISTAR LLAMADAS DE UN CLIENTE ENTRE FECHAS</i></b><br/>" + "</html>"));
+        facturasCliFechasTitulo.add(new JLabel("<html>" + "<b><i>LISTAR FACTURAS DE UN CLIENTE ENTRE FECHAS</i></b><br/>" + "</html>"));
         facturasCliEntreFechas.add(facturasCliFechasTitulo);
         facturasCliEntreFechas.add(facturasCliFechasCampos);
 

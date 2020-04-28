@@ -226,7 +226,7 @@ public class VistaLlamadas implements InterrogaVistaLlamadas {
         CustomJTable customJTable = new CustomJTable("llamadas");
         customJTable.cargarLlamadas(modelo.getBaseDeDatos().devolverLlamadas(telf));
         ventana.getContentPane().add(customJTable.getScrollPane());
-        ventana.setSize(1200,300);
+        ventana.setSize(600,200);
         ventana.setVisible(true);
     }
 
@@ -237,7 +237,7 @@ public class VistaLlamadas implements InterrogaVistaLlamadas {
         BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
         customJTable.cargarLlamadas(baseDeDatos.entreFechas(baseDeDatos.devolverLlamadas(telf), fechaIni, fechaFin));
         ventana.getContentPane().add(customJTable.getScrollPane());
-        ventana.setSize(1200,300);
+        ventana.setSize(600,200);
         ventana.setVisible(true);
     }
 }
