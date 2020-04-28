@@ -139,6 +139,8 @@ public class BaseDeDatos implements Serializable {
         return res;
     }
 
+    //todo: Desde este metodo solo se usan en los test...
+
     //Metodo listar: devuelve una cadena para imprimir los elementos de un conjunto
     private <T extends TieneFecha> String listar(Collection<T> conjunto) {
         String string = "<html>";
@@ -154,8 +156,7 @@ public class BaseDeDatos implements Serializable {
 
     //Metodo listarLlamadasEntreFechas: lista las llamadas de un cliente realizadas entre dos fechas, dado su telefono
     public String listarLlamadasEntreFechas(String telf, LocalDate fechaIni, LocalDate fechaFin) {
-        String nif = gestorClientes.telfNif.get(telf);
-        Collection<Llamada> conjunto = entreFechas(devolverLlamadas(nif), fechaIni, fechaFin);
+        Collection<Llamada> conjunto = entreFechas(devolverLlamadas(telf), fechaIni, fechaFin);
         return listar(conjunto);
     }
 
@@ -172,8 +173,7 @@ public class BaseDeDatos implements Serializable {
 
     //Metodo listarLlamadasCliente: lista todas las llamadas de un cliente a partir de su telefono
     public String listarLlamadasCliente(String telf) {
-        String nif = gestorClientes.telfNif.get(telf);
-        return listar(devolverLlamadas(nif));
+        return listar(devolverLlamadas(telf));
     }
 
     //Metodo listarFacturasCliente: recupera todas las facturas de un cliente a partir de su nif

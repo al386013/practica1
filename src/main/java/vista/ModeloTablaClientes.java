@@ -1,21 +1,16 @@
-package vista;
-
+/*package vista;
 
 import modelo.datos.clientes.Cliente;
 import modelo.datos.clientes.Direccion;
 import modelo.datos.clientes.Particular;
-
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.Collection;
-
-
 import static java.lang.String.format;
 
 public class ModeloTablaClientes extends AbstractTableModel {
     private String nombreColumnas[];
     private ArrayList<Cliente> datos;
-
 
     public <T extends Cliente> ModeloTablaClientes(String[] nombreColumnas, Collection<T> clientes) {
         super();
@@ -24,7 +19,6 @@ public class ModeloTablaClientes extends AbstractTableModel {
         this.datos.addAll(clientes);
     }
 
-//
 //    public <T extends TieneFecha> ModeloTabla(String[] nombreColumnas, ArrayList<T> elementos) {
 //        super();
 //        this.nombreColumnas = nombreColumnas;
@@ -37,13 +31,15 @@ public class ModeloTablaClientes extends AbstractTableModel {
     public int getColumnCount() {
         return nombreColumnas.length;
     }
+
     public int getRowCount() {
         return datos.size();
     }
+
     public Object getValueAt(int row, int col) {
         Cliente cliente = datos.get(row);
         Direccion direccion = cliente.getDireccion();
-        switch(col) {
+        switch (col) {
             case 0:
                 return cliente.getNIF();
             case 1:
@@ -52,7 +48,7 @@ public class ModeloTablaClientes extends AbstractTableModel {
                 return cliente.getNombre();
             case 3:
                 String apellidos = "";
-                if(cliente instanceof Particular)
+                if (cliente instanceof Particular)
                     apellidos = ((Particular) cliente).getApellidos();
                 return apellidos;
             case 4:
@@ -77,4 +73,4 @@ public class ModeloTablaClientes extends AbstractTableModel {
     public String getColumnName(int column) {
         return nombreColumnas[column];
     }
-}
+}*/

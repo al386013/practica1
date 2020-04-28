@@ -126,6 +126,7 @@ public class GestorClientesTest {
     @Test
     public void testListarDatosCliente() {
         Formatter obj = new Formatter();
+        //test con particular
         assertEquals(baseDeDatos.listarDatosCliente("20925403"),
                 "prado banarro, alberto<br/>" +
                 "<ul><li> NIF: 20925403</li>" +
@@ -136,6 +137,7 @@ public class GestorClientesTest {
                 "<li> Hora de alta: " + obj.format("%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute()) + "</li>" +
                 "<li>" + alberto.getTarifa().descripcion() + "</li></ul>");
         obj = new Formatter();
+        //test con empresa
         assertEquals(baseDeDatos.listarDatosCliente("63302284"),
         "pamesa<br/>" +
                 "<ul><li> NIF: 63302284</li>" +
@@ -145,6 +147,9 @@ public class GestorClientesTest {
                 "<li> Fecha de alta: " + LocalDate.now() + "</li>" +
                 "<li> Hora de alta: " + obj.format("%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute()) + "</li>" +
                 "<li>" + pamesa.getTarifa().descripcion() + "</li></ul>");
+        obj = new Formatter();
+        //test listarClietnes
+
     }
 
     //comprueba darDeAltaLlamada
@@ -153,9 +158,9 @@ public class GestorClientesTest {
         baseDeDatos.darDeAltaLlamada("692242216", "000000000", 120);
         Formatter obj = new Formatter();
         assertEquals(baseDeDatos.listarLlamadasCliente("692242216"),
-                "\t- Llamada realizada el " + LocalDate.now()
+                "<html>- Llamada realizada el " + LocalDate.now()
                         + " a las " + obj.format("%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute())
-                        + " con una duracion de 120 segundos al telefono 000000000\n");
+                        + " con una duracion de 120 segundos al telefono 000000000<br/></html>");
         for (Llamada llamada : alberto.getLlamadas()) { //solo hay una
             assertEquals(llamada.getTelfDest(), "000000000");
             assertEquals(llamada.getDuracion(), 120);

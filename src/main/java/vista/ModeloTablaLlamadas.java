@@ -1,20 +1,14 @@
-package vista;
+/*package vista;
 
-
-import modelo.datos.clientes.Cliente;
-import modelo.datos.clientes.Particular;
 import modelo.datos.llamadas.Llamada;
-
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.Collection;
-
 import static java.lang.String.format;
 
 public class ModeloTablaLlamadas extends AbstractTableModel {
     private String nombreColumnas[];
     private ArrayList<Llamada> datos;
-
 
     public <T extends Llamada> ModeloTablaLlamadas(String[] nombreColumnas, Collection<T> llamadas) {
         super();
@@ -48,4 +42,4 @@ public class ModeloTablaLlamadas extends AbstractTableModel {
     public String getColumnName(int column) {
         return nombreColumnas[column];
     }
-}
+}*/

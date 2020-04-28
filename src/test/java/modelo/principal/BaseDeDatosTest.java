@@ -72,7 +72,7 @@ public class BaseDeDatosTest {
 
     //COMPROBACION METODOS LISTAR
 
-    //comprueba metodo listarClientes()
+    //comprueba metodo listarClientes() y listarClientesEntreFechas()
     @Test
     public void testListarClientes() {
         Formatter obj = new Formatter();
@@ -84,6 +84,15 @@ public class BaseDeDatosTest {
                         "<li> Fecha de alta: " + LocalDate.now() + "</li>" +
                         "<li> Hora de alta: " + obj.format("%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute()) + "</li>" +
                         "<li>Tarifa basica</li></ul><br/></html>");
+        obj = new Formatter();
+        assertEquals(baseDeDatos.listarClientesEntreFechas(LocalDate.now(), LocalDate.now()), "<html>pamesa<br/>" +
+                "<ul><li> NIF: 63302284</li>" +
+                "<li> Telefono: 964246252</li>" +
+                "<li> Direccion: Castelllon - VillaReal - 12006</li>" +
+                "<li> Email: pamesa@gmail.com</li>" +
+                "<li> Fecha de alta: " + LocalDate.now() + "</li>" +
+                "<li> Hora de alta: " + obj.format("%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute()) + "</li>" +
+                "<li>Tarifa basica</li></ul><br/></html>");
     }
 
     //comprueba listarLlamadasCliente() y listarLlamadasEntreFechas(); vemos que se imprimen siempre ordenadas por fecha
@@ -97,8 +106,8 @@ public class BaseDeDatosTest {
         baseDeDatos.darDeAltaLlamada("692242216", "000000000", 120);
         Formatter hora = new Formatter();
         hora.format("%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute());
-        String res = "\t- Llamada realizada el " + LocalDate.now() + " a las " + hora +
-                " con una duracion de 120 segundos al telefono 000000000\n";
+        String res = "<html>- Llamada realizada el " + LocalDate.now() + " a las " + hora +
+                " con una duracion de 120 segundos al telefono 000000000<br/></html>";
 
         //tests metodos listar llamadas: se imprimen siempre ordenadas por fecha y hora
         assertEquals(baseDeDatos.listarLlamadasCliente("692242216"), res);

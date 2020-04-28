@@ -2,12 +2,16 @@ package vista;
 
 import controlador.Controlador;
 import modelo.InterrogaModelo;
+import modelo.datos.clientes.Cliente;
+import modelo.datos.contrato.Factura;
 import modelo.principal.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.Collection;
 
 public class VistaFacturas implements InterrogaVistaFacturas {
     private Controlador controlador;
@@ -45,13 +49,22 @@ public class VistaFacturas implements InterrogaVistaFacturas {
                 String comando = evento.getActionCommand();
                 try {
                     if (comando.equals("guardarFactura"))
-                        controlador.emitirFactura();
+                        try {
+                            controlador.emitirFactura();
+                        } catch (DateTimeParseException e) {
+                            vista.accionDenegada("Fecha incorrecta");
+                        }
                     else if (comando.equals("datosFac"))
                         controlador.datosFactura();
                     else if (comando.equals("facturasCli"))
                         controlador.listarFacCli();
-                    else
-                        controlador.listarFacCliFechas();
+                    else {
+                        try {
+                            controlador.listarFacCliFechas();
+                        } catch (DateTimeParseException e) {
+                            vista.accionDenegada("Fecha incorrecta");
+                        }
+                    }
                 } catch (NifNoExistenteException | IllegalArgumentException | IntervaloFechasIncorrectoException e) {
                     vista.accionDenegada(e.getMessage());
                 }
@@ -165,7 +178,6 @@ public class VistaFacturas implements InterrogaVistaFacturas {
         facturasCli.add(facturasCliTitulo);
         facturasCli.add(facturasCliCampos);
 
-
         //LISTADO FACTURAS ENTRE FECHAS DE UN CLIENTE
 
         JPanel facturasCliEntreFechas = new JPanel();
@@ -224,12 +236,12 @@ public class VistaFacturas implements InterrogaVistaFacturas {
     }
 
     @Override
-    public LocalDate getFechaIniFac() {
+    public LocalDate getFechaIniFac() throws DateTimeParseException {
         return LocalDate.parse(fechaIniFac.getText());
     }
 
     @Override
-    public LocalDate getFechaFinFac() {
+    public LocalDate getFechaFinFac() throws DateTimeParseException {
         return LocalDate.parse(fechaFinFac.getText());
     }
 
@@ -249,35 +261,40 @@ public class VistaFacturas implements InterrogaVistaFacturas {
     }
 
     @Override
-    public LocalDate getFechaIniFechas() {
+    public LocalDate getFechaIniFechas() throws DateTimeParseException {
         return LocalDate.parse(fechaIniFechas.getText());
     }
 
     @Override
-    public LocalDate getFechasFinFechas() {
+    public LocalDate getFechasFinFechas() throws DateTimeParseException {
         return LocalDate.parse(fechaFinFechas.getText());
     }
 
     @Override
-    public void listadoFacturas(String nif){
-        JFrame ventana = new JFrame("Listado facturas");
+    public void listadoFacturas(String nif) {
+        listadoFacturasEntreFechas(nif, LocalDate.parse("1999-01-01"), LocalDate.now());
+        /*JFrame ventana = new JFrame("Listado facturas");
         CustomJTable customJTable = new CustomJTable("facturas");
         customJTable.cargarFacturas(modelo.getBaseDeDatos().devolverFacturas(nif));
         ventana.getContentPane().add(customJTable.getScrollPane());
         ventana.setSize(1200,300);
-        ventana.setVisible(true);
+        ventana.setVisible(true);*/
     }
 
     @Override
-    public void listadoFacturasEntreFechas(String nif, LocalDate fechaIni, LocalDate fechaFin){
-        JFrame ventana = new JFrame("Listado facturas entre fechas");
-        CustomJTable customJTable = new CustomJTable("facturas entre fechas");
+    public void listadoFacturasEntreFechas(String nif, LocalDate fechaIni, LocalDate fechaFin) {
+        JFrame ventana = new JFrame("Listado facturas");
+        CustomJTable customJTable = new CustomJTable("facturas");
         BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
-        customJTable.cargarFacturas(baseDeDatos.entreFechas(baseDeDatos.devolverFacturas(nif), fechaIni, fechaFin));
-        ventana.getContentPane().add(customJTable.getScrollPane());
+        String[] columnas = {"Codigo", "Fecha factura", "Hora", "Importe",
+                "Fecha inicio", "Fecha fin", "Llamadas"};
+        Collection<Factura> facturas = baseDeDatos.devolverFacturas(nif);
+        Container contenedor = ventana.getContentPane();
+        contenedor.add(customJTable.getScrollPane(columnas, baseDeDatos.entreFechas(facturas, fechaIni, fechaFin)));
         ventana.setSize(1200,300);
         ventana.setVisible(true);
     }
+
     @Override
     public void datosFactura(int cod) {
         JFrame ventana = new JFrame("Datos de la factura");
@@ -286,6 +303,4 @@ public class VistaFacturas implements InterrogaVistaFacturas {
         ventana.pack();
         ventana.setVisible(true);
     }
-
-
 }
