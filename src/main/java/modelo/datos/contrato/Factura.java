@@ -46,6 +46,14 @@ public class Factura implements TieneFecha, Serializable {
         return this.importe;
     }
 
+    public PeriodoFacturacion getPeriodoFact() {
+        return periodoFact;
+    }
+
+    public Set<Llamada> getLlamadas() {
+        return llamadas;
+    }
+
     public String getNifCliente() {
         return this.nifCliente;
     }
@@ -84,7 +92,7 @@ public class Factura implements TieneFecha, Serializable {
         string += "<li> Importe: " + importe + "€ </li>";
         string += "<li> Lista de llamadas de esta factura </li>";
         for (Llamada llamada : llamadas)
-            string += "<br/>" + llamada.toString();
+            string += "<br/>" + llamada;
         return string + "</h1></html>";
     }
 }

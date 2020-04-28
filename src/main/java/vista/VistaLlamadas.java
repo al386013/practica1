@@ -2,6 +2,7 @@ package vista;
 
 import controlador.Controlador;
 import modelo.InterrogaModelo;
+import modelo.principal.BaseDeDatos;
 import modelo.principal.IntervaloFechasIncorrectoException;
 import modelo.principal.TelfNoExistenteException;
 
@@ -217,5 +218,26 @@ public class VistaLlamadas implements InterrogaVistaLlamadas {
     @Override
     public LocalDate getFechaFinListado() {
         return LocalDate.parse(fechaFinListado.getText());
+    }
+
+    @Override
+    public void listadoLlamadas(String telf){
+        JFrame ventana = new JFrame("Listado llamadas");
+        CustomJTable customJTable = new CustomJTable("llamadas");
+        customJTable.cargarLlamadas(modelo.getBaseDeDatos().devolverLlamadas(telf));
+        ventana.getContentPane().add(customJTable.getScrollPane());
+        ventana.setSize(600,200);
+        ventana.setVisible(true);
+    }
+
+    @Override
+    public void listadoLlamadasEntreFechas(String telf, LocalDate fechaIni, LocalDate fechaFin){
+        JFrame ventana = new JFrame("Listado llamadas entre fechas");
+        CustomJTable customJTable = new CustomJTable("llamadas entre fechas");
+        BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
+        customJTable.cargarLlamadas(baseDeDatos.entreFechas(baseDeDatos.devolverLlamadas(telf), fechaIni, fechaFin));
+        ventana.getContentPane().add(customJTable.getScrollPane());
+        ventana.setSize(600,200);
+        ventana.setVisible(true);
     }
 }

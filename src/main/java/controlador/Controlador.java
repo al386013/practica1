@@ -2,6 +2,8 @@ package controlador;
 
 import modelo.principal.*;
 
+import java.time.format.DateTimeParseException;
+
 public interface Controlador {
     void importarDatos();
 
@@ -23,7 +25,7 @@ public interface Controlador {
 
     void llamadasCli() throws TelfNoExistenteException;
 
-    void llamadasCliFechas() throws TelfNoExistenteException, IntervaloFechasIncorrectoException;
+    void llamadasCliFechas() throws TelfNoExistenteException, IntervaloFechasIncorrectoException, DateTimeParseException;
 
     void emitirFactura() throws NifNoExistenteException, IntervaloFechasIncorrectoException;
 

@@ -10,7 +10,7 @@ public class LlamadasCliente implements Accion {
         InterrogaVistaLlamadas vistaLlamadas = vista.getVistaLlamadas();
         String telf = vistaLlamadas.getTelfListado();
         baseDeDatos.compruebaTelfExistente(telf);
-        //entradaSalida.imprimirConSalto("\nLLAMADAS DEL CLIENTE CON TELEFONO " + telf);
-        //entradaSalida.imprimirConSalto(baseDeDatos.listarLlamadasCliente(telf));
+        vista.getVistaLlamadas().listadoLlamadas(telf);
+
     }
 }

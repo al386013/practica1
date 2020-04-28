@@ -15,7 +15,6 @@ public class LlamadasClienteEntreFechas implements Accion {
         LocalDate fechaIni = vistaLlamadas.getFechaIniListado();
         LocalDate fechaFin = vistaLlamadas.getFechaFinListado();
         baseDeDatos.compruebaFechas(fechaIni, fechaFin);
-        //entradaSalida.imprimirConSalto("\nLLAMADAS REALIZADAS ENTRE " + fechaIni + " Y " + fechaFin);
-        //entradaSalida.imprimirConSalto(baseDeDatos.listarLlamadasEntreFechas(telf, fechaIni, fechaFin));
+        vista.getVistaLlamadas().listadoLlamadasEntreFechas(telf, fechaIni, fechaFin);
     }
 }

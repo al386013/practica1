@@ -16,4 +16,9 @@ public interface InterrogaVistaLlamadas {
     LocalDate getFechaIniListado();
 
     LocalDate getFechaFinListado();
+
+    void listadoLlamadas(String telf);
+
+    void listadoLlamadasEntreFechas(String telf, LocalDate fechaIni, LocalDate fechaFin);
+
 }

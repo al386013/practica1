@@ -20,4 +20,10 @@ public interface InterrogaVistaFacturas {
     LocalDate getFechasFinFechas();
 
     void datosFactura(int cod);
+
+    void listadoFacturas(String nif);
+
+    void listadoFacturasEntreFechas(String nif, LocalDate fechaIni, LocalDate fechaFin);
+
+
 }

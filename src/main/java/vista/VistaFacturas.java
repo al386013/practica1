@@ -205,7 +205,7 @@ public class VistaFacturas implements InterrogaVistaFacturas {
         facturasCliFechasCampos.add(botonFacturasCliFechas);
 
         facturasCliEntreFechas.setLayout(new BoxLayout(facturasCliEntreFechas, BoxLayout.PAGE_AXIS));
-        facturasCliFechasTitulo.add(new JLabel("<html>" + "<b><i>LISTAR LLAMADAS DE UN CLIENTE ENTRE FECHAS</i></b><br/>" + "</html>"));
+        facturasCliFechasTitulo.add(new JLabel("<html>" + "<b><i>LISTAR FACTURAS DE UN CLIENTE ENTRE FECHAS</i></b><br/>" + "</html>"));
         facturasCliEntreFechas.add(facturasCliFechasTitulo);
         facturasCliEntreFechas.add(facturasCliFechasCampos);
 
@@ -259,6 +259,26 @@ public class VistaFacturas implements InterrogaVistaFacturas {
     }
 
     @Override
+    public void listadoFacturas(String nif){
+        JFrame ventana = new JFrame("Listado facturas");
+        CustomJTable customJTable = new CustomJTable("facturas");
+        customJTable.cargarFacturas(modelo.getBaseDeDatos().devolverFacturas(nif));
+        ventana.getContentPane().add(customJTable.getScrollPane());
+        ventana.setSize(1200,300);
+        ventana.setVisible(true);
+    }
+
+    @Override
+    public void listadoFacturasEntreFechas(String nif, LocalDate fechaIni, LocalDate fechaFin){
+        JFrame ventana = new JFrame("Listado facturas entre fechas");
+        CustomJTable customJTable = new CustomJTable("facturas entre fechas");
+        BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
+        customJTable.cargarFacturas(baseDeDatos.entreFechas(baseDeDatos.devolverFacturas(nif), fechaIni, fechaFin));
+        ventana.getContentPane().add(customJTable.getScrollPane());
+        ventana.setSize(1200,300);
+        ventana.setVisible(true);
+    }
+    @Override
     public void datosFactura(int cod) {
         JFrame ventana = new JFrame("Datos de la factura");
         JLabel texto = new JLabel(modelo.getBaseDeDatos().listarDatosFactura(cod));
@@ -266,4 +286,6 @@ public class VistaFacturas implements InterrogaVistaFacturas {
         ventana.pack();
         ventana.setVisible(true);
     }
+
+
 }

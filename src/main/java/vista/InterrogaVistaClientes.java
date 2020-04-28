@@ -35,5 +35,9 @@ public interface InterrogaVistaClientes {
 
     void listadoClientes();
 
+    void listadoClientesEntreFechas(LocalDate fechaIni, LocalDate fechaFin);
+
     void datosCliente(String nif);
+
+
 }

@@ -7,7 +7,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.Date;
 
 public class VistaClientes implements InterrogaVistaClientes {
     private Controlador controlador;
@@ -65,10 +68,16 @@ public class VistaClientes implements InterrogaVistaClientes {
                         controlador.datosCliente();
                     else if (comando.equals("listarCli"))
                         controlador.listarClientes();
-                    else
-                        controlador.listarCliFechas();
+                    else{
+                        try{
+                            controlador.listarCliFechas();
+                        }
+                        catch (DateTimeParseException e){
+                            vista.accionDenegada("Fecha incorrecta");
+                        }
+                    }
                 } catch (NifRepetidoException | TelfRepetidoException | TelfNoExistenteException | NifNoExistenteException |
-                        IntervaloFechasIncorrectoException | IllegalArgumentException e) {
+                        IntervaloFechasIncorrectoException | IllegalArgumentException  e) {
                     vista.accionDenegada(e.getMessage());
                 }
             }
@@ -410,25 +419,38 @@ public class VistaClientes implements InterrogaVistaClientes {
     }
 
     @Override
-    public LocalDate getFechaIni() {
+    public LocalDate getFechaIni() throws DateTimeParseException {
         return LocalDate.parse(fechaIni.getText());
+
     }
 
     @Override
-    public LocalDate getFechaFin() {
+    public LocalDate getFechaFin() throws DateTimeParseException{
         return LocalDate.parse(fechaFin.getText());
+
+
     }
 
     @Override
     public void listadoClientes() {
         JFrame ventana = new JFrame("Listado clientes");
         CustomJTable customJTable = new CustomJTable("clientes");
-        customJTable.cargarTablaClientes(modelo.getBaseDeDatos().devolverClientes());
+        customJTable.cargarClientes(modelo.getBaseDeDatos().devolverClientes());
         ventana.getContentPane().add(customJTable.getScrollPane());
         ventana.setSize(1200,300);
         ventana.setVisible(true);
     }
 
+    @Override
+    public void listadoClientesEntreFechas(LocalDate fechaIni, LocalDate fechaFin) {
+        JFrame ventana = new JFrame("Listado clientes entre fechas");
+        CustomJTable customJTable = new CustomJTable("clientes entre fechas");
+        BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
+        customJTable.cargarClientes(baseDeDatos.entreFechas(baseDeDatos.devolverClientes(), fechaIni, fechaFin));
+        ventana.getContentPane().add(customJTable.getScrollPane());
+        ventana.setSize(1200,300);
+        ventana.setVisible(true);
+    }
     @Override
     public void datosCliente(String nif) {
         JFrame ventana = new JFrame("Datos del cliente");
