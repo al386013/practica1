@@ -429,8 +429,7 @@ public class PanelClientes extends JPanel implements InterrogaVistaClientes {
         ListSelectionListener escuchador = new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                if (e.getValueIsAdjusting() != true)
-                    int fila = tabla.convertRowIndexToModel(tabla.getSelectedRow());
+
             }
         };
 
@@ -438,6 +437,14 @@ public class PanelClientes extends JPanel implements InterrogaVistaClientes {
         contenedor.add(panel);
         ventana.setSize(1200, 300);
         ventana.setVisible(true);
+    }
+
+    private class EscuchadorTabla implements ListSelectionListener {
+        @Override
+        public void valueChanged(ListSelectionEvent e) {
+            if (e.getValueIsAdjusting() != true)
+                int fila = tabla.convertRowIndexToModel(tabla.getSelectedRow());
+        }
     }
 
     @Override
