@@ -8,10 +8,12 @@ public class ImplementacionModelo implements CambioModelo, InterrogaModelo {
     private BaseDeDatos baseDeDatos;
 
     public ImplementacionModelo() {
+        super();
     }
 
     public void setVista(InformaVista vista) {
         this.vista = vista;
+        baseDeDatos.setVista(vista);
     }
 
     @Override

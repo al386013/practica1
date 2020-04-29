@@ -3,7 +3,6 @@ package modelo.principal;
 import modelo.datos.clientes.Cliente;
 import modelo.datos.contrato.tarifas.Tarifa;
 import modelo.datos.llamadas.Llamada;
-
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;

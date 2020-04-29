@@ -8,7 +8,6 @@ import java.awt.*;
 import java.util.Collection;
 
 public class CustomJTable extends JFrame {
-    //JScrollPane scrollPane;
     JTable tabla;
 
     public CustomJTable(String title) {
@@ -39,48 +38,14 @@ public class CustomJTable extends JFrame {
         tabla = new JTable(new ModeloTabla<T>(columnas, elementos));
         anchoColumnas(); //ajustar ancho columnas al texto
 
-
         //todo ESTO ESTA MUY FEO PERO SINO NO SE COMO HACERLO!!!!!
         if(columnas[0].equals("Codigo")) //si es la tabla de facturas
             tabla.setRowHeight(100);
 
-        tabla.setAutoCreateRowSorter(true);
+        tabla.setAutoCreateRowSorter(true); //ordena solo los datos de la tabla
+        tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane scrollPane = new JScrollPane(tabla);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         return scrollPane;
     }
-
-    /*public void cargarClientes(Collection<Cliente> clientes) {
-        String[] columnas = {"DNI", "Telefono", "Nombre", "Apellidos", "Codigo Postal",
-                "Poblacion", "Provincia", "E-mail", "Fecha de Alta", "Hora", "Tarifa"};
-        //ModeloTablaClientes modeloTabla = new ModeloTablaClientes(columnas, clientes);
-        ModeloTabla modeloTabla = new ModeloTabla(columnas, clientes);
-        tabla = new JTable(modeloTabla);
-        anchoColumnas();
-    }
-
-    public void cargarLlamadas(Collection<Llamada> llamadas) {
-        String[] columnas = {"Destino", "Fecha", "Hora", "Duracion"};
-        ModeloTabla modeloTabla = new ModeloTabla(columnas, llamadas);
-        tabla = new JTable(modeloTabla);
-        //definir ancho columnas
-        anchoColumnas();
-    }
-
-    public void cargarFacturas(Collection<Factura> facturas){
-        String[] columnas = {"Codigo", "Fecha factura", "Hora", "Importe",
-                "Fecha inicio", "Fecha fin", "Llamadas"};
-        ModeloTabla modeloTabla = new ModeloTabla(columnas, facturas);
-        tabla = new JTable(modeloTabla);
-        //definir ancho columnas
-        anchoColumnas();
-        tabla.setRowHeight(30);
-    }
-
-    public JScrollPane getScrollPane() {
-        tabla.setAutoCreateRowSorter(true);
-        scrollPane = new JScrollPane(tabla);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        return scrollPane;
-    }*/
 }

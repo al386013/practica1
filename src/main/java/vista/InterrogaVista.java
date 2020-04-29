@@ -7,7 +7,7 @@ public interface InterrogaVista {
 
     VistaFacturas getVistaFacturas();
 
-    void accionCorrecta(String cadena);
+    void accionDenegada(String cadena); //este metodo preguntar
 
-    void accionDenegada(String cadena);
+    void accionCorrecta(String cadena); //este metodo se debe ir fuera!!
 }

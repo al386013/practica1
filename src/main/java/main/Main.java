@@ -19,10 +19,10 @@ public class Main implements Serializable {
         ImplementacionControlador controlador = new ImplementacionControlador();
         ImplementacionVista vista = new ImplementacionVista();
         ImplementacionModelo modelo = new ImplementacionModelo();
-        modelo.setVista(vista);
         modelo.setBaseDeDatos(baseDeDatos);
-        controlador.setVista(vista);
+        modelo.setVista(vista);
         controlador.setModelo(modelo);
+        controlador.setVista(vista);
         vista.setModelo(modelo);
         vista.setControlador(controlador);
         vista.creaGUI();

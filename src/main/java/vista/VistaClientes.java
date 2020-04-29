@@ -3,7 +3,6 @@ package vista;
 import controlador.Controlador;
 import modelo.InterrogaModelo;
 import modelo.datos.clientes.Cliente;
-import modelo.datos.llamadas.Llamada;
 import modelo.principal.*;
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +12,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Collection;
 
-public class VistaClientes implements InterrogaVistaClientes {
+public class VistaClientes extends JPanel implements InterrogaVistaClientes {
     private Controlador controlador;
     private InterrogaModelo modelo;
     private InterrogaVista vista;

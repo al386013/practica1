@@ -14,7 +14,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Collection;
 
-public class VistaLlamadas implements InterrogaVistaLlamadas {
+public class VistaLlamadas extends JPanel implements InterrogaVistaLlamadas {
     private Controlador controlador;
     private InterrogaModelo modelo;
     private InterrogaVista vista;

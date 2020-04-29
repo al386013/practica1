@@ -1,14 +1,12 @@
-package controlador.acciones;
+package controlador;
 
-import modelo.principal.BaseDeDatos;
-import vista.InterrogaVista;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-public class ExportarDatosYsalir implements Accion {
-    public void ejecutaAccion(BaseDeDatos baseDeDatos, InterrogaVista vista) {
+public class ExportarDatosYsalir extends Accion {
+    public void ejecutaAccion() {
         ObjectOutputStream oos = null;
         try {
             try {
