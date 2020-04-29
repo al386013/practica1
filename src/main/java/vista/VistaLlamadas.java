@@ -228,21 +228,6 @@ public class VistaLlamadas extends JPanel implements InterrogaVistaLlamadas {
     }
 
     @Override
-    public void listadoLlamadas(String telf) {
-        listadoLlamadasEntreFechas(telf, LocalDate.parse("1999-01-01"), LocalDate.now());
-
-        /*JFrame ventana = new JFrame("Listado llamadas");
-        CustomJTable customJTable = new CustomJTable("llamadas");
-        //customJTable.cargarLlamadas(modelo.getBaseDeDatos().devolverLlamadas(telf));
-        //ventana.getContentPane().add(customJTable.getScrollPane());
-        String[] columnas = {"Destino", "Fecha", "Hora", "Duracion"};
-        Container contenedor = ventana.getContentPane();
-        contenedor.add(customJTable.getScrollPane(columnas, modelo.getBaseDeDatos().devolverLlamadas(telf)));
-        ventana.setSize(600,200);
-        ventana.setVisible(true); */
-    }
-
-    @Override
     public void listadoLlamadasEntreFechas(String telf, LocalDate fechaIni, LocalDate fechaFin){
         JFrame ventana = new JFrame("Listado llamadas");
         CustomJTable customJTable = new CustomJTable("llamadas");
@@ -256,4 +241,5 @@ public class VistaLlamadas extends JPanel implements InterrogaVistaLlamadas {
         ventana.setSize(600,200);
         ventana.setVisible(true);
     }
+
 }

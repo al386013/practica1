@@ -1,13 +1,14 @@
 package vista;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public interface InterrogaVistaFacturas {
     String getNifFac();
 
-    LocalDate getFechaIniFac();
+    LocalDate getFechaIniFac()throws DateTimeParseException;
 
-    LocalDate getFechaFinFac();
+    LocalDate getFechaFinFac() throws DateTimeParseException;
 
     int getCodFac();
 
@@ -15,13 +16,13 @@ public interface InterrogaVistaFacturas {
 
     String getNifFechas();
 
-    LocalDate getFechaIniFechas();
+    LocalDate getFechaIniFechas() throws DateTimeParseException;
 
-    LocalDate getFechasFinFechas();
+    LocalDate getFechasFinFechas() throws DateTimeParseException;
 
     void datosFactura(int cod);
 
-    void listadoFacturas(String nif);
+    void listadoFacturasEntreFechas(String nif, LocalDate fechaIni, LocalDate fechaFin)
+            throws DateTimeParseException;
 
-    void listadoFacturasEntreFechas(String nif, LocalDate fechaIni, LocalDate fechaFin);
 }
