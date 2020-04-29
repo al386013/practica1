@@ -5,6 +5,7 @@ import modelo.InterrogaModelo;
 import modelo.datos.clientes.Cliente;
 import modelo.principal.*;
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -406,6 +407,13 @@ public class PanelClientes extends JPanel implements InterrogaVistaClientes {
 
     @Override
     public void listadoClientesEntreFechas(LocalDate fechaIni, LocalDate fechaFin) {
+        public void valueChanged(ListSelectionEvent e) {
+            if (e.getValueIsAdjusting() != true) {
+                int fila = tabla.convertRowIndexToModel(tabla.getSelectedRow());
+            }
+        }
+
+
         JFrame ventana = new JFrame("Listado clientes entre fechas");
         BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
         String[] columnas = {"DNI", "Telefono", "Nombre", "Apellidos", "Codigo Postal",
@@ -420,8 +428,10 @@ public class PanelClientes extends JPanel implements InterrogaVistaClientes {
         titulo = new JPanel();
         titulo.add(new JLabel("<html>Pulsa sobre una fila para más información.</html>"));
         panel.add(titulo);
-        ScrollPanelConTabla scrollPanelConTabla = new ScrollPanelConTabla();
-        panel.add(scrollPanelConTabla.crear(columnas, baseDeDatos.entreFechas(clientes, fechaIni, fechaFin)));
+        Tabla tabla = new Tabla();
+        JScrollPane scrollPane = new JScrollPane(tabla.crear(columnas, baseDeDatos.entreFechas(clientes, fechaIni, fechaFin)));
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        panel.add(scrollPane);
         contenedor.add(panel);
         ventana.setSize(1200, 300);
         ventana.setVisible(true);

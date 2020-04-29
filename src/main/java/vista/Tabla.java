@@ -2,18 +2,20 @@ package vista;
 
 import modelo.datos.TieneFecha;
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.util.Collection;
 
-public class ScrollPanelConTabla {
+public class Tabla {
     JTable tabla;
 
-    public ScrollPanelConTabla() {
+    public Tabla() {
         super();
     }
 
+    //metodo que ajusta en ancho de las columnas de la tabla al texto de las celdas
     public void anchoColumnas(){
         for (int column = 0; column < tabla.getColumnCount(); column++){
             TableColumn tableColumn = tabla.getColumnModel().getColumn(column);
@@ -33,13 +35,11 @@ public class ScrollPanelConTabla {
         }
     }
 
-    public <T extends TieneFecha> JScrollPane crear(String[] columnas, Collection<T> elementos) {
+    public <T extends TieneFecha> JTable crear(String[] columnas, Collection<T> elementos) {
         tabla = new JTable(new ModeloTabla<T>(columnas, elementos));
         anchoColumnas(); //ajustar ancho columnas al texto
         tabla.setAutoCreateRowSorter(true); //ordena solo los datos de la tabla
         tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        JScrollPane scrollPane = new JScrollPane(tabla);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        return scrollPane;
+        return tabla;
     }
 }

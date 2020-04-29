@@ -227,8 +227,10 @@ public class PanelLlamadas extends JPanel implements InterrogaVistaLlamadas {
         titulo = new JPanel();
         titulo.add(new JLabel("<html>Pulsa sobre una fila para más información.</html>"));
         panel.add(titulo);
-        ScrollPanelConTabla scrollPanelConTabla = new ScrollPanelConTabla();
-        panel.add(scrollPanelConTabla.crear(columnas, baseDeDatos.entreFechas(llamadas, fechaIni, fechaFin)));
+        Tabla tabla = new Tabla();
+        JScrollPane scrollPane = new JScrollPane(tabla.crear(columnas, baseDeDatos.entreFechas(llamadas, fechaIni, fechaFin)));
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        panel.add(scrollPane);
         contenedor.add(panel);
         ventana.setSize(600,200);
         ventana.setVisible(true);
