@@ -451,7 +451,7 @@ public class PanelClientes extends JPanel implements InterrogaVistaClientes {
         JFrame ventana = new JFrame("Datos del cliente");
         JLabel texto = new JLabel("<html><h1>" + modelo.getBaseDeDatos().listarDatosCliente(nif) + "</h1></html>");
         ventana.getContentPane().add(texto);
-        ventana.pack();
+        ventana.setSize(600,300);
         ventana.setVisible(true);
     }
 }

@@ -13,10 +13,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Collection;
-
-import static java.lang.String.format;
 
 public class PanelLlamadas extends JPanel implements InterrogaVistaLlamadas {
     private Controlador controlador;
@@ -60,7 +57,7 @@ public class PanelLlamadas extends JPanel implements InterrogaVistaLlamadas {
                         controlador.llamadasCli();
                     else if (comando.equals("llamadasCliFechas"))
                         controlador.llamadasCliFechas();
-                } catch(TelfNoExistenteException | IntervaloFechasIncorrectoException e) {
+                } catch (TelfNoExistenteException | IntervaloFechasIncorrectoException e) {
                     vista.accionDenegada(e.getMessage());
                 }
             }
@@ -79,9 +76,9 @@ public class PanelLlamadas extends JPanel implements InterrogaVistaLlamadas {
         telfOrigen = new JTextField(17);
         telfDestino = new JTextField(17);
         duracion = new JTextField(17);
-        telfOrigen.setText("Teléfono origen");
-        telfDestino.setText("Teléfono destino");
-        duracion.setText("Duración en segundos");
+        telfOrigen.setText("Escribe teléfono origen");
+        telfDestino.setText("Escribe teléfono destino");
+        duracion.setText("Escribe duración en segundos");
 
         panelIzq.setLayout(new GridLayout(3, 1));
         panelDer.setLayout(new GridLayout(3, 1));
@@ -117,7 +114,7 @@ public class PanelLlamadas extends JPanel implements InterrogaVistaLlamadas {
         panelSeccion = new JPanel();
 
         telfListado = new JTextField(13);
-        telfListado.setText("Teléfono");
+        telfListado.setText("Escribe teléfono");
 
         panelIzq.setLayout(new GridLayout(1, 1));
         panelDer.setLayout(new GridLayout(1, 1));
@@ -151,7 +148,7 @@ public class PanelLlamadas extends JPanel implements InterrogaVistaLlamadas {
         telfListadoFechas = new JTextField(15);
         fechaIniListado = new JTextField(15);
         fechaFinListado = new JTextField(15);
-        telfListadoFechas.setText("Teléfono");
+        telfListadoFechas.setText("Escribe teléfono");
         fechaIniListado.setText("aaaa-mm-dd");
         fechaFinListado.setText("aaaa-mm-dd");
 
@@ -217,7 +214,7 @@ public class PanelLlamadas extends JPanel implements InterrogaVistaLlamadas {
     }
 
     @Override
-    public void listadoLlamadasEntreFechas(String telf, LocalDate fechaIni, LocalDate fechaFin){
+    public void listadoLlamadasEntreFechas(String telf, LocalDate fechaIni, LocalDate fechaFin) {
         JFrame ventana = new JFrame("Listado llamadas");
         BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
         String[] columnas = {"Origen", "Destino", "Fecha", "Hora", "Duracion"};
@@ -240,7 +237,7 @@ public class PanelLlamadas extends JPanel implements InterrogaVistaLlamadas {
         ListSelectionListener escuchadorTabla = new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                if(e.getValueIsAdjusting() != true) {
+                if (e.getValueIsAdjusting() != true) {
                     int fila = jTable.convertRowIndexToModel(jTable.getSelectedRow());
                     ModeloTabla modeloTabla = tabla.getModeloTabla();
 
@@ -264,16 +261,15 @@ public class PanelLlamadas extends JPanel implements InterrogaVistaLlamadas {
     @Override
     public void datosLlamada(String telfOrigen, String telfDest, LocalDate fecha, String hora, int duracion) {
         JFrame ventana = new JFrame("Datos de la llamada");
-        String string = "<html> Llamada <br/>";
+        String string = "<html><big> Datos llamada </big><br/>";
         string += "<ul><li> Teléfono origen: " + telfOrigen + "</li>";
         string += "<li> Telefono destino: " + telfDest + "</li>";
         string += "<li> Fecha: " + fecha + "</li>";
         string += "<li> Hora: " + hora + "</li>";
-        string += "<li> Duración: " + duracion + "</li> </ul> </html>";
+        string += "<li> Duración: " + duracion + "</li></ul></html>";
         JLabel texto = new JLabel(string);
         ventana.getContentPane().add(texto);
-        ventana.pack();
+        ventana.setSize(300, 300);
         ventana.setVisible(true);
     }
-
 }

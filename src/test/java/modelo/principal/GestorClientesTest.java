@@ -6,10 +6,6 @@ import modelo.datos.clientes.Empresa;
 import modelo.datos.clientes.Particular;
 import modelo.datos.llamadas.Llamada;
 import es.uji.www.GeneradorDatosINE;
-import modelo.principal.BaseDeDatos;
-import modelo.principal.FabricaTarifas;
-import modelo.principal.GestorClientes;
-import modelo.principal.GestorFacturas;
 import org.junit.Assert;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -20,7 +16,6 @@ import java.util.Formatter;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -166,13 +161,6 @@ public class GestorClientesTest {
             assertEquals(llamada.getDuracion(), 120);
             assertEquals(llamada.getFecha(), LocalDate.now());
         }
-    }
-
-    //comprueba que lanza la excepcion si la duracion de la llamada es negativa
-    @Test
-    public void testDuracionNegativa() {
-        assertThrows(IllegalArgumentException.class,
-                () -> baseDeDatos.darDeAltaLlamada("692242216", "987654321", -1));
     }
 
     @AfterAll

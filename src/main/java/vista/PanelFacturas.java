@@ -78,7 +78,7 @@ public class PanelFacturas extends JPanel implements InterrogaVistaFacturas {
         nifFac = new JTextField(14);
         fechaIniFac = new JTextField(14);
         fechaFinFac = new JTextField(14);
-        nifFac.setText("NIF");
+        nifFac.setText("Escribe NIF");
         fechaIniFac.setText("aaaa-mm-dd");
         fechaFinFac.setText("aaaa-mm-dd");
 
@@ -116,7 +116,7 @@ public class PanelFacturas extends JPanel implements InterrogaVistaFacturas {
         panelSeccion = new JPanel();
 
         codFac = new JTextField(16);
-        codFac.setText("Código");
+        codFac.setText("Escibe código");
 
         panelIzq.setLayout(new GridLayout(1, 1));
         panelDer.setLayout(new GridLayout(1, 1));
@@ -148,7 +148,7 @@ public class PanelFacturas extends JPanel implements InterrogaVistaFacturas {
         panelSeccion = new JPanel();
 
         nifFacCli = new JTextField(14);
-        nifFacCli.setText("NIF");
+        nifFacCli.setText("Escribe NIF");
 
         panelIzq.setLayout(new GridLayout(1, 1));
         panelDer.setLayout(new GridLayout(1, 1));
@@ -182,7 +182,7 @@ public class PanelFacturas extends JPanel implements InterrogaVistaFacturas {
         nifFechas = new JTextField(15);
         fechaIniFechas = new JTextField(15);
         fechaFinFechas = new JTextField(15);
-        nifFechas.setText("NIF");
+        nifFechas.setText("Escribe NIF");
         fechaIniFechas.setText("aaaa-mm-dd");
         fechaFinFechas.setText("aaaa-mm-dd");
 
