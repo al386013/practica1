@@ -423,14 +423,28 @@ public class PanelClientes extends JPanel implements InterrogaVistaClientes {
         titulo.add(new JLabel("<html>Pulsa sobre una fila para más información.</html>"));
         panel.add(titulo);
         Tabla tabla = new Tabla();
-        JScrollPane scrollPane = new JScrollPane(tabla.crear(columnas, baseDeDatos.entreFechas(clientes, fechaIni, fechaFin)));
+        JTable jtable = tabla.crear(columnas, baseDeDatos.entreFechas(clientes, fechaIni, fechaFin));
+        JScrollPane scrollPane = new JScrollPane(jtable);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+        ListSelectionListener escuchadorTabla = new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if(e.getValueIsAdjusting() != true) {
+                    int fila = jtable.convertRowIndexToModel(jtable.getSelectedRow());
+                    ModeloTabla modeloTabla = tabla.getModeloTabla();
+                    String nifTabla = (String) modeloTabla.getValueAt(fila, 0);
+                    datosCliente(nifTabla);
+                }
+            }
+        };
+        ListSelectionModel listSelectionModel = jtable.getSelectionModel();
+        listSelectionModel.addListSelectionListener(escuchadorTabla);
         panel.add(scrollPane);
         contenedor.add(panel);
         ventana.setSize(1200, 300);
         ventana.setVisible(true);
     }
-
 
     @Override
     public void datosCliente(String nif) {

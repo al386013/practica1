@@ -18,6 +18,8 @@ public interface InterrogaVistaLlamadas {
 
     LocalDate getFechaFinListado();
 
+    void datosLlamada(String telfOrigen, String telfDest, LocalDate fecha, String hora, int duracion);
+
     void listadoLlamadasEntreFechas(String telf, LocalDate fechaIni, LocalDate fechaFin)
             throws DateTimeParseException;
 

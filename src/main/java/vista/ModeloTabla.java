@@ -93,12 +93,14 @@ public class ModeloTabla <T extends TieneFecha> extends AbstractTableModel {
     public Object datosLlamada(Llamada llamada, int col) {
         switch(col) {
             case 0:
-                return llamada.getTelfDest();
+                return llamada.getTeflOrigen();
             case 1:
-                return llamada.getFecha();
+                return llamada.getTelfDest();
             case 2:
-                return format("%02d:%02d", llamada.getHora().getHour(), llamada.getHora().getMinute());
+                return llamada.getFecha();
             case 3:
+                return format("%02d:%02d", llamada.getHora().getHour(), llamada.getHora().getMinute());
+            case 4:
                 return llamada.getDuracion();
         }
         return null;
