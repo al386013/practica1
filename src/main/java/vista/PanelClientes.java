@@ -425,27 +425,12 @@ public class PanelClientes extends JPanel implements InterrogaVistaClientes {
         Tabla tabla = new Tabla();
         JScrollPane scrollPane = new JScrollPane(tabla.crear(columnas, baseDeDatos.entreFechas(clientes, fechaIni, fechaFin)));
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-
-        ListSelectionListener escuchador = new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-
-            }
-        };
-
         panel.add(scrollPane);
         contenedor.add(panel);
         ventana.setSize(1200, 300);
         ventana.setVisible(true);
     }
 
-    private class EscuchadorTabla implements ListSelectionListener {
-        @Override
-        public void valueChanged(ListSelectionEvent e) {
-            if (e.getValueIsAdjusting() != true)
-                int fila = tabla.convertRowIndexToModel(tabla.getSelectedRow());
-        }
-    }
 
     @Override
     public void datosCliente(String nif) {
