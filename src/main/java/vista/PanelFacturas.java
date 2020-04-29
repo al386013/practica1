@@ -5,6 +5,8 @@ import modelo.InterrogaModelo;
 import modelo.datos.contrato.Factura;
 import modelo.principal.*;
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -268,11 +270,26 @@ public class PanelFacturas extends JPanel implements InterrogaVistaFacturas {
         titulo.add(new JLabel("<html>Pulsa sobre una fila para más información.</html>"));
         panel.add(titulo);
         Tabla tabla = new Tabla();
-        JScrollPane scrollPane = new JScrollPane(tabla.crear(columnas, baseDeDatos.entreFechas(facturas, fechaIni, fechaFin)));
+        JTable jTable = tabla.crear(columnas, baseDeDatos.entreFechas(facturas, fechaIni, fechaFin));
+        JScrollPane scrollPane = new JScrollPane(jTable);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+        ListSelectionListener escuchadorTabla = new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if(e.getValueIsAdjusting() != true) {
+                    int fila = jTable.convertRowIndexToModel(jTable.getSelectedRow());
+                    ModeloTabla modeloTabla = tabla.getModeloTabla();
+                    int codTabla = (Integer) modeloTabla.getValueAt(fila, 0);
+                    datosFactura(codTabla);
+                }
+            }
+        };
+        ListSelectionModel listSelectionModel = jTable.getSelectionModel();
+        listSelectionModel.addListSelectionListener(escuchadorTabla);
         panel.add(scrollPane);
         contenedor.add(panel);
-        ventana.setSize(1200,300);
+        ventana.setSize(1200, 300);
         ventana.setVisible(true);
     }
 

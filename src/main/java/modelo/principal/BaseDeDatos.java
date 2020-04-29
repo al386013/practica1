@@ -80,7 +80,7 @@ public class BaseDeDatos implements Serializable {
     }
 
     public void darDeAltaLlamada(String telfOrigen, String telfDestino, int duracion) {
-        Llamada nuevaLlamada = new Llamada(telfDestino, duracion);
+        Llamada nuevaLlamada = new Llamada( telfOrigen,telfDestino, duracion);
         gestorClientes.darDeAltaLlamada(telfOrigen, nuevaLlamada);
         vista.accionCorrecta("Llamada realizada con éxito.");
     }

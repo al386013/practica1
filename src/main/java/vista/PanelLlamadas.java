@@ -7,11 +7,16 @@ import modelo.principal.BaseDeDatos;
 import modelo.principal.IntervaloFechasIncorrectoException;
 import modelo.principal.TelfNoExistenteException;
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Collection;
+
+import static java.lang.String.format;
 
 public class PanelLlamadas extends JPanel implements InterrogaVistaLlamadas {
     private Controlador controlador;
@@ -215,7 +220,7 @@ public class PanelLlamadas extends JPanel implements InterrogaVistaLlamadas {
     public void listadoLlamadasEntreFechas(String telf, LocalDate fechaIni, LocalDate fechaFin){
         JFrame ventana = new JFrame("Listado llamadas");
         BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
-        String[] columnas = {"Destino", "Fecha", "Hora", "Duracion"};
+        String[] columnas = {"Origen", "Destino", "Fecha", "Hora", "Duracion"};
         Collection<Llamada> llamadas = baseDeDatos.devolverLlamadas(telf);
         Container contenedor = ventana.getContentPane();
 
@@ -228,11 +233,46 @@ public class PanelLlamadas extends JPanel implements InterrogaVistaLlamadas {
         titulo.add(new JLabel("<html>Pulsa sobre una fila para más información.</html>"));
         panel.add(titulo);
         Tabla tabla = new Tabla();
-        JScrollPane scrollPane = new JScrollPane(tabla.crear(columnas, baseDeDatos.entreFechas(llamadas, fechaIni, fechaFin)));
+        JTable jTable = tabla.crear(columnas, baseDeDatos.entreFechas(llamadas, fechaIni, fechaFin));
+        JScrollPane scrollPane = new JScrollPane(jTable);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+        ListSelectionListener escuchadorTabla = new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if(e.getValueIsAdjusting() != true) {
+                    int fila = jTable.convertRowIndexToModel(jTable.getSelectedRow());
+                    ModeloTabla modeloTabla = tabla.getModeloTabla();
+
+                    String telfOrigen = (String) modeloTabla.getValueAt(fila, 0);
+                    String telfDestino = (String) modeloTabla.getValueAt(fila, 1);
+                    LocalDate fecha = (LocalDate) modeloTabla.getValueAt(fila, 2);
+                    String hora = (String) modeloTabla.getValueAt(fila, 3);
+                    int duracion = (Integer) modeloTabla.getValueAt(fila, 4);
+                    datosLlamada(telfOrigen, telfDestino, fecha, hora, duracion);
+                }
+            }
+        };
+        ListSelectionModel listSelectionModel = jTable.getSelectionModel();
+        listSelectionModel.addListSelectionListener(escuchadorTabla);
         panel.add(scrollPane);
         contenedor.add(panel);
-        ventana.setSize(600,200);
+        ventana.setSize(1200, 300);
+        ventana.setVisible(true);
+    }
+
+    @Override
+    public void datosLlamada(String telfOrigen, String telfDest, LocalDate fecha, String hora, int duracion) {
+        JFrame ventana = new JFrame("Datos de la llamada");
+        String string = "<html> Llamada <br/>";
+        string += "<ul><li> Teléfono origen: " + telfOrigen + "</li>";
+        string += "<li> Telefono destino: " + telfDest + "</li>";
+        string += "<li> Fecha: " + fecha + "</li>";
+        string += "<li> Hora: " + hora + "</li>";
+        string += "<li> Duración: " + duracion + "</li> </ul> </html>";
+        JLabel texto = new JLabel(string);
+        ventana.getContentPane().add(texto);
+        ventana.pack();
         ventana.setVisible(true);
     }
 

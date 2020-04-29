@@ -10,6 +10,7 @@ import java.util.Collection;
 
 public class Tabla {
     JTable tabla;
+    ModeloTabla modeloTabla;
 
     public Tabla() {
         super();
@@ -36,10 +37,15 @@ public class Tabla {
     }
 
     public <T extends TieneFecha> JTable crear(String[] columnas, Collection<T> elementos) {
-        tabla = new JTable(new ModeloTabla<T>(columnas, elementos));
+        modeloTabla = new ModeloTabla<T>(columnas, elementos);
+        tabla = new JTable(modeloTabla);
         anchoColumnas(); //ajustar ancho columnas al texto
         tabla.setAutoCreateRowSorter(true); //ordena solo los datos de la tabla
         tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         return tabla;
+    }
+
+    public ModeloTabla getModeloTabla(){
+        return modeloTabla;
     }
 }

@@ -66,7 +66,7 @@ public class FabricaTarifasTest {
 
     @Test
     public void TestTarifaLlamadaLunesManana() {
-        Llamada llamada = new Llamada("666777888", 120);
+        Llamada llamada = new Llamada("666666666", "666777888", 120);
         llamada.setFecha(LocalDate.parse("2020-03-23")); //un lunes
         llamada.setHora(LocalTime.parse("10:00:00")); //por la manana
         float importe = (llamada.getDuracion() / 60.0f) * 0.05f;
@@ -85,7 +85,7 @@ public class FabricaTarifasTest {
 
     @Test
     public void TestTarifaLlamadaLunesTarde() {
-        Llamada llamada = new Llamada("666777888", 70);
+        Llamada llamada = new Llamada("666666666", "666777888", 70);
         llamada.setFecha(LocalDate.parse("2020-03-23")); //un lunes
         llamada.setHora(LocalTime.parse("18:00:00")); //por la tarde
         float importe = (llamada.getDuracion() / 60.0f) * 0.05f;
@@ -104,7 +104,7 @@ public class FabricaTarifasTest {
 
     @Test
     public void TestTarifaLlamadaDomingoManana() {
-        Llamada llamada = new Llamada("666777888", 30);
+        Llamada llamada = new Llamada("666666666", "666777888", 30);
         llamada.setFecha(LocalDate.parse("2020-03-22")); //un domingo
         llamada.setHora(LocalTime.parse("10:00:00")); //por la manana
         float importe = (llamada.getDuracion() / 60.0f) * 0.05f;
@@ -122,7 +122,7 @@ public class FabricaTarifasTest {
 
     @Test
     public void TestTarifaLlamadaDomingoTarde() {
-        Llamada llamada = new Llamada("666777888", 110);
+        Llamada llamada = new Llamada("666666666", "666777888", 110);
         llamada.setFecha(LocalDate.parse("2020-03-22")); //un domingo
         llamada.setHora(LocalTime.parse("19:30:00")); //por la tarde
         float importe = (llamada.getDuracion() / 60.0f) * 0.05f;
