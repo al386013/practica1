@@ -1,14 +1,12 @@
-package controlador.acciones;
+package controlador;
 
-import modelo.principal.BaseDeDatos;
 import modelo.principal.NifRepetidoException;
 import modelo.principal.TelfRepetidoException;
 import modelo.datos.clientes.Direccion;
-import vista.InterrogaVista;
 import vista.InterrogaVistaClientes;
 
-public class DarAltaCliente implements Accion {
-    public void ejecutaAccion(BaseDeDatos baseDeDatos, InterrogaVista vista) throws NifRepetidoException, TelfRepetidoException {
+public class DarAltaCliente extends Accion {
+    public void ejecutaAccion() throws NifRepetidoException, TelfRepetidoException {
         InterrogaVistaClientes vistaClientes = vista.getVistaClientes();
         String opcionTipoCliente = vistaClientes.getTipoCliente();
         String nombre = vistaClientes.getNombre();

@@ -2,7 +2,6 @@ package vista;
 
 import controlador.Controlador;
 import modelo.InterrogaModelo;
-import modelo.datos.clientes.Cliente;
 import modelo.datos.contrato.Factura;
 import modelo.principal.*;
 import javax.swing.*;
@@ -13,7 +12,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Collection;
 
-public class VistaFacturas implements InterrogaVistaFacturas {
+public class VistaFacturas extends JPanel implements InterrogaVistaFacturas {
     private Controlador controlador;
     private InterrogaModelo modelo;
     private InterrogaVista vista;

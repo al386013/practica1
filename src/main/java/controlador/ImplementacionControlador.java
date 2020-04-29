@@ -1,6 +1,5 @@
 package controlador;
 
-import controlador.acciones.*;
 import modelo.CambioModelo;
 import modelo.principal.*;
 import vista.InterrogaVista;
@@ -15,10 +14,12 @@ public class ImplementacionControlador implements Controlador {
 
     public void setModelo(CambioModelo modelo) {
         this.modelo = modelo;
+        Accion.baseDeDatos = modelo.getBaseDeDatos();
     }
 
     public void setVista(InterrogaVista vista) {
         this.vista = vista;
+        Accion.vista = vista;
     }
 
     public InterrogaVista getVista() {
@@ -32,77 +33,71 @@ public class ImplementacionControlador implements Controlador {
 
     @Override
     public void exportarDatosYSalir() {
-        new ExportarDatosYsalir().ejecutaAccion(modelo.getBaseDeDatos(), vista);
+        new ExportarDatosYsalir().ejecutaAccion();
     }
 
     @Override
     public void anadirCliente() throws NifRepetidoException, TelfRepetidoException {
-        new DarAltaCliente().ejecutaAccion(modelo.getBaseDeDatos(), vista);
-        vista.accionCorrecta("Cliente creado correctamente.");
+        new DarAltaCliente().ejecutaAccion();
     }
 
     @Override
     public void borrarCliente() throws TelfNoExistenteException {
-        //new BorrarCliente().ejecutaAccion(modelo.getBaseDeDatos(), vista);
-        new BorrarCliente().ejecutaAccion(modelo.getBaseDeDatos(), vista);
-        vista.accionCorrecta("Cliente borrado con éxito.");
+        new BorrarCliente().ejecutaAccion();
     }
 
     @Override
     public void contratarTarifa() throws NifNoExistenteException {
-        new ContratarTarifa().ejecutaAccion(modelo.getBaseDeDatos(), vista);
-        vista.accionCorrecta("Tarifa especial contratada.");
+        new ContratarTarifa().ejecutaAccion();
     }
 
     @Override
     public void datosCliente()throws NifNoExistenteException {
-        new DatosCliente().ejecutaAccion(modelo.getBaseDeDatos(), vista);
+        new DatosCliente().ejecutaAccion();
     }
 
     @Override
     public void listarClientes() {
-        new ListadoClientes().ejecutaAccion(modelo.getBaseDeDatos(), vista);
+        new ListadoClientes().ejecutaAccion();
     }
 
     @Override
     public void listarCliFechas() throws IntervaloFechasIncorrectoException {
-        new ClientesEntreFechas().ejecutaAccion(modelo.getBaseDeDatos(), vista);
+        new ClientesEntreFechas().ejecutaAccion();
     }
 
     @Override
     public void darAltaLlamada() throws TelfNoExistenteException, IllegalArgumentException {
-        new DaAltaLlamada().ejecutaAccion(modelo.getBaseDeDatos(), vista);
-        vista.accionCorrecta("Llamada realizada con éxito.");
+        new DaAltaLlamada().ejecutaAccion();
     }
 
     @Override
-    public void llamadasCli()throws TelfNoExistenteException {
-        new LlamadasCliente().ejecutaAccion(modelo.getBaseDeDatos(), vista);
+    public void llamadasCli() throws TelfNoExistenteException {
+        new LlamadasCliente().ejecutaAccion();
     }
 
     @Override
     public void llamadasCliFechas() throws TelfNoExistenteException, IntervaloFechasIncorrectoException {
-        new LlamadasClienteEntreFechas().ejecutaAccion(modelo.getBaseDeDatos(), vista);
+        new LlamadasClienteEntreFechas().ejecutaAccion();
     }
 
     @Override
     public void emitirFactura() throws NifNoExistenteException, IntervaloFechasIncorrectoException {
-        new EmiteFactura().ejecutaAccion(modelo.getBaseDeDatos(), vista);
-        vista.accionCorrecta("Factura del cliente emitida con éxito.");
+        new EmiteFactura().ejecutaAccion();
     }
 
     @Override
     public void datosFactura() {
-        new DatosFactura().ejecutaAccion(modelo.getBaseDeDatos(), vista);
+        new DatosFactura().ejecutaAccion();
     }
 
     @Override
     public void listarFacCli()throws NifNoExistenteException {
-        new FacturasCliente().ejecutaAccion(modelo.getBaseDeDatos(), vista);
+        new FacturasCliente().ejecutaAccion();
     }
 
     @Override
     public void listarFacCliFechas() throws NifNoExistenteException, IntervaloFechasIncorrectoException {
-        new FacturasCliEntreFechas().ejecutaAccion(modelo.getBaseDeDatos(), vista);
+        new FacturasCliEntreFechas().ejecutaAccion();
     }
 }

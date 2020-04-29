@@ -1,12 +1,10 @@
-package controlador.acciones;
+package controlador;
 
-import modelo.principal.BaseDeDatos;
 import modelo.principal.NifNoExistenteException;
-import vista.InterrogaVista;
 import vista.InterrogaVistaClientes;
 
-public class DatosCliente implements Accion {
-    public void ejecutaAccion(BaseDeDatos baseDeDatos, InterrogaVista vista) throws NifNoExistenteException {
+public class DatosCliente extends Accion {
+    public void ejecutaAccion() throws NifNoExistenteException {
         InterrogaVistaClientes vistaClientes = vista.getVistaClientes();
         String nif = vistaClientes.getNifCli();
         baseDeDatos.compruebaNifExistente(nif);

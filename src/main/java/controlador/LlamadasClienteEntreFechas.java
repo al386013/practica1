@@ -1,16 +1,13 @@
-package controlador.acciones;
+package controlador;
 
-import modelo.principal.BaseDeDatos;
 import modelo.principal.IntervaloFechasIncorrectoException;
 import modelo.principal.TelfNoExistenteException;
-import vista.InterrogaVista;
 import vista.InterrogaVistaLlamadas;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-public class LlamadasClienteEntreFechas implements Accion {
-    public void ejecutaAccion(BaseDeDatos baseDeDatos, InterrogaVista vista)
-            throws TelfNoExistenteException, IntervaloFechasIncorrectoException {
+public class LlamadasClienteEntreFechas extends Accion {
+    public void ejecutaAccion() throws TelfNoExistenteException, IntervaloFechasIncorrectoException {
         InterrogaVistaLlamadas vistaLlamadas = vista.getVistaLlamadas();
         String telf = vistaLlamadas.getTelfListadoFechas();
         baseDeDatos.compruebaTelfExistente(telf);

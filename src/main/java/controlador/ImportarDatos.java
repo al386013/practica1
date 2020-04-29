@@ -1,4 +1,4 @@
-package controlador.acciones;
+package controlador;
 
 import modelo.CambioModelo;
 import modelo.principal.BaseDeDatos;

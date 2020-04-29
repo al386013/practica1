@@ -1,13 +1,11 @@
-package controlador.acciones;
+package controlador;
 
-import modelo.principal.BaseDeDatos;
 import modelo.principal.IntervaloFechasIncorrectoException;
-import vista.InterrogaVista;
 import vista.InterrogaVistaClientes;
 import java.time.LocalDate;
 
-public class ClientesEntreFechas implements Accion {
-    public void ejecutaAccion(BaseDeDatos baseDeDatos, InterrogaVista vista) throws IntervaloFechasIncorrectoException {
+public class ClientesEntreFechas extends Accion {
+    public void ejecutaAccion() throws IntervaloFechasIncorrectoException {
         InterrogaVistaClientes vistaClientes = vista.getVistaClientes();
         LocalDate fechaIni = vistaClientes.getFechaIni();
         LocalDate fechaFin = vistaClientes.getFechaFin();

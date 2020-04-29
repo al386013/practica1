@@ -1,14 +1,11 @@
-package controlador.acciones;
+package controlador;
 
-import modelo.principal.BaseDeDatos;
 import modelo.principal.TelfNoExistenteException;
-import vista.InterrogaVista;
 import vista.InterrogaVistaLlamadas;
-
 import java.time.LocalDate;
 
-public class LlamadasCliente implements Accion {
-    public void ejecutaAccion(BaseDeDatos baseDeDatos, InterrogaVista vista) throws TelfNoExistenteException {
+public class LlamadasCliente extends Accion {
+    public void ejecutaAccion() throws TelfNoExistenteException {
         InterrogaVistaLlamadas vistaLlamadas = vista.getVistaLlamadas();
         String telf = vistaLlamadas.getTelfListado();
         baseDeDatos.compruebaTelfExistente(telf);

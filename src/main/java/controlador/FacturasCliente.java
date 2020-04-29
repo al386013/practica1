@@ -1,14 +1,11 @@
-package controlador.acciones;
+package controlador;
 
-import modelo.principal.BaseDeDatos;
 import modelo.principal.NifNoExistenteException;
-import vista.InterrogaVista;
 import vista.InterrogaVistaFacturas;
-
 import java.time.LocalDate;
 
-public class FacturasCliente implements Accion {
-    public void ejecutaAccion(BaseDeDatos baseDeDatos, InterrogaVista vista) throws NifNoExistenteException {
+public class FacturasCliente extends Accion {
+    public void ejecutaAccion() throws NifNoExistenteException {
         InterrogaVistaFacturas vistaFacturas = vista.getVistaFacturas();
         String nif = vistaFacturas.getNifFacCli();
         baseDeDatos.compruebaNifExistente(nif);

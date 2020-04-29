@@ -1,12 +1,10 @@
-package controlador.acciones;
+package controlador;
 
-import modelo.principal.BaseDeDatos;
 import modelo.principal.TelfNoExistenteException;
-import vista.InterrogaVista;
 import vista.InterrogaVistaClientes;
 
-public class BorrarCliente implements Accion {
-    public void ejecutaAccion(BaseDeDatos baseDeDatos, InterrogaVista vista) throws TelfNoExistenteException {
+public class BorrarCliente extends Accion {
+    public void ejecutaAccion() throws TelfNoExistenteException {
         InterrogaVistaClientes vistaClientes = vista.getVistaClientes();
         String telf = vistaClientes.getTelfBorrar();
         baseDeDatos.compruebaTelfExistente(telf);
