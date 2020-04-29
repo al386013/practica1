@@ -33,7 +33,7 @@ public class ImplementacionControlador implements Controlador {
 
     @Override
     public void exportarDatosYSalir() {
-        new ExportarDatosYsalir().ejecutaAccion();
+        new ExportarDatosYsalir().ejecutaAccion(modelo.getBaseDeDatos(), vista); //OJO debería tener informa vista o directamente no tenerla!
     }
 
     @Override
@@ -67,7 +67,7 @@ public class ImplementacionControlador implements Controlador {
     }
 
     @Override
-    public void darAltaLlamada() throws TelfNoExistenteException, IllegalArgumentException {
+    public void darAltaLlamada() throws TelfNoExistenteException {
         new DaAltaLlamada().ejecutaAccion();
     }
 

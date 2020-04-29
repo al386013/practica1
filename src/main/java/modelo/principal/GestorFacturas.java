@@ -7,10 +7,8 @@ import java.util.Map;
 import java.util.Set;
 
 public class GestorFacturas implements Serializable {
-    //ATRIBUTOS
     private Map<Integer, Factura> totalFacturas; //Clave: codigo de factura
 
-    //CONSTRUCTOR
     public GestorFacturas() {
         super();
         totalFacturas = new HashMap<Integer, Factura>();

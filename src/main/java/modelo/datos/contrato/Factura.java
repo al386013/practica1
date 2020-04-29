@@ -19,7 +19,6 @@ public class Factura implements TieneFecha, Serializable {
     private String nifCliente;
     private Set<Llamada> llamadas;
 
-    //CONSTRUCTORES
     public Factura() {
         super();
         this.fechaEmision = null;

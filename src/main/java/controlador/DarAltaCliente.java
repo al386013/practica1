@@ -7,7 +7,7 @@ import vista.InterrogaVistaClientes;
 
 public class DarAltaCliente extends Accion {
     public void ejecutaAccion() throws NifRepetidoException, TelfRepetidoException {
-        InterrogaVistaClientes vistaClientes = vista.getVistaClientes();
+        InterrogaVistaClientes vistaClientes = vista.getPanelClientes();
         String opcionTipoCliente = vistaClientes.getTipoCliente();
         String nombre = vistaClientes.getNombre();
         String apellidos = null;

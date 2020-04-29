@@ -2,19 +2,20 @@ package vista;
 
 import modelo.datos.TieneFecha;
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.util.Collection;
 
-public class CustomJTable extends JFrame {
+public class Tabla {
     JTable tabla;
 
-    public CustomJTable(String title) {
-        super(title);
-        setBounds(10,10,800,600);
+    public Tabla() {
+        super();
     }
 
+    //metodo que ajusta en ancho de las columnas de la tabla al texto de las celdas
     public void anchoColumnas(){
         for (int column = 0; column < tabla.getColumnCount(); column++){
             TableColumn tableColumn = tabla.getColumnModel().getColumn(column);
@@ -34,18 +35,11 @@ public class CustomJTable extends JFrame {
         }
     }
 
-    public <T extends TieneFecha> JScrollPane getScrollPane(String[] columnas, Collection<T> elementos) {
+    public <T extends TieneFecha> JTable crear(String[] columnas, Collection<T> elementos) {
         tabla = new JTable(new ModeloTabla<T>(columnas, elementos));
         anchoColumnas(); //ajustar ancho columnas al texto
-
-        //todo ESTO ESTA MUY FEO PERO SINO NO SE COMO HACERLO!!!!!
-        if(columnas[0].equals("Codigo")) //si es la tabla de facturas
-            tabla.setRowHeight(100);
-
         tabla.setAutoCreateRowSorter(true); //ordena solo los datos de la tabla
         tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        JScrollPane scrollPane = new JScrollPane(tabla);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        return scrollPane;
+        return tabla;
     }
 }
