@@ -1,6 +1,5 @@
 package modelo.principal;
 
-import modelo.datos.ComparadorFechaHora;
 import modelo.datos.TieneFecha;
 import modelo.datos.clientes.Cliente;
 import modelo.datos.clientes.Direccion;
@@ -11,18 +10,16 @@ import vista.InformaVista;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
 public class BaseDeDatos implements Serializable {
-    //ATRIBUTOS
     private GestorClientes gestorClientes;
     private GestorFacturas gestorFacturas;
-    private transient InformaVista vista;
+    private InformaVista vista;
     private static FabricaClientes fabricaClientes;
     private static FabricaTarifas fabricaTarifas;
 
-    //CONSTRUCTORES
     public BaseDeDatos() {
         super();
         this.gestorClientes = new GestorClientes();
@@ -43,7 +40,6 @@ public class BaseDeDatos implements Serializable {
         this.vista = vista;
     }
 
-    // METODOS
     //BaseDeDatos llama al metodo correspondiente de gestorClientes, gestorFacturas o ambos; es el intermediario
 
     public void compruebaNifNoExistente(String nif) throws NifRepetidoException {
@@ -140,7 +136,7 @@ public class BaseDeDatos implements Serializable {
 
     //Metodo entreFechas: de un conjunto, devuelve un subconjunto con los elementos de fecha entre fechaIni y fechaFin
     public <T extends TieneFecha> Collection<T> entreFechas(Collection<T> conjunto, LocalDate fechaIni, LocalDate fechaFin) {
-        Collection<T> res = new TreeSet<>(new ComparadorFechaHora<>());
+        Collection<T> res = new HashSet<>();
         for (T elem : conjunto) {
             LocalDate fecha = elem.getFecha();
             if (fecha.isAfter(fechaIni) && fecha.isBefore(fechaFin) || (fecha.isEqual(fechaIni) || fecha.isEqual(fechaFin)))

@@ -8,12 +8,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GestorClientes implements Serializable {
-
-    //ATRIBUTOS
     Map<String, Cliente> clientes; //clave: nif
     Map<String, String> telfNif;   //clave: telf - relaciona el telf con el nif del cliente
 
-    //CONSTRUCTOR
     public GestorClientes() {
         super();
         clientes = new HashMap<String, Cliente>();

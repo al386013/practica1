@@ -86,11 +86,11 @@ public class ModeloTabla <T extends TieneFecha> extends AbstractTableModel {
                 return factura.getPeriodoFact().getFechaIni();
             case 5:
                 return factura.getPeriodoFact().getFechaFin();
-            case 6:
+            /*case 6:
                 String string = "<html>";
                 for (Llamada llamada : factura.getLlamadas())
                     string += "<br/>" + llamada;
-                return string + "</html>";
+                return string + "</html>";*/
         }
         return null;
     }

@@ -5,7 +5,7 @@ import vista.InterrogaVistaClientes;
 
 public class ContratarTarifa extends Accion {
     public void ejecutaAccion() throws NifNoExistenteException {
-        InterrogaVistaClientes vistaClientes = vista.getVistaClientes();
+        InterrogaVistaClientes vistaClientes = vista.getPanelClientes();
         String nif = vistaClientes.getNifTarifa();
         baseDeDatos.compruebaNifExistente(nif);
         String opcionCambiarTarifa = vistaClientes.getTipoTarifa();

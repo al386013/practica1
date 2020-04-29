@@ -1,11 +1,11 @@
 package vista;
 
 public interface InterrogaVista {
-    VistaClientes getVistaClientes();
+    PanelClientes getPanelClientes();
 
-    VistaLlamadas getVistaLlamadas();
+    PanelLlamadas getPanelLlamadas();
 
-    VistaFacturas getVistaFacturas();
+    PanelFacturas getPanelFacturas();
 
     void accionDenegada(String cadena); //este metodo preguntar
 

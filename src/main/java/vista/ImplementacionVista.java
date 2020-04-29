@@ -10,47 +10,47 @@ import java.awt.event.WindowEvent;
 public class ImplementacionVista implements InformaVista, InterrogaVista {
     private Controlador controlador;
     private InterrogaModelo modelo;
-    private VistaClientes vistaClientes;
-    private VistaLlamadas vistaLlamadas;
-    private VistaFacturas vistaFacturas;
+    private PanelClientes panelClientes;
+    private PanelLlamadas panelLlamadas;
+    private PanelFacturas panelFacturas;
 
     public ImplementacionVista() {
         super();
-        vistaClientes = new VistaClientes();
-        vistaClientes.setVista(this);
-        vistaLlamadas = new VistaLlamadas();
-        vistaLlamadas.setVista(this);
-        vistaFacturas = new VistaFacturas();
-        vistaFacturas.setVista(this);
+        panelClientes = new PanelClientes();
+        panelClientes.setVista(this);
+        panelLlamadas = new PanelLlamadas();
+        panelLlamadas.setVista(this);
+        panelFacturas = new PanelFacturas();
+        panelFacturas.setVista(this);
     }
 
     public void setModelo(InterrogaModelo modelo) {
         this.modelo = modelo;
-        vistaClientes.setModelo(modelo);
-        vistaLlamadas.setModelo(modelo);
-        vistaFacturas.setModelo(modelo);
+        panelClientes.setModelo(modelo);
+        panelLlamadas.setModelo(modelo);
+        panelFacturas.setModelo(modelo);
     }
 
     public void setControlador(Controlador controlador) {
         this.controlador = controlador;
-        vistaClientes.setControlador(controlador);
-        vistaLlamadas.setControlador(controlador);
-        vistaFacturas.setControlador(controlador);
+        panelClientes.setControlador(controlador);
+        panelLlamadas.setControlador(controlador);
+        panelFacturas.setControlador(controlador);
     }
 
     @Override
-    public VistaClientes getVistaClientes() {
-        return vistaClientes;
+    public PanelClientes getPanelClientes() {
+        return panelClientes;
     }
 
     @Override
-    public VistaLlamadas getVistaLlamadas() {
-        return vistaLlamadas;
+    public PanelLlamadas getPanelLlamadas() {
+        return panelLlamadas;
     }
 
     @Override
-    public VistaFacturas getVistaFacturas() {
-        return vistaFacturas;
+    public PanelFacturas getPanelFacturas() {
+        return panelFacturas;
     }
 
     @Override
@@ -78,11 +78,11 @@ public class ImplementacionVista implements InformaVista, InterrogaVista {
 
         JTabbedPane pestanyas = new JTabbedPane();
         contenedor.add(pestanyas);
-        pestanyas.add("Clientes", vistaClientes.panel());
-        pestanyas.add("Llamadas", vistaLlamadas.panel());
-        pestanyas.add("Facturas", vistaFacturas.panel());
+        pestanyas.add("Clientes", panelClientes);
+        pestanyas.add("Llamadas", panelLlamadas);
+        pestanyas.add("Facturas", panelFacturas);
 
-        ventana.addWindowListener(new WindowAdapter() { //clase interna anonima
+        ventana.addWindowListener(new WindowAdapter() { //clase interna anonima para abrir y cerrar ventana
             @Override
             public void windowOpened(WindowEvent e) {
                 controlador.importarDatos();

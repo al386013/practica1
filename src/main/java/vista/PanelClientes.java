@@ -9,13 +9,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.Collection;
 
-public class VistaClientes extends JPanel implements InterrogaVistaClientes {
+public class PanelClientes extends JPanel implements InterrogaVistaClientes {
     private Controlador controlador;
     private InterrogaModelo modelo;
     private InterrogaVista vista;
+    private JPanel titulo;
     private JTextField nifAnadir;
     private JTextField nombre;
     private JTextField apellido;
@@ -32,8 +32,9 @@ public class VistaClientes extends JPanel implements InterrogaVistaClientes {
     private String tipoClienteOpcion;
     private String tipoTarifaOpcion;
 
-    public VistaClientes() {
+    public PanelClientes() {
         super();
+        panel();
     }
 
     public void setModelo(InterrogaModelo modelo) {
@@ -48,8 +49,7 @@ public class VistaClientes extends JPanel implements InterrogaVistaClientes {
         this.vista = vista;
     }
 
-    public JPanel panel() {
-
+    public void panel() {
         ActionListener escuchadorBoton = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evento) {
@@ -68,11 +68,7 @@ public class VistaClientes extends JPanel implements InterrogaVistaClientes {
                     else if (comando.equals("listarCli"))
                         controlador.listarClientes();
                     else {
-                        try {
-                            controlador.listarCliFechas();
-                        } catch (DateTimeParseException e) {
-                            vista.accionDenegada("Fecha incorrecta");
-                        }
+                        controlador.listarCliFechas();
                     }
                 } catch (NifRepetidoException | TelfRepetidoException | TelfNoExistenteException | NifNoExistenteException |
                         IntervaloFechasIncorrectoException e) {
@@ -81,14 +77,16 @@ public class VistaClientes extends JPanel implements InterrogaVistaClientes {
             }
         };
 
+        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+
         //ANADIR CLIENTE
 
-        JPanel anadirCliente = new JPanel();
-        JPanel anadirTitulo = new JPanel();
-        JPanel tipoCli = new JPanel();
-        JPanel anadirCampos = new JPanel();
-        JPanel anadirIzq = new JPanel();
-        JPanel anadirDer = new JPanel();
+        titulo = new JPanel();
+        JPanel panelCampos = new JPanel();
+        JPanel panelIzq = new JPanel();
+        JPanel panelDer = new JPanel();
+        JPanel panelSeccion = new JPanel();
+        JPanel panelTipo = new JPanel();
 
         JRadioButton particular = new JRadioButton("Particular");
         JRadioButton empresa = new JRadioButton("Empresa");
@@ -103,22 +101,13 @@ public class VistaClientes extends JPanel implements InterrogaVistaClientes {
 
         particular.addActionListener(escuchadorClientes);
         empresa.addActionListener(escuchadorClientes);
-        tipoCli.add(new JLabel("Elije el tipo de cliente:"));
-        tipoCli.add(particular);
-        tipoCli.add(empresa);
+        panelTipo.add(new JLabel("Elije el tipo de cliente:"));
+        panelTipo.add(particular);
+        panelTipo.add(empresa);
 
         ButtonGroup grupoTipoCli = new ButtonGroup();
         grupoTipoCli.add(particular);
         grupoTipoCli.add(empresa);
-
-        JLabel nifLabel = new JLabel("NIF: ");
-        JLabel nombreLabel = new JLabel("Nombre: ");
-        JLabel apellidoLabel = new JLabel("Apellidos: ");
-        JLabel telfLabel = new JLabel("Teléfono: ");
-        JLabel emailLabel = new JLabel("Email: ");
-        JLabel provinciaLabel = new JLabel("Provincia: ");
-        JLabel poblacionLabel = new JLabel("Población: ");
-        JLabel cpLabel = new JLabel("Código Postal: ");
 
         nifAnadir = new JTextField(25);
         nifAnadir.setText("Escribe NIF");
@@ -137,94 +126,94 @@ public class VistaClientes extends JPanel implements InterrogaVistaClientes {
         cp = new JTextField(25);
         cp.setText("Escribe CP");
 
-        anadirIzq.setLayout(new GridLayout(8, 1));
-        anadirDer.setLayout(new GridLayout(8, 1));
+        panelIzq.setLayout(new GridLayout(8, 1));
+        panelDer.setLayout(new GridLayout(8, 1));
 
-        anadirIzq.add(nifLabel);
-        anadirIzq.add(telfLabel);
-        anadirIzq.add(nombreLabel);
-        anadirIzq.add(apellidoLabel);
-        anadirIzq.add(emailLabel);
-        anadirIzq.add(provinciaLabel);
-        anadirIzq.add(poblacionLabel);
-        anadirIzq.add(cpLabel);
+        panelIzq.add(new JLabel("NIF: "));
+        panelIzq.add(new JLabel("Teléfono: "));
+        panelIzq.add(new JLabel("Nombre: "));
+        panelIzq.add(new JLabel("Apellidos: "));
+        panelIzq.add(new JLabel("Email: "));
+        panelIzq.add(new JLabel("Provincia: "));
+        panelIzq.add(new JLabel("Población: "));
+        panelIzq.add(new JLabel("Código Postal: "));
 
-        anadirDer.add(nifAnadir);
-        anadirDer.add(telfAnadir);
-        anadirDer.add(nombre);
-        anadirDer.add(apellido);
-        anadirDer.add(email);
-        anadirDer.add(provincia);
-        anadirDer.add(poblacion);
-        anadirDer.add(cp);
+        panelDer.add(nifAnadir);
+        panelDer.add(telfAnadir);
+        panelDer.add(nombre);
+        panelDer.add(apellido);
+        panelDer.add(email);
+        panelDer.add(provincia);
+        panelDer.add(poblacion);
+        panelDer.add(cp);
 
-        anadirCampos.setLayout(new BoxLayout(anadirCampos, BoxLayout.X_AXIS));
-        anadirCampos.add(anadirIzq);
-        anadirCampos.add(anadirDer);
+        panelCampos.setLayout(new BoxLayout(panelCampos, BoxLayout.X_AXIS));
+        panelCampos.add(panelIzq);
+        panelCampos.add(panelDer);
 
         JButton botonAnadir = new JButton("Añadir");
         botonAnadir.setActionCommand("anadir");
         botonAnadir.addActionListener(escuchadorBoton);
-        tipoCli.add(botonAnadir);
+        panelTipo.add(botonAnadir);
 
-        anadirCliente.setLayout(new BoxLayout(anadirCliente, BoxLayout.PAGE_AXIS));
-        anadirTitulo.add(new JLabel("<html>" + "<b><i>AÑADIR CLIENTE</i></b><br/>" + "</html>"));
-        anadirCliente.add(anadirTitulo);
-        anadirCliente.add(tipoCli);
-        anadirCliente.add(anadirCampos);
+        panelSeccion.setLayout(new BoxLayout(panelSeccion, BoxLayout.PAGE_AXIS));
+        titulo.add(new JLabel("<html><i>AÑADIR CLIENTE</i></html>"));
+        panelSeccion.add(titulo);
+        panelSeccion.add(panelTipo);
+        panelSeccion.add(panelCampos);
+        add(panelSeccion);
 
         //BORRAR CLIENTE
 
-        JPanel borrarTitulo = new JPanel();
-        JPanel borrarCliente = new JPanel();
-        JPanel borrarCampos = new JPanel();
-        JPanel borrarIzq = new JPanel();
-        JPanel borrarDer = new JPanel();
+        titulo = new JPanel();
+        panelCampos = new JPanel();
+        panelIzq = new JPanel();
+        panelDer = new JPanel();
+        panelSeccion = new JPanel();
 
-        JLabel telfLabel2 = new JLabel("Teléfono: ");
         telfBorrar = new JTextField(16);
         telfBorrar.setText("Escribe teléfono");
 
-        borrarIzq.setLayout(new GridLayout(1, 1));
-        borrarDer.setLayout(new GridLayout(1, 1));
-        borrarIzq.add(telfLabel2);
-        borrarDer.add(telfBorrar);
+        panelIzq.setLayout(new GridLayout(1, 1));
+        panelDer.setLayout(new GridLayout(1, 1));
+        panelIzq.add(new JLabel("Teléfono: "));
+        panelDer.add(telfBorrar);
 
-        borrarCampos.setLayout(new BoxLayout(borrarCampos, BoxLayout.X_AXIS));
-        borrarCampos.add(borrarIzq);
-        borrarCampos.add(borrarDer);
+        panelCampos.setLayout(new BoxLayout(panelCampos, BoxLayout.X_AXIS));
+        panelCampos.add(panelIzq);
+        panelCampos.add(panelDer);
 
         JButton botonBorrar = new JButton("Borrar");
         botonBorrar.setActionCommand("borrar");
         botonBorrar.addActionListener(escuchadorBoton);
-        borrarCampos.add(botonBorrar);
+        panelCampos.add(botonBorrar);
 
-        borrarCliente.setLayout(new BoxLayout(borrarCliente, BoxLayout.PAGE_AXIS));
-        borrarTitulo.add(new JLabel("<html>" + "<b><i>BORRAR CLIENTE</i></b><br/>" + "</html>"));
-        borrarCliente.add(borrarTitulo);
-        borrarCliente.add(borrarCampos);
+        panelSeccion.setLayout(new BoxLayout(panelSeccion, BoxLayout.PAGE_AXIS));
+        titulo.add(new JLabel("<html><i>BORRAR CLIENTE</i></html>"));
+        panelSeccion.add(titulo);
+        panelSeccion.add(panelCampos);
+        add(panelSeccion);
 
         //CAMBIAR TARIFA
 
-        JPanel cambiarTarifaTitulo = new JPanel();
-        JPanel cambiarTarifa = new JPanel();
-        JPanel tipoTarifa = new JPanel();
-        JPanel cambiarTarifaCampos = new JPanel();
-        JPanel cambiarTarifaIzq = new JPanel();
-        JPanel cambiarTarifaDer = new JPanel();
+        titulo = new JPanel();
+        panelCampos = new JPanel();
+        panelIzq = new JPanel();
+        panelDer = new JPanel();
+        panelTipo = new JPanel();
+        panelSeccion = new JPanel();
 
-        JLabel nifLabel2 = new JLabel("NIF: ");
         nifTarifa = new JTextField(11);
         nifTarifa.setText("Escribe NIF");
 
-        cambiarTarifaIzq.setLayout(new GridLayout(1, 1));
-        cambiarTarifaDer.setLayout(new GridLayout(1, 1));
-        cambiarTarifaIzq.add(nifLabel2);
-        cambiarTarifaDer.add(nifTarifa);
+        panelIzq.setLayout(new GridLayout(1, 1));
+        panelDer.setLayout(new GridLayout(1, 1));
+        panelIzq.add(new JLabel("NIF: "));
+        panelDer.add(nifTarifa);
 
-        cambiarTarifaCampos.setLayout(new BoxLayout(cambiarTarifaCampos, BoxLayout.X_AXIS));
-        cambiarTarifaCampos.add(cambiarTarifaIzq);
-        cambiarTarifaCampos.add(cambiarTarifaDer);
+        panelCampos.setLayout(new BoxLayout(panelCampos, BoxLayout.X_AXIS));
+        panelCampos.add(panelIzq);
+        panelCampos.add(panelDer);
 
         ActionListener escuchadorTarifas = new ActionListener() {
             @Override
@@ -240,9 +229,9 @@ public class VistaClientes extends JPanel implements InterrogaVistaClientes {
         tardes.addActionListener(escuchadorTarifas);
         domingo.addActionListener(escuchadorTarifas);
 
-        tipoTarifa.add(new JLabel("Elije el tipo de tarifa:"));
-        tipoTarifa.add(tardes);
-        tipoTarifa.add(domingo);
+        panelTipo.add(new JLabel("Elije el tipo de tarifa:"));
+        panelTipo.add(tardes);
+        panelTipo.add(domingo);
 
         ButtonGroup grupoTipoTarifas = new ButtonGroup();
         grupoTipoTarifas.add(tardes);
@@ -251,102 +240,93 @@ public class VistaClientes extends JPanel implements InterrogaVistaClientes {
         JButton botonTarifa = new JButton("Contratar");
         botonTarifa.setActionCommand("tarifa");
         botonTarifa.addActionListener(escuchadorBoton);
-        cambiarTarifaCampos.add(botonTarifa);
+        panelCampos.add(botonTarifa);
 
-        cambiarTarifa.setLayout(new BoxLayout(cambiarTarifa, BoxLayout.PAGE_AXIS));
-        cambiarTarifaTitulo.add(new JLabel("<html>" + "<b><i>CONTRATAR TARIFA ESPECIAL</i></b><br/>" + "</html>"));
-        cambiarTarifa.add(cambiarTarifaTitulo);
-        cambiarTarifa.add(tipoTarifa);
-        cambiarTarifa.add(cambiarTarifaCampos);
+        panelSeccion.setLayout(new BoxLayout(panelSeccion, BoxLayout.PAGE_AXIS));
+        titulo.add(new JLabel("<html><i>BORRAR CLIENTE</i></html>"));
+        panelSeccion.add(titulo);
+        panelSeccion.add(panelTipo);
+        panelSeccion.add(panelCampos);
+        add(panelSeccion);
 
         //DATOS CLIENTE
 
-        JPanel datosCliTitulo = new JPanel();
-        JPanel datosCliente = new JPanel();
-        JPanel datosCliCampos = new JPanel();
-        JPanel datosCliIzq = new JPanel();
-        JPanel datosCliDer = new JPanel();
+        titulo = new JPanel();
+        panelCampos = new JPanel();
+        panelIzq = new JPanel();
+        panelDer = new JPanel();
+        panelSeccion = new JPanel();
 
         JLabel nifLabel3 = new JLabel("NIF: ");
         nifCli = new JTextField(12);
         nifCli.setText("Escribe NIF");
 
-        datosCliIzq.setLayout(new GridLayout(1, 1));
-        datosCliDer.setLayout(new GridLayout(1, 1));
-        datosCliIzq.add(nifLabel3);
-        datosCliDer.add(nifCli);
+        panelIzq.setLayout(new GridLayout(1, 1));
+        panelDer.setLayout(new GridLayout(1, 1));
+        panelIzq.add(nifLabel3);
+        panelDer.add(nifCli);
 
-        datosCliCampos.setLayout(new BoxLayout(datosCliCampos, BoxLayout.X_AXIS));
-        datosCliCampos.add(datosCliIzq);
-        datosCliCampos.add(datosCliDer);
+        panelCampos.setLayout(new BoxLayout(panelCampos, BoxLayout.X_AXIS));
+        panelCampos.add(panelIzq);
+        panelCampos.add(panelDer);
 
         JButton botonDatosCli = new JButton("Mostrar");
         botonDatosCli.setActionCommand("datosCli");
         botonDatosCli.addActionListener(escuchadorBoton);
-        datosCliCampos.add(botonDatosCli);
+        panelCampos.add(botonDatosCli);
 
-        datosCliente.setLayout(new BoxLayout(datosCliente, BoxLayout.PAGE_AXIS));
-        datosCliTitulo.add(new JLabel("<html>" + "<b><i>MOSTRAR DATOS CLIENTE</i></b><br/>" + "</html>"));
-        datosCliente.add(datosCliTitulo);
-        datosCliente.add(datosCliCampos);
+        panelSeccion.setLayout(new BoxLayout(panelSeccion, BoxLayout.PAGE_AXIS));
+        titulo.add(new JLabel("<html><i>MOSTRAR DATOS CLIENTE</i></html>"));
+        panelSeccion.add(titulo);
+        panelSeccion.add(panelCampos);
+        add(panelSeccion);
 
         //LISTADO CLIENTES
 
-        JPanel listadoClientes = new JPanel();
+        panelSeccion = new JPanel();
         JButton botonListarCli = new JButton("Listar");
         botonListarCli.setActionCommand("listarCli");
         botonListarCli.addActionListener(escuchadorBoton);
 
-        listadoClientes.add(new JLabel("<html>" + "<b><i>LISTAR CLIENTES</i></b><br/>" + "</html>"));
-        listadoClientes.add(botonListarCli);
+        panelSeccion.add(new JLabel("<html><i>LISTAR CLIENTES</i></html>"));
+        panelSeccion.add(botonListarCli);
+        add(panelSeccion);
 
         //LISTADO CLIENTES ENTRE FECHAS
 
-        JPanel listadoCliEntreFechas = new JPanel();
-        JPanel listadoCliFechasTitulo = new JPanel();
-        JPanel listadoCliFechasCampos = new JPanel();
-        JPanel listadoCliFechasIzq = new JPanel();
-        JPanel listadoCliFechasDer = new JPanel();
-
-        JLabel fechaIniLabel = new JLabel("Fecha inicio: ");
-        JLabel fechaFinLabel = new JLabel("Fecha fin: ");
+        titulo = new JPanel();
+        panelCampos = new JPanel();
+        panelIzq = new JPanel();
+        panelDer = new JPanel();
+        panelSeccion = new JPanel();
 
         fechaIni = new JTextField(18);
         fechaFin = new JTextField(18);
         fechaIni.setText("aaaa-mm-dd");
         fechaFin.setText("aaaa-mm-dd");
 
-        listadoCliFechasIzq.setLayout(new GridLayout(2, 1));
-        listadoCliFechasDer.setLayout(new GridLayout(2, 1));
-        listadoCliFechasIzq.add(fechaIniLabel);
-        listadoCliFechasIzq.add(fechaFinLabel);
-        listadoCliFechasDer.add(fechaIni);
-        listadoCliFechasDer.add(fechaFin);
+        panelIzq.setLayout(new GridLayout(2, 1));
+        panelDer.setLayout(new GridLayout(2, 1));
+        panelIzq.add(new JLabel("Fecha inicio: "));
+        panelIzq.add(new JLabel("Fecha fin: "));
+        panelDer.add(fechaIni);
+        panelDer.add(fechaFin);
 
-        listadoCliFechasCampos.setLayout(new BoxLayout(listadoCliFechasCampos, BoxLayout.X_AXIS));
-        listadoCliFechasCampos.add(listadoCliFechasIzq);
-        listadoCliFechasCampos.add(listadoCliFechasDer);
+        panelCampos.setLayout(new BoxLayout(panelCampos, BoxLayout.X_AXIS));
+        panelCampos.add(panelIzq);
+        panelCampos.add(panelDer);
 
         JButton botonListarCliFechas = new JButton("Listar");
         botonListarCliFechas.setActionCommand("listarCliFechas");
         botonListarCliFechas.addActionListener(escuchadorBoton);
         botonListarCliFechas.setAlignmentX(Component.CENTER_ALIGNMENT);
-        listadoCliFechasCampos.add(botonListarCliFechas);
+        panelCampos.add(botonListarCliFechas);
 
-        listadoCliEntreFechas.setLayout(new BoxLayout(listadoCliEntreFechas, BoxLayout.PAGE_AXIS));
-        listadoCliFechasTitulo.add(new JLabel("<html>" + "<b><i>LISTAR CLIENTES ENTRE FECHAS</i></b><br/>" + "</html>"));
-        listadoCliEntreFechas.add(listadoCliFechasTitulo);
-        listadoCliEntreFechas.add(listadoCliFechasCampos);
-
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-        panel.add(anadirCliente);
-        panel.add(borrarCliente);
-        panel.add(cambiarTarifa);
-        panel.add(datosCliente);
-        panel.add(listadoClientes);
-        panel.add(listadoCliEntreFechas);
-        return panel;
+        panelSeccion.setLayout(new BoxLayout(panelSeccion, BoxLayout.PAGE_AXIS));
+        titulo.add(new JLabel("<html><i>LISTAR CLIENTES ENTRE FECHAS</i></html>"));
+        panelSeccion.add(titulo);
+        panelSeccion.add(panelCampos);
+        add(panelSeccion);
     }
 
     @Override
@@ -415,26 +395,34 @@ public class VistaClientes extends JPanel implements InterrogaVistaClientes {
     }
 
     @Override
-    public LocalDate getFechaIni() throws DateTimeParseException {
+    public LocalDate getFechaIni() {
         return LocalDate.parse(fechaIni.getText());
     }
 
     @Override
-    public LocalDate getFechaFin() throws DateTimeParseException {
+    public LocalDate getFechaFin() {
         return LocalDate.parse(fechaFin.getText());
     }
 
     @Override
-    public void listadoClientesEntreFechas(LocalDate fechaIni, LocalDate fechaFin)
-            throws DateTimeParseException {
+    public void listadoClientesEntreFechas(LocalDate fechaIni, LocalDate fechaFin) {
         JFrame ventana = new JFrame("Listado clientes entre fechas");
-        CustomJTable customJTable = new CustomJTable("clientes entre fechas");
         BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
         String[] columnas = {"DNI", "Telefono", "Nombre", "Apellidos", "Codigo Postal",
                 "Poblacion", "Provincia", "E-mail", "Fecha de Alta", "Hora", "Tarifa"};
         Collection<Cliente> clientes = baseDeDatos.devolverClientes();
         Container contenedor = ventana.getContentPane();
-        contenedor.add(customJTable.getScrollPane(columnas, baseDeDatos.entreFechas(clientes, fechaIni, fechaFin)));
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+        titulo = new JPanel();
+        titulo.add(new JLabel("<html><i><big>CLIENTES<big></i></html>"));
+        panel.add(titulo);
+        titulo = new JPanel();
+        titulo.add(new JLabel("<html>Pulsa sobre una fila para más información.</html>"));
+        panel.add(titulo);
+        ScrollPanelConTabla scrollPanelConTabla = new ScrollPanelConTabla();
+        panel.add(scrollPanelConTabla.crear(columnas, baseDeDatos.entreFechas(clientes, fechaIni, fechaFin)));
+        contenedor.add(panel);
         ventana.setSize(1200, 300);
         ventana.setVisible(true);
     }

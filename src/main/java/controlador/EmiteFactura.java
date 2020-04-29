@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 public class EmiteFactura extends Accion {
     public void ejecutaAccion() throws NifNoExistenteException, IntervaloFechasIncorrectoException {
-        InterrogaVistaFacturas vistaFacturas = vista.getVistaFacturas();
+        InterrogaVistaFacturas vistaFacturas = vista.getPanelFacturas();
         String nif = vistaFacturas.getNifFac();
         baseDeDatos.compruebaNifExistente(nif);
         LocalDate fechaIni = vistaFacturas.getFechaIniFac();

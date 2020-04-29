@@ -7,12 +7,11 @@ import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.util.Collection;
 
-public class CustomJTable extends JFrame {
+public class ScrollPanelConTabla {
     JTable tabla;
 
-    public CustomJTable(String title) {
-        super(title);
-        setBounds(10,10,800,600);
+    public ScrollPanelConTabla() {
+        super();
     }
 
     public void anchoColumnas(){
@@ -34,14 +33,9 @@ public class CustomJTable extends JFrame {
         }
     }
 
-    public <T extends TieneFecha> JScrollPane getScrollPane(String[] columnas, Collection<T> elementos) {
+    public <T extends TieneFecha> JScrollPane crear(String[] columnas, Collection<T> elementos) {
         tabla = new JTable(new ModeloTabla<T>(columnas, elementos));
         anchoColumnas(); //ajustar ancho columnas al texto
-
-        //todo ESTO ESTA MUY FEO PERO SINO NO SE COMO HACERLO!!!!!
-        if(columnas[0].equals("Codigo")) //si es la tabla de facturas
-            tabla.setRowHeight(100);
-
         tabla.setAutoCreateRowSorter(true); //ordena solo los datos de la tabla
         tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane scrollPane = new JScrollPane(tabla);
