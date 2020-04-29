@@ -11,6 +11,6 @@ public class LlamadasCliente extends Accion {
         baseDeDatos.compruebaTelfExistente(telf);
         LocalDate fechaIni = LocalDate.parse("1999-01-01");
         LocalDate hoy = LocalDate.now();
-        vista.getVistaLlamadas().listadoLlamadasEntreFechas(telf,fechaIni, hoy);
+        vista.getVistaLlamadas().listadoLlamadasEntreFechas(telf, fechaIni, hoy);
     }
 }

@@ -18,7 +18,7 @@ public class BaseDeDatos implements Serializable {
     //ATRIBUTOS
     private GestorClientes gestorClientes;
     private GestorFacturas gestorFacturas;
-    private InformaVista vista;
+    private transient InformaVista vista;
     private static FabricaClientes fabricaClientes;
     private static FabricaTarifas fabricaTarifas;
 
@@ -83,9 +83,7 @@ public class BaseDeDatos implements Serializable {
         vista.accionCorrecta("Tarifa especial contratada.");
     }
 
-    public void darDeAltaLlamada(String telfOrigen, String telfDestino, int duracion) throws IllegalArgumentException {
-        if (duracion < 0) throw new IllegalArgumentException("La duracion de una llamada no puede ser negativa" +
-                " y la introducida ha sido " + duracion);
+    public void darDeAltaLlamada(String telfOrigen, String telfDestino, int duracion) {
         Llamada nuevaLlamada = new Llamada(telfDestino, duracion);
         gestorClientes.darDeAltaLlamada(telfOrigen, nuevaLlamada);
         vista.accionCorrecta("Llamada realizada con éxito.");
