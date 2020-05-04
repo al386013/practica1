@@ -53,7 +53,7 @@ public class GestorFacturasTest {
 
     //test de emitirFactura y listarDatosFactura
     @Test
-    public void testEmitirListarFactura() {
+    public void emitirListarFacturaTest() {
         baseDeDatos.darDeAltaLlamada("600600600", "111111111", 40);
         //emite una factura para alberto con todas las llamadas desde ayer a hoy (las 50 anadidas)
         baseDeDatos.emitirFactura(LocalDate.now().minusDays(1), LocalDate.now(), "12341234");

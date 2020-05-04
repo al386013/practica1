@@ -36,35 +36,35 @@ public class BaseDeDatosTest {
 
     //comprueba que lanza IntervaloFechasIncorrectoException si fechaFin es anterior a fechaIni
     @Test
-    public void testIntervaloFechasIncorrectoException() {
+    public void intervaloFechasIncorrectoExceptionTest() {
         assertThrows(IntervaloFechasIncorrectoException.class,
                 () -> baseDeDatos.compruebaFechas(LocalDate.now(), LocalDate.now().minusDays(1)));
     }
 
     //comprueba que lanza NifNoExistenteException si se llama a compruebaNifExistente con un NIF no existente
     @Test
-    public void testNifNoExistenteException() {
+    public void nifNoExistenteExceptionTest() {
         assertThrows(NifNoExistenteException.class,
                 () -> baseDeDatos.compruebaNifExistente("xxxxxxxxx")); //nif no existente
     }
 
     //comprueba que lanza TelfNoExistenteException si se llama a compruebaTelfExistente con un telf no existente
     @Test
-    public void testTelfNoExistenteException() {
+    public void telfNoExistenteExceptionTest() {
         assertThrows(TelfNoExistenteException.class,
                 () -> baseDeDatos.compruebaTelfExistente("090909090")); //telf no existente
     }
 
     //comprueba que lanza NifRepetidoException si se llama a compruebaNifNoExistente con un nif existente
     @Test
-    public void testNifRepetidoException() {
+    public void nifRepetidoExceptionTest() {
         assertThrows(NifRepetidoException.class,
                 () -> baseDeDatos.compruebaNifNoExistente("63302284")); //nif de pamesa
     }
 
     //comprueba que lanza TelfRepetidoException si se llama a compruebaTelfNoExistente con un telf existente
     @Test
-    public void testTelfRepetidoException() {
+    public void telfRepetidoExceptionTest() {
         assertThrows(TelfRepetidoException.class,
                 () -> baseDeDatos.compruebaTelfNoExistente("964246252")); //telf de pamesaa
     }
@@ -74,7 +74,7 @@ public class BaseDeDatosTest {
 
     //comprueba metodo listarClientes() y listarClientesEntreFechas()
     @Test
-    public void testListarClientes() {
+    public void listarClientesTest() {
         Formatter obj = new Formatter();
         assertEquals(baseDeDatos.listarClientes(), "<html>pamesa<br/>" +
                 "<ul><li> NIF: 63302284</li>" +
@@ -97,7 +97,7 @@ public class BaseDeDatosTest {
 
     //comprueba listarLlamadasCliente() y listarLlamadasEntreFechas(); vemos que se imprimen siempre ordenadas por fecha
     @Test
-    public void testListarLlamadasCliente() {
+    public void listarLlamadasClienteTest() {
         //se anade un particular
         Direccion dirAlberto = new Direccion("12005", "Castellon de la plana", "Castelllon");
         baseDeDatos.anadirParticular("alberto", "prado banarro", "692242216", "20925403",
@@ -119,7 +119,7 @@ public class BaseDeDatosTest {
 
     //comprueba listarFacturasCliente() y listarFacturasEntreFechas()
     @Test
-    public void testListarFacturasCliente() {
+    public void listarFacturasClienteTest() {
         //pamesa hace otra llamada
         baseDeDatos.darDeAltaLlamada("964246252", "123412341", 40);
         //emite una factura para pamesa con todas las llamadas desde ayer a hoy (son dos)

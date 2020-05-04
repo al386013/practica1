@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 
 public class TarifaTest {
     @Test
-    public void testDescripciones1() {
+    public void descripciones1Test() {
         //se crea una tarifa basica
         Tarifa tarifa = new TarifaBasica(0.05f);
         String salida = "Tarifa basica";
@@ -27,7 +27,7 @@ public class TarifaTest {
     }
 
     @Test
-    public void testDescripciones2() {
+    public void descripciones2Test() {
         //se crea una tarifa basica
         Tarifa tarifa = new TarifaBasica(0.05f);
         String salida2 = "Tarifa basica";

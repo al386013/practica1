@@ -59,7 +59,7 @@ public class GestorClientesTest {
     }
 
     @Test
-    public void testExisteCliente() { //devuelve true si el nif existe
+    public void existeClienteTest() { //devuelve true si el nif existe
         assertThat(baseDeDatos.existeCliente("20925403"), is(true));
         assertThat(baseDeDatos.existeCliente("22921854"), is(false));
         assertThat(baseDeDatos.existeCliente("63302284"), is(true));
@@ -67,7 +67,7 @@ public class GestorClientesTest {
     }
 
     @Test
-    public void testExisteTelf() { //devuelve true si el telf existe
+    public void existeTelfTest() { //devuelve true si el telf existe
         assertThat(baseDeDatos.existeTelf("692242216"), is(true));
         assertThat(baseDeDatos.existeTelf("999999999"), is(false));
         assertThat(baseDeDatos.existeTelf("964246252"), is(true));
@@ -75,21 +75,21 @@ public class GestorClientesTest {
     }
 
     @Test
-    public void testAnadirParticular() {
+    public void anadirParticularTest() {
         //Se busca el cliente alberto anadido en el BeforeAll
         Assert.assertEquals(alberto, new Particular("alberto", "prado banarro", "692242216",
                 "20925403", dirAlberto, "albertoprado@gmail.com", fabricaTarifas.getBasica()));
     }
 
     @Test
-    public void testAnadirEmpresa() {
+    public void anadirEmpresaTest() {
         //Se busca la empresa pamesa anadida en el BeforeAll
         Assert.assertEquals(pamesa, new Empresa("pamesa", "964246252", "63302284", dirPamesa,
                 "pamesa@gmail.com", fabricaTarifas.getBasica()));
     }
 
     @Test
-    public void testBorrarCliente() {
+    public void borrarClienteTest() {
         //creamos un cliente
         baseDeDatos.anadirParticular("maria", "gracia rubio", "123456789", "X1234567S",
                 dirAlberto, "mariagracia@gmail.com");
@@ -102,7 +102,7 @@ public class GestorClientesTest {
     }
 
     @Test
-    public void testContratarTarifaEspecial() {
+    public void contratarTarifaEspecialTest() {
         //comprobamos que alberto tiene la tarifa basica
         String descripcion = "Tarifa basica";
         assertEquals(pamesa.getTarifa().descripcion(), descripcion);
@@ -119,7 +119,7 @@ public class GestorClientesTest {
     }
 
     @Test
-    public void testListarDatosCliente() {
+    public void listarDatosClienteTest() {
         Formatter obj = new Formatter();
         //test con particular
         assertEquals(baseDeDatos.listarDatosCliente("20925403"),
@@ -149,7 +149,7 @@ public class GestorClientesTest {
 
     //comprueba darDeAltaLlamada
     @Test
-    public void testDarDeAltaLlamada() {
+    public void darDeAltaLlamadaTest() {
         baseDeDatos.darDeAltaLlamada("692242216", "000000000", 120);
         Formatter obj = new Formatter();
         assertEquals(baseDeDatos.listarLlamadasCliente("692242216"),

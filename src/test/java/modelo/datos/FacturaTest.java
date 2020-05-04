@@ -38,7 +38,7 @@ public class FacturaTest {
     }
 
     @Test
-    public void TestPrecioLlamadaLunesManana() {
+    public void precioLlamadaLunesMananaTest() {
         Llamada llamada = new Llamada("666666666", "666777888", 120);
         llamada.setFecha(LocalDate.parse("2020-03-23")); //un lunes
         llamada.setHora(LocalTime.parse("10:00:00")); //por la manana
@@ -63,7 +63,7 @@ public class FacturaTest {
     }
 
     @Test
-    public void TestPrecioLlamadaLunesTarde() {
+    public void precioLlamadaLunesTardeTest() {
         Llamada llamada = new Llamada("666666666", "666777888", 70);
         llamada.setFecha(LocalDate.parse("2020-03-23")); //un lunes
         llamada.setHora(LocalTime.parse("18:00:00")); //por la tarde
@@ -89,7 +89,7 @@ public class FacturaTest {
     }
 
     @Test
-    public void TestPrecioLlamadaDomingoManana() {
+    public void precioLlamadaDomingoMananaTest() {
         Llamada llamada = new Llamada("666666666", "666777888", 30);
         llamada.setFecha(LocalDate.parse("2020-03-22")); //un domingo
         llamada.setHora(LocalTime.parse("10:00:00")); //por la manana
@@ -114,7 +114,7 @@ public class FacturaTest {
     }
 
     @Test
-    public void TestPrecioLlamadaDomingoTarde() {
+    public void precioLlamadaDomingoTardeTest() {
         Llamada llamada = new Llamada("666666666", "666777888", 110);
         llamada.setFecha(LocalDate.parse("2020-03-22")); //un domingo
         llamada.setHora(LocalTime.parse("19:30:00")); //por la tarde
