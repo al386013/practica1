@@ -16,7 +16,7 @@ import java.util.Set;
 public class BaseDeDatos implements Serializable {
     private GestorClientes gestorClientes;
     private GestorFacturas gestorFacturas;
-    private InformaVista vista;
+    private transient InformaVista vista;
     private static FabricaClientes fabricaClientes;
     private static FabricaTarifas fabricaTarifas;
 
