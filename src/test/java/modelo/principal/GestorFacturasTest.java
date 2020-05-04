@@ -80,10 +80,10 @@ public class GestorFacturasTest {
                 "<li> Periodo de facturacion: " + LocalDate.now().minusDays(1) + " - " + LocalDate.now() + "</li>" +
                 "<li> Importe: 0.14€ </li>" +
                 "<li> Lista de llamadas de esta factura: </li><br/>" +
-                        "- Llamada realizada el " + LocalDate.now() +
+                        "- Llamada realizada por 600600600 el " + LocalDate.now() +
                         " a las " + hora + " con una duracion de 130 segundos al telefono 000000000<br/>" +
-                        "- Llamada realizada el " + LocalDate.now() +
-                        " a las " + hora + " con una duracion de 40 segundos al telefono 111111111</h1></html>");
+                        "- Llamada realizada por 600600600 el " + LocalDate.now() +
+                        " a las " + hora + " con una duracion de 40 segundos al telefono 111111111<br/><br/></h1></html>");
     }
 
     @AfterAll

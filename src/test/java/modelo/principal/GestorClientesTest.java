@@ -153,7 +153,7 @@ public class GestorClientesTest {
         baseDeDatos.darDeAltaLlamada("692242216", "000000000", 120);
         Formatter obj = new Formatter();
         assertEquals(baseDeDatos.listarLlamadasCliente("692242216"),
-                "<html>- Llamada realizada el " + LocalDate.now()
+                "<html>- Llamada realizada por 692242216 el " + LocalDate.now()
                         + " a las " + obj.format("%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute())
                         + " con una duracion de 120 segundos al telefono 000000000<br/></html>");
         for (Llamada llamada : alberto.getLlamadas()) { //solo hay una

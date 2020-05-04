@@ -63,7 +63,7 @@ public class Llamada implements TieneFecha, Serializable {
 
     @Override
     public String toString() {
-        String string = "- Llamada  realizada por " + teflOrigen + " el " + fecha;
+        String string = "- Llamada realizada por " + teflOrigen + " el " + fecha;
         string += " a las " + format("%02d:%02d", hora.getHour(), hora.getMinute());
         string += " con una duracion de " + duracion + " segundos";
         string += " al telefono " + telfDest;

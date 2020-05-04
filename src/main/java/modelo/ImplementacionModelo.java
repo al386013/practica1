@@ -13,7 +13,6 @@ public class ImplementacionModelo implements CambioModelo, InterrogaModelo {
 
     public void setVista(InformaVista vista) {
         this.vista = vista;
-        baseDeDatos.setVista(vista);
     }
 
     @Override

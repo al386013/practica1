@@ -11,5 +11,7 @@ public class DaAltaLlamada extends Accion {
         String telfDest = vistaLlamadas.getTelfDestino();
         int duracion = vistaLlamadas.getDuracion();
         baseDeDatos.darDeAltaLlamada(telfOrigen, telfDest, duracion);
+
+        vista.accionCorrecta("Llamada realizada con éxito.");
     }
 }

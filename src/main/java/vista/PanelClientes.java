@@ -245,7 +245,7 @@ public class PanelClientes extends JPanel implements InterrogaVistaClientes {
         panelCampos.add(botonTarifa);
 
         panelSeccion.setLayout(new BoxLayout(panelSeccion, BoxLayout.PAGE_AXIS));
-        titulo.add(new JLabel("<html><i>BORRAR CLIENTE</i></html>"));
+        titulo.add(new JLabel("<html><i>CONTRATAR TARIFA ESPECIAL</i></html>"));
         panelSeccion.add(titulo);
         panelSeccion.add(panelTipo);
         panelSeccion.add(panelCampos);

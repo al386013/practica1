@@ -14,5 +14,7 @@ public class EmiteFactura extends Accion {
         LocalDate fechaFin = vistaFacturas.getFechaFinFac();
         baseDeDatos.compruebaFechas(fechaIni, fechaFin);
         baseDeDatos.emitirFactura(fechaIni, fechaFin, nif);
+
+        vista.accionCorrecta("Factura del cliente emitida con éxito.");
     }
 }

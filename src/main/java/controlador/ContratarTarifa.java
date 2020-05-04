@@ -10,5 +10,7 @@ public class ContratarTarifa extends Accion {
         baseDeDatos.compruebaNifExistente(nif);
         String opcionCambiarTarifa = vistaClientes.getTipoTarifa();
         baseDeDatos.contratarTarifaEspecial(opcionCambiarTarifa, nif);
+
+        vista.accionCorrecta("Tarifa especial contratada.");
     }
 }

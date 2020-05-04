@@ -12,3 +12,9 @@ public abstract class Accion {
     public abstract void ejecutaAccion() throws TelfRepetidoException, TelfNoExistenteException,
             NifNoExistenteException, NifRepetidoException, IntervaloFechasIncorrectoException;
 }
+/*
+public interface Accion {
+    void ejecutaAccion(BaseDeDatos baseDeDatos,  InterrogaVista vista) throws TelfRepetidoException, TelfNoExistenteException,
+            NifNoExistenteException, NifRepetidoException, IntervaloFechasIncorrectoException;
+}
+*/

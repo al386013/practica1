@@ -1,5 +1,6 @@
 package modelo.datos.clientes;
 
+import modelo.datos.ComparadorFechaHora;
 import modelo.datos.contrato.Factura;
 import modelo.datos.contrato.tarifas.Tarifa;
 import modelo.datos.TieneFecha;
@@ -32,8 +33,9 @@ public abstract class Cliente implements TieneFecha, Serializable {
         this.email = "";
         this.fechaDeAlta = null;
         this.tarifa = null;
-        this.facturas = new HashSet<>();
-        this.llamadas = new HashSet<>();
+        ComparadorFechaHora<TieneFecha> comparador = new ComparadorFechaHora<>();
+        this.facturas = new TreeSet<>(comparador);
+        this.llamadas = new TreeSet<>(comparador);
     }
 
     public Cliente(final String nombre, final String telefono, final String NIF, final Direccion direccion, final String email, final Tarifa tarifa) {
@@ -45,8 +47,9 @@ public abstract class Cliente implements TieneFecha, Serializable {
         this.email = email;
         this.fechaDeAlta = LocalDateTime.now();
         this.tarifa = tarifa;
-        this.facturas = new HashSet<>();
-        this.llamadas = new HashSet<>();
+        ComparadorFechaHora<TieneFecha> comparador = new ComparadorFechaHora<>();
+        this.facturas = new TreeSet<>(comparador);
+        this.llamadas = new TreeSet<>(comparador);
     }
 
     public String getNombre() {

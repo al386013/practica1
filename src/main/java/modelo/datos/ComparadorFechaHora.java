@@ -1,4 +1,4 @@
-/*package modelo.datos;
+package modelo.datos;
 
 import java.io.Serializable;
 import java.util.Comparator;
@@ -14,4 +14,4 @@ public class ComparadorFechaHora < T extends TieneFecha > implements Comparator<
             return 0; //misma fecha y hora
         }
     }
-}*/
+}
