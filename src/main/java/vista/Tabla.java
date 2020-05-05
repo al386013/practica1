@@ -1,31 +1,30 @@
 package vista;
 
-import modelo.datos.TieneFecha;
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import java.awt.*;
-import java.util.Collection;
 
-public class Tabla {
-    JTable tabla;
-    ModeloTabla modeloTabla;
+public class Tabla extends JTable {
 
-    public Tabla() {
-        super();
+    public Tabla(AbstractTableModel modelo) {
+        super(modelo);
+        setAutoCreateRowSorter(true); //ordena solo los datos de la tabla
+        setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        anchoColumnas();
     }
 
     //metodo que ajusta en ancho de las columnas de la tabla al texto de las celdas
     public void anchoColumnas(){
-        for (int column = 0; column < tabla.getColumnCount(); column++){
-            TableColumn tableColumn = tabla.getColumnModel().getColumn(column);
+        for (int column = 0; column < getColumnCount(); column++){
+            TableColumn tableColumn = getColumnModel().getColumn(column);
             int preferredWidth = tableColumn.getMinWidth();
             int maxWidth = tableColumn.getMaxWidth();
-            for (int row = 0; row < tabla.getRowCount(); row++) {
-                TableCellRenderer cellRenderer = tabla.getCellRenderer(row, column);
-                Component c = tabla.prepareRenderer(cellRenderer, row, column);
-                int width = c.getPreferredSize().width + tabla.getIntercellSpacing().width;
+            for (int row = 0; row < getRowCount(); row++) {
+                TableCellRenderer cellRenderer = getCellRenderer(row, column);
+                Component c = prepareRenderer(cellRenderer, row, column);
+                int width = c.getPreferredSize().width + getIntercellSpacing().width;
                 preferredWidth = Math.max(preferredWidth, width);
                 if (preferredWidth >= maxWidth){
                     preferredWidth = maxWidth;
@@ -34,18 +33,5 @@ public class Tabla {
             }
             tableColumn.setPreferredWidth( preferredWidth );
         }
-    }
-
-    public <T extends TieneFecha> JTable crear(String[] columnas, Collection<T> elementos) {
-        modeloTabla = new ModeloTabla<T>(columnas, elementos);
-        tabla = new JTable(modeloTabla);
-        anchoColumnas(); //ajustar ancho columnas al texto
-        tabla.setAutoCreateRowSorter(true); //ordena solo los datos de la tabla
-        tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        return tabla;
-    }
-
-    public ModeloTabla getModeloTabla(){
-        return modeloTabla;
     }
 }

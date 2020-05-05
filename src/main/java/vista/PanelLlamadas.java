@@ -2,6 +2,7 @@ package vista;
 
 import controlador.Controlador;
 import modelo.InterrogaModelo;
+import modelo.datos.clientes.Cliente;
 import modelo.datos.llamadas.Llamada;
 import modelo.principal.BaseDeDatos;
 import modelo.principal.IntervaloFechasIncorrectoException;
@@ -216,11 +217,6 @@ public class PanelLlamadas extends JPanel implements InterrogaVistaLlamadas {
     @Override
     public void listadoLlamadasEntreFechas(String telf, LocalDate fechaIni, LocalDate fechaFin) {
         JFrame ventana = new JFrame("Listado llamadas");
-        BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
-        String[] columnas = {"Origen", "Destino", "Fecha", "Hora", "Duracion"};
-        Collection<Llamada> llamadas = baseDeDatos.devolverLlamadas(telf);
-        Container contenedor = ventana.getContentPane();
-
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
         titulo = new JPanel();
@@ -229,17 +225,24 @@ public class PanelLlamadas extends JPanel implements InterrogaVistaLlamadas {
         titulo = new JPanel();
         titulo.add(new JLabel("<html>Pulsa sobre una fila para más información.</html>"));
         panel.add(titulo);
-        Tabla tabla = new Tabla();
-        JTable jTable = tabla.crear(columnas, baseDeDatos.entreFechas(llamadas, fechaIni, fechaFin));
-        JScrollPane scrollPane = new JScrollPane(jTable);
+
+        //creamos modelo tabla y tabla
+        String[] columnas = {"Origen", "Destino", "Fecha", "Hora", "Duracion"};
+        BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
+        Collection<Llamada> llamadas = baseDeDatos.devolverLlamadas(telf);
+        ModeloTabla<Llamada> modeloTabla = new ModeloTabla<>(columnas, baseDeDatos.entreFechas(llamadas, fechaIni, fechaFin));
+        Tabla tabla = new Tabla(modeloTabla);
+
+        //anadimos una barra de scroll a la tabla; el scroll vertical siempre se muestra
+        JScrollPane scrollPane = new JScrollPane(tabla);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        panel.add(scrollPane);
 
         ListSelectionListener escuchadorTabla = new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                if (e.getValueIsAdjusting() != true) {
-                    int fila = jTable.convertRowIndexToModel(jTable.getSelectedRow());
-                    ModeloTabla modeloTabla = tabla.getModeloTabla();
+                if (!e.getValueIsAdjusting()) {
+                    int fila = tabla.convertRowIndexToModel(tabla.getSelectedRow());
 
                     String telfOrigen = (String) modeloTabla.getValueAt(fila, 0);
                     String telfDestino = (String) modeloTabla.getValueAt(fila, 1);
@@ -250,10 +253,9 @@ public class PanelLlamadas extends JPanel implements InterrogaVistaLlamadas {
                 }
             }
         };
-        ListSelectionModel listSelectionModel = jTable.getSelectionModel();
+        ListSelectionModel listSelectionModel = tabla.getSelectionModel();
         listSelectionModel.addListSelectionListener(escuchadorTabla);
-        panel.add(scrollPane);
-        contenedor.add(panel);
+        ventana.getContentPane().add(panel);
         ventana.setSize(1200, 300);
         ventana.setVisible(true);
     }

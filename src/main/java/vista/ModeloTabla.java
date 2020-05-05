@@ -12,10 +12,10 @@ import java.util.Collection;
 import static java.lang.String.format;
 
 public class ModeloTabla <T extends TieneFecha> extends AbstractTableModel {
-    private String nombreColumnas[];
+    private final String nombreColumnas[];
     private ArrayList<T> datos;
 
-    public ModeloTabla (String[] nombreColumnas, Collection<T> coleccion) {
+    public ModeloTabla (final String[] nombreColumnas, final Collection<T> coleccion) {
         super();
         this.nombreColumnas = nombreColumnas;
         this.datos = new ArrayList<>();
