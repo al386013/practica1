@@ -36,35 +36,35 @@ public class BaseDeDatosTest {
 
     //comprueba que lanza IntervaloFechasIncorrectoException si fechaFin es anterior a fechaIni
     @Test
-    public void testIntervaloFechasIncorrectoException() {
+    public void intervaloFechasIncorrectoExceptionTest() {
         assertThrows(IntervaloFechasIncorrectoException.class,
                 () -> baseDeDatos.compruebaFechas(LocalDate.now(), LocalDate.now().minusDays(1)));
     }
 
     //comprueba que lanza NifNoExistenteException si se llama a compruebaNifExistente con un NIF no existente
     @Test
-    public void testNifNoExistenteException() {
+    public void nifNoExistenteExceptionTest() {
         assertThrows(NifNoExistenteException.class,
                 () -> baseDeDatos.compruebaNifExistente("xxxxxxxxx")); //nif no existente
     }
 
     //comprueba que lanza TelfNoExistenteException si se llama a compruebaTelfExistente con un telf no existente
     @Test
-    public void testTelfNoExistenteException() {
+    public void telfNoExistenteExceptionTest() {
         assertThrows(TelfNoExistenteException.class,
                 () -> baseDeDatos.compruebaTelfExistente("090909090")); //telf no existente
     }
 
     //comprueba que lanza NifRepetidoException si se llama a compruebaNifNoExistente con un nif existente
     @Test
-    public void testNifRepetidoException() {
+    public void nifRepetidoExceptionTest() {
         assertThrows(NifRepetidoException.class,
                 () -> baseDeDatos.compruebaNifNoExistente("63302284")); //nif de pamesa
     }
 
     //comprueba que lanza TelfRepetidoException si se llama a compruebaTelfNoExistente con un telf existente
     @Test
-    public void testTelfRepetidoException() {
+    public void telfRepetidoExceptionTest() {
         assertThrows(TelfRepetidoException.class,
                 () -> baseDeDatos.compruebaTelfNoExistente("964246252")); //telf de pamesaa
     }
@@ -74,7 +74,7 @@ public class BaseDeDatosTest {
 
     //comprueba metodo listarClientes() y listarClientesEntreFechas()
     @Test
-    public void testListarClientes() {
+    public void listarClientesTest() {
         Formatter obj = new Formatter();
         assertEquals(baseDeDatos.listarClientes(), "<html>pamesa<br/>" +
                 "<ul><li> NIF: 63302284</li>" +
@@ -97,7 +97,7 @@ public class BaseDeDatosTest {
 
     //comprueba listarLlamadasCliente() y listarLlamadasEntreFechas(); vemos que se imprimen siempre ordenadas por fecha
     @Test
-    public void testListarLlamadasCliente() {
+    public void listarLlamadasClienteTest() {
         //se anade un particular
         Direccion dirAlberto = new Direccion("12005", "Castellon de la plana", "Castelllon");
         baseDeDatos.anadirParticular("alberto", "prado banarro", "692242216", "20925403",
@@ -106,7 +106,7 @@ public class BaseDeDatosTest {
         baseDeDatos.darDeAltaLlamada("692242216", "000000000", 120);
         Formatter hora = new Formatter();
         hora.format("%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute());
-        String res = "<html>- Llamada realizada el " + LocalDate.now() + " a las " + hora +
+        String res = "<html>- Llamada realizada por 692242216 el " + LocalDate.now() + " a las " + hora +
                 " con una duracion de 120 segundos al telefono 000000000<br/></html>";
 
         //tests metodos listar llamadas: se imprimen siempre ordenadas por fecha y hora
@@ -119,7 +119,7 @@ public class BaseDeDatosTest {
 
     //comprueba listarFacturasCliente() y listarFacturasEntreFechas()
     @Test
-    public void testListarFacturasCliente() {
+    public void listarFacturasClienteTest() {
         //pamesa hace otra llamada
         baseDeDatos.darDeAltaLlamada("964246252", "123412341", 40);
         //emite una factura para pamesa con todas las llamadas desde ayer a hoy (son dos)
@@ -137,10 +137,10 @@ public class BaseDeDatosTest {
                 "<li> Periodo de facturacion: " + LocalDate.now().minusDays(1) + " - " + LocalDate.now() + "</li>" +
                 "<li> Importe: 0.14€ </li>" +
                 "<li> Lista de llamadas de esta factura: </li>" +
-                "<br/>- Llamada realizada el " + LocalDate.now() + " a las " + hora +
+                "<br/>- Llamada realizada por 964246252 el " + LocalDate.now() + " a las " + hora +
                 " con una duracion de 130 segundos al telefono 666666666<br/>" +
-                "- Llamada realizada el " + LocalDate.now() + " a las " + hora +
-                " con una duracion de 40 segundos al telefono 123412341</h1><br/></html>";
+                "- Llamada realizada por 964246252 el " + LocalDate.now() + " a las " + hora +
+                " con una duracion de 40 segundos al telefono 123412341<br/><br/></h1><br/></html>";
 
         //tests metodos listar facturas: se imprimen siempre ordenadas por fecha y hora
         assertEquals(baseDeDatos.listarFacturasCliente("63302284"), res);

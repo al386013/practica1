@@ -245,7 +245,7 @@ public class PanelClientes extends JPanel implements InterrogaVistaClientes {
         panelCampos.add(botonTarifa);
 
         panelSeccion.setLayout(new BoxLayout(panelSeccion, BoxLayout.PAGE_AXIS));
-        titulo.add(new JLabel("<html><i>BORRAR CLIENTE</i></html>"));
+        titulo.add(new JLabel("<html><i>CONTRATAR TARIFA ESPECIAL</i></html>"));
         panelSeccion.add(titulo);
         panelSeccion.add(panelTipo);
         panelSeccion.add(panelCampos);
@@ -409,11 +409,6 @@ public class PanelClientes extends JPanel implements InterrogaVistaClientes {
     @Override
     public void listadoClientesEntreFechas(LocalDate fechaIni, LocalDate fechaFin) {
         JFrame ventana = new JFrame("Listado clientes entre fechas");
-        BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
-        String[] columnas = {"DNI", "Telefono", "Nombre", "Apellidos", "Codigo Postal",
-                "Poblacion", "Provincia", "E-mail", "Fecha de Alta", "Hora", "Tarifa"};
-        Collection<Cliente> clientes = baseDeDatos.devolverClientes();
-        Container contenedor = ventana.getContentPane();
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
         titulo = new JPanel();
@@ -422,38 +417,44 @@ public class PanelClientes extends JPanel implements InterrogaVistaClientes {
         titulo = new JPanel();
         titulo.add(new JLabel("<html>Pulsa sobre una fila para más información.</html>"));
         panel.add(titulo);
-        Tabla tabla = new Tabla();
-        JTable jtable = tabla.crear(columnas, baseDeDatos.entreFechas(clientes, fechaIni, fechaFin));
-        JScrollPane scrollPane = new JScrollPane(jtable);
+
+        //creamos modelo tabla y tabla
+        String[] columnas = {"DNI", "Telefono", "Nombre", "Apellidos", "Codigo Postal",
+                "Poblacion", "Provincia", "E-mail", "Fecha de Alta", "Hora", "Tarifa"};
+        BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
+        Collection<Cliente> clientes = baseDeDatos.devolverClientes();
+        ModeloTabla<Cliente> modeloTabla = new ModeloTabla<>(columnas, baseDeDatos.entreFechas(clientes, fechaIni, fechaFin));
+        Tabla tabla = new Tabla(modeloTabla);
+
+        //anadimos una barra de scroll a la tabla; el scroll vertical siempre se muestra
+        JScrollPane scrollPane = new JScrollPane(tabla);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        panel.add(scrollPane);
 
         ListSelectionListener escuchadorTabla = new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                if(e.getValueIsAdjusting() != true) {
-                    int fila = jtable.convertRowIndexToModel(jtable.getSelectedRow());
-                    ModeloTabla modeloTabla = tabla.getModeloTabla();
+                if(!e.getValueIsAdjusting()) {
+                    int fila = tabla.convertRowIndexToModel(tabla.getSelectedRow());
                     String nifTabla = (String) modeloTabla.getValueAt(fila, 0);
                     datosCliente(nifTabla);
                 }
             }
         };
-        ListSelectionModel listSelectionModel = jtable.getSelectionModel();
+
+        ListSelectionModel listSelectionModel = tabla.getSelectionModel();
         listSelectionModel.addListSelectionListener(escuchadorTabla);
-        panel.add(scrollPane);
-        contenedor.add(panel);
+        ventana.getContentPane().add(panel);
         ventana.setSize(1200, 300);
         ventana.setVisible(true);
     }
-
-
 
     @Override
     public void datosCliente(String nif) {
         JFrame ventana = new JFrame("Datos del cliente");
         JLabel texto = new JLabel("<html><h1>" + modelo.getBaseDeDatos().listarDatosCliente(nif) + "</h1></html>");
         ventana.getContentPane().add(texto);
-        ventana.pack();
+        ventana.setSize(600,300);
         ventana.setVisible(true);
     }
 }

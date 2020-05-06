@@ -2,6 +2,7 @@ package vista;
 
 import controlador.Controlador;
 import modelo.InterrogaModelo;
+import modelo.datos.clientes.Cliente;
 import modelo.datos.contrato.Factura;
 import modelo.principal.*;
 import javax.swing.*;
@@ -78,7 +79,7 @@ public class PanelFacturas extends JPanel implements InterrogaVistaFacturas {
         nifFac = new JTextField(14);
         fechaIniFac = new JTextField(14);
         fechaFinFac = new JTextField(14);
-        nifFac.setText("NIF");
+        nifFac.setText("Escribe NIF");
         fechaIniFac.setText("aaaa-mm-dd");
         fechaFinFac.setText("aaaa-mm-dd");
 
@@ -116,7 +117,7 @@ public class PanelFacturas extends JPanel implements InterrogaVistaFacturas {
         panelSeccion = new JPanel();
 
         codFac = new JTextField(16);
-        codFac.setText("Código");
+        codFac.setText("Escibe código");
 
         panelIzq.setLayout(new GridLayout(1, 1));
         panelDer.setLayout(new GridLayout(1, 1));
@@ -148,7 +149,7 @@ public class PanelFacturas extends JPanel implements InterrogaVistaFacturas {
         panelSeccion = new JPanel();
 
         nifFacCli = new JTextField(14);
-        nifFacCli.setText("NIF");
+        nifFacCli.setText("Escribe NIF");
 
         panelIzq.setLayout(new GridLayout(1, 1));
         panelDer.setLayout(new GridLayout(1, 1));
@@ -182,7 +183,7 @@ public class PanelFacturas extends JPanel implements InterrogaVistaFacturas {
         nifFechas = new JTextField(15);
         fechaIniFechas = new JTextField(15);
         fechaFinFechas = new JTextField(15);
-        nifFechas.setText("NIF");
+        nifFechas.setText("Escribe NIF");
         fechaIniFechas.setText("aaaa-mm-dd");
         fechaFinFechas.setText("aaaa-mm-dd");
 
@@ -256,11 +257,6 @@ public class PanelFacturas extends JPanel implements InterrogaVistaFacturas {
     @Override
     public void listadoFacturasEntreFechas(String nif, LocalDate fechaIni, LocalDate fechaFin) {
         JFrame ventana = new JFrame("Listado facturas");
-        BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
-        String[] columnas = {"Codigo", "Fecha factura", "Hora", "Importe",
-                "Fecha inicio", "Fecha fin"};
-        Collection<Factura> facturas = baseDeDatos.devolverFacturas(nif);
-        Container contenedor = ventana.getContentPane();
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
         titulo = new JPanel();
@@ -269,26 +265,33 @@ public class PanelFacturas extends JPanel implements InterrogaVistaFacturas {
         titulo = new JPanel();
         titulo.add(new JLabel("<html>Pulsa sobre una fila para más información.</html>"));
         panel.add(titulo);
-        Tabla tabla = new Tabla();
-        JTable jTable = tabla.crear(columnas, baseDeDatos.entreFechas(facturas, fechaIni, fechaFin));
-        JScrollPane scrollPane = new JScrollPane(jTable);
+
+        //creamos modelo tabla y tabla
+        String[] columnas = {"Codigo", "Fecha factura", "Hora", "Importe",
+                "Fecha inicio", "Fecha fin"};
+        BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
+        Collection<Factura> facturas = baseDeDatos.devolverFacturas(nif);
+        ModeloTabla<Factura> modeloTabla = new ModeloTabla<>(columnas, baseDeDatos.entreFechas(facturas, fechaIni, fechaFin));
+        Tabla tabla = new Tabla(modeloTabla);
+
+        //anadimos una barra de scroll a la tabla; el scroll vertical siempre se muestra
+        JScrollPane scrollPane = new JScrollPane(tabla);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        panel.add(scrollPane);
 
         ListSelectionListener escuchadorTabla = new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                if(e.getValueIsAdjusting() != true) {
-                    int fila = jTable.convertRowIndexToModel(jTable.getSelectedRow());
-                    ModeloTabla modeloTabla = tabla.getModeloTabla();
+                if(!e.getValueIsAdjusting()) {
+                    int fila = tabla.convertRowIndexToModel(tabla.getSelectedRow());
                     int codTabla = (Integer) modeloTabla.getValueAt(fila, 0);
                     datosFactura(codTabla);
                 }
             }
         };
-        ListSelectionModel listSelectionModel = jTable.getSelectionModel();
+        ListSelectionModel listSelectionModel = tabla.getSelectionModel();
         listSelectionModel.addListSelectionListener(escuchadorTabla);
-        panel.add(scrollPane);
-        contenedor.add(panel);
+        ventana.getContentPane().add(panel);
         ventana.setSize(1200, 300);
         ventana.setVisible(true);
     }

@@ -92,6 +92,6 @@ public class Factura implements TieneFecha, Serializable {
         string += "<li> Lista de llamadas de esta factura: </li>";
         for (Llamada llamada : llamadas)
             string += "<br/>" + llamada;
-        return string + "</h1>";
+        return string + "<br/><br/></h1>";
     }
 }

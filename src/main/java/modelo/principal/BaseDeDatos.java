@@ -1,5 +1,6 @@
 package modelo.principal;
 
+import modelo.datos.ComparadorFechaHora;
 import modelo.datos.TieneFecha;
 import modelo.datos.clientes.Cliente;
 import modelo.datos.clientes.Direccion;
@@ -10,13 +11,13 @@ import vista.InformaVista;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class BaseDeDatos implements Serializable {
     private GestorClientes gestorClientes;
     private GestorFacturas gestorFacturas;
-    private InformaVista vista;
+    private transient InformaVista vista;
     private static FabricaClientes fabricaClientes;
     private static FabricaTarifas fabricaTarifas;
 
@@ -60,29 +61,24 @@ public class BaseDeDatos implements Serializable {
 
     public void anadirParticular(String nombre, String apellidos, String telf, String nif, Direccion dir, String email) {
         gestorClientes.anadirCliente(fabricaClientes.getParticular(nombre, apellidos, telf, nif, dir, email, fabricaTarifas.getBasica()));
-        vista.accionCorrecta("Particular guardado correctamente.");
     }
 
     public void anadirEmpresa(String nombre, String telf, String nif, Direccion dir, String email) {
         gestorClientes.anadirCliente(fabricaClientes.getEmpresa(nombre, telf, nif, dir, email, fabricaTarifas.getBasica()));
-        vista.accionCorrecta("Empresa guardada correctamente.");
     }
 
     public void borrarCliente(String telf) {
         gestorClientes.borrarCliente(telf);
-        vista.accionCorrecta("Cliente borrado con éxito.");
     }
 
     public void contratarTarifaEspecial(String tipoTarifa, String nif) {
         Cliente cliente = gestorClientes.devuelveCliente(nif);
         gestorClientes.contratarTarifaEspecial(fabricaTarifas.getOferta(tipoTarifa, cliente.getTarifa()), cliente);
-        vista.accionCorrecta("Tarifa especial contratada.");
     }
 
     public void darDeAltaLlamada(String telfOrigen, String telfDestino, int duracion) {
         Llamada nuevaLlamada = new Llamada( telfOrigen,telfDestino, duracion);
         gestorClientes.darDeAltaLlamada(telfOrigen, nuevaLlamada);
-        vista.accionCorrecta("Llamada realizada con éxito.");
     }
 
     public String listarDatosCliente(String NIF) {
@@ -94,7 +90,6 @@ public class BaseDeDatos implements Serializable {
         Cliente cliente = gestorClientes.devuelveCliente(nif);
         Factura nuevaFactura = new Factura(periodoFact, nif, cliente.getLlamadas(), cliente.getTarifa());
         gestorFacturas.emitirFactura(nuevaFactura, cliente.getFacturas());
-        vista.accionCorrecta("Factura del cliente emitida con éxito.");
     }
 
     public String convertirTelfNif(String telf) {
@@ -136,7 +131,7 @@ public class BaseDeDatos implements Serializable {
 
     //Metodo entreFechas: de un conjunto, devuelve un subconjunto con los elementos de fecha entre fechaIni y fechaFin
     public <T extends TieneFecha> Collection<T> entreFechas(Collection<T> conjunto, LocalDate fechaIni, LocalDate fechaFin) {
-        Collection<T> res = new HashSet<>();
+        Collection<T> res = new TreeSet<>(new ComparadorFechaHora<>());
         for (T elem : conjunto) {
             LocalDate fecha = elem.getFecha();
             if (fecha.isAfter(fechaIni) && fecha.isBefore(fechaFin) || (fecha.isEqual(fechaIni) || fecha.isEqual(fechaFin)))

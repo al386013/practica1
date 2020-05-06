@@ -9,5 +9,7 @@ public class BorrarCliente extends Accion {
         String telf = vistaClientes.getTelfBorrar();
         baseDeDatos.compruebaTelfExistente(telf);
         baseDeDatos.borrarCliente(telf);
+
+        vista.accionCorrecta("Cliente borrado con éxito.");
     }
 }
