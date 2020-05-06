@@ -12,7 +12,8 @@ public class FabricaClientes implements InterfazFabricaClientes {
     }
 
     @Override
-    public Cliente getParticular(String nombre, String apellidos, String telf, String nif, Direccion dir, String email, Tarifa tarifa) {
+    public Cliente getParticular(String nombre, String apellidos, String telf, String nif, Direccion dir, String email,
+                                 Tarifa tarifa) {
         return new Particular(nombre, apellidos, telf, nif, dir, email, tarifa);
     }
 

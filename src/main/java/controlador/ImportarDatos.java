@@ -3,7 +3,6 @@ package controlador;
 import modelo.CambioModelo;
 import modelo.principal.BaseDeDatos;
 import vista.ImplementacionVista;
-import vista.InterrogaVista;
 
 import javax.swing.*;
 import java.io.FileInputStream;
@@ -12,15 +11,16 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 
 class ImportarDatos {
-    public void cargarDatos(InterrogaVista vista, CambioModelo modelo) {
+    public void cargarDatos(CambioModelo modelo) {
         ObjectInputStream ois = null;
         try {
             try {
                 FileInputStream fis = new FileInputStream("baseDeDatos.bin");
                 ois = new ObjectInputStream(fis);
+                //actualizamos la nueva base de  datos en el modelo MVC
                 BaseDeDatos nueva = (BaseDeDatos) ois.readObject();
                 modelo.setBaseDeDatos(nueva);
-                nueva.setVista( new ImplementacionVista());
+                modelo.setVista(new ImplementacionVista()); //si no cambiamos la vista, no se acutaliza
                 Accion.baseDeDatos = nueva;
                 JOptionPane.showMessageDialog(null, "Datos importados correctamente");
             } finally {

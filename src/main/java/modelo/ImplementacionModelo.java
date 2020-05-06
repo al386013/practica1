@@ -1,6 +1,5 @@
 package modelo;
 
-import controlador.Accion;
 import modelo.principal.BaseDeDatos;
 import vista.InformaVista;
 
@@ -12,8 +11,10 @@ public class ImplementacionModelo implements CambioModelo, InterrogaModelo {
         super();
     }
 
+    @Override
     public void setVista(InformaVista vista) {
         this.vista = vista;
+        baseDeDatos.setVista(vista);
     }
 
     @Override

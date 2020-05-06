@@ -16,7 +16,10 @@ import java.util.Collection;
 public class PanelClientes extends JPanel implements InterrogaVistaClientes {
     private Controlador controlador;
     private InterrogaModelo modelo;
-    private InterrogaVista vista;
+    private InformaVista vista;
+    private ListSelectionListener escuchadorTabla;
+    private Tabla tabla;
+    private ModeloTabla<Cliente> modeloTabla;
     private JPanel titulo;
     private JTextField nifAnadir;
     private JTextField nombre;
@@ -47,7 +50,7 @@ public class PanelClientes extends JPanel implements InterrogaVistaClientes {
         this.controlador = controlador;
     }
 
-    public void setVista(InterrogaVista vista) {
+    public void setVista(InformaVista vista) {
         this.vista = vista;
     }
 
@@ -406,8 +409,10 @@ public class PanelClientes extends JPanel implements InterrogaVistaClientes {
         return LocalDate.parse(fechaFin.getText());
     }
 
+    //muestra los clientes en una tabla
     @Override
     public void listadoClientesEntreFechas(LocalDate fechaIni, LocalDate fechaFin) {
+        //crea la ventana y el texto
         JFrame ventana = new JFrame("Listado clientes entre fechas");
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
@@ -418,23 +423,19 @@ public class PanelClientes extends JPanel implements InterrogaVistaClientes {
         titulo.add(new JLabel("<html>Pulsa sobre una fila para más información.</html>"));
         panel.add(titulo);
 
-        //creamos modelo tabla y tabla
+        //crea modeloTabla y tabla
         String[] columnas = {"DNI", "Telefono", "Nombre", "Apellidos", "Codigo Postal",
                 "Poblacion", "Provincia", "E-mail", "Fecha de Alta", "Hora", "Tarifa"};
         BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
         Collection<Cliente> clientes = baseDeDatos.devolverClientes();
-        ModeloTabla<Cliente> modeloTabla = new ModeloTabla<>(columnas, baseDeDatos.entreFechas(clientes, fechaIni, fechaFin));
-        Tabla tabla = new Tabla(modeloTabla);
+        modeloTabla = new ModeloTabla<>(columnas, baseDeDatos.entreFechas(clientes, fechaIni, fechaFin));
+        tabla = new Tabla(modeloTabla);
 
-        //anadimos una barra de scroll a la tabla; el scroll vertical siempre se muestra
-        JScrollPane scrollPane = new JScrollPane(tabla);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        panel.add(scrollPane);
-
-        ListSelectionListener escuchadorTabla = new ListSelectionListener() {
+        //crea el escuchador de la tabla
+        escuchadorTabla = new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                if(!e.getValueIsAdjusting()) {
+                if (!e.getValueIsAdjusting()) {
                     int fila = tabla.convertRowIndexToModel(tabla.getSelectedRow());
                     String nifTabla = (String) modeloTabla.getValueAt(fila, 0);
                     datosCliente(nifTabla);
@@ -442,33 +443,34 @@ public class PanelClientes extends JPanel implements InterrogaVistaClientes {
             }
         };
 
+        //crear escuchador para el boton actualizar tabla
         ActionListener escuchadorActualizar = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evento) {
-                tabla.setModel(new ModeloTabla<>(columnas,
+                tabla.setModel(modeloTabla = new ModeloTabla<>(columnas,
                         baseDeDatos.entreFechas(clientes, fechaIni, fechaFin)));
                 tabla.anchoColumnas();
-
             }
         };
-        JButton boton = new JButton("Actualizar tabla");
-        panel.add(boton);
 
-        boton.addActionListener(escuchadorActualizar);
+        //clase generica comun al resto de tablas
+        ScrollYBoton<Cliente> scrollYBoton = new ScrollYBoton<>();
+        JPanel panel2 = scrollYBoton.ejecuta(tabla, panel, escuchadorTabla, escuchadorActualizar);
 
-        ListSelectionModel listSelectionModel = tabla.getSelectionModel();
-        listSelectionModel.addListSelectionListener(escuchadorTabla);
-        ventana.getContentPane().add(panel);
+        Container contenedor = ventana.getContentPane();
+        contenedor.add(panel);
+        contenedor.add(panel2);
         ventana.setSize(1200, 300);
         ventana.setVisible(true);
     }
 
+    //lista los datos de un cliente
     @Override
     public void datosCliente(String nif) {
         JFrame ventana = new JFrame("Datos del cliente");
         JLabel texto = new JLabel("<html><h1>" + modelo.getBaseDeDatos().listarDatosCliente(nif) + "</h1></html>");
         ventana.getContentPane().add(texto);
-        ventana.setSize(600,300);
+        ventana.setSize(600, 300);
         ventana.setVisible(true);
     }
 }

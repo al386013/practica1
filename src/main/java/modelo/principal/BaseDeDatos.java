@@ -60,15 +60,14 @@ public class BaseDeDatos implements Serializable {
     }
 
     public void anadirParticular(String nombre, String apellidos, String telf, String nif, Direccion dir, String email) {
-        gestorClientes.anadirCliente(fabricaClientes.getParticular(nombre, apellidos, telf, nif, dir, email, fabricaTarifas.getBasica()));
+        gestorClientes.anadirCliente(fabricaClientes.getParticular(nombre, apellidos, telf, nif, dir, email,
+                fabricaTarifas.getBasica()));
         vista.accionCorrecta("Particular guardado correctamente.");
-
     }
 
     public void anadirEmpresa(String nombre, String telf, String nif, Direccion dir, String email) {
         gestorClientes.anadirCliente(fabricaClientes.getEmpresa(nombre, telf, nif, dir, email, fabricaTarifas.getBasica()));
         vista.accionCorrecta("Empresa guardada correctamente.");
-
     }
 
     public void borrarCliente(String telf) {

@@ -2,7 +2,6 @@ package vista;
 
 import controlador.Controlador;
 import modelo.InterrogaModelo;
-import modelo.datos.clientes.Cliente;
 import modelo.datos.contrato.Factura;
 import modelo.principal.*;
 import javax.swing.*;
@@ -17,7 +16,10 @@ import java.util.Collection;
 public class PanelFacturas extends JPanel implements InterrogaVistaFacturas {
     private Controlador controlador;
     private InterrogaModelo modelo;
-    private InterrogaVista vista;
+    private InformaVista vista;
+    private ListSelectionListener escuchadorTabla;
+    private Tabla tabla;
+    private ModeloTabla<Factura> modeloTabla;
     private JPanel titulo;
     private JTextField nifFac;
     private JTextField fechaIniFac;
@@ -41,7 +43,7 @@ public class PanelFacturas extends JPanel implements InterrogaVistaFacturas {
         this.controlador = controlador;
     }
 
-    public void setVista(InterrogaVista vista) {
+    public void setVista(InformaVista vista) {
         this.vista = vista;
     }
 
@@ -253,9 +255,10 @@ public class PanelFacturas extends JPanel implements InterrogaVistaFacturas {
         return LocalDate.parse(fechaFinFechas.getText());
     }
 
-
+    //muestra las facturas del cliente en una tabla
     @Override
     public void listadoFacturasEntreFechas(String nif, LocalDate fechaIni, LocalDate fechaFin) {
+        //crea la ventana y el texto
         JFrame ventana = new JFrame("Listado facturas");
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
@@ -266,23 +269,19 @@ public class PanelFacturas extends JPanel implements InterrogaVistaFacturas {
         titulo.add(new JLabel("<html>Pulsa sobre una fila para más información.</html>"));
         panel.add(titulo);
 
-        //creamos modelo tabla y tabla
+        //crear modeloTabla y tabla
         String[] columnas = {"Codigo", "Fecha factura", "Hora", "Importe",
                 "Fecha inicio", "Fecha fin"};
         BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
         Collection<Factura> facturas = baseDeDatos.devolverFacturas(nif);
-        ModeloTabla<Factura> modeloTabla = new ModeloTabla<>(columnas, baseDeDatos.entreFechas(facturas, fechaIni, fechaFin));
-        Tabla tabla = new Tabla(modeloTabla);
+        modeloTabla = new ModeloTabla<>(columnas, baseDeDatos.entreFechas(facturas, fechaIni, fechaFin));
+        tabla = new Tabla(modeloTabla);
 
-        //anadimos una barra de scroll a la tabla; el scroll vertical siempre se muestra
-        JScrollPane scrollPane = new JScrollPane(tabla);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        panel.add(scrollPane);
-
-        ListSelectionListener escuchadorTabla = new ListSelectionListener() {
+        //crea el escuchador de la tabla
+        escuchadorTabla = new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                if(!e.getValueIsAdjusting()) {
+                if (!e.getValueIsAdjusting()) {
                     int fila = tabla.convertRowIndexToModel(tabla.getSelectedRow());
                     int codTabla = (Integer) modeloTabla.getValueAt(fila, 0);
                     datosFactura(codTabla);
@@ -290,28 +289,30 @@ public class PanelFacturas extends JPanel implements InterrogaVistaFacturas {
             }
         };
 
+        //crear escuchador para el boton actualizar tabla
         ActionListener escuchadorActualizar = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evento) {
-                tabla.setModel(new ModeloTabla<>(columnas,
+                tabla.setModel(modeloTabla = new ModeloTabla<>(columnas,
                         baseDeDatos.entreFechas(facturas, fechaIni, fechaFin)));
                 tabla.anchoColumnas();
-
             }
         };
 
-        JButton boton = new JButton("Actualizar tabla");
-        panel.add(boton);
+        //clase generica comun al resto de tablas
+        ScrollYBoton<Factura> scrollYBoton = new ScrollYBoton<>();
+        JPanel panel2 = scrollYBoton.ejecuta(tabla, panel, escuchadorTabla, escuchadorActualizar);
 
-        boton.addActionListener(escuchadorActualizar);
-        
-        ListSelectionModel listSelectionModel = tabla.getSelectionModel();
-        listSelectionModel.addListSelectionListener(escuchadorTabla);
+        Container contenedor = ventana.getContentPane();
+        contenedor.add(panel);
+        contenedor.add(panel2);
+
         ventana.getContentPane().add(panel);
         ventana.setSize(1200, 300);
         ventana.setVisible(true);
     }
 
+    //lista los datos de una factura
     @Override
     public void datosFactura(int cod) {
         JFrame ventana = new JFrame("Datos de la factura");

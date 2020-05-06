@@ -14,6 +14,5 @@ class EmiteFactura extends Accion {
         LocalDate fechaFin = vistaFacturas.getFechaFinFac();
         baseDeDatos.compruebaFechas(fechaIni, fechaFin);
         baseDeDatos.emitirFactura(fechaIni, fechaFin, nif);
-
     }
 }

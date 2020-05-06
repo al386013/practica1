@@ -28,12 +28,12 @@ public class ImplementacionControlador implements Controlador {
 
     @Override
     public void importarDatos() {
-        new ImportarDatos().cargarDatos(vista, modelo);
+        new ImportarDatos().cargarDatos(modelo);
     }
 
     @Override
     public void exportarDatosYSalir() {
-        new ExportarDatosYsalir().guardarDatos(modelo.getBaseDeDatos(), vista); //OJO debería tener informa vista o directamente no tenerla!
+        new ExportarDatosYsalir().guardarDatos(modelo.getBaseDeDatos());
     }
 
     @Override
@@ -52,7 +52,7 @@ public class ImplementacionControlador implements Controlador {
     }
 
     @Override
-    public void datosCliente()throws NifNoExistenteException {
+    public void datosCliente() throws NifNoExistenteException {
         new DatosCliente().ejecutaAccion();
     }
 
@@ -92,7 +92,7 @@ public class ImplementacionControlador implements Controlador {
     }
 
     @Override
-    public void listarFacCli()throws NifNoExistenteException {
+    public void listarFacCli() throws NifNoExistenteException {
         new FacturasCliente().ejecutaAccion();
     }
 

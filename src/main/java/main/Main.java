@@ -25,7 +25,6 @@ public class Main implements Serializable {
         controlador.setVista(vista);
         vista.setModelo(modelo);
         vista.setControlador(controlador);
-        baseDeDatos.setVista(vista);
         vista.creaGUI();
     }
 }

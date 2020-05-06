@@ -2,7 +2,6 @@ package vista;
 
 import controlador.Controlador;
 import modelo.InterrogaModelo;
-import modelo.datos.clientes.Cliente;
 import modelo.datos.llamadas.Llamada;
 import modelo.principal.BaseDeDatos;
 import modelo.principal.IntervaloFechasIncorrectoException;
@@ -19,7 +18,10 @@ import java.util.Collection;
 public class PanelLlamadas extends JPanel implements InterrogaVistaLlamadas {
     private Controlador controlador;
     private InterrogaModelo modelo;
-    private InterrogaVista vista;
+    private InformaVista vista;
+    private ListSelectionListener escuchadorTabla;
+    private Tabla tabla;
+    private ModeloTabla<Llamada> modeloTabla;
     private JPanel titulo;
     private JTextField telfOrigen;
     private JTextField telfDestino;
@@ -42,7 +44,7 @@ public class PanelLlamadas extends JPanel implements InterrogaVistaLlamadas {
         this.controlador = controlador;
     }
 
-    public void setVista(InterrogaVista vista) {
+    public void setVista(InformaVista vista) {
         this.vista = vista;
     }
 
@@ -214,8 +216,10 @@ public class PanelLlamadas extends JPanel implements InterrogaVistaLlamadas {
         return LocalDate.parse(fechaFinListado.getText());
     }
 
+    //muestra las llamadas del cliente en una tabla
     @Override
     public void listadoLlamadasEntreFechas(String telf, LocalDate fechaIni, LocalDate fechaFin) {
+        //crea la ventana y el texto
         JFrame ventana = new JFrame("Listado llamadas");
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
@@ -226,24 +230,19 @@ public class PanelLlamadas extends JPanel implements InterrogaVistaLlamadas {
         titulo.add(new JLabel("<html>Pulsa sobre una fila para más información.</html>"));
         panel.add(titulo);
 
-        //creamos modelo tabla y tabla
+        //crea modeloTabla y tabla
         String[] columnas = {"Origen", "Destino", "Fecha", "Hora", "Duracion"};
         BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
         Collection<Llamada> llamadas = baseDeDatos.devolverLlamadas(telf);
-        ModeloTabla<Llamada> modeloTabla = new ModeloTabla<>(columnas, baseDeDatos.entreFechas(llamadas, fechaIni, fechaFin));
-        Tabla tabla = new Tabla(modeloTabla);
+        modeloTabla = new ModeloTabla<>(columnas, baseDeDatos.entreFechas(llamadas, fechaIni, fechaFin));
+        tabla = new Tabla(modeloTabla);
 
-        //anadimos una barra de scroll a la tabla; el scroll vertical siempre se muestra
-        JScrollPane scrollPane = new JScrollPane(tabla);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        panel.add(scrollPane);
-
-        ListSelectionListener escuchadorTabla = new ListSelectionListener() {
+        //crea el escuchador de la tabla
+        escuchadorTabla = new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
                     int fila = tabla.convertRowIndexToModel(tabla.getSelectedRow());
-
                     String telfOrigen = (String) modeloTabla.getValueAt(fila, 0);
                     String telfDestino = (String) modeloTabla.getValueAt(fila, 1);
                     LocalDate fecha = (LocalDate) modeloTabla.getValueAt(fila, 2);
@@ -254,28 +253,30 @@ public class PanelLlamadas extends JPanel implements InterrogaVistaLlamadas {
             }
         };
 
+        //crear escuchador para el boton actualizar tabla
         ActionListener escuchadorActualizar = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evento) {
-                tabla.setModel(new ModeloTabla<>(columnas,
+                tabla.setModel(modeloTabla = new ModeloTabla<>(columnas,
                         baseDeDatos.entreFechas(llamadas, fechaIni, fechaFin)));
                 tabla.anchoColumnas();
-
             }
         };
 
-        JButton boton = new JButton("Actualizar tabla");
-        panel.add(boton);
+        //clase generica comun al resto de tablas
+        ScrollYBoton<Llamada> scrollYBoton = new ScrollYBoton<>();
+        JPanel panel2 = scrollYBoton.ejecuta(tabla, panel, escuchadorTabla, escuchadorActualizar);
 
-        boton.addActionListener(escuchadorActualizar);
+        Container contenedor = ventana.getContentPane();
+        contenedor.add(panel);
+        contenedor.add(panel2);
 
-        ListSelectionModel listSelectionModel = tabla.getSelectionModel();
-        listSelectionModel.addListSelectionListener(escuchadorTabla);
         ventana.getContentPane().add(panel);
         ventana.setSize(1200, 300);
         ventana.setVisible(true);
     }
 
+    //lista los datos de una llamada
     @Override
     public void datosLlamada(String telfOrigen, String telfDest, LocalDate fecha, String hora, int duracion) {
         JFrame ventana = new JFrame("Datos de la llamada");

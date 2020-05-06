@@ -15,9 +15,9 @@ public class Tabla extends JTable {
         anchoColumnas();
     }
 
-    //metodo que ajusta en ancho de las columnas de la tabla al texto de las celdas
-    public void anchoColumnas(){
-        for (int column = 0; column < getColumnCount(); column++){
+    //metodo que ajusta el ancho de las columnas de la tabla al texto de las celdas
+    public void anchoColumnas() {
+        for (int column = 0; column < getColumnCount(); column++) {
             TableColumn tableColumn = getColumnModel().getColumn(column);
             int preferredWidth = tableColumn.getMinWidth();
             int maxWidth = tableColumn.getMaxWidth();
@@ -26,12 +26,12 @@ public class Tabla extends JTable {
                 Component c = prepareRenderer(cellRenderer, row, column);
                 int width = c.getPreferredSize().width + getIntercellSpacing().width;
                 preferredWidth = Math.max(preferredWidth, width);
-                if (preferredWidth >= maxWidth){
+                if (preferredWidth >= maxWidth) {
                     preferredWidth = maxWidth;
                     break;
                 }
             }
-            tableColumn.setPreferredWidth( preferredWidth );
+            tableColumn.setPreferredWidth(preferredWidth);
         }
     }
 }

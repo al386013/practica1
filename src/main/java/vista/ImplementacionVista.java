@@ -9,7 +9,6 @@ import java.awt.event.WindowEvent;
 
 public class ImplementacionVista implements InformaVista, InterrogaVista {
     private Controlador controlador;
-    private InterrogaModelo modelo;
     private PanelClientes panelClientes;
     private PanelLlamadas panelLlamadas;
     private PanelFacturas panelFacturas;
@@ -25,7 +24,6 @@ public class ImplementacionVista implements InformaVista, InterrogaVista {
     }
 
     public void setModelo(InterrogaModelo modelo) {
-        this.modelo = modelo;
         panelClientes.setModelo(modelo);
         panelLlamadas.setModelo(modelo);
         panelFacturas.setModelo(modelo);
@@ -53,11 +51,13 @@ public class ImplementacionVista implements InformaVista, InterrogaVista {
         return panelFacturas;
     }
 
+    //muestra una ventana informando que la accion se ha realiazado con exito
     @Override
     public void accionCorrecta(String cadena) {
         JOptionPane.showMessageDialog(null, cadena);
     }
 
+    //muestra una ventana de error
     @Override
     public void accionDenegada(String cadena) {
         JOptionPane.showMessageDialog(null, cadena, "Error", JOptionPane.WARNING_MESSAGE);
@@ -76,13 +76,15 @@ public class ImplementacionVista implements InformaVista, InterrogaVista {
         JFrame ventana = new JFrame("Programa");
         Container contenedor = ventana.getContentPane();
 
+        //anade tres pestanyas a la ventana de la aplicacion
         JTabbedPane pestanyas = new JTabbedPane();
         contenedor.add(pestanyas);
         pestanyas.add("Clientes", panelClientes);
         pestanyas.add("Llamadas", panelLlamadas);
         pestanyas.add("Facturas", panelFacturas);
 
-        ventana.addWindowListener(new WindowAdapter() { //clase interna anonima para abrir y cerrar ventana
+        //clase interna anonima para abrir y cerrar la ventana
+        ventana.addWindowListener(new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
                     controlador.importarDatos();
