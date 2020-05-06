@@ -19,7 +19,6 @@ public class PanelLlamadas extends JPanel implements InterrogaVistaLlamadas {
     private Controlador controlador;
     private InterrogaModelo modelo;
     private InformaVista vista;
-    private ListSelectionListener escuchadorTabla;
     private Tabla tabla;
     private ModeloTabla<Llamada> modeloTabla;
     private JPanel titulo;
@@ -238,9 +237,14 @@ public class PanelLlamadas extends JPanel implements InterrogaVistaLlamadas {
         tabla = new Tabla(modeloTabla);
 
         //crea el escuchador de la tabla
-        escuchadorTabla = new ListSelectionListener() {
+        ListSelectionListener escuchadorTabla = new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
+                //si se ejecuta este metodo porque se da al boton de actualizar
+                //y no se selecciona ninguna fila
+                ListSelectionModel lsm = (ListSelectionModel)e.getSource();
+                if(lsm.getMinSelectionIndex() == -1) return;
+
                 if (!e.getValueIsAdjusting()) {
                     int fila = tabla.convertRowIndexToModel(tabla.getSelectedRow());
                     String telfOrigen = (String) modeloTabla.getValueAt(fila, 0);
@@ -265,7 +269,7 @@ public class PanelLlamadas extends JPanel implements InterrogaVistaLlamadas {
 
         //clase generica comun al resto de tablas
         ScrollYBoton<Llamada> scrollYBoton = new ScrollYBoton<>();
-        JPanel panel2 = scrollYBoton.ejecuta(tabla, panel, escuchadorTabla, escuchadorActualizar);
+        JPanel panel2 = scrollYBoton.ejecuta(tabla, panel, escuchadorActualizar, escuchadorTabla);
 
         Container contenedor = ventana.getContentPane();
         contenedor.add(panel);

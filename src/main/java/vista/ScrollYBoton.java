@@ -13,7 +13,7 @@ public class ScrollYBoton <T extends TieneFecha> {
         super();
     }
 
-    public JPanel ejecuta(Tabla tabla, JPanel panelIni, ListSelectionListener escuchadorTabla, ActionListener escuchadorBoton) {
+    public JPanel ejecuta(Tabla tabla, JPanel panelIni, ActionListener escuchadorBoton, ListSelectionListener escuchadorTabla) {
         JPanel panel = panelIni;
 
         //anadir el escuchador de la tabla a la tabla
