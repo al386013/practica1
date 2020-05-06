@@ -15,7 +15,9 @@ public class ImportarDatos {
             try {
                 FileInputStream fis = new FileInputStream("baseDeDatos.bin");
                 ois = new ObjectInputStream(fis);
-                modelo.setBaseDeDatos((BaseDeDatos) ois.readObject());
+                BaseDeDatos nueva = (BaseDeDatos) ois.readObject();
+                modelo.setBaseDeDatos(nueva);
+                Accion.baseDeDatos = nueva;
                 vista.accionCorrecta("Datos importados correctamente");
             } finally {
                 if (ois != null) ois.close();

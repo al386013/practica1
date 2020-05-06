@@ -1,5 +1,6 @@
 package modelo;
 
+import controlador.Accion;
 import modelo.principal.BaseDeDatos;
 import vista.InformaVista;
 
