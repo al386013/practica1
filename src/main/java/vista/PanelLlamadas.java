@@ -254,10 +254,20 @@ public class PanelLlamadas extends JPanel implements InterrogaVistaLlamadas {
             }
         };
 
+        ActionListener escuchadorActualizar = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evento) {
+                tabla.setModel(new ModeloTabla<>(columnas,
+                        baseDeDatos.entreFechas(llamadas, fechaIni, fechaFin)));
+                tabla.anchoColumnas();
+
+            }
+        };
+
         JButton boton = new JButton("Actualizar tabla");
-        boton.addActionListener(e -> tabla.setModel(new ModeloTabla<>(columnas,
-                baseDeDatos.entreFechas(llamadas, fechaIni, fechaFin))));
         panel.add(boton);
+
+        boton.addActionListener(escuchadorActualizar);
 
         ListSelectionModel listSelectionModel = tabla.getSelectionModel();
         listSelectionModel.addListSelectionListener(escuchadorTabla);

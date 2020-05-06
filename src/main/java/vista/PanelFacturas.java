@@ -289,11 +289,22 @@ public class PanelFacturas extends JPanel implements InterrogaVistaFacturas {
                 }
             }
         };
+
+        ActionListener escuchadorActualizar = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evento) {
+                tabla.setModel(new ModeloTabla<>(columnas,
+                        baseDeDatos.entreFechas(facturas, fechaIni, fechaFin)));
+                tabla.anchoColumnas();
+
+            }
+        };
+
         JButton boton = new JButton("Actualizar tabla");
-        boton.addActionListener(e -> tabla.setModel(new ModeloTabla<>(columnas,
-                baseDeDatos.entreFechas(facturas, fechaIni, fechaFin))));
         panel.add(boton);
 
+        boton.addActionListener(escuchadorActualizar);
+        
         ListSelectionModel listSelectionModel = tabla.getSelectionModel();
         listSelectionModel.addListSelectionListener(escuchadorTabla);
         ventana.getContentPane().add(panel);
