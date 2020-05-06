@@ -12,8 +12,8 @@ import java.util.Collection;
 import static java.lang.String.format;
 
 public class ModeloTabla <T extends TieneFecha> extends AbstractTableModel {
-    private final String nombreColumnas[];
-    private ArrayList<T> datos;
+    final String nombreColumnas[];
+    ArrayList<T> datos;
 
     public ModeloTabla (final String[] nombreColumnas, final Collection<T> coleccion) {
         super();

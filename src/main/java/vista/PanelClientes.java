@@ -442,6 +442,11 @@ public class PanelClientes extends JPanel implements InterrogaVistaClientes {
             }
         };
 
+        JButton boton = new JButton("Actualizar tabla");
+        boton.addActionListener(e -> tabla.setModel(new ModeloTabla<>(columnas,
+                baseDeDatos.entreFechas(clientes, fechaIni, fechaFin))));
+        panel.add(boton);
+
         ListSelectionModel listSelectionModel = tabla.getSelectionModel();
         listSelectionModel.addListSelectionListener(escuchadorTabla);
         ventana.getContentPane().add(panel);

@@ -33,7 +33,7 @@ public class ImplementacionControlador implements Controlador {
 
     @Override
     public void exportarDatosYSalir() {
-        new ExportarDatosYsalir().ejecutaAccion(modelo.getBaseDeDatos(), vista); //OJO debería tener informa vista o directamente no tenerla!
+        new ExportarDatosYsalir().guardarDatos(modelo.getBaseDeDatos(), vista); //OJO debería tener informa vista o directamente no tenerla!
     }
 
     @Override

@@ -3,7 +3,7 @@ package controlador;
 import modelo.principal.TelfNoExistenteException;
 import vista.InterrogaVistaLlamadas;
 
-public class DaAltaLlamada extends Accion {
+class DaAltaLlamada extends Accion {
     public void ejecutaAccion() throws TelfNoExistenteException {
         InterrogaVistaLlamadas vistaLlamadas = vista.getPanelLlamadas();
         String telfOrigen = vistaLlamadas.getTelfOrigen();
@@ -12,6 +12,5 @@ public class DaAltaLlamada extends Accion {
         int duracion = vistaLlamadas.getDuracion();
         baseDeDatos.darDeAltaLlamada(telfOrigen, telfDest, duracion);
 
-        vista.accionCorrecta("Llamada realizada con éxito.");
     }
 }

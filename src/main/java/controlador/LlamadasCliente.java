@@ -4,7 +4,7 @@ import modelo.principal.TelfNoExistenteException;
 import vista.InterrogaVistaLlamadas;
 import java.time.LocalDate;
 
-public class LlamadasCliente extends Accion {
+class LlamadasCliente extends Accion {
     public void ejecutaAccion() throws TelfNoExistenteException {
         InterrogaVistaLlamadas vistaLlamadas = vista.getPanelLlamadas();
         String telf = vistaLlamadas.getTelfListado();

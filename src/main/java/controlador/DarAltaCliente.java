@@ -5,7 +5,7 @@ import modelo.principal.TelfRepetidoException;
 import modelo.datos.clientes.Direccion;
 import vista.InterrogaVistaClientes;
 
-public class DarAltaCliente extends Accion {
+class DarAltaCliente extends Accion {
     public void ejecutaAccion() throws NifRepetidoException, TelfRepetidoException {
         InterrogaVistaClientes vistaClientes = vista.getPanelClientes();
         String opcionTipoCliente = vistaClientes.getTipoCliente();
@@ -27,6 +27,5 @@ public class DarAltaCliente extends Accion {
             baseDeDatos.anadirParticular(nombre, apellidos, telf, nif, direccion, email);
         else baseDeDatos.anadirEmpresa(nombre, telf, nif, direccion, email);
 
-        vista.accionCorrecta("Cliente guardado correctamente.");
     }
 }

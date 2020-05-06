@@ -4,7 +4,7 @@ import modelo.principal.IntervaloFechasIncorrectoException;
 import vista.InterrogaVistaClientes;
 import java.time.LocalDate;
 
-public class ClientesEntreFechas extends Accion {
+class ClientesEntreFechas extends Accion {
     public void ejecutaAccion() throws IntervaloFechasIncorrectoException {
         InterrogaVistaClientes vistaClientes = vista.getPanelClientes();
         LocalDate fechaIni = vistaClientes.getFechaIni();

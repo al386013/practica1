@@ -5,7 +5,7 @@ import modelo.principal.NifNoExistenteException;
 import vista.InterrogaVistaFacturas;
 import java.time.LocalDate;
 
-public class EmiteFactura extends Accion {
+class EmiteFactura extends Accion {
     public void ejecutaAccion() throws NifNoExistenteException, IntervaloFechasIncorrectoException {
         InterrogaVistaFacturas vistaFacturas = vista.getPanelFacturas();
         String nif = vistaFacturas.getNifFac();
@@ -15,6 +15,5 @@ public class EmiteFactura extends Accion {
         baseDeDatos.compruebaFechas(fechaIni, fechaFin);
         baseDeDatos.emitirFactura(fechaIni, fechaFin, nif);
 
-        vista.accionCorrecta("Factura del cliente emitida con éxito.");
     }
 }

@@ -61,24 +61,31 @@ public class BaseDeDatos implements Serializable {
 
     public void anadirParticular(String nombre, String apellidos, String telf, String nif, Direccion dir, String email) {
         gestorClientes.anadirCliente(fabricaClientes.getParticular(nombre, apellidos, telf, nif, dir, email, fabricaTarifas.getBasica()));
+        vista.accionCorrecta("Particular guardado correctamente.");
+
     }
 
     public void anadirEmpresa(String nombre, String telf, String nif, Direccion dir, String email) {
         gestorClientes.anadirCliente(fabricaClientes.getEmpresa(nombre, telf, nif, dir, email, fabricaTarifas.getBasica()));
+        vista.accionCorrecta("Empresa guardada correctamente.");
+
     }
 
     public void borrarCliente(String telf) {
         gestorClientes.borrarCliente(telf);
+        vista.accionCorrecta("Cliente borrado con éxito.");
     }
 
     public void contratarTarifaEspecial(String tipoTarifa, String nif) {
         Cliente cliente = gestorClientes.devuelveCliente(nif);
         gestorClientes.contratarTarifaEspecial(fabricaTarifas.getOferta(tipoTarifa, cliente.getTarifa()), cliente);
+        vista.accionCorrecta("Tarifa especial " + tipoTarifa + " contratada." );
     }
 
     public void darDeAltaLlamada(String telfOrigen, String telfDestino, int duracion) {
         Llamada nuevaLlamada = new Llamada( telfOrigen,telfDestino, duracion);
         gestorClientes.darDeAltaLlamada(telfOrigen, nuevaLlamada);
+        vista.accionCorrecta("Llamada realizada con éxito.");
     }
 
     public String listarDatosCliente(String NIF) {
@@ -90,6 +97,7 @@ public class BaseDeDatos implements Serializable {
         Cliente cliente = gestorClientes.devuelveCliente(nif);
         Factura nuevaFactura = new Factura(periodoFact, nif, cliente.getLlamadas(), cliente.getTarifa());
         gestorFacturas.emitirFactura(nuevaFactura, cliente.getFacturas());
+        vista.accionCorrecta("Factura del cliente emitida con éxito.");
     }
 
     public String convertirTelfNif(String telf) {

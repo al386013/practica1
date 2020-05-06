@@ -4,7 +4,7 @@ import modelo.principal.NifNoExistenteException;
 import vista.InterrogaVistaFacturas;
 import java.time.LocalDate;
 
-public class FacturasCliente extends Accion {
+class FacturasCliente extends Accion {
     public void ejecutaAccion() throws NifNoExistenteException {
         InterrogaVistaFacturas vistaFacturas = vista.getPanelFacturas();
         String nif = vistaFacturas.getNifFacCli();
