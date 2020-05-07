@@ -276,7 +276,7 @@ public class PanelLlamadas extends JPanel implements InterrogaVistaLlamadas {
         contenedor.add(panel2);
 
         ventana.getContentPane().add(panel);
-        ventana.setSize(1200, 300);
+        ventana.setSize(700, 300);
         ventana.setVisible(true);
     }
 

@@ -22,17 +22,17 @@ public class GestorClientes implements Serializable {
         return clientes.get(NIF);
     }
 
-    //Metodo existeCliente: devuelve true si existe el cliente en la base de modelo.principal.datos
+    //Metodo existeCliente: devuelve true si existe el cliente en la base de datos
     public boolean existeCliente(String NIF) {
         return clientes.get(NIF) != null;
     }
 
-    //Metodo existeTelf: devuelve true si existe el telefono del cliente en la base de modelo.principal.datos
+    //Metodo existeTelf: devuelve true si existe el telefono del cliente en la base de datos
     public boolean existeTelf(String telf) {
         return telfNif.get(telf) != null;
     }
 
-    //Metodo anadirCliente, llama al constructor de Cliente, lo crea, se anade a la base de modelo.principal.datos
+    //Metodo anadirCliente, llama al constructor de Cliente, lo crea, se anade a la base de datos
     public void anadirCliente(Cliente cliente) {
         clientes.put(cliente.getNIF(), cliente);
         telfNif.put(cliente.getTelf(), cliente.getNIF());

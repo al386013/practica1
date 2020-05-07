@@ -14,7 +14,7 @@ public class GestorFacturas implements Serializable {
         totalFacturas = new HashMap<Integer, Factura>();
     }
 
-    //Metodo listarDatosFactura: recupera los modelo.principal.datos de la factura a partir de su codigo
+    //Metodo listarDatosFactura: recupera los datos de la factura a partir de su codigo
     public String listarDatosFactura(int cod) throws IllegalArgumentException {
         Factura factura = totalFacturas.get(cod);
         if (factura == null) throw new IllegalArgumentException("La factura de codigo " + cod + " no existe. ");

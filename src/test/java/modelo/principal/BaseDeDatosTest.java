@@ -111,7 +111,7 @@ public class BaseDeDatosTest {
         Formatter hora = new Formatter();
         hora.format("%02d:%02d", LocalTime.now().getHour(), LocalTime.now().getMinute());
         String res = "<html>- Llamada realizada por 692242216 el " + LocalDate.now() + " a las " + hora +
-                " con una duracion de 120 segundos al telefono 000000000<br/></html>";
+                " con una duracion de 120 segundos al telefono 000000000 -<br/></html>";
 
         //tests metodos listar llamadas: se imprimen siempre ordenadas por fecha y hora
         assertEquals(baseDeDatos.listarLlamadasCliente("692242216"), res);
@@ -142,9 +142,9 @@ public class BaseDeDatosTest {
                 "<li> Importe: 0.14€ </li>" +
                 "<li> Lista de llamadas de esta factura: </li>" +
                 "<br/>- Llamada realizada por 964246252 el " + LocalDate.now() + " a las " + hora +
-                " con una duracion de 130 segundos al telefono 666666666<br/>" +
+                " con una duracion de 130 segundos al telefono 666666666 -<br/>" +
                 "- Llamada realizada por 964246252 el " + LocalDate.now() + " a las " + hora +
-                " con una duracion de 40 segundos al telefono 123412341<br/><br/></h1><br/></html>";
+                " con una duracion de 40 segundos al telefono 123412341 -<br/><br/></h1><br/></html>";
 
         //tests metodos listar facturas: se imprimen siempre ordenadas por fecha y hora
         assertEquals(baseDeDatos.listarFacturasCliente("63302284"), res);

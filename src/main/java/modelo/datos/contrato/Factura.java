@@ -18,6 +18,7 @@ public class Factura implements TieneFecha, Serializable {
     private float importe;
     private String nifCliente;
     private Set<Llamada> llamadas;
+    private int codigo;
 
     public Factura() {
         super();
@@ -26,6 +27,7 @@ public class Factura implements TieneFecha, Serializable {
         this.importe = 0.0f;
         this.nifCliente = null;
         this.llamadas = null;
+        this.codigo = this.hashCode();
     }
 
     public Factura(PeriodoFacturacion periodoFact, String nifCliente, Set<Llamada> llamadas, Tarifa tarifa) {
@@ -35,10 +37,11 @@ public class Factura implements TieneFecha, Serializable {
         this.importe = calcularImporte(tarifa, llamadas);
         this.nifCliente = nifCliente;
         this.llamadas = llamadas;
+        this.codigo = this.hashCode();
     }
 
     public int getCodigo() {
-        return this.hashCode();
+        return codigo;
     }
 
     public float getImporte() {
@@ -51,10 +54,6 @@ public class Factura implements TieneFecha, Serializable {
 
     public Set<Llamada> getLlamadas() {
         return llamadas;
-    }
-
-    public String getNifCliente() {
-        return this.nifCliente;
     }
 
     @Override

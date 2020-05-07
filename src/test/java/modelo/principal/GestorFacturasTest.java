@@ -85,9 +85,9 @@ public class GestorFacturasTest {
                 "<li> Importe: 0.14€ </li>" +
                 "<li> Lista de llamadas de esta factura: </li><br/>" +
                         "- Llamada realizada por 600600600 el " + LocalDate.now() +
-                        " a las " + hora + " con una duracion de 130 segundos al telefono 000000000<br/>" +
+                        " a las " + hora + " con una duracion de 130 segundos al telefono 000000000 -<br/>" +
                         "- Llamada realizada por 600600600 el " + LocalDate.now() +
-                        " a las " + hora + " con una duracion de 40 segundos al telefono 111111111<br/><br/></h1></html>");
+                        " a las " + hora + " con una duracion de 40 segundos al telefono 111111111 -<br/><br/></h1></html>");
     }
 
     @AfterAll

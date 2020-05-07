@@ -3,7 +3,6 @@ package controlador;
 import modelo.CambioModelo;
 import modelo.principal.BaseDeDatos;
 import vista.ImplementacionVista;
-
 import javax.swing.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -20,7 +19,7 @@ class ImportarDatos {
                 //actualizamos la nueva base de  datos en el modelo MVC
                 BaseDeDatos nueva = (BaseDeDatos) ois.readObject();
                 modelo.setBaseDeDatos(nueva);
-                modelo.setVista(new ImplementacionVista()); //si no cambiamos la vista, no se acutaliza
+                modelo.setVista(new ImplementacionVista()); //si no cambiamos la vista, no se actualiza
                 Accion.baseDeDatos = nueva;
                 JOptionPane.showMessageDialog(null, "Datos importados correctamente");
             } finally {

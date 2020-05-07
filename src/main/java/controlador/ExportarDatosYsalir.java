@@ -1,7 +1,6 @@
 package controlador;
 
 import modelo.principal.BaseDeDatos;
-import vista.InterrogaVista;
 import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;

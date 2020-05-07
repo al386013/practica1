@@ -81,7 +81,7 @@ public class ModeloTabla <T extends TieneFecha> extends AbstractTableModel {
             case 2:
                 return format("%02d:%02d", factura.getHora().getHour(), factura.getHora().getMinute());
             case 3:
-                return factura.getImporte();
+                return factura.getImporte() + " €";
             case 4:
                 return factura.getPeriodoFact().getFechaIni();
             case 5:
