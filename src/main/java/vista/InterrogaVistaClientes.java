@@ -1,7 +1,8 @@
 package vista;
 
+import modelo.datos.clientes.Cliente;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
+import java.util.Collection;
 
 public interface InterrogaVistaClientes {
     String getTipoCliente();
@@ -30,12 +31,15 @@ public interface InterrogaVistaClientes {
 
     String getNifCli();
 
-    LocalDate getFechaIni() throws DateTimeParseException;
+    LocalDate getFechaIni();
 
-    LocalDate getFechaFin() throws DateTimeParseException;
+    LocalDate getFechaFin();
 
+    void listado(Collection<Cliente> clientes);
 
-    void listadoClientesEntreFechas(LocalDate fechaIni, LocalDate fechaFin) throws DateTimeParseException;
+    void listadoClientes();
+
+    void listadoClientesEntreFechas(LocalDate fechaIni, LocalDate fechaFin);
 
     void datosCliente(String nif);
 }

@@ -48,6 +48,7 @@ public class PanelLlamadas extends JPanel implements InterrogaVistaLlamadas {
     }
 
     public void panel() {
+        //escuchador de los botones que llama al controlador en funcion del boton pulsado
         ActionListener escuchadorBoton = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evento) {
@@ -215,9 +216,22 @@ public class PanelLlamadas extends JPanel implements InterrogaVistaLlamadas {
         return LocalDate.parse(fechaFinListado.getText());
     }
 
-    //muestra las llamadas del cliente en una tabla
+    @Override
+    public void listadoLlamadas(String telf) {
+        BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
+        listado(baseDeDatos.devolverLlamadas(telf));
+    }
+
     @Override
     public void listadoLlamadasEntreFechas(String telf, LocalDate fechaIni, LocalDate fechaFin) {
+        BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
+        Collection<Llamada> llamadas = baseDeDatos.devolverLlamadas(telf);
+        listado(baseDeDatos.entreFechas(llamadas, fechaIni, fechaFin));
+    }
+
+    //muestra las llamadas del cliente en una tabla
+    @Override
+    public void listado(Collection<Llamada> llamadas) {
         //crea la ventana y el texto
         JFrame ventana = new JFrame("Listado llamadas");
         JPanel panel = new JPanel();
@@ -231,9 +245,8 @@ public class PanelLlamadas extends JPanel implements InterrogaVistaLlamadas {
 
         //crea modeloTabla y tabla
         String[] columnas = {"Origen", "Destino", "Fecha", "Hora", "Duracion"};
-        BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
-        Collection<Llamada> llamadas = baseDeDatos.devolverLlamadas(telf);
-        modeloTabla = new ModeloTabla<>(columnas, baseDeDatos.entreFechas(llamadas, fechaIni, fechaFin));
+
+        modeloTabla = new ModeloTabla<>(columnas, llamadas);
         tabla = new Tabla(modeloTabla);
 
         //crea el escuchador de la tabla
@@ -261,8 +274,7 @@ public class PanelLlamadas extends JPanel implements InterrogaVistaLlamadas {
         ActionListener escuchadorActualizar = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evento) {
-                tabla.setModel(modeloTabla = new ModeloTabla<>(columnas,
-                        baseDeDatos.entreFechas(llamadas, fechaIni, fechaFin)));
+                tabla.setModel(modeloTabla = new ModeloTabla<>(columnas, llamadas));
                 tabla.anchoColumnas();
             }
         };

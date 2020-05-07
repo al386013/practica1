@@ -47,6 +47,7 @@ public class PanelFacturas extends JPanel implements InterrogaVistaFacturas {
     }
 
     public void panel() {
+        //escuchador de los botones que llama al controlador en funcion del boton pulsado
         ActionListener escuchadorBoton = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evento) {
@@ -58,9 +59,8 @@ public class PanelFacturas extends JPanel implements InterrogaVistaFacturas {
                         controlador.datosFactura();
                     else if (comando.equals("facturasCli"))
                         controlador.listarFacCli();
-                    else {
+                    else
                         controlador.listarFacCliFechas();
-                    }
                 } catch (NifNoExistenteException | IntervaloFechasIncorrectoException e) {
                     vista.accionDenegada(e.getMessage());
                 }
@@ -254,9 +254,22 @@ public class PanelFacturas extends JPanel implements InterrogaVistaFacturas {
         return LocalDate.parse(fechaFinFechas.getText());
     }
 
-    //muestra las facturas del cliente en una tabla
+    @Override
+    public void listadoFacturas(String nif) {
+        BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
+        listado(baseDeDatos.devolverFacturas(nif));
+    }
+
     @Override
     public void listadoFacturasEntreFechas(String nif, LocalDate fechaIni, LocalDate fechaFin) {
+        BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
+        Collection<Factura> facturas = baseDeDatos.devolverFacturas(nif);
+        listado(baseDeDatos.entreFechas(facturas, fechaIni, fechaFin));
+    }
+
+    //muestra las facturas del cliente en una tabla
+    @Override
+    public void listado(Collection<Factura> facturas) {
         //crea la ventana y el texto
         JFrame ventana = new JFrame("Listado facturas");
         JPanel panel = new JPanel();
@@ -271,9 +284,7 @@ public class PanelFacturas extends JPanel implements InterrogaVistaFacturas {
         //crear modeloTabla y tabla
         String[] columnas = {"Codigo", "Fecha factura", "Hora", "Importe",
                 "Fecha inicio", "Fecha fin"};
-        BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
-        Collection<Factura> facturas = baseDeDatos.devolverFacturas(nif);
-        modeloTabla = new ModeloTabla<>(columnas, baseDeDatos.entreFechas(facturas, fechaIni, fechaFin));
+        modeloTabla = new ModeloTabla<>(columnas, facturas);
         tabla = new Tabla(modeloTabla);
 
         //crea el escuchador de la tabla
@@ -297,8 +308,7 @@ public class PanelFacturas extends JPanel implements InterrogaVistaFacturas {
         ActionListener escuchadorActualizar = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evento) {
-                tabla.setModel(modeloTabla = new ModeloTabla<>(columnas,
-                        baseDeDatos.entreFechas(facturas, fechaIni, fechaFin)));
+                tabla.setModel(modeloTabla = new ModeloTabla<>(columnas, facturas));
                 tabla.anchoColumnas();
             }
         };

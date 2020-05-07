@@ -54,6 +54,7 @@ public class PanelClientes extends JPanel implements InterrogaVistaClientes {
     }
 
     public void panel() {
+        //escuchador de los botones que llama al controlador en funcion del boton pulsado
         ActionListener escuchadorBoton = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evento) {
@@ -62,18 +63,16 @@ public class PanelClientes extends JPanel implements InterrogaVistaClientes {
                     if (comando.equals("anadir")) {
                         if (tipoClienteOpcion == null) vista.accionDenegada("No se ha seleccionado un tipo de cliente");
                         else controlador.anadirCliente();
-                    } else if (comando.equals("borrar")) {
+                    } else if (comando.equals("borrar"))
                         controlador.borrarCliente();
-                    } else if (comando.equals("tarifa"))
+                    else if (comando.equals("tarifa"))
                         if (tipoTarifaOpcion == null) vista.accionDenegada("No se ha seleccionado un tipo de tarifa");
                         else controlador.contratarTarifa();
                     else if (comando.equals("datosCli"))
                         controlador.datosCliente();
-                    else if (comando.equals("listarCli"))
-                        controlador.listarClientes();
-                    else {
-                        controlador.listarCliFechas();
-                    }
+                    else if (comando.equals("listarCli")) //la vista muestra la tabla con los clientes
+                        listadoClientes();
+                    else controlador.listarCliFechas();
                 } catch (NifRepetidoException | TelfRepetidoException | TelfNoExistenteException | NifNoExistenteException |
                         IntervaloFechasIncorrectoException e) {
                     vista.accionDenegada(e.getMessage());
@@ -408,9 +407,22 @@ public class PanelClientes extends JPanel implements InterrogaVistaClientes {
         return LocalDate.parse(fechaFin.getText());
     }
 
-    //muestra los clientes en una tabla
+    @Override
+    public void listadoClientes() {
+        BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
+        listado(baseDeDatos.devolverClientes());
+    }
+
     @Override
     public void listadoClientesEntreFechas(LocalDate fechaIni, LocalDate fechaFin) {
+        BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
+        Collection<Cliente> clientes = baseDeDatos.devolverClientes();
+        listado(baseDeDatos.entreFechas(clientes, fechaIni, fechaFin));
+    }
+
+    //muestra los clientes en una tabla
+    @Override
+    public void listado(Collection<Cliente> clientes) {
         //crea la ventana y el texto
         JFrame ventana = new JFrame("Listado clientes entre fechas");
         JPanel panel = new JPanel();
@@ -426,8 +438,7 @@ public class PanelClientes extends JPanel implements InterrogaVistaClientes {
         String[] columnas = {"DNI", "Telefono", "Nombre", "Apellidos", "Codigo Postal",
                 "Poblacion", "Provincia", "E-mail", "Fecha de Alta", "Hora", "Tarifa"};
         BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
-        Collection<Cliente> clientes = baseDeDatos.devolverClientes();
-        modeloTabla = new ModeloTabla<>(columnas, baseDeDatos.entreFechas(clientes, fechaIni, fechaFin));
+        modeloTabla = new ModeloTabla<>(columnas, clientes);
         tabla = new Tabla(modeloTabla);
 
         //crea el escuchador de la tabla
@@ -451,8 +462,7 @@ public class PanelClientes extends JPanel implements InterrogaVistaClientes {
         ActionListener escuchadorActualizar = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evento) {
-                tabla.setModel(modeloTabla = new ModeloTabla<>(columnas,
-                        baseDeDatos.entreFechas(clientes, fechaIni, fechaFin)));
+                tabla.setModel(modeloTabla = new ModeloTabla<>(columnas, clientes));
                 tabla.anchoColumnas();
             }
         };
