@@ -44,6 +44,10 @@ public class Factura implements TieneFecha, Serializable {
         return codigo;
     }
 
+    public String getNifCliente() {
+        return nifCliente;
+    }
+
     public float getImporte() {
         return this.importe;
     }

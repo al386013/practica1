@@ -1,8 +1,4 @@
-
-/**ESTE TEST NO FUNCIONA YA QUE LOS TESTS NO CONOCEN LA VISTA Y NO PUEDEN EJECUTARSE
- * YA QUE LOS METODOS DE BASE DE DATOS QUE SE USAN MUESTRAN POR VISTA UNA VENTANA **/
-
-/*package modelo.principal;
+package modelo.principal;
 
 import modelo.datos.clientes.Cliente;
 import modelo.datos.clientes.Direccion;
@@ -171,4 +167,4 @@ public class GestorClientesTest {
     public static void borraTodo() {
         baseDeDatos = null;
     }
-} */
+}

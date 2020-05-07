@@ -60,19 +60,37 @@ public class PanelClientes extends JPanel implements InterrogaVistaClientes {
             public void actionPerformed(ActionEvent evento) {
                 String comando = evento.getActionCommand();
                 try {
-                    if (comando.equals("anadir")) {
-                        if (tipoClienteOpcion == null) vista.accionDenegada("No se ha seleccionado un tipo de cliente");
-                        else controlador.anadirCliente();
-                    } else if (comando.equals("borrar"))
-                        controlador.borrarCliente();
-                    else if (comando.equals("tarifa"))
-                        if (tipoTarifaOpcion == null) vista.accionDenegada("No se ha seleccionado un tipo de tarifa");
-                        else controlador.contratarTarifa();
-                    else if (comando.equals("datosCli"))
-                        controlador.datosCliente();
-                    else if (comando.equals("listarCli")) //la vista muestra la tabla con los clientes
-                        listadoClientes();
-                    else controlador.listarCliFechas();
+                    switch (comando) {
+                        case "anadir":
+                            if (tipoClienteOpcion == null)
+                                vista.accionDenegada("No se ha seleccionado un tipo de cliente");
+                            else {
+                                controlador.anadirCliente();
+                                vista.accionCorrecta("Cliente guardado correctamente.");
+                            }
+                            break;
+                        case "borrar":
+                            controlador.borrarCliente();
+                            vista.accionCorrecta("Cliente borrado con éxito.");
+                            break;
+                        case "tarifa":
+                            if (tipoTarifaOpcion == null)
+                                vista.accionDenegada("No se ha seleccionado un tipo de tarifa");
+                            else {
+                                controlador.contratarTarifa();
+                                vista.accionCorrecta("Tarifa especial " + tipoTarifaOpcion + " contratada." );
+                            }
+                            break;
+                        case "datosCli":
+                            controlador.datosCliente();
+                            break;
+                        case "listarCli": //la vista muestra la tabla con los clientes
+                            listadoClientes();
+                            break;
+                        default:
+                            controlador.listarCliFechas();
+                            break;
+                    }
                 } catch (NifRepetidoException | TelfRepetidoException | TelfNoExistenteException | NifNoExistenteException |
                         IntervaloFechasIncorrectoException e) {
                     vista.accionDenegada(e.getMessage());

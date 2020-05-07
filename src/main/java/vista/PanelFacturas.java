@@ -53,9 +53,10 @@ public class PanelFacturas extends JPanel implements InterrogaVistaFacturas {
             public void actionPerformed(ActionEvent evento) {
                 String comando = evento.getActionCommand();
                 try {
-                    if (comando.equals("guardarFactura"))
+                    if (comando.equals("guardarFactura")) {
                         controlador.emitirFactura();
-                    else if (comando.equals("datosFac"))
+                        vista.accionCorrecta("Factura del cliente emitida con éxito.");
+                    } else if (comando.equals("datosFac"))
                         controlador.datosFactura();
                     else if (comando.equals("facturasCli"))
                         controlador.listarFacCli();

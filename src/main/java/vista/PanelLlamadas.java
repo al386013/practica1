@@ -54,9 +54,10 @@ public class PanelLlamadas extends JPanel implements InterrogaVistaLlamadas {
             public void actionPerformed(ActionEvent evento) {
                 String comando = evento.getActionCommand();
                 try {
-                    if (comando.equals("llamada"))
+                    if (comando.equals("llamada")) {
                         controlador.darAltaLlamada();
-                    else if (comando.equals("llamadasCli"))
+                        vista.accionCorrecta("Llamada realizada con éxito.");
+                    } else if (comando.equals("llamadasCli"))
                         controlador.llamadasCli();
                     else if (comando.equals("llamadasCliFechas"))
                         controlador.llamadasCliFechas();
