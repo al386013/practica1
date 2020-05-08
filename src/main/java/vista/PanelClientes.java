@@ -427,20 +427,12 @@ public class PanelClientes extends JPanel implements InterrogaVistaClientes {
 
     @Override
     public void listadoClientes() {
-        BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
-        listado(baseDeDatos.devolverClientes());
-    }
-
-    @Override
-    public void listadoClientesEntreFechas(LocalDate fechaIni, LocalDate fechaFin) {
-        BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
-        Collection<Cliente> clientes = baseDeDatos.devolverClientes();
-        listado(baseDeDatos.entreFechas(clientes, fechaIni, fechaFin));
+        listadoClientesEntreFechas(LocalDate.now(), LocalDate.parse("1990-01-01"));
     }
 
     //muestra los clientes en una tabla
     @Override
-    public void listado(Collection<Cliente> clientes) {
+    public void listadoClientesEntreFechas(LocalDate fechaIni, LocalDate fechaFin) {
         //crea la ventana y el texto
         JFrame ventana = new JFrame("Listado clientes entre fechas");
         JPanel panel = new JPanel();
@@ -455,8 +447,10 @@ public class PanelClientes extends JPanel implements InterrogaVistaClientes {
         //crea modeloTabla y tabla
         String[] columnas = {"DNI", "Telefono", "Nombre", "Apellidos", "Codigo Postal",
                 "Poblacion", "Provincia", "E-mail", "Fecha de Alta", "Hora", "Tarifa"};
+
         BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
-        modeloTabla = new ModeloTabla<>(columnas, clientes);
+        Collection<Cliente> clientes = baseDeDatos.devolverClientes();
+        modeloTabla = new ModeloTabla<>(columnas, baseDeDatos.entreFechas(clientes, fechaIni, fechaFin));
         tabla = new Tabla(modeloTabla);
 
         //crea el escuchador de la tabla

@@ -56,11 +56,6 @@ public class ImplementacionControlador implements Controlador {
         new DatosCliente().ejecutaAccion();
     }
 
-    /*@Override
-    public void listarClientes() {
-        new ListadoClientes().ejecutaAccion();
-    }*/
-
     @Override
     public void listarCliFechas() throws IntervaloFechasIncorrectoException {
         new ClientesEntreFechas().ejecutaAccion();

@@ -1,8 +1,6 @@
 package vista;
 
-import modelo.datos.clientes.Cliente;
 import java.time.LocalDate;
-import java.util.Collection;
 
 public interface InterrogaVistaClientes {
     String getTipoCliente();
@@ -34,8 +32,6 @@ public interface InterrogaVistaClientes {
     LocalDate getFechaIni();
 
     LocalDate getFechaFin();
-
-    void listado(Collection<Cliente> clientes);
 
     void listadoClientes();
 

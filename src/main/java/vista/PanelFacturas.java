@@ -58,9 +58,9 @@ public class PanelFacturas extends JPanel implements InterrogaVistaFacturas {
                         vista.accionCorrecta("Factura del cliente emitida con éxito.");
                     } else if (comando.equals("datosFac"))
                         controlador.datosFactura();
-                    else if (comando.equals("facturasCli"))
+                    else if (comando.equals("facturasCli")) {
                         controlador.listarFacCli();
-                    else
+                    } else
                         controlador.listarFacCliFechas();
                 } catch (NifNoExistenteException | IntervaloFechasIncorrectoException e) {
                     vista.accionDenegada(e.getMessage());
@@ -257,20 +257,12 @@ public class PanelFacturas extends JPanel implements InterrogaVistaFacturas {
 
     @Override
     public void listadoFacturas(String nif) {
-        BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
-        listado(baseDeDatos.devolverFacturas(nif));
-    }
-
-    @Override
-    public void listadoFacturasEntreFechas(String nif, LocalDate fechaIni, LocalDate fechaFin) {
-        BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
-        Collection<Factura> facturas = baseDeDatos.devolverFacturas(nif);
-        listado(baseDeDatos.entreFechas(facturas, fechaIni, fechaFin));
+        listadoFacturasEntreFechas(nif, LocalDate.now(), LocalDate.parse("1990-01-01"));
     }
 
     //muestra las facturas del cliente en una tabla
     @Override
-    public void listado(Collection<Factura> facturas) {
+    public void listadoFacturasEntreFechas(String nif, LocalDate fechaIni, LocalDate fechaFin) {
         //crea la ventana y el texto
         JFrame ventana = new JFrame("Listado facturas");
         JPanel panel = new JPanel();
@@ -285,7 +277,9 @@ public class PanelFacturas extends JPanel implements InterrogaVistaFacturas {
         //crear modeloTabla y tabla
         String[] columnas = {"Codigo", "Fecha factura", "Hora", "Importe",
                 "Fecha inicio", "Fecha fin"};
-        modeloTabla = new ModeloTabla<>(columnas, facturas);
+        BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
+        Collection<Factura> facturas = baseDeDatos.devolverFacturas(nif);
+        modeloTabla = new ModeloTabla<>(columnas, baseDeDatos.entreFechas(facturas, fechaIni, fechaFin));
         tabla = new Tabla(modeloTabla);
 
         //crea el escuchador de la tabla

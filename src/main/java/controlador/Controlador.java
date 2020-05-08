@@ -15,8 +15,6 @@ public interface Controlador {
 
     void datosCliente() throws NifNoExistenteException;
 
-    //void listarClientes();
-
     void listarCliFechas() throws IntervaloFechasIncorrectoException;
 
     void darAltaLlamada() throws TelfNoExistenteException;

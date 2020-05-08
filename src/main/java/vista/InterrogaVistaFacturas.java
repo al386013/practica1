@@ -1,8 +1,6 @@
 package vista;
 
-import modelo.datos.contrato.Factura;
 import java.time.LocalDate;
-import java.util.Collection;
 
 public interface InterrogaVistaFacturas {
     String getNifFac();
@@ -20,8 +18,6 @@ public interface InterrogaVistaFacturas {
     LocalDate getFechaIniFechas();
 
     LocalDate getFechasFinFechas();
-
-    void listado(Collection<Factura> facturas);
 
     void listadoFacturas(String nif);
 

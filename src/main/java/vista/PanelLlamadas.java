@@ -219,20 +219,12 @@ public class PanelLlamadas extends JPanel implements InterrogaVistaLlamadas {
 
     @Override
     public void listadoLlamadas(String telf) {
-        BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
-        listado(baseDeDatos.devolverLlamadas(telf));
-    }
-
-    @Override
-    public void listadoLlamadasEntreFechas(String telf, LocalDate fechaIni, LocalDate fechaFin) {
-        BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
-        Collection<Llamada> llamadas = baseDeDatos.devolverLlamadas(telf);
-        listado(baseDeDatos.entreFechas(llamadas, fechaIni, fechaFin));
+        listadoLlamadasEntreFechas(telf, LocalDate.now(), LocalDate.parse("1990-01-01"));
     }
 
     //muestra las llamadas del cliente en una tabla
     @Override
-    public void listado(Collection<Llamada> llamadas) {
+    public void listadoLlamadasEntreFechas(String telf, LocalDate fechaIni, LocalDate fechaFin) {
         //crea la ventana y el texto
         JFrame ventana = new JFrame("Listado llamadas");
         JPanel panel = new JPanel();
@@ -246,8 +238,9 @@ public class PanelLlamadas extends JPanel implements InterrogaVistaLlamadas {
 
         //crea modeloTabla y tabla
         String[] columnas = {"Origen", "Destino", "Fecha", "Hora", "Duracion"};
-
-        modeloTabla = new ModeloTabla<>(columnas, llamadas);
+        BaseDeDatos baseDeDatos = modelo.getBaseDeDatos();
+        Collection<Llamada> llamadas = baseDeDatos.devolverLlamadas(telf);
+        modeloTabla = new ModeloTabla<>(columnas, baseDeDatos.entreFechas(llamadas, fechaIni, fechaFin));
         tabla = new Tabla(modeloTabla);
 
         //crea el escuchador de la tabla
@@ -289,7 +282,7 @@ public class PanelLlamadas extends JPanel implements InterrogaVistaLlamadas {
         contenedor.add(panel2);
 
         ventana.getContentPane().add(panel);
-        ventana.setSize(700, 300);
+        ventana.setSize(700,300);
         ventana.setVisible(true);
     }
 

@@ -1,8 +1,6 @@
 package vista;
 
-import modelo.datos.llamadas.Llamada;
 import java.time.LocalDate;
-import java.util.Collection;
 
 public interface InterrogaVistaLlamadas {
     String getTelfOrigen();
@@ -18,8 +16,6 @@ public interface InterrogaVistaLlamadas {
     LocalDate getFechaIniListado();
 
     LocalDate getFechaFinListado();
-
-    void listado(Collection<Llamada> llamadas);
 
     void listadoLlamadas(String telf);
 
