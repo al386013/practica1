@@ -53,6 +53,30 @@ public class PanelClientes extends JPanel implements InterrogaVistaClientes {
         this.vista = vista;
     }
 
+    private void anadir() throws NifRepetidoException, TelfRepetidoException {
+        if (tipoClienteOpcion == null)
+            vista.accionDenegada("No se ha seleccionado un tipo de cliente");
+        else {
+            controlador.anadirCliente();
+            vista.accionCorrecta("Cliente guardado correctamente.");
+        }
+    }
+
+    private void borrar() throws TelfNoExistenteException {
+        controlador.borrarCliente();
+        vista.accionCorrecta("Cliente borrado con éxito.");
+    }
+
+    private void tarifa() throws NifNoExistenteException {
+        if (tipoTarifaOpcion == null)
+            vista.accionDenegada("No se ha seleccionado un tipo de tarifa");
+        else {
+            controlador.contratarTarifa();
+            vista.accionCorrecta("Tarifa especial " + tipoTarifaOpcion + " contratada." );
+        }
+    }
+
+
     public void panel() {
         //escuchador de los botones que llama al controlador en funcion del boton pulsado
         ActionListener escuchadorBoton = new ActionListener() {
@@ -62,24 +86,13 @@ public class PanelClientes extends JPanel implements InterrogaVistaClientes {
                 try {
                     switch (comando) {
                         case "anadir":
-                            if (tipoClienteOpcion == null)
-                                vista.accionDenegada("No se ha seleccionado un tipo de cliente");
-                            else {
-                                controlador.anadirCliente();
-                                vista.accionCorrecta("Cliente guardado correctamente.");
-                            }
+                            anadir();
                             break;
                         case "borrar":
-                            controlador.borrarCliente();
-                            vista.accionCorrecta("Cliente borrado con éxito.");
+                            borrar();
                             break;
                         case "tarifa":
-                            if (tipoTarifaOpcion == null)
-                                vista.accionDenegada("No se ha seleccionado un tipo de tarifa");
-                            else {
-                                controlador.contratarTarifa();
-                                vista.accionCorrecta("Tarifa especial " + tipoTarifaOpcion + " contratada." );
-                            }
+                            tarifa();
                             break;
                         case "datosCli":
                             controlador.datosCliente();
