@@ -76,7 +76,6 @@ public class PanelClientes extends JPanel implements InterrogaVistaClientes {
         }
     }
 
-
     public void panel() {
         //escuchador de los botones que llama al controlador en funcion del boton pulsado
         ActionListener escuchadorBoton = new ActionListener() {
